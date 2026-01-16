@@ -1,0 +1,189 @@
+---
+# JaguarEngine Ingress Configuration
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaguar-ingress
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Rate limiting
+    nginx.ingress.kubernetes.io/limit-rps: "100"
+    nginx.ingress.kubernetes.io/limit-connections: "50"
+spec:
+  tls:
+    - hosts:
+        - api.jaguar.example.com
+        - terrain.jaguar.example.com
+        - telemetry.jaguar.example.com
+      secretName: jaguar-tls
+  rules:
+    - host: api.jaguar.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaguar-simulation-server
+                port:
+                  name: http
+          - path: /grpc
+            pathType: Prefix
+            backend:
+              service:
+                name: jaguar-simulation-server
+                port:
+                  name: grpc
+
+    - host: terrain.jaguar.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaguar-terrain-service
+                port:
+                  name: http
+
+    - host: telemetry.jaguar.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaguar-telemetry-dashboard
+                port:
+                  name: http
+---
+# gRPC-specific Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaguar-grpc-ingress
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: grpc-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - grpc.jaguar.example.com
+      secretName: jaguar-grpc-tls
+  rules:
+    - host: grpc.jaguar.example.com
+      http:
+        paths:
+          - path: /jaguar.SimulationService
+            pathType: Prefix
+            backend:
+              service:
+                name: jaguar-simulation-server
+                port:
+                  name: grpc
+          - path: /jaguar.TerrainService
+            pathType: Prefix
+            backend:
+              service:
+                name: jaguar-terrain-service
+                port:
+                  name: grpc
+---
+# Network Policy for simulation namespace
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: jaguar-network-policy
+  namespace: jaguar-simulation
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: jaguar-engine
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow from ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 50051
+
+    # Allow internal communication
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: jaguar-engine
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 50051
+        - protocol: TCP
+          port: 50052
+        - protocol: TCP
+          port: 9090
+
+    # Allow DIS traffic (UDP)
+    - from: []
+      ports:
+        - protocol: UDP
+          port: 3000
+
+    # Allow Prometheus scraping
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: monitoring
+      ports:
+        - protocol: TCP
+          port: 9090
+
+  egress:
+    # Allow DNS
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+
+    # Allow internal communication
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: jaguar-engine
+
+    # Allow external terrain data sources
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+      ports:
+        - protocol: TCP
+          port: 443

@@ -1,0 +1,49 @@
+---
+# JaguarEngine Kubernetes Namespace Configuration
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: namespace
+    app.kubernetes.io/part-of: jaguar-simulation
+    app.kubernetes.io/managed-by: kubectl
+  annotations:
+    description: "JaguarEngine multi-domain physics simulation platform"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: jaguar-resource-quota
+  namespace: jaguar-simulation
+spec:
+  hard:
+    requests.cpu: "32"
+    requests.memory: 64Gi
+    limits.cpu: "64"
+    limits.memory: 128Gi
+    persistentvolumeclaims: "20"
+    pods: "100"
+    services: "20"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: jaguar-limit-range
+  namespace: jaguar-simulation
+spec:
+  limits:
+    - default:
+        cpu: "2"
+        memory: 4Gi
+      defaultRequest:
+        cpu: "500m"
+        memory: 1Gi
+      max:
+        cpu: "16"
+        memory: 32Gi
+      min:
+        cpu: "100m"
+        memory: 256Mi
+      type: Container

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    F-16C Fighting Falcon - Sample Entity Definition
+    JaguarEngine Aircraft Configuration
+
+    This is a simplified example showing the JSBSim-inspired
+    XML data format for aircraft definition.
+-->
+<entity type="aircraft" name="F-16C">
+    <description>
+        General Dynamics F-16C Fighting Falcon
+        Single-engine multirole fighter aircraft
+    </description>
+
+    <!-- Reference Geometry -->
+    <metrics>
+        <wingspan unit="ft">32.8</wingspan>
+        <length unit="ft">49.5</length>
+        <height unit="ft">16.7</height>
+        <wing_area unit="ft2">300.0</wing_area>
+        <wing_chord unit="ft">11.32</wing_chord>
+    </metrics>
+
+    <!-- Mass Properties -->
+    <mass_balance>
+        <empty_weight unit="lbs">19700</empty_weight>
+        <fuel_capacity unit="lbs">6972</fuel_capacity>
+
+        <center_of_gravity unit="in">
+            <x>180.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </center_of_gravity>
+
+        <inertia unit="slug*ft2">
+            <ixx>9496</ixx>
+            <iyy>55814</iyy>
+            <izz>63100</izz>
+            <ixy>0</ixy>
+            <ixz>982</ixz>
+            <iyz>0</iyz>
+        </inertia>
+    </mass_balance>
+
+    <!-- Aerodynamics -->
+    <aerodynamics>
+        <!-- Lift -->
+        <axis name="LIFT">
+            <function name="aero/coefficient/CL">
+                <description>Lift coefficient vs alpha</description>
+                <table>
+                    <independentVar lookup="row">aero/alpha-rad</independentVar>
+                    <independentVar lookup="column">velocities/mach</independentVar>
+                    <tableData>
+                                0.0     0.5     0.9     1.2
+                        -0.35   -0.80   -0.75   -0.70   -0.60
+                        -0.17   -0.40   -0.38   -0.35   -0.30
+                        0.00    0.20    0.22    0.25    0.20
+                        0.17    0.80    0.85    0.90    0.75
+                        0.35    1.20    1.25    1.15    0.90
+                        0.52    0.90    0.85    0.70    0.50
+                    </tableData>
+                </table>
+            </function>
+        </axis>
+
+        <!-- Drag -->
+        <axis name="DRAG">
+            <function name="aero/coefficient/CD">
+                <description>Drag coefficient vs alpha</description>
+                <table>
+                    <independentVar lookup="row">aero/alpha-rad</independentVar>
+                    <independentVar lookup="column">velocities/mach</independentVar>
+                    <tableData>
+                                0.0     0.5     0.9     1.2
+                        -0.35   0.080   0.085   0.110   0.150
+                        -0.17   0.030   0.032   0.045   0.070
+                        0.00    0.020   0.022   0.035   0.055
+                        0.17    0.035   0.038   0.055   0.085
+                        0.35    0.100   0.110   0.140   0.200
+                        0.52    0.200   0.220   0.280   0.350
+                    </tableData>
+                </table>
+            </function>
+        </axis>
+
+        <!-- Pitch Moment -->
+        <axis name="PITCH">
+            <function name="aero/coefficient/Cm">
+                <description>Pitching moment coefficient</description>
+                <table>
+                    <independentVar>aero/alpha-rad</independentVar>
+                    <tableData>
+                        -0.35    0.10
+                        -0.17    0.05
+                        0.00     0.00
+                        0.17    -0.10
+                        0.35    -0.25
+                        0.52    -0.40
+                    </tableData>
+                </table>
+            </function>
+        </axis>
+    </aerodynamics>
+
+    <!-- Propulsion -->
+    <propulsion>
+        <engine type="turbofan" name="F110-GE-129">
+            <location unit="in">
+                <x>400.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </location>
+
+            <max_thrust unit="lbf">17000</max_thrust>
+            <afterburner_thrust unit="lbf">29000</afterburner_thrust>
+            <tsfc>0.76</tsfc>
+            <tsfc_ab>2.05</tsfc_ab>
+
+            <!-- Thrust variation with Mach and altitude -->
+            <thrust_table>
+                <independentVar lookup="row">velocities/mach</independentVar>
+                <independentVar lookup="column">position/altitude-ft</independentVar>
+                <tableData>
+                            0       10000   20000   30000   40000
+                    0.0     1.00    0.85    0.70    0.55    0.40
+                    0.5     1.05    0.90    0.75    0.60    0.45
+                    0.9     1.10    0.95    0.80    0.65    0.50
+                    1.2     1.00    0.85    0.70    0.55    0.40
+                    1.5     0.85    0.72    0.60    0.47    0.34
+                </tableData>
+            </thrust_table>
+        </engine>
+    </propulsion>
+
+    <!-- Flight Control System -->
+    <flight_control>
+        <channel name="pitch">
+            <summer>
+                <input>fcs/pitch-cmd</input>
+                <input>fcs/pitch-trim</input>
+                <clipto>
+                    <min>-1.0</min>
+                    <max>1.0</max>
+                </clipto>
+            </summer>
+            <aerosurface_scale>
+                <input>fcs/pitch-sum</input>
+                <range>
+                    <min>-25.0</min>  <!-- deg -->
+                    <max>25.0</max>
+                </range>
+                <output>fcs/elevator-deg</output>
+            </aerosurface_scale>
+        </channel>
+
+        <channel name="roll">
+            <summer>
+                <input>fcs/roll-cmd</input>
+                <input>fcs/roll-trim</input>
+                <clipto>
+                    <min>-1.0</min>
+                    <max>1.0</max>
+                </clipto>
+            </summer>
+            <aerosurface_scale>
+                <input>fcs/roll-sum</input>
+                <range>
+                    <min>-20.0</min>
+                    <max>20.0</max>
+                </range>
+                <output>fcs/aileron-deg</output>
+            </aerosurface_scale>
+        </channel>
+
+        <channel name="yaw">
+            <summer>
+                <input>fcs/yaw-cmd</input>
+                <input>fcs/yaw-trim</input>
+                <clipto>
+                    <min>-1.0</min>
+                    <max>1.0</max>
+                </clipto>
+            </summer>
+            <aerosurface_scale>
+                <input>fcs/yaw-sum</input>
+                <range>
+                    <min>-30.0</min>
+                    <max>30.0</max>
+                </range>
+                <output>fcs/rudder-deg</output>
+            </aerosurface_scale>
+        </channel>
+    </flight_control>
+
+    <!-- Ground Reactions -->
+    <ground_reactions>
+        <gear name="nose_gear">
+            <location unit="in">
+                <x>80.0</x>
+                <y>0.0</y>
+                <z>-80.0</z>
+            </location>
+            <spring_coeff unit="lbs/ft">5000</spring_coeff>
+            <damping_coeff unit="lbs/ft/sec">1500</damping_coeff>
+            <max_steer unit="deg">75</max_steer>
+        </gear>
+
+        <gear name="left_main">
+            <location unit="in">
+                <x>200.0</x>
+                <y>-60.0</y>
+                <z>-80.0</z>
+            </location>
+            <spring_coeff unit="lbs/ft">15000</spring_coeff>
+            <damping_coeff unit="lbs/ft/sec">4500</damping_coeff>
+        </gear>
+
+        <gear name="right_main">
+            <location unit="in">
+                <x>200.0</x>
+                <y>60.0</y>
+                <z>-80.0</z>
+            </location>
+            <spring_coeff unit="lbs/ft">15000</spring_coeff>
+            <damping_coeff unit="lbs/ft/sec">4500</damping_coeff>
+        </gear>
+    </ground_reactions>
+</entity>

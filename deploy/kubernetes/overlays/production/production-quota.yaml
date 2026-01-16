@@ -1,0 +1,16 @@
+---
+# Production Resource Quota
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: jaguar-resource-quota
+  namespace: jaguar-simulation-prod
+spec:
+  hard:
+    requests.cpu: "128"
+    requests.memory: 256Gi
+    limits.cpu: "256"
+    limits.memory: 512Gi
+    persistentvolumeclaims: "50"
+    pods: "200"
+    services: "50"

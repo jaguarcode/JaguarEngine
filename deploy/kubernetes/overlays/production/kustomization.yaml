@@ -1,0 +1,121 @@
+---
+# Production Environment Overlay
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: jaguar-simulation-prod
+
+resources:
+  - ../../
+
+namePrefix: prod-
+
+commonLabels:
+  environment: production
+
+commonAnnotations:
+  security.kubernetes.io/enforce: "strict"
+
+# Production images (pinned versions)
+images:
+  - name: ghcr.io/jaguarengine/simulation-server
+    newTag: "1.4.0"
+    digest: sha256:placeholder
+  - name: ghcr.io/jaguarengine/terrain-service
+    newTag: "1.4.0"
+    digest: sha256:placeholder
+
+# Production replicas
+replicas:
+  - name: jaguar-simulation-server
+    count: 3
+  - name: jaguar-terrain-service
+    count: 4
+
+patches:
+  # Production resource allocation
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "4"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "8Gi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "16"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "32Gi"
+    target:
+      kind: Deployment
+      name: jaguar-simulation-server
+
+  # Production logging level
+  - patch: |-
+      - op: replace
+        path: /data/JAGUAR_LOG_LEVEL
+        value: "INFO"
+    target:
+      kind: ConfigMap
+      name: jaguar-env-config
+
+  # Higher HPA limits for production
+  - patch: |-
+      - op: replace
+        path: /spec/minReplicas
+        value: 3
+      - op: replace
+        path: /spec/maxReplicas
+        value: 20
+    target:
+      kind: HorizontalPodAutoscaler
+      name: jaguar-simulation-server-hpa
+
+  # Production storage sizes
+  - patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "500Gi"
+    target:
+      kind: PersistentVolumeClaim
+      name: jaguar-terrain-cache
+
+  - patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "2Ti"
+    target:
+      kind: PersistentVolumeClaim
+      name: jaguar-terrain-data
+
+  # Production PDB - higher availability
+  - patch: |-
+      - op: replace
+        path: /spec/minAvailable
+        value: 2
+    target:
+      kind: PodDisruptionBudget
+      name: jaguar-simulation-server-pdb
+
+  # Enable pod anti-affinity strictly for production
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/affinity/podAntiAffinity/preferredDuringSchedulingIgnoredDuringExecution/0/weight
+        value: 100
+    target:
+      kind: Deployment
+      name: jaguar-simulation-server
+
+configMapGenerator:
+  - name: jaguar-prod-config
+    behavior: merge
+    literals:
+      - ENVIRONMENT=production
+      - DEBUG_ENABLED=false
+      - JAGUAR_MAX_ENTITIES=10000
+      - JAGUAR_TERRAIN_CACHE_MB=8192
+
+# Production-specific resource quota
+patchesStrategicMerge:
+  - production-quota.yaml

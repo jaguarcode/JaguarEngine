@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Soil Types Database
+    JaguarEngine Terramechanics Parameters
+
+    Bekker-Wong soil parameters for various terrain types.
+    Reference: Bekker, M.G., "Introduction to Terrain-Vehicle Systems"
+-->
+<soil_database version="1.0">
+    <soil name="dry_sand" id="1">
+        <description>Dry sandy soil</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">0.99</k_c>
+            <k_phi unit="kN/m^(n+2)">1528</k_phi>
+            <n>1.10</n>
+            <cohesion unit="kPa">1.04</cohesion>
+            <friction_angle unit="deg">28</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.6</friction_coefficient>
+            <rolling_resistance>0.04</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="wet_sand" id="2">
+        <description>Wet sandy soil (saturated)</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">5.27</k_c>
+            <k_phi unit="kN/m^(n+2)">1515</k_phi>
+            <n>0.73</n>
+            <cohesion unit="kPa">1.72</cohesion>
+            <friction_angle unit="deg">29</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.5</friction_coefficient>
+            <rolling_resistance>0.08</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="clay" id="3">
+        <description>Clay soil</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">13.19</k_c>
+            <k_phi unit="kN/m^(n+2)">692</k_phi>
+            <n>0.50</n>
+            <cohesion unit="kPa">4.14</cohesion>
+            <friction_angle unit="deg">13</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.4</friction_coefficient>
+            <rolling_resistance>0.10</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="snow" id="4">
+        <description>Compacted snow</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">4.37</k_c>
+            <k_phi unit="kN/m^(n+2)">196</k_phi>
+            <n>1.60</n>
+            <cohesion unit="kPa">1.03</cohesion>
+            <friction_angle unit="deg">19.7</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.2</friction_coefficient>
+            <rolling_resistance>0.15</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="asphalt" id="5">
+        <description>Paved asphalt road</description>
+        <bekker_parameters>
+            <!-- Essentially rigid - high values -->
+            <k_c unit="kN/m^(n+1)">1000000</k_c>
+            <k_phi unit="kN/m^(n+2)">1000000</k_phi>
+            <n>0.0</n>
+            <cohesion unit="kPa">1000</cohesion>
+            <friction_angle unit="deg">45</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.8</friction_coefficient>
+            <rolling_resistance>0.01</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="concrete" id="6">
+        <description>Concrete surface</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">1000000</k_c>
+            <k_phi unit="kN/m^(n+2)">1000000</k_phi>
+            <n>0.0</n>
+            <cohesion unit="kPa">1000</cohesion>
+            <friction_angle unit="deg">45</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.9</friction_coefficient>
+            <rolling_resistance>0.008</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="mud" id="7">
+        <description>Wet muddy terrain</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">2.0</k_c>
+            <k_phi unit="kN/m^(n+2)">100</k_phi>
+            <n>0.80</n>
+            <cohesion unit="kPa">2.0</cohesion>
+            <friction_angle unit="deg">5</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.3</friction_coefficient>
+            <rolling_resistance>0.25</rolling_resistance>
+        </surface_properties>
+    </soil>
+
+    <soil name="gravel" id="8">
+        <description>Loose gravel</description>
+        <bekker_parameters>
+            <k_c unit="kN/m^(n+1)">3.0</k_c>
+            <k_phi unit="kN/m^(n+2)">3000</k_phi>
+            <n>0.90</n>
+            <cohesion unit="kPa">0.5</cohesion>
+            <friction_angle unit="deg">35</friction_angle>
+        </bekker_parameters>
+        <surface_properties>
+            <friction_coefficient>0.7</friction_coefficient>
+            <rolling_resistance>0.03</rolling_resistance>
+        </surface_properties>
+    </soil>
+</soil_database>

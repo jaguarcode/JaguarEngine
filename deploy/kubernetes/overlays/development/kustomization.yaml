@@ -1,0 +1,83 @@
+---
+# Development Environment Overlay
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: jaguar-simulation-dev
+
+resources:
+  - ../../
+
+namePrefix: dev-
+
+commonLabels:
+  environment: development
+
+# Development-specific images (use latest for dev)
+images:
+  - name: ghcr.io/jaguarengine/simulation-server
+    newTag: latest
+  - name: ghcr.io/jaguarengine/terrain-service
+    newTag: latest
+
+# Reduced replicas for development
+replicas:
+  - name: jaguar-simulation-server
+    count: 1
+  - name: jaguar-terrain-service
+    count: 1
+
+patches:
+  # Reduce resource requests for development
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "500m"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "1Gi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "2"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "4Gi"
+    target:
+      kind: Deployment
+      name: jaguar-simulation-server
+
+  # Enable debug logging
+  - patch: |-
+      - op: replace
+        path: /data/JAGUAR_LOG_LEVEL
+        value: "DEBUG"
+    target:
+      kind: ConfigMap
+      name: jaguar-env-config
+
+  # Disable HPA in development
+  - patch: |-
+      $patch: delete
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        name: jaguar-simulation-server-hpa
+    target:
+      kind: HorizontalPodAutoscaler
+
+  # Use smaller storage in development
+  - patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "10Gi"
+    target:
+      kind: PersistentVolumeClaim
+      name: jaguar-terrain-cache
+
+configMapGenerator:
+  - name: jaguar-dev-config
+    behavior: merge
+    literals:
+      - ENVIRONMENT=development
+      - DEBUG_ENABLED=true
+      - JAGUAR_MAX_ENTITIES=1000

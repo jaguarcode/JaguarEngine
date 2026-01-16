@@ -1,0 +1,150 @@
+---
+# JaguarEngine Terrain Streaming Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaguar-terrain-service
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: terrain-service
+    app.kubernetes.io/version: "1.4.0"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jaguar-engine
+      app.kubernetes.io/component: terrain-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jaguar-engine
+        app.kubernetes.io/component: terrain-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+    spec:
+      serviceAccountName: jaguar-service-account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: terrain-service
+          image: ghcr.io/jaguarengine/terrain-service:1.4.0
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: grpc
+              containerPort: 50052
+              protocol: TCP
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+
+          env:
+            - name: TERRAIN_CACHE_SIZE_MB
+              value: "4096"
+            - name: TERRAIN_TILE_SIZE
+              value: "256"
+            - name: TERRAIN_MAX_LOD
+              value: "8"
+            - name: TERRAIN_BASE_RESOLUTION
+              value: "30.0"
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: jaguar-secrets
+                  key: redis-host
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: jaguar-secrets
+                  key: redis-port
+
+          resources:
+            requests:
+              cpu: "1"
+              memory: 2Gi
+            limits:
+              cpu: "4"
+              memory: 8Gi
+
+          volumeMounts:
+            - name: terrain-data
+              mountPath: /data/terrain
+            - name: terrain-cache
+              mountPath: /cache
+
+          livenessProbe:
+            grpc:
+              port: 50052
+            initialDelaySeconds: 15
+            periodSeconds: 10
+
+          readinessProbe:
+            grpc:
+              port: 50052
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+      volumes:
+        - name: terrain-data
+          persistentVolumeClaim:
+            claimName: jaguar-terrain-data
+        - name: terrain-cache
+          emptyDir:
+            sizeLimit: 4Gi
+
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: jaguar-engine
+              app.kubernetes.io/component: terrain-service
+---
+# Terrain Service HPA
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: jaguar-terrain-service-hpa
+  namespace: jaguar-simulation
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: jaguar-terrain-service
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Pods
+      pods:
+        metric:
+          name: jaguar_terrain_requests_per_second
+        target:
+          type: AverageValue
+          averageValue: "1000"

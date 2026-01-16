@@ -1,0 +1,29 @@
+{
+    "name": "JaguarEngine.Runtime",
+    "rootNamespace": "JaguarEngine",
+    "references": [
+        "Unity.Mathematics",
+        "Unity.Burst",
+        "Unity.Collections"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.burst",
+            "expression": "1.8.0",
+            "define": "JAGUAR_BURST_ENABLED"
+        },
+        {
+            "name": "com.unity.collections",
+            "expression": "2.1.0",
+            "define": "JAGUAR_COLLECTIONS_ENABLED"
+        }
+    ],
+    "noEngineReferences": false
+}

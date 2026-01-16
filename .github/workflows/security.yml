@@ -1,0 +1,232 @@
+# JaguarEngine Security Scanning
+# Automated security analysis and dependency checks
+
+name: Security
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run weekly security scan
+    - cron: '0 0 * * 0'
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  #============================================================================
+  # CodeQL Analysis
+  #============================================================================
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: cpp
+          queries: security-extended,security-and-quality
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build g++ \
+            libeigen3-dev libgtest-dev libspdlog-dev
+
+      - name: Build for CodeQL
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DJAGUAR_BUILD_TESTS=OFF
+          cmake --build build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:cpp"
+
+  #============================================================================
+  # Dependency Review
+  #============================================================================
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          deny-licenses: GPL-3.0, AGPL-3.0
+
+  #============================================================================
+  # SAST with Semgrep
+  #============================================================================
+  semgrep:
+    name: Semgrep SAST
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/cpp
+            p/security-audit
+            p/secrets
+
+  #============================================================================
+  # Secret Scanning
+  #============================================================================
+  secrets:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --only-verified
+
+  #============================================================================
+  # Vulnerability Scanning
+  #============================================================================
+  vulnerability-scan:
+    name: Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https gnupg
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+
+      - name: Run Trivy filesystem scan
+        run: |
+          trivy fs --security-checks vuln,config --format sarif --output trivy-results.sarif .
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy
+
+  #============================================================================
+  # SBOM Generation
+  #============================================================================
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+
+      - name: Scan SBOM for vulnerabilities
+        uses: anchore/scan-action@v3
+        with:
+          sbom: sbom.spdx.json
+          fail-build: false
+          severity-cutoff: high
+
+  #============================================================================
+  # License Compliance
+  #============================================================================
+  license-check:
+    name: License Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check licenses with scancode
+        run: |
+          pip install scancode-toolkit
+          scancode --license --copyright --package --json-pp license-report.json .
+        continue-on-error: true
+
+      - name: Upload license report
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-report
+          path: license-report.json
+
+  #============================================================================
+  # Hardening Check
+  #============================================================================
+  hardening:
+    name: Security Hardening Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build g++ \
+            libeigen3-dev libgtest-dev libspdlog-dev \
+            checksec
+
+      - name: Build with hardening flags
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_CXX_FLAGS="-fstack-protector-strong -D_FORTIFY_SOURCE=2 -fPIE" \
+            -DCMAKE_EXE_LINKER_FLAGS="-pie -Wl,-z,relro,-z,now" \
+            -DJAGUAR_BUILD_TESTS=OFF
+          cmake --build build
+
+      - name: Check binary hardening
+        run: |
+          checksec --file=build/lib/libjaguar.so --output=json > hardening-report.json
+          cat hardening-report.json
+
+      - name: Upload hardening report
+        uses: actions/upload-artifact@v4
+        with:
+          name: hardening-report
+          path: hardening-report.json

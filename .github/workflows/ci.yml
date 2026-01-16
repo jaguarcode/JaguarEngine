@@ -1,0 +1,505 @@
+# JaguarEngine Continuous Integration
+# Multi-platform build and test pipeline
+
+name: CI
+
+on:
+  push:
+    branches: [ main, develop, 'feature/**', 'release/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Build type'
+        required: true
+        default: 'Release'
+        type: choice
+        options:
+          - Debug
+          - Release
+          - RelWithDebInfo
+
+env:
+  BUILD_TYPE: ${{ github.event.inputs.build_type || 'Release' }}
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+
+jobs:
+  #============================================================================
+  # Code Quality Checks
+  #============================================================================
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format-14
+
+      - name: Check formatting
+        run: |
+          find src include -name '*.cpp' -o -name '*.h' | \
+            xargs clang-format-14 --dry-run --Werror
+
+      - name: Install cppcheck
+        run: sudo apt-get install -y cppcheck
+
+      - name: Static analysis
+        run: |
+          cppcheck --enable=warning,style,performance,portability \
+                   --suppress=missingIncludeSystem \
+                   --error-exitcode=1 \
+                   --inline-suppr \
+                   -I include \
+                   src/
+
+  #============================================================================
+  # Linux Build
+  #============================================================================
+  build-linux:
+    name: Linux (${{ matrix.compiler }}, ${{ matrix.build_type }})
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc-12, gcc-13, clang-15, clang-16]
+        build_type: [Debug, Release]
+        include:
+          - compiler: gcc-12
+            cc: gcc-12
+            cxx: g++-12
+          - compiler: gcc-13
+            cc: gcc-13
+            cxx: g++-13
+          - compiler: clang-15
+            cc: clang-15
+            cxx: clang++-15
+          - compiler: clang-16
+            cc: clang-16
+            cxx: clang++-16
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ matrix.cc }} ${{ matrix.cxx }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y \
+            cmake \
+            ninja-build \
+            libeigen3-dev \
+            libgtest-dev \
+            libgmock-dev \
+            libspdlog-dev \
+            python3-dev \
+            python3-pybind11 \
+            lua5.4 \
+            liblua5.4-dev \
+            doxygen \
+            graphviz
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 'a34c873a9717a888f58dc05268dea15592c2f0ff'
+
+      - name: Configure CMake
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DJAGUAR_BUILD_TESTS=ON \
+            -DJAGUAR_BUILD_EXAMPLES=ON \
+            -DJAGUAR_BUILD_PYTHON=ON \
+            -DJAGUAR_BUILD_LUA=ON \
+            -DJAGUAR_BUILD_DOCS=OFF \
+            -DJAGUAR_ENABLE_COVERAGE=${{ matrix.build_type == 'Debug' && matrix.compiler == 'gcc-13' }} \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure --parallel $(nproc)
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-linux-${{ matrix.compiler }}-${{ matrix.build_type }}
+          path: build/Testing/
+
+      - name: Generate coverage report
+        if: matrix.build_type == 'Debug' && matrix.compiler == 'gcc-13'
+        run: |
+          sudo apt-get install -y lcov
+          lcov --capture --directory build --output-file coverage.info
+          lcov --remove coverage.info '/usr/*' --output-file coverage.info
+          lcov --remove coverage.info '*/test/*' --output-file coverage.info
+
+      - name: Upload coverage to Codecov
+        if: matrix.build_type == 'Debug' && matrix.compiler == 'gcc-13'
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.info
+          fail_ci_if_error: false
+
+  #============================================================================
+  # macOS Build
+  #============================================================================
+  build-macos:
+    name: macOS (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13, macos-14]
+        build_type: [Release]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          brew install \
+            cmake \
+            ninja \
+            eigen \
+            googletest \
+            spdlog \
+            pybind11 \
+            lua \
+            doxygen \
+            graphviz
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DJAGUAR_BUILD_TESTS=ON \
+            -DJAGUAR_BUILD_EXAMPLES=ON \
+            -DJAGUAR_BUILD_PYTHON=ON \
+            -DJAGUAR_BUILD_LUA=ON \
+            -DJAGUAR_BUILD_DOCS=OFF
+
+      - name: Build
+        run: cmake --build build --parallel $(sysctl -n hw.ncpu)
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure --parallel $(sysctl -n hw.ncpu)
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.build_type }}
+          path: build/Testing/
+
+  #============================================================================
+  # Windows Build
+  #============================================================================
+  build-windows:
+    name: Windows (MSVC ${{ matrix.msvc_version }})
+    runs-on: windows-latest
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        msvc_version: [2022]
+        build_type: [Debug, Release]
+        arch: [x64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup MSVC
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 'a34c873a9717a888f58dc05268dea15592c2f0ff'
+
+      - name: Install dependencies via vcpkg
+        run: |
+          vcpkg install eigen3:x64-windows
+          vcpkg install gtest:x64-windows
+          vcpkg install spdlog:x64-windows
+          vcpkg install pybind11:x64-windows
+          vcpkg install lua:x64-windows
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -G "Visual Studio 17 2022" -A ${{ matrix.arch }} `
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} `
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" `
+            -DJAGUAR_BUILD_TESTS=ON `
+            -DJAGUAR_BUILD_EXAMPLES=ON `
+            -DJAGUAR_BUILD_PYTHON=ON `
+            -DJAGUAR_BUILD_LUA=ON `
+            -DJAGUAR_BUILD_DOCS=OFF
+
+      - name: Build
+        run: cmake --build build --config ${{ matrix.build_type }} --parallel
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest -C ${{ matrix.build_type }} --output-on-failure --parallel
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-windows-${{ matrix.msvc_version }}-${{ matrix.arch }}-${{ matrix.build_type }}
+          path: build/Testing/
+
+  #============================================================================
+  # Documentation Build
+  #============================================================================
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Configure CMake
+        run: |
+          cmake -B build \
+            -DJAGUAR_BUILD_TESTS=OFF \
+            -DJAGUAR_BUILD_EXAMPLES=OFF \
+            -DJAGUAR_BUILD_DOCS=ON
+
+      - name: Build documentation
+        run: cmake --build build --target docs
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: build/docs/html/
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/docs/html
+
+  #============================================================================
+  # Sanitizer Builds
+  #============================================================================
+  sanitizers:
+    name: Sanitizers (${{ matrix.sanitizer }})
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [address, undefined, thread]
+        include:
+          - sanitizer: address
+            flags: -fsanitize=address -fno-omit-frame-pointer
+          - sanitizer: undefined
+            flags: -fsanitize=undefined
+          - sanitizer: thread
+            flags: -fsanitize=thread
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake \
+            ninja-build \
+            clang-16 \
+            libeigen3-dev \
+            libgtest-dev \
+            libspdlog-dev
+
+      - name: Configure CMake
+        env:
+          CC: clang-16
+          CXX: clang++-16
+          CFLAGS: ${{ matrix.flags }}
+          CXXFLAGS: ${{ matrix.flags }}
+          LDFLAGS: ${{ matrix.flags }}
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DJAGUAR_BUILD_TESTS=ON \
+            -DJAGUAR_BUILD_EXAMPLES=OFF \
+            -DJAGUAR_BUILD_PYTHON=OFF \
+            -DJAGUAR_BUILD_LUA=OFF
+
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Run tests
+        env:
+          ASAN_OPTIONS: detect_leaks=1
+          UBSAN_OPTIONS: print_stacktrace=1
+          TSAN_OPTIONS: second_deadlock_stack=1
+        run: |
+          cd build
+          ctest --output-on-failure --parallel $(nproc)
+
+  #============================================================================
+  # Package Build
+  #============================================================================
+  package:
+    name: Package (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    needs: [build-linux, build-macos, build-windows]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-14, windows-latest]
+        include:
+          - os: ubuntu-latest
+            generator: Unix Makefiles
+            package_type: DEB;RPM;TGZ
+          - os: macos-14
+            generator: Unix Makefiles
+            package_type: DragNDrop;TGZ
+          - os: windows-latest
+            generator: Visual Studio 17 2022
+            package_type: NSIS;ZIP
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build \
+            libeigen3-dev libgtest-dev libspdlog-dev \
+            python3-dev python3-pybind11 lua5.4 liblua5.4-dev \
+            rpm doxygen graphviz
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install cmake ninja eigen googletest spdlog pybind11 lua doxygen graphviz
+
+      - name: Setup vcpkg (Windows)
+        if: runner.os == 'Windows'
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 'a34c873a9717a888f58dc05268dea15592c2f0ff'
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          vcpkg install eigen3:x64-windows gtest:x64-windows spdlog:x64-windows pybind11:x64-windows lua:x64-windows
+
+      - name: Configure CMake (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          cmake -B build -G "${{ matrix.generator }}" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DJAGUAR_BUILD_TESTS=OFF \
+            -DJAGUAR_BUILD_EXAMPLES=ON \
+            -DJAGUAR_BUILD_PYTHON=ON \
+            -DJAGUAR_BUILD_LUA=ON \
+            -DJAGUAR_BUILD_DOCS=ON
+
+      - name: Configure CMake (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cmake -B build -G "${{ matrix.generator }}" -A x64 `
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DJAGUAR_BUILD_TESTS=OFF `
+            -DJAGUAR_BUILD_EXAMPLES=ON `
+            -DJAGUAR_BUILD_PYTHON=ON `
+            -DJAGUAR_BUILD_LUA=ON `
+            -DJAGUAR_BUILD_DOCS=ON
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Create packages
+        run: |
+          cd build
+          cpack -G "${{ matrix.package_type }}"
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages-${{ runner.os }}
+          path: |
+            build/*.deb
+            build/*.rpm
+            build/*.tar.gz
+            build/*.dmg
+            build/*.exe
+            build/*.zip
+
+  #============================================================================
+  # Release
+  #============================================================================
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: package
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - name: Download all packages
+        uses: actions/download-artifact@v4
+        with:
+          path: packages
+          pattern: packages-*
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: packages/*
+          draft: false
+          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-beta') || contains(github.ref, '-alpha') }}
+          generate_release_notes: true

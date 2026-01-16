@@ -1,0 +1,134 @@
+# JaguarEngine Documentation Configuration
+# Build: mkdocs build
+# Serve: mkdocs serve
+# Deploy: mkdocs gh-deploy
+
+# Project information
+site_name: JaguarEngine
+site_url: https://jaguarcode.github.io/JaguarEngine/
+site_author: JaguarEngine Contributors
+site_description: >-
+  Next-generation multi-domain physics simulation platform
+  for defense modeling and simulation applications.
+
+# Repository
+repo_name: jaguarcode/JaguarEngine
+repo_url: https://github.com/jaguarcode/JaguarEngine
+edit_uri: edit/main/docs/web/
+
+# Copyright
+copyright: Copyright &copy; 2024 JaguarEngine Contributors
+
+# Documentation source
+docs_dir: docs/web
+
+# Configuration
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+
+# Plugins
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Navigation
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+      - First Simulation: getting-started/first-simulation.md
+  - Core Concepts:
+      - Overview: concepts/overview.md
+  - API Reference:
+      - Overview: api/overview.md
+  - Tutorials:
+      - Examples: tutorials/examples.md
+  - Publishing: publishing.md
+
+# Extra configuration
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jaguarcode/JaguarEngine
+      name: GitHub
+
+# Watch for changes during development
+watch:
+  - docs/web

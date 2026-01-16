@@ -1,0 +1,46 @@
+{
+    "FileVersion": 3,
+    "Version": 1,
+    "VersionName": "1.0.0",
+    "FriendlyName": "JaguarEngine",
+    "Description": "Multi-domain physics simulation engine integration for Unreal Engine 5. Provides high-fidelity air, land, sea, and space domain physics with DIS/HLA interoperability.",
+    "Category": "Simulation",
+    "CreatedBy": "JaguarEngine Team",
+    "CreatedByURL": "https://github.com/jaguarengine",
+    "DocsURL": "https://jaguarengine.readthedocs.io",
+    "MarketplaceURL": "",
+    "SupportURL": "https://github.com/jaguarengine/issues",
+    "CanContainContent": true,
+    "IsBetaVersion": false,
+    "IsExperimentalVersion": false,
+    "Installed": false,
+    "EnabledByDefault": true,
+    "Modules": [
+        {
+            "Name": "JaguarEngine",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "PlatformAllowList": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "JaguarEngineEditor",
+            "Type": "Editor",
+            "LoadingPhase": "Default",
+            "PlatformAllowList": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        }
+    ],
+    "Plugins": [
+        {
+            "Name": "GeometryScripting",
+            "Enabled": true
+        }
+    ]
+}

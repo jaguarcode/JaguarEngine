@@ -1,0 +1,47 @@
+{
+    "name": "com.jaguarengine.simulation",
+    "version": "1.4.0",
+    "displayName": "JaguarEngine",
+    "description": "Multi-domain physics simulation engine for Unity. Provides high-fidelity air, land, sea, and space domain physics with DIS/HLA interoperability.",
+    "unity": "2022.3",
+    "unityRelease": "0f1",
+    "documentationUrl": "https://jaguarengine.readthedocs.io",
+    "changelogUrl": "https://github.com/jaguarengine/blob/main/CHANGELOG.md",
+    "licensesUrl": "https://github.com/jaguarengine/blob/main/LICENSE",
+    "keywords": [
+        "simulation",
+        "physics",
+        "aerospace",
+        "defense",
+        "dis",
+        "hla",
+        "flight",
+        "vehicle"
+    ],
+    "author": {
+        "name": "JaguarEngine Team",
+        "url": "https://github.com/jaguarengine"
+    },
+    "dependencies": {
+        "com.unity.mathematics": "1.2.6",
+        "com.unity.burst": "1.8.8",
+        "com.unity.collections": "2.1.4"
+    },
+    "samples": [
+        {
+            "displayName": "Aircraft Example",
+            "description": "Example aircraft with flight controls",
+            "path": "Samples~/Aircraft"
+        },
+        {
+            "displayName": "Ground Vehicle Example",
+            "description": "Example ground vehicle with terrain interaction",
+            "path": "Samples~/GroundVehicle"
+        },
+        {
+            "displayName": "Network Integration",
+            "description": "DIS/HLA network integration example",
+            "path": "Samples~/Network"
+        }
+    ]
+}

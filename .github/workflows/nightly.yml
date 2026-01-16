@@ -1,0 +1,300 @@
+# JaguarEngine Nightly Build
+# Extended testing and benchmarks run on schedule
+
+name: Nightly
+
+on:
+  schedule:
+    # Run at 2 AM UTC every day
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  #============================================================================
+  # Extended Test Suite
+  #============================================================================
+  extended-tests:
+    name: Extended Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build gcc-13 g++-13 \
+            libeigen3-dev libgtest-dev libspdlog-dev \
+            python3-dev python3-pybind11 \
+            lua5.4 liblua5.4-dev \
+            valgrind
+
+      - name: Configure CMake
+        env:
+          CC: gcc-13
+          CXX: g++-13
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DJAGUAR_BUILD_TESTS=ON \
+            -DJAGUAR_BUILD_EXAMPLES=ON \
+            -DJAGUAR_BUILD_PYTHON=ON \
+            -DJAGUAR_BUILD_LUA=ON \
+            -DJAGUAR_ENABLE_EXTENDED_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Run extended tests
+        run: |
+          cd build
+          ctest --output-on-failure -L extended --parallel $(nproc)
+        timeout-minutes: 60
+
+      - name: Run memory check with Valgrind
+        run: |
+          cd build
+          ctest -T memcheck --parallel $(nproc) || true
+
+      - name: Upload Valgrind results
+        uses: actions/upload-artifact@v4
+        with:
+          name: valgrind-results
+          path: build/Testing/Temporary/MemoryChecker.*
+
+  #============================================================================
+  # Performance Benchmarks
+  #============================================================================
+  benchmarks:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build gcc-13 g++-13 \
+            libeigen3-dev libgtest-dev libspdlog-dev \
+            libbenchmark-dev
+
+      - name: Configure CMake
+        env:
+          CC: gcc-13
+          CXX: g++-13
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DJAGUAR_BUILD_TESTS=ON \
+            -DJAGUAR_BUILD_BENCHMARKS=ON
+
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Run benchmarks
+        run: |
+          cd build
+          ./bin/jaguar_benchmarks --benchmark_format=json > benchmark_results.json
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: build/benchmark_results.json
+
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: JaguarEngine Benchmarks
+          tool: 'googlecpp'
+          output-file-path: build/benchmark_results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          alert-threshold: '150%'
+          comment-on-alert: true
+          fail-on-alert: false
+
+  #============================================================================
+  # Fuzz Testing
+  #============================================================================
+  fuzz:
+    name: Fuzz Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake ninja-build clang-16 \
+            libeigen3-dev libspdlog-dev
+
+      - name: Configure CMake for fuzzing
+        env:
+          CC: clang-16
+          CXX: clang++-16
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DJAGUAR_BUILD_FUZZ_TESTS=ON \
+            -DCMAKE_CXX_FLAGS="-fsanitize=fuzzer,address -fno-omit-frame-pointer"
+
+      - name: Build fuzz targets
+        run: cmake --build build --target fuzz_tests --parallel $(nproc)
+
+      - name: Run fuzz tests
+        run: |
+          mkdir -p fuzz_corpus
+          for fuzzer in build/bin/fuzz_*; do
+            timeout 300 $fuzzer fuzz_corpus -max_total_time=60 || true
+          done
+
+      - name: Upload crash files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz-crashes
+          path: |
+            crash-*
+            leak-*
+            timeout-*
+
+  #============================================================================
+  # Compatibility Matrix
+  #============================================================================
+  compatibility:
+    name: Compatibility (${{ matrix.distro }})
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distro: Ubuntu 22.04
+            image: ubuntu:22.04
+          - distro: Ubuntu 24.04
+            image: ubuntu:24.04
+          - distro: Debian 12
+            image: debian:12
+          - distro: Fedora 39
+            image: fedora:39
+          - distro: Rocky Linux 9
+            image: rockylinux:9
+
+    steps:
+      - name: Install base tools
+        run: |
+          if command -v apt-get &> /dev/null; then
+            apt-get update && apt-get install -y git
+          elif command -v dnf &> /dev/null; then
+            dnf install -y git
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies (Debian/Ubuntu)
+        if: contains(matrix.image, 'ubuntu') || contains(matrix.image, 'debian')
+        run: |
+          apt-get update
+          apt-get install -y \
+            cmake ninja-build g++ \
+            libeigen3-dev libgtest-dev libspdlog-dev \
+            python3-dev lua5.4 liblua5.4-dev
+
+      - name: Install dependencies (Fedora)
+        if: contains(matrix.image, 'fedora')
+        run: |
+          dnf install -y \
+            cmake ninja-build gcc-c++ \
+            eigen3-devel gtest-devel spdlog-devel \
+            python3-devel lua-devel
+
+      - name: Install dependencies (Rocky Linux)
+        if: contains(matrix.image, 'rockylinux')
+        run: |
+          dnf install -y epel-release
+          dnf install -y \
+            cmake ninja-build gcc-c++ \
+            eigen3-devel gtest-devel spdlog-devel \
+            python3-devel lua-devel
+
+      - name: Configure and Build
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DJAGUAR_BUILD_TESTS=ON
+          cmake --build build --parallel $(nproc)
+
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure
+
+  #============================================================================
+  # API Compatibility Check
+  #============================================================================
+  api-check:
+    name: API Compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current
+        uses: actions/checkout@v4
+        with:
+          path: current
+
+      - name: Checkout previous release
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          path: previous
+
+      - name: Install abi-compliance-checker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y abi-compliance-checker
+
+      - name: Build current version
+        run: |
+          cd current
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+
+      - name: Build previous version
+        run: |
+          cd previous
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+
+      - name: Generate ABI dumps
+        run: |
+          abi-dumper current/build/lib/libjaguar.so -o current.dump -lver current
+          abi-dumper previous/build/lib/libjaguar.so -o previous.dump -lver previous
+        continue-on-error: true
+
+      - name: Compare ABI
+        run: |
+          abi-compliance-checker -l jaguar -old previous.dump -new current.dump
+        continue-on-error: true
+
+      - name: Upload ABI report
+        uses: actions/upload-artifact@v4
+        with:
+          name: abi-report
+          path: compat_reports/

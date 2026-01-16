@@ -1,0 +1,168 @@
+---
+# JaguarEngine Configuration ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-config
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: config
+data:
+  # Simulation Engine Configuration
+  jaguar.yaml: |
+    simulation:
+      timestep: 0.01
+      max_entities: 10000
+      coordinate_system: ECEF
+      physics:
+        gravity_model: WGS84
+        atmosphere_model: US_STANDARD_1976
+        terrain_enabled: true
+
+    networking:
+      dis:
+        enabled: true
+        exercise_id: 1
+        site_id: 1
+        application_id: 1
+        broadcast_address: "239.1.2.3"
+        port: 3000
+        heartbeat_interval: 5.0
+        dead_reckoning_threshold: 1.0
+
+      hla:
+        enabled: false
+        federation_name: "JaguarSimulation"
+        federate_name: "JaguarServer"
+        rti_host: "localhost"
+        rti_port: 8989
+        fom_modules:
+          - "RPR_FOM_v2.0.xml"
+          - "NETN_FOM_v4.0.xml"
+
+    terrain:
+      cache_size_mb: 2048
+      streaming_enabled: true
+      lod_levels: 8
+      base_resolution: 30.0
+      providers:
+        - name: "SRTM"
+          enabled: true
+          priority: 1
+        - name: "DTED"
+          enabled: true
+          priority: 2
+
+    logging:
+      level: INFO
+      format: json
+      outputs:
+        - type: stdout
+        - type: file
+          path: /var/log/jaguar/simulation.log
+          rotation: daily
+          retention: 7
+
+  # DIS Protocol Configuration
+  dis-config.yaml: |
+    dis:
+      version: 7
+      pdu_types:
+        entity_state: true
+        fire: true
+        detonation: true
+        collision: true
+        create_entity: true
+        remove_entity: true
+        start_resume: true
+        stop_freeze: true
+        acknowledge: true
+        action_request: true
+        action_response: true
+        data_query: true
+        set_data: true
+        data: true
+        event_report: true
+        comment: true
+        electromagnetic_emission: true
+        designator: true
+        transmitter: true
+        signal: true
+        receiver: true
+
+      dead_reckoning:
+        algorithm: DRM_FPW  # Fixed rotation, world velocity
+        threshold_position: 1.0  # meters
+        threshold_orientation: 3.0  # degrees
+        max_extrapolation_time: 5.0  # seconds
+
+      entity_marking:
+        character_set: ASCII
+        max_length: 11
+
+  # HLA Federation Configuration
+  hla-config.yaml: |
+    hla:
+      rti:
+        implementation: "OpenRTI"
+        logical_time: HLAfloat64Time
+        lookahead: 0.1
+
+      object_classes:
+        - name: "BaseEntity.PhysicalEntity.Platform"
+          publish: true
+          subscribe: true
+          attributes:
+            - EntityIdentifier
+            - EntityType
+            - Spatial
+            - IsPartOf
+            - ForceIdentifier
+
+        - name: "BaseEntity.PhysicalEntity.Munition"
+          publish: true
+          subscribe: true
+          attributes:
+            - EntityIdentifier
+            - EntityType
+            - Spatial
+            - LauncherFlashPresent
+
+      interaction_classes:
+        - name: "WeaponFire"
+          publish: true
+          subscribe: true
+          parameters:
+            - FiringObjectIdentifier
+            - TargetObjectIdentifier
+            - MunitionObjectIdentifier
+            - FireControlSolutionRange
+
+        - name: "MunitionDetonation"
+          publish: true
+          subscribe: true
+          parameters:
+            - MunitionObjectIdentifier
+            - FinalVelocityVector
+            - DetonationLocation
+            - DetonationResultCode
+---
+# Environment-specific overrides
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-env-config
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: env-config
+data:
+  JAGUAR_LOG_LEVEL: "INFO"
+  JAGUAR_METRICS_ENABLED: "true"
+  JAGUAR_METRICS_PORT: "9090"
+  JAGUAR_HEALTH_PORT: "8080"
+  JAGUAR_MAX_ENTITIES: "10000"
+  JAGUAR_TERRAIN_CACHE_MB: "2048"
+  JAGUAR_DIS_ENABLED: "true"
+  JAGUAR_HLA_ENABLED: "false"

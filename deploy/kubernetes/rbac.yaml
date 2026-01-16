@@ -1,0 +1,144 @@
+---
+# JaguarEngine RBAC Configuration
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jaguar-service-account
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: rbac
+---
+# Role for namespace-scoped resources
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jaguar-role
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: rbac
+rules:
+  # ConfigMap access for dynamic configuration
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]
+
+  # Secret access for credentials
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
+
+  # Pod information for distributed coordination
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+
+  # Service discovery
+  - apiGroups: [""]
+    resources: ["services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+
+  # Events for logging
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create", "patch"]
+
+  # Leases for leader election
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+# RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jaguar-role-binding
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: jaguar-role
+subjects:
+  - kind: ServiceAccount
+    name: jaguar-service-account
+    namespace: jaguar-simulation
+---
+# ClusterRole for cluster-wide operations
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jaguar-cluster-role
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: rbac
+rules:
+  # Node information for topology-aware scheduling
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+
+  # Namespace information for multi-federation support
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list", "watch"]
+
+  # CustomResourceDefinitions for extension
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["get", "list", "watch"]
+---
+# ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jaguar-cluster-role-binding
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: jaguar-cluster-role
+subjects:
+  - kind: ServiceAccount
+    name: jaguar-service-account
+    namespace: jaguar-simulation
+---
+# Pod Security Policy (for clusters using PSP)
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: jaguar-psp
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: security
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  allowedCapabilities:
+    - NET_BIND_SERVICE
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: MustRunAsNonRoot
+  seLinux:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  readOnlyRootFilesystem: true

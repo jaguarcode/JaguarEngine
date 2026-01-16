@@ -1,0 +1,316 @@
+---
+# JaguarEngine Monitoring Configuration
+# ServiceMonitor for Prometheus Operator
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jaguar-simulation-monitor
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: monitoring
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jaguar-engine
+  namespaceSelector:
+    matchNames:
+      - jaguar-simulation
+  endpoints:
+    - port: metrics
+      interval: 15s
+      scrapeTimeout: 10s
+      path: /metrics
+      scheme: http
+      metricRelabelings:
+        - sourceLabels: [__name__]
+          regex: 'jaguar_.*'
+          action: keep
+---
+# PrometheusRule for alerting
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: jaguar-alerts
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: monitoring
+    release: prometheus
+spec:
+  groups:
+    - name: jaguar-simulation
+      rules:
+        - alert: JaguarSimulationDown
+          expr: up{job="jaguar-simulation-server"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "JaguarEngine simulation server is down"
+            description: "Simulation server {{ $labels.instance }} has been down for more than 5 minutes."
+
+        - alert: JaguarHighEntityCount
+          expr: jaguar_active_entities > 8000
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High entity count in simulation"
+            description: "Entity count {{ $value }} is approaching the limit of 10000."
+
+        - alert: JaguarPhysicsLatencyHigh
+          expr: histogram_quantile(0.99, rate(jaguar_physics_step_duration_seconds_bucket[5m])) > 0.02
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Physics step latency is high"
+            description: "99th percentile physics step latency is {{ $value }}s, exceeding 20ms threshold."
+
+        - alert: JaguarMemoryUsageHigh
+          expr: (container_memory_usage_bytes{container="simulation-server"} / container_spec_memory_limit_bytes{container="simulation-server"}) > 0.85
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High memory usage"
+            description: "Memory usage is at {{ $value | humanizePercentage }} of the limit."
+
+        - alert: JaguarNetworkPacketLoss
+          expr: rate(jaguar_dis_packets_dropped_total[5m]) > 10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "DIS packet loss detected"
+            description: "DIS packet drop rate is {{ $value }} packets/sec."
+
+        - alert: JaguarTerrainCacheMiss
+          expr: rate(jaguar_terrain_cache_misses_total[5m]) / rate(jaguar_terrain_cache_requests_total[5m]) > 0.2
+          for: 10m
+          labels:
+            severity: info
+          annotations:
+            summary: "Terrain cache miss rate is high"
+            description: "Cache miss rate is {{ $value | humanizePercentage }}. Consider increasing cache size."
+
+        - alert: JaguarRealTimeRatioLow
+          expr: jaguar_realtime_ratio < 0.9
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Simulation running slower than real-time"
+            description: "Real-time ratio is {{ $value }}x. Simulation may be overloaded."
+
+    - name: jaguar-terrain
+      rules:
+        - alert: JaguarTerrainServiceDown
+          expr: up{job="jaguar-terrain-service"} == 0
+          for: 3m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Terrain service is down"
+            description: "Terrain service {{ $labels.instance }} is unreachable."
+
+        - alert: JaguarTerrainLatencyHigh
+          expr: histogram_quantile(0.95, rate(jaguar_terrain_query_duration_seconds_bucket[5m])) > 0.1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Terrain query latency is high"
+            description: "95th percentile terrain query latency is {{ $value }}s."
+---
+# Grafana Dashboard ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-grafana-dashboard
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: monitoring
+    grafana_dashboard: "1"
+data:
+  jaguar-simulation.json: |
+    {
+      "annotations": {
+        "list": []
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": null,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 5000 },
+                  { "color": "red", "value": 8000 }
+                ]
+              },
+              "unit": "none"
+            }
+          },
+          "gridPos": { "h": 8, "w": 6, "x": 0, "y": 0 },
+          "id": 1,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "expr": "jaguar_active_entities",
+              "legendFormat": "Active Entities"
+            }
+          ],
+          "title": "Active Entities",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            }
+          },
+          "gridPos": { "h": 8, "w": 6, "x": 6, "y": 0 },
+          "id": 2,
+          "targets": [
+            {
+              "expr": "jaguar_simulation_time_seconds",
+              "legendFormat": "Simulation Time"
+            }
+          ],
+          "title": "Simulation Time",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "x"
+            }
+          },
+          "gridPos": { "h": 8, "w": 6, "x": 12, "y": 0 },
+          "id": 3,
+          "targets": [
+            {
+              "expr": "jaguar_realtime_ratio",
+              "legendFormat": "Real-time Ratio"
+            }
+          ],
+          "title": "Real-time Ratio",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+          "id": 4,
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.99, rate(jaguar_physics_step_duration_seconds_bucket[5m]))",
+              "legendFormat": "p99 Physics Step"
+            },
+            {
+              "expr": "histogram_quantile(0.95, rate(jaguar_physics_step_duration_seconds_bucket[5m]))",
+              "legendFormat": "p95 Physics Step"
+            },
+            {
+              "expr": "histogram_quantile(0.50, rate(jaguar_physics_step_duration_seconds_bucket[5m]))",
+              "legendFormat": "p50 Physics Step"
+            }
+          ],
+          "title": "Physics Step Latency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+          "id": 5,
+          "targets": [
+            {
+              "expr": "rate(jaguar_dis_packets_sent_total[5m])",
+              "legendFormat": "Packets Sent"
+            },
+            {
+              "expr": "rate(jaguar_dis_packets_received_total[5m])",
+              "legendFormat": "Packets Received"
+            },
+            {
+              "expr": "rate(jaguar_dis_packets_dropped_total[5m])",
+              "legendFormat": "Packets Dropped"
+            }
+          ],
+          "title": "DIS Network Traffic",
+          "type": "timeseries"
+        }
+      ],
+      "refresh": "5s",
+      "schemaVersion": 38,
+      "style": "dark",
+      "tags": ["jaguar", "simulation"],
+      "templating": {
+        "list": [
+          {
+            "current": {},
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "title": "JaguarEngine Simulation",
+      "uid": "jaguar-simulation",
+      "version": 1
+    }

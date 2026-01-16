@@ -1,0 +1,66 @@
+# Build directories
+build/
+cmake-build-*/
+site/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Clangd cache
+.cache/
+
+# Compiled files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!cmake/*.cmake
+
+# Test output
+Testing/
+*.log
+
+# Package files
+*.tar.gz
+*.zip
+*.deb
+*.rpm
+*.dmg
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+env/
+venv/
+*.egg-info/
+
+# Coverage
+*.gcno
+*.gcda
+*.gcov
+coverage/
+
+# Documentation build
+docs/api-reference/
+
+# Temporary files
+*.tmp
+*.temp

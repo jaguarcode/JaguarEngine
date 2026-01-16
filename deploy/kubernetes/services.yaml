@@ -1,0 +1,124 @@
+---
+# JaguarEngine Services Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-simulation-server
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: simulation-server
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 50051
+      targetPort: grpc
+      protocol: TCP
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+    - name: metrics
+      port: 9090
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: simulation-server
+---
+# DIS Network Service (UDP)
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-dis-network
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: dis-network
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+    - name: dis
+      port: 3000
+      targetPort: dis
+      protocol: UDP
+  selector:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: simulation-server
+---
+# Terrain Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-terrain-service
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: terrain-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 50052
+      targetPort: grpc
+      protocol: TCP
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+    - name: metrics
+      port: 9090
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: terrain-service
+---
+# Headless Service for StatefulSet (if needed)
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-simulation-headless
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: simulation-server
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: grpc
+      port: 50051
+      targetPort: grpc
+  selector:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: simulation-server
+---
+# External Load Balancer for API access
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-api-lb
+  namespace: jaguar-simulation
+  labels:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: api-gateway
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: https
+      port: 443
+      targetPort: http
+      protocol: TCP
+    - name: grpc
+      port: 50051
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: jaguar-engine
+    app.kubernetes.io/component: simulation-server
