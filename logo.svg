@@ -1,0 +1,61 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="coreGradient" x1="250" y1="200" x2="250" y2="300" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#003366"/>
+            <stop offset="100%" stop-color="#001a33"/>
+        </linearGradient>
+        <linearGradient id="glowGradient" x1="250" y1="150" x2="250" y2="350" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#00ffff" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#0099ff" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+            <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <circle cx="250" cy="250" r="200" fill="#000814" stroke="#004080" stroke-width="2"/>
+    
+    <g opacity="0.5" stroke="#00ffff" stroke-width="1" fill="none">
+        <ellipse cx="250" cy="250" rx="180" ry="60"/>
+        <ellipse cx="250" cy="250" rx="180" ry="120"/>
+        <line x1="250" y1="70" x2="250" y2="430"/>
+        <line x1="160" y1="85" x2="160" y2="415"/>
+        <line x1="340" y1="85" x2="340" y2="415"/>
+        <path d="M100 250 Q 250 150 400 250" />
+        <path d="M100 250 Q 250 350 400 250" />
+    </g>
+
+    <ellipse cx="250" cy="250" rx="220" ry="140" transform="rotate(-20 250 250)" stroke="url(#glowGradient)" stroke-width="3" fill="none" filter="url(#glowFilter)" opacity="0.7"/>
+
+    <g filter="url(#glowFilter)">
+        <path d="M250 180 L310 215 L310 285 L250 320 L190 285 L190 215 Z" fill="url(#coreGradient)" stroke="#00ffff" stroke-width="4"/>
+        <path d="M250 210 L250 290 M220 250 L280 250 M235 230 L265 270 M265 230 L235 270" stroke="#00ffff" stroke-width="2" opacity="0.8"/>
+        <circle cx="250" cy="250" r="15" fill="#00ffff"/>
+    </g>
+
+    <g fill="#ffffff" stroke="#00ffff" stroke-width="1" filter="url(#glowFilter)">
+        <g transform="translate(140, 120) rotate(-20)">
+            <path d="M0 10 L20 0 L40 10 L20 20 Z" fill="#ffffff"/>
+            <line x1="0" y1="10" x2="-15" y2="10" stroke-width="2"/>
+            <line x1="40" y1="10" x2="55" y2="10" stroke-width="2"/>
+        </g>
+        
+        <g transform="translate(360, 130) rotate(15) scale(0.8)">
+             <path d="M0 30 L15 0 L30 30 L15 25 Z"/>
+        </g>
+
+        <g transform="translate(130, 350) scale(0.8)">
+            <path d="M5 20 L45 20 L50 35 L0 35 Z"/> <path d="M10 20 L15 5 L35 5 L40 20 Z"/> <line x1="35" y1="10" x2="55" y2="5" stroke-width="3"/> </g>
+
+        <g transform="translate(350, 360) scale(0.8)">
+             <path d="M0 20 Q 25 35 50 20 L 45 5 L 5 5 Z" /> <rect x="15" y="-5" width="10" height="10" /> <line x1="0" y1="25" x2="50" y2="25" stroke="#00ffff" stroke-width="2" opacity="0.6"/> </g>
+    </g>
+
+    <text x="250" y="470" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="#ffffff" text-anchor="middle" letter-spacing="2">
+        MULTI-DOMAIN SIM CORE
+    </text>
+</svg>

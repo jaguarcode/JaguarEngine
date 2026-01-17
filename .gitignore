@@ -64,3 +64,20 @@ docs/api-reference/
 # Temporary files
 *.tmp
 *.temp
+
+# Node.js / Frontend
+node_modules/
+dist/
+.vite/
+*.local
+
+# Playwright MCP screenshots
+.playwright-mcp/
+
+# Environment files with secrets
+.env.local
+.env.*.local
+
+# Lock files (optional - uncomment if you want to ignore)
+# package-lock.json
+# pnpm-lock.yaml

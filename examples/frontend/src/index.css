@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Cesium container */
+.cesium-container {
+  width: 100%;
+  height: 100%;
+}
+
+.cesium-viewer-bottom {
+  display: none !important;
+}
+
+/* Panel components */
+@layer components {
+  .panel {
+    @apply bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-lg shadow-xl;
+  }
+
+  .panel-header {
+    @apply px-4 py-3 border-b border-gray-700/50 flex items-center justify-between;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold text-gray-200;
+  }
+
+  .panel-content {
+    @apply p-4;
+  }
+
+  .btn {
+    @apply px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-500 text-white focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-700 hover:bg-gray-600 text-gray-200 focus:ring-gray-500;
+  }
+
+  .btn-success {
+    @apply bg-green-600 hover:bg-green-500 text-white focus:ring-green-500;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-500 text-white focus:ring-red-500;
+  }
+
+  .btn-warning {
+    @apply bg-yellow-600 hover:bg-yellow-500 text-white focus:ring-yellow-500;
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-md hover:bg-gray-700/50 transition-colors;
+  }
+
+  .input {
+    @apply w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-sm text-gray-200;
+    @apply placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  .select {
+    @apply w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-sm text-gray-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  .label {
+    @apply block text-xs font-medium text-gray-400 mb-1;
+  }
+
+  /* Status indicators */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-dot-active {
+    @apply bg-green-500 animate-pulse;
+  }
+
+  .status-dot-warning {
+    @apply bg-yellow-500;
+  }
+
+  .status-dot-error {
+    @apply bg-red-500;
+  }
+
+  .status-dot-idle {
+    @apply bg-gray-500;
+  }
+
+  /* Domain-specific badges */
+  .domain-badge {
+    @apply px-2 py-0.5 rounded text-xs font-medium uppercase;
+  }
+
+  .domain-badge-air {
+    @apply bg-domain-air/20 text-domain-air border border-domain-air/30;
+  }
+
+  .domain-badge-land {
+    @apply bg-domain-land/20 text-domain-land border border-domain-land/30;
+  }
+
+  .domain-badge-sea {
+    @apply bg-domain-sea/20 text-domain-sea border border-domain-sea/30;
+  }
+
+  .domain-badge-space {
+    @apply bg-domain-space/20 text-domain-space border border-domain-space/30;
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-800 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded-full hover:bg-gray-500;
+  }
+
+  /* Metric cards */
+  .metric-card {
+    @apply bg-gray-800/50 rounded-lg p-3;
+  }
+
+  .metric-value {
+    @apply text-2xl font-bold text-white;
+  }
+
+  .metric-label {
+    @apply text-xs text-gray-400 uppercase tracking-wide;
+  }
+
+  .metric-unit {
+    @apply text-sm text-gray-500 ml-1;
+  }
+
+  /* Tab navigation */
+  .tab {
+    @apply px-4 py-2 text-sm font-medium transition-colors;
+    @apply border-b-2 border-transparent hover:border-gray-600;
+  }
+
+  .tab-active {
+    @apply text-primary-400 border-primary-400;
+  }
+
+  .tab-inactive {
+    @apply text-gray-400 hover:text-gray-300;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
