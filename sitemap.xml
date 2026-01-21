@@ -2,38 +2,150 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/contributing/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/publishing/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/advanced/architecture/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/advanced/custom-models/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/advanced/networking/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/air/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/configuration/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/core/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/environment/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/land/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/lua/</loc>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/api/overview/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/physics/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/python/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/sea/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/space/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/concepts/coordinates/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/concepts/entities/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/concepts/environment/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/concepts/force-generators/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/concepts/integration/</loc>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/concepts/overview/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/domains/air/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/domains/land/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/domains/sea/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/domains/space/</loc>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/getting-started/first-simulation/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/getting-started/installation/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/getting-started/quickstart/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/air-domain/</loc>
+         <lastmod>2026-01-21</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/examples/</loc>
-         <lastmod>2026-01-16</lastmod>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/land-domain/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/multi-entity/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/sea-domain/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/space-domain/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/tutorials/terrain/</loc>
+         <lastmod>2026-01-21</lastmod>
     </url>
 </urlset>
