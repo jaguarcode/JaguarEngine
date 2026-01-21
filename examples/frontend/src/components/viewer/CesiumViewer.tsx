@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import {
   Viewer,
   Cartesian3,
@@ -11,10 +11,10 @@ import {
   Entity,
   Cartesian2,
 } from 'cesium';
-import 'cesium/Build/Cesium/Widgets/widgets.css';
 
 import { useUIStore } from '@/stores/uiStore';
-import { useEntityStore, selectFilteredEntities } from '@/stores/entityStore';
+import { useEntityStore } from '@/stores/entityStore';
+import { entityPositionBuffer, type EntityPosition } from '@/stores/entityPositionBuffer';
 import type { Domain } from '@/types';
 
 // Set Cesium Ion token
@@ -51,8 +51,9 @@ export const CesiumViewerComponent: React.FC<CesiumViewerComponentProps> = ({
 
   const view = useUIStore((s) => s.view);
 
-  const entities = useEntityStore(selectFilteredEntities);
+  // Only use React state for selection (UI interaction)
   const selectedEntityId = useEntityStore((s) => s.selection.selectedEntityId);
+  const filters = useEntityStore((s) => s.filters);
 
   // Initialize Cesium viewer
   useEffect(() => {
@@ -177,37 +178,58 @@ export const CesiumViewerComponent: React.FC<CesiumViewerComponentProps> = ({
     };
   }, []);
 
-  // Update entities - clear all and recreate for simplicity
-  useEffect(() => {
+  // High-performance entity rendering using position buffer
+  // This callback is invoked from requestAnimationFrame, bypassing React
+  const updateEntitiesFromBuffer = useCallback((positions: Map<string, EntityPosition>) => {
     const viewer = viewerRef.current;
     if (!viewer || viewer.isDestroyed()) return;
 
-    // Clear all existing entities and recreate
-    viewer.entities.removeAll();
-    entityMapRef.current.clear();
+    const currentEntityIds = new Set<string>();
 
-    // Add all entities fresh
-    entities.forEach((entityState) => {
-      try {
-        // Validate position data
-        const lat = entityState.position?.latitude;
-        const lon = entityState.position?.longitude;
-        const alt = entityState.position?.altitude ?? 0;
-
-        if (typeof lat !== 'number' || typeof lon !== 'number' || isNaN(lat) || isNaN(lon)) {
-          return; // Skip entities with invalid position data
+    // Update or add entities from buffer
+    positions.forEach((entityPos) => {
+      // Apply filters
+      if (!filters.domains.includes(entityPos.domain)) return;
+      if (!filters.kinds.includes(entityPos.kind)) return;
+      if (!filters.showInactive && !entityPos.isActive) return;
+      if (filters.searchQuery) {
+        const query = filters.searchQuery.toLowerCase();
+        if (!entityPos.name.toLowerCase().includes(query) &&
+            !entityPos.id.toLowerCase().includes(query)) {
+          return;
         }
+      }
 
-        const isSelected = entityState.id === selectedEntityId;
-        const color = DOMAIN_COLORS[entityState.domain];
-        const displayColor = isSelected ? Color.WHITE : color;
-        const pixelSize = isSelected ? 16 : entityState.kind === 'platform' ? 12 : 8;
+      const lat = entityPos.latitude;
+      const lon = entityPos.longitude;
+      const alt = entityPos.altitude ?? 0;
 
-        const position = Cartesian3.fromDegrees(lon, lat, alt);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
 
+      currentEntityIds.add(entityPos.id);
+      const position = Cartesian3.fromDegrees(lon, lat, alt);
+      const isSelected = entityPos.id === selectedEntityId;
+      const color = DOMAIN_COLORS[entityPos.domain];
+      const displayColor = isSelected ? Color.WHITE : color;
+      const pixelSize = isSelected ? 16 : entityPos.kind === 'platform' ? 12 : 8;
+
+      const existingEntity = entityMapRef.current.get(entityPos.id);
+
+      if (existingEntity) {
+        // Update existing entity - direct property assignment for performance
+        existingEntity.position = position as unknown as typeof existingEntity.position;
+
+        if (existingEntity.point) {
+          existingEntity.point.pixelSize = pixelSize as unknown as typeof existingEntity.point.pixelSize;
+          existingEntity.point.color = displayColor as unknown as typeof existingEntity.point.color;
+          existingEntity.point.outlineColor = (isSelected ? Color.YELLOW : Color.BLACK) as unknown as typeof existingEntity.point.outlineColor;
+          existingEntity.point.outlineWidth = (isSelected ? 2 : 1) as unknown as typeof existingEntity.point.outlineWidth;
+        }
+      } else {
+        // Create new entity
         const newEntity = viewer.entities.add({
-          id: entityState.id,
-          name: entityState.name,
+          id: entityPos.id,
+          name: entityPos.name,
           position: position,
           point: {
             pixelSize: pixelSize,
@@ -216,7 +238,7 @@ export const CesiumViewerComponent: React.FC<CesiumViewerComponentProps> = ({
             outlineWidth: isSelected ? 2 : 1,
           },
           label: {
-            text: entityState.name,
+            text: entityPos.name,
             font: '12px sans-serif',
             fillColor: Color.WHITE,
             outlineColor: Color.BLACK,
@@ -224,37 +246,30 @@ export const CesiumViewerComponent: React.FC<CesiumViewerComponentProps> = ({
             pixelOffset: new Cartesian2(0, -15),
           },
         });
-        entityMapRef.current.set(entityState.id, newEntity);
-      } catch (err: unknown) {
-        // Silently skip entities that fail to create
+        entityMapRef.current.set(entityPos.id, newEntity);
       }
     });
-  }, [entities, selectedEntityId]);
 
-  // Fly to selected entity
-  useEffect(() => {
-    const viewer = viewerRef.current;
-    if (!viewer || viewer.isDestroyed() || !selectedEntityId) return;
-
-    const entityState = entities.find((e) => e.id === selectedEntityId);
-    if (!entityState) return;
-
-    const destination = Cartesian3.fromDegrees(
-      entityState.position.longitude,
-      entityState.position.latitude,
-      entityState.position.altitude + 1000
-    );
-
-    viewer.camera.flyTo({
-      destination,
-      orientation: {
-        heading: CesiumMath.toRadians(0),
-        pitch: CesiumMath.toRadians(-45),
-        roll: 0,
-      },
-      duration: 1.5,
+    // Remove entities no longer in buffer
+    entityMapRef.current.forEach((cesiumEntity, entityId) => {
+      if (!currentEntityIds.has(entityId)) {
+        viewer.entities.remove(cesiumEntity);
+        entityMapRef.current.delete(entityId);
+      }
     });
-  }, [selectedEntityId]);
+  }, [selectedEntityId, filters]);
+
+  // Register buffer callback - this drives the render loop
+  useEffect(() => {
+    entityPositionBuffer.setUpdateCallback(updateEntitiesFromBuffer);
+
+    return () => {
+      entityPositionBuffer.setUpdateCallback(null);
+    };
+  }, [updateEntitiesFromBuffer]);
+
+  // Note: Camera does NOT move when selecting an entity
+  // The selected entity is highlighted visually but camera stays in place
 
   return (
     <div

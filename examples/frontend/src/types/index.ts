@@ -4,7 +4,8 @@
 // Domain Types
 //==============================================================================
 
-export type Domain = 'air' | 'land' | 'sea' | 'space';
+export type EntityDomain = 'air' | 'land' | 'sea' | 'space';
+export type Domain = EntityDomain; // Alias for backward compatibility
 
 export type EntityKind =
   | 'platform'      // Vehicles, vessels, spacecraft
@@ -331,3 +332,22 @@ export interface PanelState {
     bottom: string;
   };
 }
+
+//==============================================================================
+// Re-exports - AI Agent Types
+//==============================================================================
+
+export type {
+  AIBehaviorMode,
+  AIAgentConfig,
+  AIAgentState,
+  AIDecision,
+  AIWorldContext,
+  AIServiceConfig,
+} from './aiAgent';
+
+export {
+  BEHAVIOR_MODE_INFO,
+  DEFAULT_AI_AGENT_CONFIG,
+  DEFAULT_AI_SERVICE_CONFIG,
+} from './aiAgent';

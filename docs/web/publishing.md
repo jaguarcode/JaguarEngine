@@ -166,11 +166,11 @@ nav:
     - Lua: api/lua.md
   - Tutorials:
     - Examples: tutorials/examples.md
-    - Multi-Domain: tutorials/multi-domain.md
-    - Custom Models: tutorials/custom-models.md
+    - Multi-Entity: tutorials/multi-entity.md
+    - Terrain: tutorials/terrain.md
   - Advanced:
     - Architecture: advanced/architecture.md
-    - Performance: advanced/performance.md
+    - Custom Models: advanced/custom-models.md
     - Networking: advanced/networking.md
   - Contributing: contributing.md
 

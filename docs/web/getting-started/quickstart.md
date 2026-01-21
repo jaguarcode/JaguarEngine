@@ -282,7 +282,7 @@ Now that you've created your first simulation, explore these topics:
 2. **[Land Domain Tutorial](../tutorials/land-domain.md)** - Ground vehicle physics
 3. **[Sea Domain Tutorial](../tutorials/sea-domain.md)** - Ship simulation with waves
 4. **[Space Domain Tutorial](../tutorials/space-domain.md)** - Orbital mechanics
-5. **[Multi-Domain Example](../tutorials/multi-domain.md)** - Combined simulation
+5. **[Multi-Entity Example](../tutorials/multi-entity.md)** - Combined simulation
 6. **[Configuration Guide](../api/configuration.md)** - XML configuration system
 7. **[API Reference](../api/overview.md)** - Complete API documentation
 

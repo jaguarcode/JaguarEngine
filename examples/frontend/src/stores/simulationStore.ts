@@ -2,6 +2,10 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import type { SimulationStatus, SimulationConfig, SimulationStats } from '@/types';
 
+// Simple throttling for stats updates
+let lastStatsUpdateTime = 0;
+const STATS_UPDATE_INTERVAL_MS = 33; // ~30fps
+
 interface SimulationState {
   // Connection
   connected: boolean;
@@ -71,10 +75,19 @@ export const useSimulationStore = create<SimulationState>()(
         config: { ...state.config, ...config },
       })),
 
-    updateStats: (stats) =>
+    updateStats: (stats) => {
+      const now = performance.now();
+
+      // Simple throttle: skip update if called too frequently
+      if (now - lastStatsUpdateTime < STATS_UPDATE_INTERVAL_MS) {
+        return;
+      }
+      lastStatsUpdateTime = now;
+
       set((state) => ({
         stats: { ...state.stats, ...stats },
-      })),
+      }));
+    },
 
     reset: () =>
       set({

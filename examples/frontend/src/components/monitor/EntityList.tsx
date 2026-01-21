@@ -1,7 +1,20 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { useEntityStore, selectFilteredEntities } from '@/stores/entityStore';
+import { useWebSocket } from '@/hooks/useWebSocket';
 import type { Domain, EntityState } from '@/types';
+
+// Trash icon for delete button
+const TrashIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  </svg>
+);
+
+// Constants for virtualization
+const ITEM_HEIGHT = 56; // Height of each entity list item in pixels
+const OVERSCAN = 5;     // Number of items to render outside visible area
 
 // Domain badge component
 const DomainBadge: React.FC<{ domain: Domain }> = ({ domain }) => (
@@ -36,11 +49,17 @@ const EntityListItem: React.FC<{
   isHovered: boolean;
   onSelect: (id: string) => void;
   onHover: (id: string | null) => void;
-}> = React.memo(({ entity, isSelected, isHovered, onSelect, onHover }) => {
+  onDelete: (id: string) => void;
+}> = React.memo(({ entity, isSelected, isHovered, onSelect, onHover, onDelete }) => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(entity.id);
+  };
+
   return (
     <div
       className={clsx(
-        'px-3 py-2 cursor-pointer transition-colors border-l-2',
+        'px-3 py-2 cursor-pointer transition-colors border-l-2 group',
         {
           'bg-primary-900/50 border-primary-500': isSelected,
           'bg-gray-800/50 border-gray-600': isHovered && !isSelected,
@@ -52,7 +71,7 @@ const EntityListItem: React.FC<{
       onMouseLeave={() => onHover(null)}
     >
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
           <div
             className={clsx('status-dot flex-shrink-0', {
               'status-dot-active': entity.isActive,
@@ -61,7 +80,16 @@ const EntityListItem: React.FC<{
           />
           <span className="text-sm text-gray-200 truncate">{entity.name}</span>
         </div>
-        <DomainBadge domain={entity.domain} />
+        <div className="flex items-center gap-2">
+          <DomainBadge domain={entity.domain} />
+          <button
+            onClick={handleDelete}
+            className="p-1 text-gray-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+            title="Remove entity"
+          >
+            <TrashIcon />
+          </button>
+        </div>
       </div>
 
       <div className="mt-1 flex items-center justify-between text-xs text-gray-500">
@@ -77,9 +105,64 @@ EntityListItem.displayName = 'EntityListItem';
 // Filter tabs
 const DOMAIN_FILTERS: (Domain | 'all')[] = ['all', 'air', 'land', 'sea', 'space'];
 
+// Virtualized list hook for efficient rendering of large lists
+function useVirtualizedList<T>(
+  items: T[],
+  containerRef: React.RefObject<HTMLDivElement>,
+  itemHeight: number,
+  overscan: number = OVERSCAN
+) {
+  const [scrollTop, setScrollTop] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      setScrollTop(container.scrollTop);
+    };
+
+    const handleResize = () => {
+      setContainerHeight(container.clientHeight);
+    };
+
+    // Initial measurement
+    handleResize();
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [containerRef]);
+
+  const totalHeight = items.length * itemHeight;
+  const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
+  const endIndex = Math.min(
+    items.length,
+    Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan
+  );
+
+  const visibleItems = items.slice(startIndex, endIndex);
+  const offsetY = startIndex * itemHeight;
+
+  return {
+    visibleItems,
+    totalHeight,
+    offsetY,
+    startIndex,
+  };
+}
+
 export const EntityList: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeDomain, setActiveDomain] = useState<Domain | 'all'>('all');
+  const listContainerRef = useRef<HTMLDivElement>(null);
+
+  const { destroyEntity } = useWebSocket();
 
   const entities = useEntityStore(selectFilteredEntities);
   const selectedEntityId = useEntityStore((s) => s.selection.selectedEntityId);
@@ -88,27 +171,26 @@ export const EntityList: React.FC = () => {
   const hoverEntity = useEntityStore((s) => s.hoverEntity);
   const setSearchQueryStore = useEntityStore((s) => s.setSearchQuery);
 
-  // Filter entities by search and domain
+  const handleDeleteEntity = useCallback((entityId: string) => {
+    destroyEntity(entityId);
+  }, [destroyEntity]);
+
+  // Filter entities by domain only (search is already applied in store)
   const filteredEntities = useMemo(() => {
-    let result = entities;
-
-    if (activeDomain !== 'all') {
-      result = result.filter((e) => e.domain === activeDomain);
+    if (activeDomain === 'all') {
+      return entities;
     }
+    return entities.filter((e) => e.domain === activeDomain);
+  }, [entities, activeDomain]);
 
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (e) =>
-          e.name.toLowerCase().includes(query) ||
-          e.id.toLowerCase().includes(query)
-      );
-    }
+  // Use virtualization for large lists
+  const { visibleItems, totalHeight, offsetY } = useVirtualizedList(
+    filteredEntities,
+    listContainerRef,
+    ITEM_HEIGHT
+  );
 
-    return result;
-  }, [entities, activeDomain, searchQuery]);
-
-  // Count by domain
+  // Count by domain - optimized with single pass
   const domainCounts = useMemo(() => {
     const counts: Record<Domain | 'all', number> = {
       all: entities.length,
@@ -118,17 +200,18 @@ export const EntityList: React.FC = () => {
       space: 0,
     };
 
-    entities.forEach((e) => {
+    for (const e of entities) {
       counts[e.domain]++;
-    });
+    }
 
     return counts;
   }, [entities]);
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchQuery(e.target.value);
-      setSearchQueryStore(e.target.value);
+      const value = e.target.value;
+      setSearchQuery(value);
+      setSearchQueryStore(value);
     },
     [setSearchQueryStore]
   );
@@ -175,23 +258,28 @@ export const EntityList: React.FC = () => {
         ))}
       </div>
 
-      {/* Entity list */}
-      <div className="flex-1 overflow-y-auto custom-scrollbar">
+      {/* Virtualized entity list */}
+      <div ref={listContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
         {filteredEntities.length === 0 ? (
           <div className="p-4 text-center text-sm text-gray-500">
             {searchQuery ? 'No matching entities' : 'No entities'}
           </div>
         ) : (
-          filteredEntities.map((entity) => (
-            <EntityListItem
-              key={entity.id}
-              entity={entity}
-              isSelected={entity.id === selectedEntityId}
-              isHovered={entity.id === hoveredEntityId}
-              onSelect={selectEntity}
-              onHover={hoverEntity}
-            />
-          ))
+          <div style={{ height: totalHeight, position: 'relative' }}>
+            <div style={{ transform: `translateY(${offsetY}px)` }}>
+              {visibleItems.map((entity) => (
+                <EntityListItem
+                  key={entity.id}
+                  entity={entity}
+                  isSelected={entity.id === selectedEntityId}
+                  isHovered={entity.id === hoveredEntityId}
+                  onSelect={selectEntity}
+                  onHover={hoverEntity}
+                  onDelete={handleDeleteEntity}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </div>

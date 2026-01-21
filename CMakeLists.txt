@@ -242,6 +242,7 @@ target_link_libraries(jaguar_domain_space
 # Environment Library
 # ============================================================================
 add_library(jaguar_environment STATIC
+    src/environment/environment_service.cpp
     src/environment/terrain/terrain_manager.cpp
     src/environment/terrain/gdal_loader.cpp
     src/environment/atmosphere/standard_atmosphere.cpp
@@ -403,6 +404,29 @@ if(JAGUAR_BUILD_EXAMPLES)
         examples/multi_domain/main.cpp
     )
     target_link_libraries(example_multi_domain PRIVATE jaguar)
+
+    # WebSocket Server (requires libwebsockets)
+    find_package(PkgConfig QUIET)
+    if(PkgConfig_FOUND)
+        pkg_check_modules(LWS QUIET libwebsockets)
+        if(LWS_FOUND)
+            add_executable(jaguar_server
+                examples/server/main.cpp
+                examples/server/websocket_server.cpp
+            )
+            target_include_directories(jaguar_server PRIVATE
+                ${CMAKE_SOURCE_DIR}/examples/server
+                ${LWS_INCLUDE_DIRS}
+            )
+            target_link_libraries(jaguar_server PRIVATE
+                jaguar
+                ${LWS_LIBRARIES}
+            )
+            message(STATUS "  WebSocket server: ON (libwebsockets found)")
+        else()
+            message(STATUS "  WebSocket server: OFF (libwebsockets not found)")
+        endif()
+    endif()
 endif()
 
 # ============================================================================

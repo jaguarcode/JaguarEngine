@@ -39,9 +39,9 @@ const defaultFilters: FilterState = {
   showInactive: false,
 };
 
-// Throttle helper for high-frequency updates
-let updateTimeout: number | null = null;
-const THROTTLE_MS = 100;
+// Simple throttling - just track last update time
+let lastEntityUpdateTime = 0;
+const ENTITY_UPDATE_INTERVAL_MS = 33; // ~30fps for entity updates
 
 export const useEntityStore = create<EntityStore>()(
   subscribeWithSelector((set, get) => ({
@@ -54,29 +54,29 @@ export const useEntityStore = create<EntityStore>()(
     },
     filters: defaultFilters,
 
-    // Entity management
+    // Entity management - simple and reliable
     setEntities: (entities) => {
-      // Throttle batch updates
-      if (updateTimeout) {
-        clearTimeout(updateTimeout);
+      const now = performance.now();
+
+      // Simple throttle: skip update if called too frequently
+      if (now - lastEntityUpdateTime < ENTITY_UPDATE_INTERVAL_MS) {
+        return;
+      }
+      lastEntityUpdateTime = now;
+
+      // Create new Map with new entities (always create new to ensure React detects change)
+      const newMap = new Map<string, EntityState>();
+      const entityIds: string[] = [];
+
+      for (const entity of entities) {
+        newMap.set(entity.id, entity);
+        entityIds.push(entity.id);
       }
 
-      updateTimeout = window.setTimeout(() => {
-        const entityMap = new Map<string, EntityState>();
-        const entityIds: string[] = [];
-
-        for (const entity of entities) {
-          entityMap.set(entity.id, entity);
-          entityIds.push(entity.id);
-        }
-
-        set({
-          entities: entityMap,
-          entityList: entityIds,
-        });
-
-        updateTimeout = null;
-      }, THROTTLE_MS);
+      set({
+        entities: newMap,
+        entityList: entityIds,
+      });
     },
 
     updateEntity: (id, update) => {
@@ -183,39 +183,58 @@ export const selectHoveredEntity = (state: EntityStore) =>
     ? state.entities.get(state.selection.hoveredEntityId)
     : null;
 
+// Simple selector for filtered entities - no external caching
+// Let zustand handle the subscription and React handle re-renders
 export const selectFilteredEntities = (state: EntityStore): EntityState[] => {
   const { filters, entities, entityList } = state;
 
-  return entityList
-    .map((id) => entities.get(id))
-    .filter((entity): entity is EntityState => {
-      if (!entity) return false;
+  const result: EntityState[] = [];
 
-      // Domain filter
-      if (!filters.domains.includes(entity.domain)) return false;
+  for (const id of entityList) {
+    const entity = entities.get(id);
+    if (!entity) continue;
 
-      // Kind filter
-      if (!filters.kinds.includes(entity.kind)) return false;
+    // Domain filter
+    if (!filters.domains.includes(entity.domain)) continue;
 
-      // Active filter
-      if (!filters.showInactive && !entity.isActive) return false;
+    // Kind filter
+    if (!filters.kinds.includes(entity.kind)) continue;
 
-      // Search query
-      if (filters.searchQuery) {
-        const query = filters.searchQuery.toLowerCase();
-        return (
-          entity.name.toLowerCase().includes(query) ||
-          entity.id.toLowerCase().includes(query)
-        );
+    // Active filter
+    if (!filters.showInactive && !entity.isActive) continue;
+
+    // Search query
+    if (filters.searchQuery) {
+      const query = filters.searchQuery.toLowerCase();
+      if (
+        !entity.name.toLowerCase().includes(query) &&
+        !entity.id.toLowerCase().includes(query)
+      ) {
+        continue;
       }
+    }
 
-      return true;
-    });
+    result.push(entity);
+  }
+
+  return result;
 };
 
-export const selectEntitiesByDomain = (domain: Domain) => (state: EntityStore) =>
-  state.entityList
-    .map((id) => state.entities.get(id))
-    .filter((e): e is EntityState => e?.domain === domain);
+// Fast selector for entity list - just returns the array directly
+export const selectEntityList = (state: EntityStore) => state.entityList;
+
+// Fast selector for entity map - for direct access
+export const selectEntities = (state: EntityStore) => state.entities;
+
+export const selectEntitiesByDomain = (domain: Domain) => (state: EntityStore) => {
+  const result: EntityState[] = [];
+  for (const id of state.entityList) {
+    const entity = state.entities.get(id);
+    if (entity?.domain === domain) {
+      result.push(entity);
+    }
+  }
+  return result;
+};
 
 export const selectEntityCount = (state: EntityStore) => state.entityList.length;

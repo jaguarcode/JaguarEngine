@@ -2,11 +2,15 @@ import { useEffect, useCallback } from 'react';
 import { useWebSocket } from './useWebSocket';
 import { useUIStore } from '@/stores/uiStore';
 import { useSimulationStore } from '@/stores/simulationStore';
+import { useEntityStore } from '@/stores/entityStore';
 
 export function useKeyboardShortcuts() {
   const { startSimulation, pauseSimulation, resetSimulation } = useWebSocket();
   const { togglePerformance, toggleHelp, toggleLeftPanel, toggleRightPanel } = useUIStore();
   const status = useSimulationStore((s) => s.status);
+  const resetSimStore = useSimulationStore((s) => s.reset);
+  const clearEntities = useEntityStore((s) => s.clearEntities);
+  const resetFilters = useEntityStore((s) => s.resetFilters);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -33,10 +37,13 @@ export function useKeyboardShortcuts() {
           break;
 
         case 'r':
-          // R: Reset simulation
+          // R: Reset simulation (server + frontend state)
           if (!ctrl) {
             event.preventDefault();
             resetSimulation();
+            resetSimStore();
+            clearEntities();
+            resetFilters();
           }
           break;
 
@@ -107,6 +114,9 @@ export function useKeyboardShortcuts() {
       startSimulation,
       pauseSimulation,
       resetSimulation,
+      resetSimStore,
+      clearEntities,
+      resetFilters,
       togglePerformance,
       toggleHelp,
       toggleLeftPanel,

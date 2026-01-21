@@ -620,6 +620,6 @@ plt.show()
 ## Next Steps
 
 - **[Add Terrain](../tutorials/terrain.md)** - Add terrain collision and following
-- **[Autopilot](../tutorials/autopilot.md)** - Implement altitude and heading hold
+- **[Air Domain](../tutorials/air-domain.md)** - Implement aircraft control systems
 - **[Multi-Aircraft](../tutorials/multi-entity.md)** - Simulate multiple aircraft
 - **[Python Integration](../api/python.md)** - Use Python for analysis

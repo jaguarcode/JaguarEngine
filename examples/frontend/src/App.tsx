@@ -4,6 +4,7 @@ import clsx from 'clsx';
 // Hooks
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
+import { useAIAgentLoop } from '@/hooks/useAIAgentLoop';
 
 // Stores
 import { useUIStore } from '@/stores/uiStore';
@@ -14,6 +15,7 @@ import { TelemetryPanel, EntityList, EntityDetailPanel } from '@/components/moni
 import { SimControls, EntitySpawner } from '@/components/controls';
 import { DomainTestPanel } from '@/components/editor';
 import { ConnectionStatus, HelpModal, PerformanceOverlay } from '@/components/common';
+import { AIAgentPanel } from '@/components/ai';
 
 // Panel toggle button
 const PanelToggle: React.FC<{
@@ -88,6 +90,9 @@ function App() {
 
   // Setup keyboard shortcuts
   useKeyboardShortcuts();
+
+  // Initialize AI agent decision loop
+  useAIAgentLoop();
 
   // Panel state
   const leftPanelOpen = useUIStore((s) => s.panels.leftPanelOpen);
@@ -177,20 +182,25 @@ function App() {
           )}
           style={{ width: '360px' }}
         >
-          <div className="h-full p-4 flex flex-col gap-4">
+          <div className="h-full p-4 flex flex-col gap-3 overflow-y-auto">
             {/* Telemetry */}
-            <div className="h-1/3">
+            <div className="shrink-0">
               <TelemetryPanel />
             </div>
 
             {/* Entity Details */}
-            <div className="h-1/3">
+            <div className="shrink-0">
               <EntityDetailPanel />
             </div>
 
             {/* Domain Controls */}
-            <div className="flex-1 min-h-0">
+            <div className="shrink-0">
               <DomainTestPanel />
+            </div>
+
+            {/* AI Agent Controls */}
+            <div className="shrink-0">
+              <AIAgentPanel />
             </div>
           </div>
         </div>

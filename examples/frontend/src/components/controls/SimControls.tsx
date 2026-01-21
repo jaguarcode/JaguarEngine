@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { useSimulationStore } from '@/stores/simulationStore';
+import { useEntityStore } from '@/stores/entityStore';
+import { useAIAgentStore } from '@/stores/aiAgentStore';
 
 // Icon components
 const PlayIcon = () => (
@@ -66,10 +68,35 @@ export const SimControls: React.FC = () => {
   const status = useSimulationStore((s) => s.status);
   const connected = useSimulationStore((s) => s.connected);
   const config = useSimulationStore((s) => s.config);
+  const resetSimStore = useSimulationStore((s) => s.reset);
+  const clearEntities = useEntityStore((s) => s.clearEntities);
+  const resetFilters = useEntityStore((s) => s.resetFilters);
+  const clearAllAgents = useAIAgentStore((s) => s.clearAllAgents);
 
   const isRunning = status === 'running';
   const isPaused = status === 'paused';
   const canControl = connected && status !== 'error';
+
+  // Reset everything: server simulation + frontend state
+  const handleReset = useCallback(() => {
+    // Send reset command to server
+    resetSimulation();
+    // Reset frontend stores
+    resetSimStore();
+    clearEntities();
+    resetFilters();
+    clearAllAgents();
+  }, [resetSimulation, resetSimStore, clearEntities, resetFilters, clearAllAgents]);
+
+  // Handle time scale change without stealing focus
+  const handleTimeScaleChange = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, scale: number) => {
+      e.preventDefault();
+      (e.target as HTMLButtonElement).blur();
+      setTimeScale(scale);
+    },
+    [setTimeScale]
+  );
 
   return (
     <div className="panel">
@@ -125,8 +152,9 @@ export const SimControls: React.FC = () => {
           {/* Reset button */}
           <button
             className="btn btn-secondary flex items-center justify-center gap-2"
-            onClick={resetSimulation}
+            onClick={handleReset}
             disabled={!canControl}
+            title="Reset simulation"
           >
             <ResetIcon />
           </button>
@@ -145,7 +173,7 @@ export const SimControls: React.FC = () => {
                     ? 'bg-primary-600 text-white'
                     : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 )}
-                onClick={() => setTimeScale(value)}
+                onClick={(e) => handleTimeScaleChange(e, value)}
                 disabled={!canControl}
               >
                 {label}

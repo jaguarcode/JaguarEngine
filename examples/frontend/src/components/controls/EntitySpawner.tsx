@@ -67,6 +67,7 @@ export const EntitySpawner: React.FC = () => {
       template: selectedTemplate,
     };
 
+    console.log('[EntitySpawner] Spawning entity with position:', position, 'request:', request);
     spawnEntity(request);
 
     // Reset form

@@ -9,10 +9,12 @@
 #include "jaguar/interface/config.h"
 #include "jaguar/core/time.h"
 #include "jaguar/core/property.h"
+#include "jaguar/core/coordinates.h"
 #include "jaguar/physics/solver.h"
 #include "jaguar/physics/force.h"
 #include "jaguar/environment/environment.h"
 #include <atomic>
+#include <cmath>
 
 namespace jaguar {
 
@@ -69,7 +71,8 @@ public:
             }
         } else {
             // Variable timestep mode
-            execute_physics_step(dt * time_manager_.get_time_scale());
+            // NOTE: time_scale is already applied in time_manager_.advance(dt)
+            execute_physics_step(time_manager_.get_delta_time());
         }
     }
 
@@ -234,10 +237,74 @@ private:
         //    - Propagate entity states using physics system
         physics_system_.update(entity_manager_, dt);
 
-        // 5. Post-Update Phase
-        //    - Constraint resolution (future)
-        //    - Collision detection/response (future)
-        //    - Event callbacks (future)
+        // 5. Post-Update Phase: Constraint Resolution
+        //    - Apply surface constraints for Sea/Land domains
+        apply_surface_constraints();
+    }
+
+    /**
+     * @brief Apply surface constraints for Sea and Land domain entities
+     *
+     * For Sea entities: Constrain altitude to sea level (0) and remove
+     *                   vertical velocity components
+     * For Land entities: Constrain altitude to ground level and remove
+     *                    penetrating velocity components
+     *
+     * This ensures entities stay on their respective surfaces even with
+     * gravity applied in ECEF coordinates.
+     */
+    void apply_surface_constraints()
+    {
+        auto& storage = entity_manager_.get_state_storage();
+
+        entity_manager_.for_each([&](physics::Entity& entity) {
+            if (!entity.active) return;
+
+            // Only apply to Sea and Land domains
+            if (entity.primary_domain != Domain::Sea &&
+                entity.primary_domain != Domain::Land) {
+                return;
+            }
+
+            // Get current state
+            physics::EntityState state = storage.get_state(entity.state_index);
+
+            // Convert ECEF position to geodetic to check/modify altitude
+            GeodeticPosition lla = coord::ecef_to_lla(state.position);
+
+            // Determine target altitude based on domain
+            Real target_altitude = 0.0;  // Sea level for Sea domain
+            if (entity.primary_domain == Domain::Land) {
+                // For Land domain, use terrain height if available
+                // For now, use a fixed ground altitude
+                target_altitude = 100.0;  // Simplified: 100m above sea level
+                // TODO: Query actual terrain height from environment service
+            }
+
+            // Check if entity is below target altitude
+            if (lla.altitude < target_altitude) {
+                // Constrain altitude to target
+                lla.altitude = target_altitude;
+
+                // Convert back to ECEF
+                state.position = coord::lla_to_ecef(lla);
+
+                // Remove downward velocity component in local frame
+                // Convert ECEF velocity to NED
+                Vec3 vel_ned = coord::ecef_to_ned(state.velocity, lla);
+
+                // If moving downward (positive down velocity), zero it out
+                if (vel_ned.z > 0) {
+                    vel_ned.z = 0.0;
+                }
+
+                // Convert back to ECEF velocity
+                state.velocity = coord::ned_to_ecef(vel_ned, lla);
+
+                // Update storage
+                storage.set_state(entity.state_index, state);
+            }
+        });
     }
 
     void compute_all_forces(Real dt)
@@ -261,6 +328,7 @@ private:
             for (auto* generator : enabled_generators) {
                 // Check if generator applies to this entity's domain
                 Domain gen_domain = generator->domain();
+
                 if (gen_domain == Domain::Generic ||
                     gen_domain == entity.primary_domain) {
                     generator->compute_forces(state, env, dt, forces);

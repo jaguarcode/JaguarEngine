@@ -114,10 +114,40 @@ nav:
       - First Simulation: getting-started/first-simulation.md
   - Core Concepts:
       - Overview: concepts/overview.md
-  - API Reference:
-      - Overview: api/overview.md
+      - Entities: concepts/entities.md
+      - Force Generators: concepts/force-generators.md
+      - Environment: concepts/environment.md
+      - Coordinates: concepts/coordinates.md
+      - Integration: concepts/integration.md
+  - Domains:
+      - Air Domain: domains/air.md
+      - Land Domain: domains/land.md
+      - Sea Domain: domains/sea.md
+      - Space Domain: domains/space.md
   - Tutorials:
       - Examples: tutorials/examples.md
+      - Air Domain: tutorials/air-domain.md
+      - Land Domain: tutorials/land-domain.md
+      - Sea Domain: tutorials/sea-domain.md
+      - Space Domain: tutorials/space-domain.md
+      - Multi-Entity: tutorials/multi-entity.md
+      - Terrain: tutorials/terrain.md
+  - API Reference:
+      - Overview: api/overview.md
+      - Core: api/core.md
+      - Physics: api/physics.md
+      - Air Domain: api/air.md
+      - Land Domain: api/land.md
+      - Sea Domain: api/sea.md
+      - Space Domain: api/space.md
+      - Environment: api/environment.md
+      - Configuration: api/configuration.md
+      - Python: api/python.md
+      - Lua: api/lua.md
+  - Advanced:
+      - Architecture: advanced/architecture.md
+      - Custom Models: advanced/custom-models.md
+      - Networking: advanced/networking.md
   - Publishing: publishing.md
 
 # Extra configuration

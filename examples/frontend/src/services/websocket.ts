@@ -23,18 +23,45 @@ class WebSocketService {
   private connectionHandlers: ConnectionHandler[] = [];
   private pendingRequests: Map<string, PendingRequest> = new Map();
   private requestIdCounter = 0;
+  private connectCalled = false; // Track if connect was ever called
 
   constructor(url = 'ws://localhost:8081') {
     this.url = url;
   }
 
   connect(): void {
-    if (this.ws?.readyState === WebSocket.OPEN) {
+    // Prevent multiple connect() calls from creating multiple connections
+    if (this.connectCalled) {
+      return;
+    }
+    this.connectCalled = true;
+
+    this.doConnect();
+  }
+
+  private doConnect(): void {
+    // Prevent multiple connections - check for both OPEN and CONNECTING states
+    if (this.ws?.readyState === WebSocket.OPEN || this.ws?.readyState === WebSocket.CONNECTING) {
       return;
     }
 
+    // Close any existing connection that might be in closing state
+    if (this.ws) {
+      this.ws.onclose = null;
+      this.ws.onerror = null;
+      this.ws.onopen = null;
+      this.ws.onmessage = null;
+      try {
+        this.ws.close();
+      } catch {
+        // Ignore close errors
+      }
+      this.ws = null;
+    }
+
     try {
-      this.ws = new WebSocket(this.url);
+      // Connect with the jaguar-protocol subprotocol to match server configuration
+      this.ws = new WebSocket(this.url, 'jaguar-protocol');
 
       this.ws.onopen = () => {
         console.log('[WebSocket] Connected to', this.url);
@@ -83,7 +110,7 @@ class WebSocketService {
     console.log(`[WebSocket] Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`);
 
     setTimeout(() => {
-      this.connect();
+      this.doConnect();
     }, delay);
   }
 
@@ -304,6 +331,50 @@ class WebSocketService {
       command: 'set_ship_controls',
       entityId,
       params: controls,
+    });
+  }
+
+  setShipAutopilot(entityId: string, mode: string, params?: Record<string, unknown>): void {
+    this.sendCommand({
+      command: 'set_ship_autopilot',
+      entityId,
+      params: { mode, ...params },
+    });
+  }
+
+  // Vehicle autopilot
+  setVehicleAutopilot(entityId: string, mode: string, params?: Record<string, unknown>): void {
+    this.sendCommand({
+      command: 'set_vehicle_autopilot',
+      entityId,
+      params: { mode, ...params },
+    });
+  }
+
+  // Space commands
+  setSpaceControls(
+    entityId: string,
+    controls: {
+      thrust_x?: number;
+      thrust_y?: number;
+      thrust_z?: number;
+      roll_rate?: number;
+      pitch_rate?: number;
+      yaw_rate?: number;
+    }
+  ): void {
+    this.sendCommand({
+      command: 'set_space_controls',
+      entityId,
+      params: controls,
+    });
+  }
+
+  setSpaceAutopilot(entityId: string, mode: string, params?: Record<string, unknown>): void {
+    this.sendCommand({
+      command: 'set_space_autopilot',
+      entityId,
+      params: { mode, ...params },
     });
   }
 

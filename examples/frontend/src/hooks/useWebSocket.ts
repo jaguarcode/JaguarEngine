@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { websocketService } from '@/services/websocket';
 import { useSimulationStore } from '@/stores/simulationStore';
 import { useEntityStore } from '@/stores/entityStore';
+import { useAIAgentStore } from '@/stores/aiAgentStore';
+import { entityPositionBuffer } from '@/stores/entityPositionBuffer';
 import type { WebSocketMessage, EntityState, SimulationStats } from '@/types';
 
 export function useWebSocket() {
@@ -25,6 +27,27 @@ export function useWebSocket() {
       };
 
       if (data.entities) {
+        // FAST PATH: Update position buffer directly for smooth rendering
+        // This bypasses React state and feeds directly into the RAF render loop
+        entityPositionBuffer.updatePositions(data.entities.map((e) => {
+          // Calculate speed from NED velocity components
+          const vel = e.velocity;
+          const speed = vel ? Math.sqrt(vel.north * vel.north + vel.east * vel.east + vel.down * vel.down) : 0;
+
+          return {
+            id: e.id,
+            name: e.name,
+            domain: e.domain,
+            kind: e.kind,
+            isActive: e.isActive,
+            position: e.position,
+            orientation: e.orientation, // EulerAngles: roll, pitch, yaw
+            velocity: { speed },
+          };
+        }));
+
+        // SLOW PATH: Update React state for UI components (entity list, filters, etc.)
+        // This can be throttled more aggressively
         useEntityStore.getState().setEntities(data.entities);
       }
 
@@ -45,16 +68,20 @@ export function useWebSocket() {
       useEntityStore.getState().updateEntity(entity.id, entity);
     };
 
-    // Handle entity spawn
-    const handleEntitySpawn = (message: WebSocketMessage) => {
-      const entity = message.data as EntityState;
-      useEntityStore.getState().addEntity(entity);
+    // Handle entity spawned confirmation
+    const handleEntitySpawned = (_message: WebSocketMessage) => {
+      // Server sends: { id: "entity_X", name: "...", domain: "..." }
+      // The full entity will be included in the next world_state update
+      // No logging needed - entity will appear in the list automatically
     };
 
-    // Handle entity destroy
-    const handleEntityDestroy = (message: WebSocketMessage) => {
-      const data = message.data as { entityId: string };
-      useEntityStore.getState().removeEntity(data.entityId);
+    // Handle entity destroyed confirmation
+    const handleEntityDestroyed = (message: WebSocketMessage) => {
+      const data = message.data as { id: string };
+      // Remove entity from entity store
+      useEntityStore.getState().removeEntity(data.id);
+      // Also remove any AI agent associated with this entity
+      useAIAgentStore.getState().removeAgent(data.id);
     };
 
     // Handle telemetry
@@ -73,8 +100,8 @@ export function useWebSocket() {
     // Message handlers
     const unsubWorldState = websocketService.onMessage('world_state', handleWorldState);
     const unsubEntityUpdate = websocketService.onMessage('entity_update', handleEntityUpdate);
-    const unsubEntitySpawn = websocketService.onMessage('entity_spawn', handleEntitySpawn);
-    const unsubEntityDestroy = websocketService.onMessage('entity_destroy', handleEntityDestroy);
+    const unsubEntitySpawned = websocketService.onMessage('entity_spawned', handleEntitySpawned);
+    const unsubEntityDestroyed = websocketService.onMessage('entity_destroyed', handleEntityDestroyed);
     const unsubTelemetry = websocketService.onMessage('telemetry', handleTelemetry);
 
     // Connect
@@ -85,14 +112,16 @@ export function useWebSocket() {
       unsubConnection();
       unsubWorldState();
       unsubEntityUpdate();
-      unsubEntitySpawn();
-      unsubEntityDestroy();
+      unsubEntitySpawned();
+      unsubEntityDestroyed();
       unsubTelemetry();
       initializedRef.current = false;
     };
   }, []); // Empty dependency array - only run once
 
-  return {
+  // Memoize return object to prevent new function references on every render
+  // This is critical to prevent re-render loops in components that depend on these functions
+  return useMemo(() => ({
     isConnected: websocketService.isConnected,
     send: websocketService.send.bind(websocketService),
     sendCommand: websocketService.sendCommand.bind(websocketService),
@@ -103,11 +132,19 @@ export function useWebSocket() {
     setTimeScale: websocketService.setTimeScale.bind(websocketService),
     spawnEntity: websocketService.spawnEntity.bind(websocketService),
     destroyEntity: websocketService.destroyEntity.bind(websocketService),
+    // Air domain controls
     setFlightControls: websocketService.setFlightControls.bind(websocketService),
-    setVehicleControls: websocketService.setVehicleControls.bind(websocketService),
-    setShipControls: websocketService.setShipControls.bind(websocketService),
     setAutopilot: websocketService.setAutopilot.bind(websocketService),
-  };
+    // Land domain controls
+    setVehicleControls: websocketService.setVehicleControls.bind(websocketService),
+    setVehicleAutopilot: websocketService.setVehicleAutopilot.bind(websocketService),
+    // Sea domain controls
+    setShipControls: websocketService.setShipControls.bind(websocketService),
+    setShipAutopilot: websocketService.setShipAutopilot.bind(websocketService),
+    // Space domain controls
+    setSpaceControls: websocketService.setSpaceControls.bind(websocketService),
+    setSpaceAutopilot: websocketService.setSpaceAutopilot.bind(websocketService),
+  }), []); // Empty deps - websocketService is a singleton, functions never change
 }
 
 export default useWebSocket;

@@ -4,7 +4,10 @@ import cesium from 'vite-plugin-cesium';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [react(), cesium()],
+  plugins: [
+    react(),
+    cesium(),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -22,6 +25,10 @@ export default defineConfig({
         ws: true,
       },
     },
+  },
+  optimizeDeps: {
+    // Include cesium dependencies that need ESM transformation
+    include: ['cesium'],
   },
   build: {
     rollupOptions: {
