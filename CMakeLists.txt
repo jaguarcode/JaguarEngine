@@ -80,6 +80,7 @@ elseif(MSVC)
     target_compile_options(jaguar_compiler_flags INTERFACE
         /W4
         /permissive-
+        /bigobj  # Required for large template-heavy files
         $<$<CONFIG:Release>:/O2>
     )
 
