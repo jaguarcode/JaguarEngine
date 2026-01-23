@@ -189,6 +189,9 @@ target_link_libraries(jaguar_core
         pugixml
 )
 
+# Note: jaguar_core uses jaguar_physics::EntityManager
+# This is set via object library approach to avoid circular dependency issues
+
 # ============================================================================
 # Physics Library
 # ============================================================================
@@ -583,10 +586,11 @@ target_link_libraries(jaguar INTERFACE
     $<$<BOOL:${JAGUAR_ENABLE_CLOUD}>:jaguar_cloud>
     jaguar_events
     # Handle circular dependency between jaguar_core and jaguar_physics
-    # by listing them multiple times for static linking resolution
+    # using linker group for GCC/Clang or whole-archive for MSVC
+    $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wl,--start-group>
     jaguar_core
     jaguar_physics
-    jaguar_core
+    $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wl,--end-group>
 )
 
 # ============================================================================
