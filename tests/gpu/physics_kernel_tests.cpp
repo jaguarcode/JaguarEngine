@@ -20,11 +20,13 @@
 #include <gmock/gmock.h>
 #include "jaguar/gpu/physics_kernels.h"
 #include "jaguar/gpu/compute_backend.h"  // BackendFactory is defined here
+#include "jaguar/core/types.h"           // For SizeT
 #include <cmath>
 #include <vector>
 #include <random>
 #include <chrono>
 
+using namespace jaguar;      // For SizeT and other core types
 using namespace jaguar::gpu;
 using namespace testing;
 
@@ -149,12 +151,12 @@ TEST_F(PhysicsKernelTest, IntegratePositions_ZeroVelocity) {
 
     auto pos_buffer = m_kernels->allocate_vec3_buffer(count);
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
-    ASSERT_NE(pos_buffer, INVALID_BUFFER_HANDLE);
-    ASSERT_NE(vel_buffer, INVALID_BUFFER_HANDLE);
+    ASSERT_NE(pos_buffer, BufferHandle{});
+    ASSERT_NE(vel_buffer, BufferHandle{});
 
     // Upload data
-    m_backend->write_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     // Store original positions
     std::vector<float> original_positions = positions;
@@ -167,7 +169,7 @@ TEST_F(PhysicsKernelTest, IntegratePositions_ZeroVelocity) {
     m_kernels->synchronize();
 
     // Read back
-    m_backend->read_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->download(pos_buffer, positions.data(), positions.size() * sizeof(float));
 
     // Verify: positions should be unchanged
     for (SizeT i = 0; i < count * 3; ++i) {
@@ -197,8 +199,8 @@ TEST_F(PhysicsKernelTest, IntegratePositions_ConstantVelocity) {
     auto pos_buffer = m_kernels->allocate_vec3_buffer(count);
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     std::vector<float> original_positions = positions;
 
@@ -208,7 +210,7 @@ TEST_F(PhysicsKernelTest, IntegratePositions_ConstantVelocity) {
     m_kernels->synchronize();
 
     // Read back
-    m_backend->read_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->download(pos_buffer, positions.data(), positions.size() * sizeof(float));
 
     // Verify: positions should move by velocity * dt
     for (SizeT i = 0; i < count; ++i) {
@@ -231,8 +233,8 @@ TEST_F(PhysicsKernelTest, IntegratePositions_LargeCount) {
     auto pos_buffer = m_kernels->allocate_vec3_buffer(count);
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     std::vector<float> original_positions = positions;
 
@@ -249,7 +251,7 @@ TEST_F(PhysicsKernelTest, IntegratePositions_LargeCount) {
               << duration.count() << " us" << std::endl;
 
     // Read back and verify a sample
-    m_backend->read_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->download(pos_buffer, positions.data(), positions.size() * sizeof(float));
 
     for (SizeT i = 0; i < std::min(count, SizeT(100)); ++i) {
         for (int j = 0; j < 3; ++j) {
@@ -278,9 +280,9 @@ TEST_F(PhysicsKernelTest, IntegrateVelocities_ZeroForce) {
     auto force_buffer = m_kernels->allocate_vec3_buffer(count);
     auto mass_buffer = m_kernels->allocate_scalar_buffer(count);
 
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
-    m_backend->write_buffer(force_buffer, forces.data(), forces.size() * sizeof(float));
-    m_backend->write_buffer(mass_buffer, masses.data(), masses.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(force_buffer, forces.data(), forces.size() * sizeof(float));
+    m_backend->upload(mass_buffer, masses.data(), masses.size() * sizeof(float));
 
     std::vector<float> original_velocities = velocities;
 
@@ -289,7 +291,7 @@ TEST_F(PhysicsKernelTest, IntegrateVelocities_ZeroForce) {
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->download(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     // Default gravity is (0, 0, -9.81)
     const float gravity_z = -9.81f;
@@ -327,15 +329,15 @@ TEST_F(PhysicsKernelTest, IntegrateVelocities_WithForce) {
     auto force_buffer = m_kernels->allocate_vec3_buffer(count);
     auto mass_buffer = m_kernels->allocate_scalar_buffer(count);
 
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
-    m_backend->write_buffer(force_buffer, forces.data(), forces.size() * sizeof(float));
-    m_backend->write_buffer(mass_buffer, masses.data(), masses.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(force_buffer, forces.data(), forces.size() * sizeof(float));
+    m_backend->upload(mass_buffer, masses.data(), masses.size() * sizeof(float));
 
     auto result = m_kernels->integrate_velocities(vel_buffer, force_buffer, mass_buffer, dt, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->download(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     // Expected: v += (F/m + g) * dt
     // vx = (10/2 + 0) * 0.1 = 0.5
@@ -367,14 +369,14 @@ TEST_F(PhysicsKernelTest, IntegrateOrientations_ZeroAngularVelocity) {
     auto orient_buffer = m_kernels->allocate_vec4_buffer(count);
     auto omega_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
-    m_backend->write_buffer(omega_buffer, angular_velocities.data(), angular_velocities.size() * sizeof(float));
+    m_backend->upload(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
+    m_backend->upload(omega_buffer, angular_velocities.data(), angular_velocities.size() * sizeof(float));
 
     auto result = m_kernels->integrate_orientations(orient_buffer, omega_buffer, dt, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
+    m_backend->download(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
 
     // With zero angular velocity, quaternion should remain identity
     for (SizeT i = 0; i < count; ++i) {
@@ -406,14 +408,14 @@ TEST_F(PhysicsKernelTest, IntegrateOrientations_ConstantRotation) {
     auto orient_buffer = m_kernels->allocate_vec4_buffer(count);
     auto omega_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
-    m_backend->write_buffer(omega_buffer, angular_velocities.data(), angular_velocities.size() * sizeof(float));
+    m_backend->upload(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
+    m_backend->upload(omega_buffer, angular_velocities.data(), angular_velocities.size() * sizeof(float));
 
     auto result = m_kernels->integrate_orientations(orient_buffer, omega_buffer, dt, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
+    m_backend->download(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
 
     // Verify quaternions are normalized and represent rotation around Z
     for (SizeT i = 0; i < count; ++i) {
@@ -459,8 +461,8 @@ TEST_F(PhysicsKernelTest, UpdateAABBs_Basic) {
     auto ext_buffer = m_kernels->allocate_vec3_buffer(count);
     auto aabb_buffer = m_kernels->allocate_aabb_buffer(count);
 
-    m_backend->write_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
-    m_backend->write_buffer(ext_buffer, extents.data(), extents.size() * sizeof(float));
+    m_backend->upload(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->upload(ext_buffer, extents.data(), extents.size() * sizeof(float));
 
     auto result = m_kernels->update_aabbs(pos_buffer, ext_buffer, aabb_buffer, count);
     ASSERT_EQ(result, BackendResult::Success);
@@ -468,7 +470,7 @@ TEST_F(PhysicsKernelTest, UpdateAABBs_Basic) {
 
     // Read back AABBs
     std::vector<AABB> aabbs(count);
-    m_backend->read_buffer(aabb_buffer, aabbs.data(), count * sizeof(AABB));
+    m_backend->download(aabb_buffer, aabbs.data(), count * sizeof(AABB));
 
     // Verify AABBs
     for (SizeT i = 0; i < count; ++i) {
@@ -510,7 +512,7 @@ TEST_F(PhysicsKernelTest, CollisionBroadPhase_NoOverlap) {
     auto aabb_buffer = m_kernels->allocate_aabb_buffer(count);
     auto pair_buffer = m_kernels->allocate_collision_pair_buffer(1000);
 
-    m_backend->write_buffer(aabb_buffer, aabbs.data(), count * sizeof(AABB));
+    m_backend->upload(aabb_buffer, aabbs.data(), count * sizeof(AABB));
 
     SizeT pair_count = 0;
     auto result = m_kernels->collision_broad_phase(aabb_buffer, count, pair_buffer, &pair_count);
@@ -536,7 +538,7 @@ TEST_F(PhysicsKernelTest, CollisionBroadPhase_AllOverlap) {
     auto aabb_buffer = m_kernels->allocate_aabb_buffer(count);
     auto pair_buffer = m_kernels->allocate_collision_pair_buffer(1000);
 
-    m_backend->write_buffer(aabb_buffer, aabbs.data(), count * sizeof(AABB));
+    m_backend->upload(aabb_buffer, aabbs.data(), count * sizeof(AABB));
 
     SizeT pair_count = 0;
     auto result = m_kernels->collision_broad_phase(aabb_buffer, count, pair_buffer, &pair_count);
@@ -562,7 +564,7 @@ TEST_F(PhysicsKernelTest, CollisionBroadPhase_SomeOverlap) {
     auto aabb_buffer = m_kernels->allocate_aabb_buffer(3);
     auto pair_buffer = m_kernels->allocate_collision_pair_buffer(100);
 
-    m_backend->write_buffer(aabb_buffer, aabbs.data(), 3 * sizeof(AABB));
+    m_backend->upload(aabb_buffer, aabbs.data(), 3 * sizeof(AABB));
 
     SizeT pair_count = 0;
     auto result = m_kernels->collision_broad_phase(aabb_buffer, 3, pair_buffer, &pair_count);
@@ -574,7 +576,7 @@ TEST_F(PhysicsKernelTest, CollisionBroadPhase_SomeOverlap) {
 
     // Read back pairs and verify
     std::vector<CollisionPair> pairs(pair_count);
-    m_backend->read_buffer(pair_buffer, pairs.data(), pair_count * sizeof(CollisionPair));
+    m_backend->download(pair_buffer, pairs.data(), pair_count * sizeof(CollisionPair));
 
     // Verify A-C are NOT paired
     for (SizeT i = 0; i < pair_count; ++i) {
@@ -599,11 +601,12 @@ TEST_F(PhysicsKernelTest, TerrainSampling_FlatTerrain) {
     // Create flat heightmap
     std::vector<float> heightmap(width * height, terrain_height);
 
-    auto hmap_buffer = m_backend->allocate_buffer(
+    auto hmap_buffer = m_backend->allocate(
         heightmap.size() * sizeof(float),
+        MemoryType::DeviceLocal,
         MemoryAccess::ReadWrite
     );
-    m_backend->write_buffer(hmap_buffer, heightmap.data(), heightmap.size() * sizeof(float));
+    m_backend->upload(hmap_buffer, heightmap.data(), heightmap.size() * sizeof(float));
 
     auto result = m_kernels->set_terrain_heightmap(hmap_buffer, width, height, 0.0f, 0.0f, 1.0f);
     ASSERT_EQ(result, BackendResult::Success);
@@ -621,16 +624,18 @@ TEST_F(PhysicsKernelTest, TerrainSampling_FlatTerrain) {
         requests[i].entity_id = static_cast<UInt32>(i);
     }
 
-    auto req_buffer = m_backend->allocate_buffer(
+    auto req_buffer = m_backend->allocate(
         sample_count * sizeof(TerrainSampleRequest),
+        MemoryType::DeviceLocal,
         MemoryAccess::ReadOnly
     );
-    auto res_buffer = m_backend->allocate_buffer(
+    auto res_buffer = m_backend->allocate(
         sample_count * sizeof(TerrainSampleResult),
+        MemoryType::DeviceLocal,
         MemoryAccess::WriteOnly
     );
 
-    m_backend->write_buffer(req_buffer, requests.data(), sample_count * sizeof(TerrainSampleRequest));
+    m_backend->upload(req_buffer, requests.data(), sample_count * sizeof(TerrainSampleRequest));
 
     result = m_kernels->sample_terrain_batch(req_buffer, res_buffer, sample_count);
     ASSERT_EQ(result, BackendResult::Success);
@@ -638,7 +643,7 @@ TEST_F(PhysicsKernelTest, TerrainSampling_FlatTerrain) {
 
     // Read results
     std::vector<TerrainSampleResult> results(sample_count);
-    m_backend->read_buffer(res_buffer, results.data(), sample_count * sizeof(TerrainSampleResult));
+    m_backend->download(res_buffer, results.data(), sample_count * sizeof(TerrainSampleResult));
 
     // Verify flat terrain results
     for (SizeT i = 0; i < sample_count; ++i) {
@@ -649,9 +654,9 @@ TEST_F(PhysicsKernelTest, TerrainSampling_FlatTerrain) {
         EXPECT_EQ(results[i].entity_id, static_cast<UInt32>(i));
     }
 
-    m_backend->free_buffer(hmap_buffer);
-    m_backend->free_buffer(req_buffer);
-    m_backend->free_buffer(res_buffer);
+    m_backend->free(hmap_buffer);
+    m_backend->free(req_buffer);
+    m_backend->free(res_buffer);
 }
 
 // ============================================================================
@@ -680,16 +685,18 @@ TEST_F(PhysicsKernelTest, AeroForces_StaticAircraft) {
         inputs[i].entity_id = static_cast<UInt32>(i);
     }
 
-    auto input_buffer = m_backend->allocate_buffer(
+    auto input_buffer = m_backend->allocate(
         count * sizeof(AeroInput),
+        MemoryType::DeviceLocal,
         MemoryAccess::ReadOnly
     );
-    auto output_buffer = m_backend->allocate_buffer(
+    auto output_buffer = m_backend->allocate(
         count * sizeof(AeroOutput),
+        MemoryType::DeviceLocal,
         MemoryAccess::WriteOnly
     );
 
-    m_backend->write_buffer(input_buffer, inputs.data(), count * sizeof(AeroInput));
+    m_backend->upload(input_buffer, inputs.data(), count * sizeof(AeroInput));
 
     auto result = m_kernels->compute_aero_forces(input_buffer, output_buffer, count);
     ASSERT_EQ(result, BackendResult::Success);
@@ -697,7 +704,7 @@ TEST_F(PhysicsKernelTest, AeroForces_StaticAircraft) {
 
     // Read results
     std::vector<AeroOutput> outputs(count);
-    m_backend->read_buffer(output_buffer, outputs.data(), count * sizeof(AeroOutput));
+    m_backend->download(output_buffer, outputs.data(), count * sizeof(AeroOutput));
 
     // Static aircraft should have zero/minimal forces
     for (SizeT i = 0; i < count; ++i) {
@@ -706,8 +713,8 @@ TEST_F(PhysicsKernelTest, AeroForces_StaticAircraft) {
         EXPECT_EQ(outputs[i].entity_id, static_cast<UInt32>(i));
     }
 
-    m_backend->free_buffer(input_buffer);
-    m_backend->free_buffer(output_buffer);
+    m_backend->free(input_buffer);
+    m_backend->free(output_buffer);
 }
 
 TEST_F(PhysicsKernelTest, AeroForces_ForwardFlight) {
@@ -724,17 +731,17 @@ TEST_F(PhysicsKernelTest, AeroForces_ForwardFlight) {
     input.speed_of_sound = 343.0f;
     input.entity_id = 0;
 
-    auto input_buffer = m_backend->allocate_buffer(sizeof(AeroInput), MemoryAccess::ReadOnly);
-    auto output_buffer = m_backend->allocate_buffer(sizeof(AeroOutput), MemoryAccess::WriteOnly);
+    auto input_buffer = m_backend->allocate(sizeof(AeroInput), MemoryType::DeviceLocal, MemoryAccess::ReadOnly);
+    auto output_buffer = m_backend->allocate(sizeof(AeroOutput), MemoryType::DeviceLocal, MemoryAccess::WriteOnly);
 
-    m_backend->write_buffer(input_buffer, &input, sizeof(AeroInput));
+    m_backend->upload(input_buffer, &input, sizeof(AeroInput));
 
     auto result = m_kernels->compute_aero_forces(input_buffer, output_buffer, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
     AeroOutput output;
-    m_backend->read_buffer(output_buffer, &output, sizeof(AeroOutput));
+    m_backend->download(output_buffer, &output, sizeof(AeroOutput));
 
     // Dynamic pressure = 0.5 * rho * V^2
     float expected_q = 0.5f * 1.225f * velocity * velocity;
@@ -744,8 +751,8 @@ TEST_F(PhysicsKernelTest, AeroForces_ForwardFlight) {
     float expected_mach = velocity / 343.0f;
     EXPECT_NEAR(output.mach, expected_mach, 0.01f);
 
-    m_backend->free_buffer(input_buffer);
-    m_backend->free_buffer(output_buffer);
+    m_backend->free(input_buffer);
+    m_backend->free(output_buffer);
 }
 
 // ============================================================================
@@ -761,14 +768,14 @@ TEST_F(PhysicsKernelTest, ApplyGravity_Basic) {
     auto force_buffer = m_kernels->allocate_vec3_buffer(count);
     auto mass_buffer = m_kernels->allocate_scalar_buffer(count);
 
-    m_backend->write_buffer(force_buffer, forces.data(), forces.size() * sizeof(float));
-    m_backend->write_buffer(mass_buffer, masses.data(), masses.size() * sizeof(float));
+    m_backend->upload(force_buffer, forces.data(), forces.size() * sizeof(float));
+    m_backend->upload(mass_buffer, masses.data(), masses.size() * sizeof(float));
 
     auto result = m_kernels->apply_gravity(force_buffer, mass_buffer, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(force_buffer, forces.data(), forces.size() * sizeof(float));
+    m_backend->download(force_buffer, forces.data(), forces.size() * sizeof(float));
 
     // Verify: F = m * g, where g = (0, 0, -9.81)
     const float gravity_z = -9.81f;
@@ -791,13 +798,13 @@ TEST_F(PhysicsKernelTest, ApplyDamping_Basic) {
     std::vector<float> original_velocities = velocities;
 
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     auto result = m_kernels->apply_damping(vel_buffer, damping, dt, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->download(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     // Verify: v *= (1 - damping * dt)
     float factor = 1.0f - damping * dt;
@@ -816,13 +823,13 @@ TEST_F(PhysicsKernelTest, ClampVelocities_Basic) {
     auto velocities = create_random_velocities(count, 50.0f);  // Max 50 m/s
 
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     auto result = m_kernels->clamp_velocities(vel_buffer, max_speed, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->download(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     // Verify: all velocities should be <= max_speed
     for (SizeT i = 0; i < count; ++i) {
@@ -869,14 +876,14 @@ TEST_F(PhysicsKernelTest, SymplecticIntegration_FreeFall) {
     std::vector<float> masses = {1.0f};
     std::vector<float> inv_inertia = {1.0f, 1.0f, 1.0f};
 
-    m_backend->write_buffer(state.positions, pos.data(), pos.size() * sizeof(float));
-    m_backend->write_buffer(state.velocities, vel.data(), vel.size() * sizeof(float));
-    m_backend->write_buffer(state.orientations, orient.data(), orient.size() * sizeof(float));
-    m_backend->write_buffer(state.angular_vels, ang_vel.data(), ang_vel.size() * sizeof(float));
-    m_backend->write_buffer(state.forces, forces.data(), forces.size() * sizeof(float));
-    m_backend->write_buffer(state.torques, torques.data(), torques.size() * sizeof(float));
-    m_backend->write_buffer(state.masses, masses.data(), masses.size() * sizeof(float));
-    m_backend->write_buffer(state.inv_inertia, inv_inertia.data(), inv_inertia.size() * sizeof(float));
+    m_backend->upload(state.positions, pos.data(), pos.size() * sizeof(float));
+    m_backend->upload(state.velocities, vel.data(), vel.size() * sizeof(float));
+    m_backend->upload(state.orientations, orient.data(), orient.size() * sizeof(float));
+    m_backend->upload(state.angular_vels, ang_vel.data(), ang_vel.size() * sizeof(float));
+    m_backend->upload(state.forces, forces.data(), forces.size() * sizeof(float));
+    m_backend->upload(state.torques, torques.data(), torques.size() * sizeof(float));
+    m_backend->upload(state.masses, masses.data(), masses.size() * sizeof(float));
+    m_backend->upload(state.inv_inertia, inv_inertia.data(), inv_inertia.size() * sizeof(float));
 
     // Run symplectic integration for 1 second
     for (int i = 0; i < steps; ++i) {
@@ -894,8 +901,8 @@ TEST_F(PhysicsKernelTest, SymplecticIntegration_FreeFall) {
     m_kernels->synchronize();
 
     // Read final state
-    m_backend->read_buffer(state.positions, pos.data(), pos.size() * sizeof(float));
-    m_backend->read_buffer(state.velocities, vel.data(), vel.size() * sizeof(float));
+    m_backend->download(state.positions, pos.data(), pos.size() * sizeof(float));
+    m_backend->download(state.velocities, vel.data(), vel.size() * sizeof(float));
 
     // After 1 second of free fall:
     // v = g * t = -9.81 * 1 = -9.81 m/s
@@ -964,10 +971,10 @@ TEST_F(PhysicsKernelBenchmark, Benchmark_IntegrationKernels) {
     auto orient_buffer = m_kernels->allocate_vec4_buffer(count);
     auto omega_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
-    m_backend->write_buffer(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
-    m_backend->write_buffer(omega_buffer, angular_vels.data(), angular_vels.size() * sizeof(float));
+    m_backend->upload(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(orient_buffer, orientations.data(), orientations.size() * sizeof(float));
+    m_backend->upload(omega_buffer, angular_vels.data(), angular_vels.size() * sizeof(float));
 
     std::cout << "\n  Integration Benchmarks (" << count << " entities):" << std::endl;
 
@@ -1009,7 +1016,7 @@ TEST_F(PhysicsKernelBenchmark, Benchmark_CollisionBroadPhase) {
         auto aabb_buffer = m_kernels->allocate_aabb_buffer(count);
         auto pair_buffer = m_kernels->allocate_collision_pair_buffer(count * 10);
 
-        m_backend->write_buffer(aabb_buffer, aabbs.data(), count * sizeof(AABB));
+        m_backend->upload(aabb_buffer, aabbs.data(), count * sizeof(AABB));
 
         SizeT pair_count = 0;
         RunBenchmark("broad_phase_" + std::to_string(count), [&]() {
@@ -1027,7 +1034,7 @@ TEST_F(PhysicsKernelBenchmark, Benchmark_CollisionBroadPhase) {
 
 TEST_F(PhysicsKernelTest, EdgeCase_ZeroCount) {
     // All kernels should handle zero count gracefully
-    auto result = m_kernels->integrate_positions(INVALID_BUFFER_HANDLE, INVALID_BUFFER_HANDLE, 0.016f, 0);
+    auto result = m_kernels->integrate_positions(BufferHandle{}, BufferHandle{}, 0.016f, 0);
     EXPECT_EQ(result, BackendResult::Success);
 }
 
@@ -1041,14 +1048,14 @@ TEST_F(PhysicsKernelTest, EdgeCase_SingleEntity) {
     auto pos_buffer = m_kernels->allocate_vec3_buffer(count);
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(pos_buffer, pos.data(), pos.size() * sizeof(float));
-    m_backend->write_buffer(vel_buffer, vel.data(), vel.size() * sizeof(float));
+    m_backend->upload(pos_buffer, pos.data(), pos.size() * sizeof(float));
+    m_backend->upload(vel_buffer, vel.data(), vel.size() * sizeof(float));
 
     auto result = m_kernels->integrate_positions(pos_buffer, vel_buffer, dt, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(pos_buffer, pos.data(), pos.size() * sizeof(float));
+    m_backend->download(pos_buffer, pos.data(), pos.size() * sizeof(float));
 
     EXPECT_NEAR(pos[0], 1.0f + 10.0f * dt, 1e-5f);
     EXPECT_NEAR(pos[1], 2.0f + 20.0f * dt, 1e-5f);
@@ -1068,8 +1075,8 @@ TEST_F(PhysicsKernelTest, EdgeCase_LargeDeltaTime) {
     auto pos_buffer = m_kernels->allocate_vec3_buffer(count);
     auto vel_buffer = m_kernels->allocate_vec3_buffer(count);
 
-    m_backend->write_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     std::vector<float> original_positions = positions;
 
@@ -1077,7 +1084,7 @@ TEST_F(PhysicsKernelTest, EdgeCase_LargeDeltaTime) {
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(pos_buffer, positions.data(), positions.size() * sizeof(float));
+    m_backend->download(pos_buffer, positions.data(), positions.size() * sizeof(float));
 
     // Verify positions changed by velocity * dt (large change)
     for (SizeT i = 0; i < count * 3; ++i) {
@@ -1102,16 +1109,16 @@ TEST_F(PhysicsKernelTest, EdgeCase_NegativeMass) {
     auto force_buffer = m_kernels->allocate_vec3_buffer(count);
     auto mass_buffer = m_kernels->allocate_scalar_buffer(count);
 
-    m_backend->write_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
-    m_backend->write_buffer(force_buffer, forces.data(), forces.size() * sizeof(float));
-    m_backend->write_buffer(mass_buffer, masses.data(), masses.size() * sizeof(float));
+    m_backend->upload(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->upload(force_buffer, forces.data(), forces.size() * sizeof(float));
+    m_backend->upload(mass_buffer, masses.data(), masses.size() * sizeof(float));
 
     // Should not crash or produce NaN
     auto result = m_kernels->integrate_velocities(vel_buffer, force_buffer, mass_buffer, dt, count);
     ASSERT_EQ(result, BackendResult::Success);
     m_kernels->synchronize();
 
-    m_backend->read_buffer(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
+    m_backend->download(vel_buffer, velocities.data(), velocities.size() * sizeof(float));
 
     // Verify no NaN values
     for (int i = 0; i < 3; ++i) {
