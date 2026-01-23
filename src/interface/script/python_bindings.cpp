@@ -831,7 +831,7 @@ PYBIND11_MODULE(pyjaguar, m) {
              "Process all pending events, returns count processed")
         .def("clear_queue", &EventDispatcher::clear_queue,
              "Clear all pending events without processing")
-        .def("dispatch", py::overload_cast<Event&>(&EventDispatcher::dispatch),
+        .def("dispatch", static_cast<void (EventDispatcher::*)(Event&)>(&EventDispatcher::dispatch),
              "Dispatch an event immediately", py::arg("event"))
         .def("queue", &EventDispatcher::queue,
              "Queue an event for deferred dispatch", py::arg("event"));

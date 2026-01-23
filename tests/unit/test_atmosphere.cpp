@@ -6,6 +6,7 @@
 #include <gtest/gtest.h>
 #include "jaguar/environment/atmosphere.h"
 #include <cmath>
+#include <algorithm>
 
 using namespace jaguar;
 using namespace jaguar::environment;
