@@ -446,7 +446,8 @@ TEST(KernelArgTest, ScalarArgs) {
 TEST(KernelArgTest, LocalMemoryArg) {
     auto arg = KernelArg::LocalMemory(4096);
     EXPECT_EQ(arg.type, ArgType::LocalMem);
-    EXPECT_EQ(std::get<SizeT>(arg.value), 4096u);
+    // LocalMemory uses UInt64 in the variant (same as SizeT on 64-bit systems)
+    EXPECT_EQ(std::get<UInt64>(arg.value), 4096u);
 }
 
 // ============================================================================
