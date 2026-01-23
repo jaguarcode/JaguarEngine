@@ -13,6 +13,7 @@
 #include <variant>
 #include <chrono>
 #include <any>
+#include <functional>
 
 namespace jaguar::events {
 
