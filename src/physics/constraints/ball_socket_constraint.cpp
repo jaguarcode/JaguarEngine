@@ -5,6 +5,7 @@
 
 #include "jaguar/physics/constraints/ball_socket_constraint.h"
 #include <cmath>
+#include <algorithm>
 
 namespace jaguar::physics {
 

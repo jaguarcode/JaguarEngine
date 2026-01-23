@@ -907,7 +907,7 @@ void integrate_positions_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i3 = i * 3;
         positions[i3 + 0] += velocities[i3 + 0] * dt;
         positions[i3 + 1] += velocities[i3 + 1] * dt;
@@ -928,7 +928,7 @@ void integrate_velocities_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i3 = i * 3;
         float inv_mass = (masses[i] > 0.0f) ? (1.0f / masses[i]) : 0.0f;
 
@@ -947,7 +947,7 @@ void integrate_orientations_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i4 = i * 4;
         SizeT i3 = i * 3;
 
@@ -1002,7 +1002,7 @@ void update_aabbs_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i3 = i * 3;
 
         float px = positions[i3 + 0];
@@ -1051,7 +1051,7 @@ SizeT collision_broad_phase_cpu(
     float inv_cell = 1.0f / config.cell_size;
 
     // Insert AABBs into spatial hash
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const AABB& aabb = aabbs[i];
 
         int cx0 = static_cast<int>(std::floor((aabb.min_x - config.world_min_x) * inv_cell));
@@ -1125,7 +1125,7 @@ void compute_aero_forces_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const AeroInput& in = inputs[i];
         AeroOutput& out = outputs[i];
 
@@ -1194,7 +1194,7 @@ void sample_terrain_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const TerrainSampleRequest& req = requests[i];
         TerrainSampleResult& res = results[i];
 
@@ -1257,7 +1257,7 @@ void apply_gravity_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i3 = i * 3;
         float mass = masses[i];
         forces[i3 + 0] += mass * gravity_x;
@@ -1276,7 +1276,7 @@ void apply_damping_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i3 = i * 3;
         velocities[i3 + 0] *= factor;
         velocities[i3 + 1] *= factor;
@@ -1883,7 +1883,7 @@ BackendResult PhysicsKernelManager::clamp_velocities(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         SizeT i3 = i * 3;
         float vx = vel_data[i3 + 0];
         float vy = vel_data[i3 + 1];
@@ -2178,7 +2178,7 @@ void sample_wave_heights_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         float px = positions[i * 2 + 0];
         float pz = positions[i * 2 + 1];
 
@@ -2258,7 +2258,7 @@ void compute_atmosphere_density_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         float h = altitudes[i];
 
         float T, P, rho;
@@ -2343,7 +2343,7 @@ void compute_atmosphere_batch_cpu(
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         // Altitude is the Z component (assuming Z-up coordinate system)
         float h = positions[i * 3 + 2];
 

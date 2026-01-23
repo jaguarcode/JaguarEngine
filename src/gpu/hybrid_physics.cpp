@@ -56,7 +56,7 @@ void DefaultCPUPhysicsProcessor::integrate_positions(
 #ifdef _OPENMP
     #pragma omp parallel for schedule(static)
 #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const UInt32 idx = indices[i];
         if (storage.is_active(idx)) {
             Vec3& pos = storage.position(idx);
@@ -78,7 +78,7 @@ void DefaultCPUPhysicsProcessor::integrate_velocities(
 #ifdef _OPENMP
     #pragma omp parallel for schedule(static)
 #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const UInt32 idx = indices[i];
         if (storage.is_active(idx)) {
             Vec3& vel = storage.velocity(idx);
@@ -99,7 +99,7 @@ void DefaultCPUPhysicsProcessor::compute_accelerations(
 #ifdef _OPENMP
     #pragma omp parallel for schedule(static)
 #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const UInt32 idx = indices[i];
         if (storage.is_active(idx)) {
             const Real mass = storage.mass(idx);
@@ -124,7 +124,7 @@ void DefaultCPUPhysicsProcessor::clear_forces(
 #ifdef _OPENMP
     #pragma omp parallel for schedule(static)
 #endif
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const UInt32 idx = indices[i];
         storage.forces(idx).clear();
     }
@@ -989,7 +989,7 @@ BackendResult HybridPhysicsSystem::batch_upload()
     m_staging_velocities.resize(count * 3);
 
     // Pack positions and velocities into flat arrays
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const UInt32 idx = m_active_indices[i];
         const Vec3& pos = m_entity_storage->position(idx);
         const Vec3& vel = m_entity_storage->velocity(idx);
@@ -1071,7 +1071,7 @@ BackendResult HybridPhysicsSystem::batch_download()
     }
 
     // Unpack to entity storage
-    for (SizeT i = 0; i < count; ++i) {
+    for (Int64 omp_i = 0; omp_i < static_cast<Int64>(count); ++omp_i) { SizeT i = static_cast<SizeT>(omp_i);
         const UInt32 idx = m_active_indices[i];
         Vec3& pos = m_entity_storage->position(idx);
         Vec3& vel = m_entity_storage->velocity(idx);

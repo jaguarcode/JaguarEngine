@@ -7,11 +7,16 @@
  */
 
 #include "jaguar/xr/training.h"
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
 #include <random>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 namespace jaguar::training {
 
