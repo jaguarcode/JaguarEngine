@@ -10,6 +10,8 @@
 #include "jaguar/events/event.h"
 #include "jaguar/xr/xr_types.h"
 
+#include <cmath>
+
 namespace jaguar::xr {
 
 // ============================================================================

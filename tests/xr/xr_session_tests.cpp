@@ -6,6 +6,7 @@
 #include <gtest/gtest.h>
 #include "jaguar/xr/xr_session.h"
 #include "jaguar/xr/xr_events.h"
+#include <cmath>
 #include <thread>
 #include <chrono>
 
