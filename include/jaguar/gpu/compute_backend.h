@@ -332,16 +332,18 @@ struct BackendOptions {
 
 /**
  * @brief Kernel argument value (type-safe union)
+ *
+ * Note: We use explicit types to avoid duplicate types in variant when
+ * UInt64 and SizeT resolve to the same underlying type on 64-bit platforms.
  */
 using KernelArgValue = std::variant<
     BufferHandle,       // Buffer
     Int32,              // Scalar_I32
     UInt32,             // Scalar_U32
     Int64,              // Scalar_I64
-    UInt64,             // Scalar_U64
+    UInt64,             // Scalar_U64 and LocalMem size (same as SizeT on 64-bit)
     float,              // Scalar_F32
-    double,             // Scalar_F64
-    SizeT               // LocalMem size
+    double              // Scalar_F64
 >;
 
 /**
@@ -351,30 +353,37 @@ struct KernelArg {
     ArgType type;
     KernelArgValue value;
 
+    // Default constructor
+    KernelArg() : type(ArgType::Buffer), value(BufferHandle{}) {}
+
+    // Explicit constructor
+    KernelArg(ArgType t, KernelArgValue v) : type(t), value(std::move(v)) {}
+
     // Convenience constructors
     static KernelArg Buffer(BufferHandle h) {
-        return {ArgType::Buffer, h};
+        return KernelArg{ArgType::Buffer, KernelArgValue{h}};
     }
     static KernelArg Int(Int32 v) {
-        return {ArgType::Scalar_I32, v};
+        return KernelArg{ArgType::Scalar_I32, KernelArgValue{v}};
     }
     static KernelArg UInt(UInt32 v) {
-        return {ArgType::Scalar_U32, v};
+        return KernelArg{ArgType::Scalar_U32, KernelArgValue{v}};
     }
     static KernelArg Long(Int64 v) {
-        return {ArgType::Scalar_I64, v};
+        return KernelArg{ArgType::Scalar_I64, KernelArgValue{v}};
     }
     static KernelArg ULong(UInt64 v) {
-        return {ArgType::Scalar_U64, v};
+        return KernelArg{ArgType::Scalar_U64, KernelArgValue{v}};
     }
     static KernelArg Float(float v) {
-        return {ArgType::Scalar_F32, v};
+        return KernelArg{ArgType::Scalar_F32, KernelArgValue{v}};
     }
     static KernelArg Double(double v) {
-        return {ArgType::Scalar_F64, v};
+        return KernelArg{ArgType::Scalar_F64, KernelArgValue{v}};
     }
     static KernelArg LocalMemory(SizeT size) {
-        return {ArgType::LocalMem, size};
+        // SizeT is typically UInt64 on 64-bit platforms
+        return KernelArg{ArgType::LocalMem, KernelArgValue{static_cast<UInt64>(size)}};
     }
 };
 

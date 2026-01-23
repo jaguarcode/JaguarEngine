@@ -14,6 +14,7 @@
 #include <thread>
 #include <algorithm>
 #include <functional>
+#include <chrono>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -460,8 +461,10 @@ public:
 
         // Execute kernel
 #ifdef _OPENMP
+        // OpenMP requires signed integral type for loop variable
         #pragma omp parallel for schedule(dynamic)
-        for (SizeT global_id = 0; global_id < total_items; ++global_id) {
+        for (Int64 omp_id = 0; omp_id < static_cast<Int64>(total_items); ++omp_id) {
+            SizeT global_id = static_cast<SizeT>(omp_id);
             SizeT group_id = global_id / group_size;
             SizeT local_id = global_id % group_size;
             func(global_id, local_id, group_id, arg_ptrs.data(),
