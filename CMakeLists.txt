@@ -572,9 +572,6 @@ endif()
 add_library(jaguar INTERFACE)
 
 target_link_libraries(jaguar INTERFACE
-    jaguar_core
-    jaguar_physics
-    jaguar_events
     jaguar_gpu
     jaguar_xr
     jaguar_domain_air
@@ -584,6 +581,12 @@ target_link_libraries(jaguar INTERFACE
     jaguar_environment
     jaguar_sensors
     $<$<BOOL:${JAGUAR_ENABLE_CLOUD}>:jaguar_cloud>
+    jaguar_events
+    # Handle circular dependency between jaguar_core and jaguar_physics
+    # by listing them multiple times for static linking resolution
+    jaguar_core
+    jaguar_physics
+    jaguar_core
 )
 
 # ============================================================================
