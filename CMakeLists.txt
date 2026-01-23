@@ -521,31 +521,6 @@ else()
 endif()
 
 # ============================================================================
-# ML Library (Machine Learning Support)
-# ============================================================================
-option(JAGUAR_ENABLE_ML "Enable ML model repository support" ON)
-
-if(JAGUAR_ENABLE_ML)
-    add_library(jaguar_ml STATIC
-        src/ml/model_repository.cpp
-        src/ml/inference_session.cpp
-        src/ml/rl_environment.cpp
-        src/ml/neural_autopilot.cpp
-    )
-
-    target_link_libraries(jaguar_ml
-        PUBLIC
-            jaguar_core
-        PRIVATE
-            jaguar_compiler_flags
-    )
-
-    message(STATUS "  ML Support: ON")
-else()
-    message(STATUS "  ML Support: OFF")
-endif()
-
-# ============================================================================
 # XR Library (Extended Reality / VR/AR Support)
 # ============================================================================
 option(JAGUAR_ENABLE_XR "Enable XR (VR/AR) support" ON)
@@ -608,7 +583,6 @@ target_link_libraries(jaguar INTERFACE
     jaguar_domain_space
     jaguar_sensors
     $<$<BOOL:${JAGUAR_ENABLE_CLOUD}>:jaguar_cloud>
-    $<$<BOOL:${JAGUAR_ENABLE_ML}>:jaguar_ml>
     # Handle circular dependencies between core libraries
     # using linker group for GCC/Clang to allow multiple passes
     $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wl,--start-group>
@@ -975,23 +949,6 @@ if(JAGUAR_BUILD_TESTS)
         gtest_discover_tests(jaguar_partition_tests)
         message(STATUS "  Partition Tests: ON")
     endif()
-
-    # ML Tests (only when ML is enabled)
-    if(JAGUAR_ENABLE_ML)
-        add_executable(jaguar_ml_tests
-            tests/ml/inference_session_tests.cpp
-            tests/ml/neural_autopilot_tests.cpp
-            tests/ml/model_repository_tests.cpp
-            tests/ml/rl_environment_tests.cpp
-        )
-        target_link_libraries(jaguar_ml_tests PRIVATE
-            jaguar_ml
-            GTest::gtest
-            GTest::gtest_main
-        )
-        gtest_discover_tests(jaguar_ml_tests)
-        message(STATUS "  ML Tests: ON")
-    endif()
 endif()
 
 # ============================================================================
@@ -1086,11 +1043,6 @@ endif()
 # Conditionally add XR library to install targets
 if(JAGUAR_ENABLE_XR)
     list(APPEND JAGUAR_INSTALL_TARGETS jaguar_xr)
-endif()
-
-# Conditionally add ML library to install targets
-if(JAGUAR_ENABLE_ML)
-    list(APPEND JAGUAR_INSTALL_TARGETS jaguar_ml)
 endif()
 
 install(TARGETS ${JAGUAR_INSTALL_TARGETS}
