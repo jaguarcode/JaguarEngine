@@ -7,6 +7,7 @@ JaguarEngine is a high-performance physics simulation framework designed for def
 ## Features
 
 ### Core Physics
+
 - **Multi-Domain Physics**: Unified framework supporting aircraft, ground vehicles, surface vessels, and spacecraft
 - **High Performance**: Data-oriented design with Structure-of-Arrays (SoA) memory layout and SIMD optimization
 - **Advanced Integrators**:
@@ -17,32 +18,39 @@ JaguarEngine is a high-performance physics simulation framework designed for def
 - **Constraint System**: Joint constraints, distance constraints, XPB solver
 
 ### Domain Models
+
 - 6-DOF rigid body dynamics
 - US Standard Atmosphere 1976 with Dryden turbulence
 - Bekker-Wong terramechanics
 - MMG ship maneuvering model
 - SGP4/SDP4 orbital propagation
 
-### GPU Acceleration (Phase 7A)
+### GPU Acceleration
+
 - CUDA/Metal/Vulkan compute backends
 - GPU-accelerated collision detection
 - Hybrid CPU-GPU physics pipeline
 
-### Extended Reality (Phase 7B)
+### Extended Reality
+
 - **OpenXR Integration**: VR/AR headset support with full hand/eye tracking
 - **Spatial Audio**: HRTF-based 3D audio with distance attenuation, room acoustics, occlusion, and Doppler effect
+- **Haptic Feedback**: Controller vibration, haptic vest, motion platform, engine vibration, and G-force simulation
 - **XR Session Management**: Multi-platform XR runtime abstraction
 
 ### Event System
+
 - Thread-safe event bus with pub/sub pattern
 - Type-safe event dispatching
 - Async and deferred event processing
 
 ### Scripting Support
+
 - **Python bindings** with NumPy interoperability
 - **Lua bindings** with full operator support and table conversion
 
 ### Architecture
+
 - Component-based force generators
 - Property system with reflection
 - Event-driven design
@@ -194,56 +202,60 @@ JaguarEngine/
 
 ## Documentation
 
-| Document | Description |
-|----------|-------------|
-| [Architecture](docs/ARCHITECTURE.md) | System design and component overview |
-| [Installation](docs/INSTALLATION.md) | Build instructions and dependencies |
-| [API Reference](docs/API_REFERENCE.md) | Complete API documentation |
-| [Examples Guide](docs/EXAMPLES.md) | Walkthrough of example code |
-| [Configuration](docs/CONFIGURATION.md) | XML configuration reference |
+| Document                               | Description                          |
+| -------------------------------------- | ------------------------------------ |
+| [Architecture](docs/ARCHITECTURE.md)   | System design and component overview |
+| [Installation](docs/INSTALLATION.md)   | Build instructions and dependencies  |
+| [API Reference](docs/API_REFERENCE.md) | Complete API documentation           |
+| [Examples Guide](docs/EXAMPLES.md)     | Walkthrough of example code          |
+| [Configuration](docs/CONFIGURATION.md) | XML configuration reference          |
 
 ### Module Documentation
 
-| Module | Description |
-|--------|-------------|
-| [Core](docs/modules/CORE.md) | Types, math, memory, property system |
-| [Physics](docs/modules/PHYSICS.md) | Entity management, integrators, constraints |
-| [Air Domain](docs/modules/AIR_DOMAIN.md) | Aerodynamics, propulsion, flight control |
-| [Land Domain](docs/modules/LAND_DOMAIN.md) | Terramechanics, suspension |
-| [Sea Domain](docs/modules/SEA_DOMAIN.md) | Hydrodynamics, buoyancy, waves |
-| [Space Domain](docs/modules/SPACE_DOMAIN.md) | Orbital mechanics, SGP4 |
-| [Environment](docs/modules/ENVIRONMENT.md) | Terrain, atmosphere, ocean, turbulence |
-| [GPU](docs/modules/GPU.md) | CUDA/Metal/Vulkan compute backends |
-| [Events](docs/modules/EVENTS.md) | Event bus and pub/sub system |
-| [XR](docs/modules/XR.md) | OpenXR integration and spatial audio |
-| [Sensors](docs/modules/SENSORS.md) | IMU, GPS, radar simulation |
+| Module                                       | Description                                 |
+| -------------------------------------------- | ------------------------------------------- |
+| [Core](docs/modules/CORE.md)                 | Types, math, memory, property system        |
+| [Physics](docs/modules/PHYSICS.md)           | Entity management, integrators, constraints |
+| [Air Domain](docs/modules/AIR_DOMAIN.md)     | Aerodynamics, propulsion, flight control    |
+| [Land Domain](docs/modules/LAND_DOMAIN.md)   | Terramechanics, suspension                  |
+| [Sea Domain](docs/modules/SEA_DOMAIN.md)     | Hydrodynamics, buoyancy, waves              |
+| [Space Domain](docs/modules/SPACE_DOMAIN.md) | Orbital mechanics, SGP4                     |
+| [Environment](docs/modules/ENVIRONMENT.md)   | Terrain, atmosphere, ocean, turbulence      |
+| [GPU](docs/modules/GPU.md)                   | CUDA/Metal/Vulkan compute backends          |
+| [Events](docs/modules/EVENTS.md)             | Event bus and pub/sub system                |
+| [XR](docs/modules/XR.md)                     | OpenXR integration and spatial audio        |
+| [Sensors](docs/modules/SENSORS.md)           | IMU, GPS, radar simulation                  |
 
 ### Scripting APIs
 
-| Language | Documentation | Description |
-|----------|---------------|-------------|
+| Language                         | Documentation      | Description                          |
+| -------------------------------- | ------------------ | ------------------------------------ |
 | [Python](docs/web/api/python.md) | Full API reference | pybind11 bindings with NumPy support |
-| [Lua](docs/web/api/lua.md) | Full API reference | sol2 bindings with table conversion |
+| [Lua](docs/web/api/lua.md)       | Full API reference | sol2 bindings with table conversion  |
 
 ## Physics Domains
 
 ### Air Domain
+
 - Coefficient-based aerodynamics with N-dimensional interpolation tables
 - Turbofan/turbojet propulsion with altitude-Mach corrections
 - Flight control system with rate limiting
 
 ### Land Domain
+
 - Bekker-Wong terramechanics for soil-vehicle interaction
 - Spring-damper suspension with bump stops
 - Tracked vehicle dynamics
 
 ### Sea Domain
+
 - Buoyancy with metacentric height stability
 - MMG (Maneuvering Mathematical Group) hydrodynamics
 - Pierson-Moskowitz and JONSWAP wave spectra
 - RAO-based ship motion response
 
 ### Space Domain
+
 - SGP4/SDP4 orbital propagation
 - High-fidelity gravity models (J2, J4, EGM96)
 - Atmospheric drag (JBH08 model)
@@ -269,33 +281,33 @@ JaguarEngine/
 
 ## Build Options
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `JAGUAR_BUILD_TESTS` | ON | Build unit test suite |
-| `JAGUAR_BUILD_BENCHMARKS` | ON | Build performance benchmarks |
-| `JAGUAR_BUILD_EXAMPLES` | ON | Build example applications |
-| `JAGUAR_BUILD_PYTHON` | OFF | Build Python bindings |
-| `JAGUAR_BUILD_LUA` | OFF | Build Lua bindings |
-| `JAGUAR_ENABLE_DIS` | OFF | Enable DIS network support |
-| `JAGUAR_ENABLE_HLA` | OFF | Enable HLA network support |
-| `JAGUAR_ENABLE_SIMD` | ON | Enable SIMD optimizations |
-| `JAGUAR_ENABLE_CUDA` | OFF | Enable CUDA GPU acceleration |
-| `JAGUAR_ENABLE_METAL` | OFF | Enable Metal GPU acceleration (macOS) |
-| `JAGUAR_ENABLE_VULKAN` | OFF | Enable Vulkan compute |
-| `JAGUAR_ENABLE_XR` | ON | Enable XR (VR/AR) support |
-| `JAGUAR_ENABLE_OPENXR` | OFF | Enable OpenXR runtime |
+| Option                    | Default | Description                           |
+| ------------------------- | ------- | ------------------------------------- |
+| `JAGUAR_BUILD_TESTS`      | ON      | Build unit test suite                 |
+| `JAGUAR_BUILD_BENCHMARKS` | ON      | Build performance benchmarks          |
+| `JAGUAR_BUILD_EXAMPLES`   | ON      | Build example applications            |
+| `JAGUAR_BUILD_PYTHON`     | OFF     | Build Python bindings                 |
+| `JAGUAR_BUILD_LUA`        | OFF     | Build Lua bindings                    |
+| `JAGUAR_ENABLE_DIS`       | OFF     | Enable DIS network support            |
+| `JAGUAR_ENABLE_HLA`       | OFF     | Enable HLA network support            |
+| `JAGUAR_ENABLE_SIMD`      | ON      | Enable SIMD optimizations             |
+| `JAGUAR_ENABLE_CUDA`      | OFF     | Enable CUDA GPU acceleration          |
+| `JAGUAR_ENABLE_METAL`     | OFF     | Enable Metal GPU acceleration (macOS) |
+| `JAGUAR_ENABLE_VULKAN`    | OFF     | Enable Vulkan compute                 |
+| `JAGUAR_ENABLE_XR`        | ON      | Enable XR (VR/AR) support             |
+| `JAGUAR_ENABLE_OPENXR`    | OFF     | Enable OpenXR runtime                 |
 
 ## Dependencies
 
-| Library | Version | Purpose | Required |
-|---------|---------|---------|----------|
-| Eigen3 | 3.4+ | Linear algebra | Yes (auto-fetched) |
-| pugixml | 1.14+ | XML parsing | Yes (auto-fetched) |
-| GDAL | 3.0+ | Geospatial terrain | Optional |
-| GoogleTest | 1.14+ | Testing | Auto-fetched |
-| pybind11 | 2.11+ | Python bindings | Optional (auto-fetched) |
-| sol2 | develop | Lua bindings | Optional (auto-fetched) |
-| Lua | 5.4+ | Lua runtime | Optional (bundled) |
+| Library    | Version | Purpose            | Required                |
+| ---------- | ------- | ------------------ | ----------------------- |
+| Eigen3     | 3.4+    | Linear algebra     | Yes (auto-fetched)      |
+| pugixml    | 1.14+   | XML parsing        | Yes (auto-fetched)      |
+| GDAL       | 3.0+    | Geospatial terrain | Optional                |
+| GoogleTest | 1.14+   | Testing            | Auto-fetched            |
+| pybind11   | 2.11+   | Python bindings    | Optional (auto-fetched) |
+| sol2       | develop | Lua bindings       | Optional (auto-fetched) |
+| Lua        | 5.4+    | Lua runtime        | Optional (bundled)      |
 
 ## Contributing
 

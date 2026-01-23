@@ -42,7 +42,9 @@ jobs:
 
       - name: Check formatting
         run: |
+          # Exclude GPU kernel files containing embedded shader code (CUDA/OpenCL/Metal)
           find src include -name '*.cpp' -o -name '*.h' | \
+            grep -v 'src/gpu/physics_kernels.cpp' | \
             xargs clang-format-14 --dry-run --Werror
 
       - name: Install cppcheck

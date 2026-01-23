@@ -491,6 +491,29 @@ target_link_libraries(jaguar_sensors
 )
 
 # ============================================================================
+# Cloud Library (Distributed Simulation Support)
+# ============================================================================
+option(JAGUAR_ENABLE_CLOUD "Enable cloud/distributed simulation support" ON)
+
+if(JAGUAR_ENABLE_CLOUD)
+    add_library(jaguar_cloud STATIC
+        src/cloud/partition_manager.cpp
+    )
+
+    target_link_libraries(jaguar_cloud
+        PUBLIC
+            jaguar_core
+            jaguar_physics
+        PRIVATE
+            jaguar_compiler_flags
+    )
+
+    message(STATUS "  Cloud Support: ON")
+else()
+    message(STATUS "  Cloud Support: OFF")
+endif()
+
+# ============================================================================
 # XR Library (Extended Reality / VR/AR Support)
 # ============================================================================
 option(JAGUAR_ENABLE_XR "Enable XR (VR/AR) support" ON)
@@ -501,6 +524,8 @@ set(JAGUAR_XR_SOURCES
     src/xr/xr_session.cpp
     src/xr/mock_xr_runtime.cpp
     src/xr/spatial_audio.cpp
+    src/xr/haptics.cpp
+    src/xr/training.cpp
 )
 
 # OpenXR integration (optional)
@@ -554,6 +579,7 @@ target_link_libraries(jaguar INTERFACE
     jaguar_domain_space
     jaguar_environment
     jaguar_sensors
+    $<$<BOOL:${JAGUAR_ENABLE_CLOUD}>:jaguar_cloud>
 )
 
 # ============================================================================
@@ -874,6 +900,44 @@ if(JAGUAR_BUILD_TESTS)
     )
     gtest_discover_tests(jaguar_spatial_audio_tests)
     message(STATUS "  Spatial Audio Tests: ON")
+
+    # Haptics Tests
+    add_executable(jaguar_haptics_tests
+        tests/xr/haptics_tests.cpp
+    )
+    target_link_libraries(jaguar_haptics_tests PRIVATE
+        jaguar_xr
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_haptics_tests)
+    message(STATUS "  Haptics Tests: ON")
+
+    # Training Tests
+    add_executable(jaguar_training_tests
+        tests/xr/training_tests.cpp
+    )
+    target_link_libraries(jaguar_training_tests PRIVATE
+        jaguar_xr
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_training_tests)
+    message(STATUS "  Training Tests: ON")
+
+    # Cloud Partition Tests (only when cloud is enabled)
+    if(JAGUAR_ENABLE_CLOUD)
+        add_executable(jaguar_partition_tests
+            tests/cloud/partition_tests.cpp
+        )
+        target_link_libraries(jaguar_partition_tests PRIVATE
+            jaguar_cloud
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_partition_tests)
+        message(STATUS "  Partition Tests: ON")
+    endif()
 endif()
 
 # ============================================================================
@@ -945,7 +1009,7 @@ endif()
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-install(TARGETS
+set(JAGUAR_INSTALL_TARGETS
     jaguar_core
     jaguar_physics
     jaguar_events
@@ -958,6 +1022,19 @@ install(TARGETS
     jaguar_sensors
     jaguar
     jaguar_compiler_flags
+)
+
+# Conditionally add cloud library to install targets
+if(JAGUAR_ENABLE_CLOUD)
+    list(APPEND JAGUAR_INSTALL_TARGETS jaguar_cloud)
+endif()
+
+# Conditionally add XR library to install targets
+if(JAGUAR_ENABLE_XR)
+    list(APPEND JAGUAR_INSTALL_TARGETS jaguar_xr)
+endif()
+
+install(TARGETS ${JAGUAR_INSTALL_TARGETS}
     EXPORT JaguarTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -1013,6 +1090,8 @@ message(STATUS "  DIS support:     ${JAGUAR_ENABLE_DIS}")
 message(STATUS "  HLA support:     ${JAGUAR_ENABLE_HLA}")
 message(STATUS "  SIMD:            ${JAGUAR_ENABLE_SIMD}")
 message(STATUS "  GPU support:     ${JAGUAR_ENABLE_GPU}")
+message(STATUS "  XR support:      ${JAGUAR_ENABLE_XR}")
+message(STATUS "  Cloud support:   ${JAGUAR_ENABLE_CLOUD}")
 message(STATUS "")
 message(STATUS "Dependencies:")
 message(STATUS "  Eigen3:          ${Eigen3_FOUND}")

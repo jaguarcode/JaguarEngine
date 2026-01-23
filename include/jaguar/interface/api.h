@@ -6,6 +6,7 @@
 
 #include "jaguar/core/types.h"
 #include "jaguar/physics/entity.h"
+#include <memory>
 
 namespace jaguar {
 

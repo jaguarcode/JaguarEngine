@@ -10,9 +10,10 @@
  */
 
 #include "jaguar/core/property.h"
+#include <algorithm>
+#include <memory>
 #include <unordered_map>
 #include <unordered_set>
-#include <algorithm>
 
 namespace jaguar::core {
 

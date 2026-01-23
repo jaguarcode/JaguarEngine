@@ -19,8 +19,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "jaguar/gpu/physics_kernels.h"
-#include "jaguar/gpu/compute_backend.h"
-#include "jaguar/gpu/backend_factory.h"
+#include "jaguar/gpu/compute_backend.h"  // BackendFactory is defined here
 #include <cmath>
 #include <vector>
 #include <random>

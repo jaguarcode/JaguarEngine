@@ -43,13 +43,14 @@
 #pragma once
 
 #include "jaguar/gpu/compute_backend.h"
-#include <mutex>
 #include <atomic>
 #include <chrono>
+#include <list>
+#include <memory>
+#include <mutex>
+#include <set>
 #include <unordered_map>
 #include <vector>
-#include <list>
-#include <set>
 
 namespace jaguar::gpu {
 
