@@ -1019,8 +1019,8 @@ private:
     std::shared_ptr<MockMotionPlatform> motion_platform_;
 
     EngineVibrationParams engine_vibration_;
-    VehicleVibrationState vehicle_vibration_;
-    GForceState g_force_state_;
+    VehicleVibrationState vehicle_vibration_{};
+    GForceState g_force_state_{};
 };
 
 // ============================================================================

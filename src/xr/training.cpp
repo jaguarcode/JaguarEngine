@@ -735,6 +735,7 @@ private:
         ac2.altitude = 0;
         ac2.heading = 270;
         ac2.ground_speed = 0;
+        ac2.vertical_rate = 0;
         ac2.squawk = "1234";
         ac2.is_departing = true;
         traffic_.push_back(ac2);
