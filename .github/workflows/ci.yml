@@ -77,7 +77,7 @@ jobs:
   #============================================================================
   build-linux:
     name: Linux (${{ matrix.compiler }}, ${{ matrix.build_type }})
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: lint
     strategy:
       fail-fast: false
@@ -88,15 +88,20 @@ jobs:
           - compiler: gcc-12
             cc: gcc-12
             cxx: g++-12
+            os: ubuntu-24.04
           - compiler: gcc-13
             cc: gcc-13
             cxx: g++-13
+            os: ubuntu-24.04
+          # Use Ubuntu 22.04 for clang-15/16 due to libstdc++14 incompatibility
           - compiler: clang-15
             cc: clang-15
             cxx: clang++-15
+            os: ubuntu-22.04
           - compiler: clang-16
             cc: clang-16
             cxx: clang++-16
+            os: ubuntu-22.04
 
     steps:
       - name: Checkout
@@ -339,7 +344,8 @@ jobs:
   #============================================================================
   sanitizers:
     name: Sanitizers (${{ matrix.sanitizer }})
-    runs-on: ubuntu-latest
+    # Use Ubuntu 22.04 for clang-16 due to libstdc++14 incompatibility
+    runs-on: ubuntu-22.04
     needs: lint
     strategy:
       fail-fast: false
