@@ -6,6 +6,8 @@
 #include "jaguar/events/event_dispatcher.h"
 #include <algorithm>
 #include <chrono>
+#include <memory>
+#include <mutex>
 
 namespace jaguar::events {
 
