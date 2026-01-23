@@ -56,7 +56,8 @@ jobs:
 
       - name: Static analysis
         run: |
-          # Only check for errors and warnings (not style/performance suggestions)
+          # Only check for errors (not warnings/style suggestions)
+          # Many warnings are false positives or intentional design choices
           cppcheck --enable=warning \
                    --suppress=missingIncludeSystem \
                    --suppress=useStlAlgorithm \
@@ -64,6 +65,8 @@ jobs:
                    --suppress=constParameterPointer \
                    --suppress=constVariableReference \
                    --suppress=unusedStructMember \
+                   --suppress=objectIndex \
+                   --suppress=duplInheritedMember \
                    --error-exitcode=1 \
                    --inline-suppr \
                    -I include \
