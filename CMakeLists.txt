@@ -584,13 +584,17 @@ target_link_libraries(jaguar INTERFACE
     jaguar_sensors
     $<$<BOOL:${JAGUAR_ENABLE_CLOUD}>:jaguar_cloud>
     # Handle circular dependencies between core libraries
-    # using linker group for GCC/Clang to allow multiple passes
-    $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wl,--start-group>
+    # GNU/Clang on Linux: use linker groups
+    # AppleClang/MSVC: list libraries multiple times
+    $<$<AND:$<CXX_COMPILER_ID:GNU,Clang>,$<NOT:$<PLATFORM_ID:Darwin>>>:-Wl,--start-group>
     jaguar_core
     jaguar_physics
     jaguar_events
     jaguar_environment
-    $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wl,--end-group>
+    $<$<AND:$<CXX_COMPILER_ID:GNU,Clang>,$<NOT:$<PLATFORM_ID:Darwin>>>:-Wl,--end-group>
+    # For macOS/MSVC: repeat libraries to resolve circular dependencies
+    $<$<OR:$<PLATFORM_ID:Darwin>,$<CXX_COMPILER_ID:MSVC>>:jaguar_core>
+    $<$<OR:$<PLATFORM_ID:Darwin>,$<CXX_COMPILER_ID:MSVC>>:jaguar_physics>
 )
 
 # ============================================================================
