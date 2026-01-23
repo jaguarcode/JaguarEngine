@@ -15,8 +15,13 @@
 
 #include "jaguar/domain/land.h"
 #include "jaguar/environment/environment.h"
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <algorithm>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 namespace jaguar::domain::land {
 
