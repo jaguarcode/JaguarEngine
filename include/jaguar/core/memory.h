@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <new>
 #include <cassert>
+#include <stdexcept>
 
 namespace jaguar {
 
