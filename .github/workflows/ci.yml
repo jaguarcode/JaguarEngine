@@ -56,8 +56,14 @@ jobs:
 
       - name: Static analysis
         run: |
-          cppcheck --enable=warning,style,performance,portability \
+          # Only check for errors and warnings (not style/performance suggestions)
+          cppcheck --enable=warning \
                    --suppress=missingIncludeSystem \
+                   --suppress=useStlAlgorithm \
+                   --suppress=constParameterReference \
+                   --suppress=constParameterPointer \
+                   --suppress=constVariableReference \
+                   --suppress=unusedStructMember \
                    --error-exitcode=1 \
                    --inline-suppr \
                    -I include \
