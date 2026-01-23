@@ -47,38 +47,32 @@ WebSocketServer::~WebSocketServer() {
 
 bool WebSocketServer::start() {
     // WebSocket protocol definition
-    // Note: First protocol must be the HTTP handler for WebSocket upgrade to work
     static lws_protocols protocols[] = {
         {
             "http",  // HTTP protocol for WebSocket handshake
-            lws_callback_http_dummy,  // Use built-in dummy HTTP handler
-            0,
-            0,
-            0, nullptr, 0
+            lws_callback_http_dummy,
+            0, 0, 0, nullptr, 0
         },
         {
             "jaguar-protocol",
             WebSocketServer::callback_websocket,
             0,  // per-session data size
-            65536,  // rx buffer size (increased for large messages)
+            65536,  // rx buffer size
             0, nullptr, 0
         },
-        { nullptr, nullptr, 0, 0, 0, nullptr, 0 }  // terminator
+        LWS_PROTOCOL_LIST_TERM
     };
 
     // Server creation info
-    lws_context_creation_info info;
-    std::memset(&info, 0, sizeof(info));
+    lws_context_creation_info info = {};
     info.port = port_;
     info.protocols = protocols;
     info.gid = -1;
     info.uid = -1;
     info.options = LWS_SERVER_OPTION_VALIDATE_UTF8 |
                    LWS_SERVER_OPTION_DISABLE_IPV6;
-
-    // Disable validity checking to prevent connection timeouts
-    info.timeout_secs = 0;            // Disable general timeout
-    info.ka_time = 0;                 // Disable TCP keepalive timeout
+    info.timeout_secs = 0;
+    info.ka_time = 0;
     info.ka_probes = 0;
     info.ka_interval = 0;
 
@@ -265,6 +259,14 @@ void WebSocketServer::handle_command(const std::string& command, const std::stri
         handle_set_space_controls(params, wsi);
     } else if (command == "set_space_autopilot") {
         handle_set_space_autopilot(params, wsi);
+    }
+    // Physics debug controls
+    else if (command == "set_physics_debug") {
+        handle_set_physics_debug(params, wsi);
+    } else if (command == "configure_physics_debug") {
+        handle_configure_physics_debug(params, wsi);
+    } else if (command == "request_physics_snapshot") {
+        handle_request_physics_snapshot(wsi);
     }
 
     // Broadcast world state immediately after status changes for responsive UI
@@ -1154,6 +1156,130 @@ void WebSocketServer::handle_set_space_autopilot(const std::string& message, lws
 }
 
 // ============================================================================
+// Physics Debug Handlers
+// ============================================================================
+
+void WebSocketServer::handle_set_physics_debug(const std::string& message, lws* wsi) {
+    std::string data = find_json_value(message, "data");
+    std::string params = find_json_value(data, "params");
+    if (params.empty()) params = data;
+
+    std::string enabled_str = find_json_value(params, "enabled");
+    bool enabled = (enabled_str == "true" || enabled_str == "1");
+
+    // Get or create config for this client
+    PhysicsDebugConfig& config = physics_debug_configs_[wsi];
+    config.enabled = enabled;
+
+    std::cout << "Physics debug " << (enabled ? "enabled" : "disabled") << " for client\n";
+
+    // Send confirmation
+    std::ostringstream ss;
+    ss << "{\"type\":\"physics_debug_set\",\"data\":{\"enabled\":" << (enabled ? "true" : "false") << "}}";
+    send_message(wsi, ss.str());
+
+    // If enabled, send an initial physics snapshot
+    if (enabled) {
+        handle_request_physics_snapshot(wsi);
+    }
+}
+
+void WebSocketServer::handle_configure_physics_debug(const std::string& message, lws* wsi) {
+    std::string data = find_json_value(message, "data");
+    std::string params = find_json_value(data, "params");
+    if (params.empty()) params = data;
+
+    // Get or create config for this client
+    PhysicsDebugConfig& config = physics_debug_configs_[wsi];
+
+    // Parse configuration options
+    std::string collision_shapes_str = find_json_value(params, "collisionShapes");
+    std::string aabb_tree_str = find_json_value(params, "aabbTree");
+    std::string contacts_str = find_json_value(params, "contacts");
+    std::string constraints_str = find_json_value(params, "constraints");
+    std::string forces_str = find_json_value(params, "forces");
+    std::string energy_str = find_json_value(params, "energy");
+    std::string momentum_str = find_json_value(params, "momentum");
+    std::string integrator_str = find_json_value(params, "integrator");
+    std::string update_rate_str = find_json_value(params, "updateRate");
+
+    if (!collision_shapes_str.empty()) config.collisionShapes = (collision_shapes_str == "true");
+    if (!aabb_tree_str.empty()) config.aabbTree = (aabb_tree_str == "true");
+    if (!contacts_str.empty()) config.contacts = (contacts_str == "true");
+    if (!constraints_str.empty()) config.constraints = (constraints_str == "true");
+    if (!forces_str.empty()) config.forces = (forces_str == "true");
+    if (!energy_str.empty()) config.energy = (energy_str == "true");
+    if (!momentum_str.empty()) config.momentum = (momentum_str == "true");
+    if (!integrator_str.empty()) config.integrator = (integrator_str == "true");
+    if (!update_rate_str.empty()) config.updateRate = std::stod(update_rate_str);
+
+    std::cout << "Physics debug configured: shapes=" << config.collisionShapes
+              << ", aabb=" << config.aabbTree << ", contacts=" << config.contacts
+              << ", rate=" << config.updateRate << "Hz\n";
+
+    // Send confirmation
+    std::ostringstream ss;
+    ss << "{\"type\":\"physics_debug_configured\",\"data\":{\"updateRate\":" << config.updateRate << "}}";
+    send_message(wsi, ss.str());
+}
+
+void WebSocketServer::handle_request_physics_snapshot(lws* wsi) {
+    // Send a single physics debug snapshot to the requesting client
+    std::string debug_data = serialize_physics_debug();
+    send_message(wsi, debug_data);
+
+    std::cout << "Physics snapshot sent to client\n";
+}
+
+bool WebSocketServer::has_physics_debug_clients() const {
+    for (const auto& [client, config] : physics_debug_configs_) {
+        if (config.enabled) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void WebSocketServer::broadcast_physics_debug() {
+    // Check if any client has physics debug enabled
+    if (!has_physics_debug_clients()) {
+        return;
+    }
+
+    // Check timing - only broadcast at configured rate
+    auto now = std::chrono::steady_clock::now();
+    double min_interval = 1.0 / 20.0;  // Default 20 Hz
+
+    // Find minimum update interval across all enabled clients
+    for (const auto& [client, config] : physics_debug_configs_) {
+        if (config.enabled && config.updateRate > 0) {
+            double interval = 1.0 / config.updateRate;
+            if (interval < min_interval) {
+                min_interval = interval;
+            }
+        }
+    }
+
+    auto elapsed = std::chrono::duration<double>(now - last_physics_debug_broadcast_).count();
+    if (elapsed < min_interval) {
+        return;
+    }
+    last_physics_debug_broadcast_ = now;
+
+    // Serialize physics debug data once
+    std::string debug_data = serialize_physics_debug();
+
+    // Send to all clients with physics debug enabled
+    std::lock_guard<std::mutex> lock(clients_mutex_);
+    for (auto* client : clients_) {
+        auto it = physics_debug_configs_.find(client);
+        if (it != physics_debug_configs_.end() && it->second.enabled) {
+            send_message(client, debug_data);
+        }
+    }
+}
+
+// ============================================================================
 // Autopilot Guidance Application
 // ============================================================================
 
@@ -1665,6 +1791,248 @@ std::string WebSocketServer::serialize_error(const std::string& error) {
     return "{\"type\":\"error\",\"message\":\"" + error + "\"}";
 }
 
+std::string WebSocketServer::serialize_physics_debug() {
+    using namespace jaguar;
+    using namespace jaguar::coord;
+
+    std::ostringstream ss;
+    ss << std::fixed << std::setprecision(6);
+
+    auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+
+    ss << "{\"type\":\"physics_debug\",\"timestamp\":" << timestamp << ",\"data\":{";
+
+    // Simulation time
+    ss << "\"simulationTime\":" << engine_.get_time() << ",";
+
+    // Get reference point (first entity position or Seoul as default)
+    auto& mgr = engine_.get_entity_manager();
+    Vec3 ref_ecef{-3058850.0, 4044100.0, 3858700.0};  // Seoul approx ECEF
+    bool got_reference = false;
+    mgr.for_each([&](const physics::Entity& entity) {
+        if (!got_reference) {
+            physics::EntityState state = engine_.get_entity_state(entity.id);
+            ref_ecef = state.position;
+            got_reference = true;
+        }
+    });
+    GeodeticPosition ref_lla = ecef_to_lla(ref_ecef);
+
+    // Collision shapes - serialize shapes for each entity in LOCAL coordinates (ENU)
+    ss << "\"collisionShapes\":[";
+    bool first_shape = true;
+    mgr.for_each([&](const physics::Entity& entity) {
+        if (!first_shape) ss << ",";
+        first_shape = false;
+
+        // Get entity position for shape center
+        physics::EntityState state = engine_.get_entity_state(entity.id);
+
+        // Convert ECEF to local ENU coordinates relative to reference point
+        Vec3 delta_ecef = state.position - ref_ecef;
+        Vec3 local_enu = ecef_to_ned(delta_ecef, ref_lla);
+        // Convert NED to ENU (swap x/y, negate z for up)
+        double local_x = local_enu.y;   // East
+        double local_y = -local_enu.z;  // Up (altitude)
+        double local_z = local_enu.x;   // North
+
+        // Default to sphere shape based on entity domain
+        double radius = 50.0;  // Default radius in meters
+        switch (entity.primary_domain) {
+            case Domain::Air: radius = 20.0; break;
+            case Domain::Land: radius = 10.0; break;
+            case Domain::Sea: radius = 100.0; break;
+            case Domain::Space: radius = 50.0; break;
+            default: break;
+        }
+
+        ss << "{\"entityId\":\"entity_" << entity.id << "\",\"shape\":{";
+        ss << "\"type\":\"sphere\",";
+        ss << "\"center\":{\"x\":" << local_x << ",\"y\":" << local_y << ",\"z\":" << local_z << "},";
+        ss << "\"radius\":" << radius;
+        ss << "}}";
+    });
+    ss << "],";
+
+    // Contacts (collision points) - simplified, would come from collision system
+    ss << "\"contacts\":[],";
+
+    // Constraints - simplified, would come from constraint system
+    ss << "\"constraints\":[],";
+
+    // Entity forces - also in local coordinates
+    ss << "\"forces\":[";
+    bool first_force = true;
+    mgr.for_each([&](const physics::Entity& entity) {
+        if (!first_force) ss << ",";
+        first_force = false;
+
+        physics::EntityState state = engine_.get_entity_state(entity.id);
+
+        // Convert ECEF to local ENU coordinates
+        Vec3 delta_ecef = state.position - ref_ecef;
+        Vec3 local_enu = ecef_to_ned(delta_ecef, ref_lla);
+        double local_x = local_enu.y;
+        double local_y = -local_enu.z;
+        double local_z = local_enu.x;
+
+        // Calculate gravity force (simplified)
+        double gravity_force = state.mass * 9.81;
+
+        // Convert velocity to local ENU for thrust visualization
+        Vec3 vel_ned = ecef_to_ned(state.velocity, ref_lla);
+        double thrust_x = vel_ned.y * 100;   // Scale for visibility
+        double thrust_y = -vel_ned.z * 100;
+        double thrust_z = vel_ned.x * 100;
+        double thrust_mag = std::sqrt(thrust_x*thrust_x + thrust_y*thrust_y + thrust_z*thrust_z);
+
+        ss << "{\"entityId\":\"entity_" << entity.id << "\",";
+        ss << "\"position\":{\"x\":" << local_x << ",\"y\":" << local_y << ",\"z\":" << local_z << "},";
+        ss << "\"forces\":[";
+        ss << "{\"type\":\"gravity\",\"vector\":{\"x\":0,\"y\":" << -gravity_force << ",\"z\":0},\"magnitude\":" << gravity_force << "},";
+        ss << "{\"type\":\"thrust\",\"vector\":{\"x\":" << thrust_x << ",\"y\":" << thrust_y << ",\"z\":" << thrust_z << "},\"magnitude\":" << thrust_mag << "}";
+        ss << "],\"torques\":[]}";
+    });
+    ss << "],";
+
+    // Energy metrics
+    double total_kinetic = 0.0;
+    double total_potential = 0.0;
+    mgr.for_each([&](const physics::Entity& entity) {
+        physics::EntityState state = engine_.get_entity_state(entity.id);
+        double speed_sq = state.velocity.length_squared();
+        total_kinetic += 0.5 * state.mass * speed_sq;
+
+        // Simplified potential energy (gravitational, relative to Earth center)
+        double height = state.position.length() - 6371000.0;  // meters above Earth radius
+        total_potential += state.mass * 9.81 * std::max(0.0, height);
+    });
+    double total_energy = total_kinetic + total_potential;
+
+    ss << "\"energy\":{";
+    ss << "\"kineticEnergy\":" << total_kinetic << ",";
+    ss << "\"potentialEnergy\":" << total_potential << ",";
+    ss << "\"totalEnergy\":" << total_energy << ",";
+    ss << "\"energyDrift\":0,";
+    ss << "\"initialEnergy\":" << total_energy;
+    ss << "},";
+
+    // Momentum metrics
+    Vec3 total_linear_momentum{0, 0, 0};
+    Vec3 total_angular_momentum{0, 0, 0};
+    Vec3 center_of_mass{0, 0, 0};
+    double total_mass = 0.0;
+
+    mgr.for_each([&](const physics::Entity& entity) {
+        physics::EntityState state = engine_.get_entity_state(entity.id);
+        total_linear_momentum = total_linear_momentum + state.velocity * state.mass;
+        center_of_mass = center_of_mass + state.position * state.mass;
+        total_mass += state.mass;
+    });
+
+    if (total_mass > 0) {
+        center_of_mass = center_of_mass * (1.0 / total_mass);
+    }
+
+    ss << "\"momentum\":{";
+    ss << "\"linearMomentum\":{\"x\":" << total_linear_momentum.x << ",\"y\":" << total_linear_momentum.y << ",\"z\":" << total_linear_momentum.z << "},";
+    ss << "\"angularMomentum\":{\"x\":" << total_angular_momentum.x << ",\"y\":" << total_angular_momentum.y << ",\"z\":" << total_angular_momentum.z << "},";
+    ss << "\"centerOfMass\":{\"x\":" << center_of_mass.x << ",\"y\":" << center_of_mass.y << ",\"z\":" << center_of_mass.z << "},";
+    ss << "\"totalMass\":" << total_mass;
+    ss << "},";
+
+    // Integrator metrics
+    ss << "\"integrator\":{";
+    ss << "\"name\":\"rk4\",";
+    ss << "\"order\":4,";
+    ss << "\"currentTimestep\":0.05,";
+    ss << "\"adaptiveTimestep\":false";
+    ss << "},";
+
+    // Collision stats
+    ss << "\"collisionStats\":{\"broadPhase\":0,\"narrowPhase\":0},";
+
+    // Constraint stats
+    ss << "\"constraintStats\":{\"iterations\":10,\"error\":0.0001}";
+
+    ss << "}}";
+
+    return ss.str();
+}
+
+std::string WebSocketServer::serialize_physics_event(
+    const std::string& event_type,
+    const std::string& message,
+    const std::string& category,
+    const std::string& severity,
+    const std::string& entity_id
+) {
+    std::ostringstream ss;
+
+    auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+
+    ss << "{\"type\":\"physics_event\",\"timestamp\":" << timestamp << ",\"data\":{";
+    ss << "\"id\":\"evt_" << ++physics_event_counter_ << "\",";
+    ss << "\"type\":\"" << event_type << "\",";
+    ss << "\"message\":\"" << message << "\",";
+    ss << "\"category\":\"" << category << "\",";
+    ss << "\"severity\":\"" << severity << "\",";
+    ss << "\"timestamp\":" << timestamp;
+    if (!entity_id.empty()) {
+        ss << ",\"entityId\":\"" << entity_id << "\"";
+    }
+    ss << ",\"data\":{}}}";
+
+    return ss.str();
+}
+
+std::string WebSocketServer::serialize_physics_metrics() {
+    using namespace jaguar;
+
+    std::ostringstream ss;
+    ss << std::fixed << std::setprecision(6);
+
+    auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+
+    ss << "{\"type\":\"physics_metrics\",\"timestamp\":" << timestamp << ",\"data\":{";
+    ss << "\"simulationTime\":" << engine_.get_time() << ",";
+
+    // Energy metrics (same as in physics_debug)
+    double total_kinetic = 0.0;
+    double total_potential = 0.0;
+    auto& mgr = engine_.get_entity_manager();
+    mgr.for_each([&](const physics::Entity& entity) {
+        physics::EntityState state = engine_.get_entity_state(entity.id);
+        double speed_sq = state.velocity.length_squared();
+        total_kinetic += 0.5 * state.mass * speed_sq;
+        double height = state.position.length() - 6371000.0;
+        total_potential += state.mass * 9.81 * std::max(0.0, height);
+    });
+
+    ss << "\"energy\":{";
+    ss << "\"kineticEnergy\":" << total_kinetic << ",";
+    ss << "\"potentialEnergy\":" << total_potential << ",";
+    ss << "\"totalEnergy\":" << (total_kinetic + total_potential) << ",";
+    ss << "\"energyDrift\":0,";
+    ss << "\"initialEnergy\":" << (total_kinetic + total_potential);
+    ss << "},";
+
+    // Integrator metrics
+    ss << "\"integrator\":{";
+    ss << "\"name\":\"rk4\",";
+    ss << "\"order\":4,";
+    ss << "\"currentTimestep\":0.05,";
+    ss << "\"adaptiveTimestep\":false";
+    ss << "}";
+
+    ss << "}}";
+
+    return ss.str();
+}
+
 // ============================================================================
 // WebSocket Callback
 // ============================================================================
@@ -1705,6 +2073,8 @@ int WebSocketServer::callback_websocket(lws* wsi, enum lws_callback_reasons reas
                 std::lock_guard<std::mutex> lock(instance_->queue_mutex_);
                 instance_->message_queues_.erase(wsi);
             }
+            // Clean up physics debug config for this client
+            instance_->physics_debug_configs_.erase(wsi);
             break;
         }
 

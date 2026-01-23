@@ -273,7 +273,10 @@ export type MessageType =
   | 'command'
   | 'response'
   | 'error'
-  | 'telemetry';
+  | 'telemetry'
+  | 'physics_debug'
+  | 'physics_event'
+  | 'physics_metrics';
 
 export interface WebSocketMessage<T = unknown> {
   type: MessageType;
@@ -351,3 +354,50 @@ export {
   DEFAULT_AI_AGENT_CONFIG,
   DEFAULT_AI_SERVICE_CONFIG,
 } from './aiAgent';
+
+//==============================================================================
+// Re-exports - Physics Debug Types
+//==============================================================================
+
+export type {
+  Vec3 as PhysicsVec3,
+  ShapeType,
+  CollisionShape,
+  SphereShape,
+  BoxShape,
+  CapsuleShape,
+  CylinderShape,
+  ConvexHullShape,
+  MeshShape,
+  CompoundShape,
+  AABB,
+  AABBNode,
+  AABBTree,
+  ContactPoint,
+  CollisionPair,
+  CollisionLayer,
+  ConstraintType,
+  Constraint,
+  DistanceConstraint,
+  HingeConstraint,
+  BallSocketConstraint,
+  SliderConstraint,
+  FixedConstraint,
+  ForceType,
+  ForceVector,
+  EntityForces,
+  IntegratorType,
+  IntegratorMetrics,
+  EnergyMetrics,
+  MomentumMetrics,
+  PhysicsDebugState,
+  PhysicsVisualizationSettings,
+  EventCategory,
+  EventSeverity,
+  PhysicsEvent,
+  PhysicsDebugMessage,
+  PhysicsEventMessage,
+  PhysicsMetricsMessage,
+} from './physics';
+
+export { defaultPhysicsVisualizationSettings } from './physics';

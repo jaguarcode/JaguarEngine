@@ -209,6 +209,7 @@ int main(int argc, char* argv[]) {
         // Broadcast world state at regular intervals (after commands are processed)
         if (now - last_broadcast >= broadcast_interval) {
             server.broadcast_world_state();
+            server.broadcast_physics_debug();  // Send physics debug data to enabled clients
             last_broadcast = now;
         }
 

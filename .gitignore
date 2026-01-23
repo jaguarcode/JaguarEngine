@@ -81,3 +81,7 @@ dist/
 # Lock files (optional - uncomment if you want to ignore)
 # package-lock.json
 # pnpm-lock.yaml
+claudedocs/DEVELOPMENT_PLAN.md
+claudedocs/research_jaguar_integrated_test_app_20260122.md
+docs/IMPLEMENTATION_WORKFLOW.md
+docs/IMPLEMENTATION_WORKFLOW.md

@@ -1,19 +1,34 @@
 # Python API Reference
 
-Python bindings for JaguarEngine.
+Python bindings for JaguarEngine using pybind11 with full NumPy interoperability.
 
 ## Installation
+
+### From Package (Coming Soon)
 
 ```bash
 pip install jaguar-engine
 ```
 
-Or build from source:
+### Build from Source
 
 ```bash
 cd JaguarEngine
-pip install .
+
+# Configure with Python bindings enabled
+cmake -B build -DJAGUAR_BUILD_PYTHON=ON
+
+# Build
+cmake --build build --parallel
+
+# Install the module
+pip install -e .
 ```
+
+**Requirements:**
+- Python 3.8+
+- NumPy (for array interoperability)
+- pybind11 (auto-fetched by CMake)
 
 ## Quick Start
 
@@ -74,8 +89,34 @@ v3 = v / 2.0
 
 # NumPy interop
 import numpy as np
-arr = np.array(v)       # To NumPy
-v = jaguar.Vec3(arr)    # From NumPy
+arr = v.to_numpy()           # To NumPy array
+v = jaguar.Vec3.from_numpy(arr)  # From NumPy array
+```
+
+### NumPy Integration
+
+JaguarEngine provides seamless NumPy integration for efficient array operations:
+
+```python
+import numpy as np
+import jaguar
+
+# Vector batch operations
+positions = np.array([
+    [0, 0, -1000],
+    [100, 0, -1000],
+    [200, 0, -1000]
+], dtype=np.float64)
+
+# Create Vec3 from NumPy row
+v = jaguar.Vec3.from_numpy(positions[0])
+
+# Convert back to NumPy
+arr = v.to_numpy()  # [0, 0, -1000]
+
+# Matrix interop
+m = jaguar.Mat3x3.Identity()
+np_matrix = m.to_numpy()  # 3x3 NumPy array
 ```
 
 ### Quaternion

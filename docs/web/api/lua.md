@@ -1,36 +1,60 @@
 # Lua API Reference
 
-Lua scripting bindings for JaguarEngine.
+Lua scripting bindings for JaguarEngine using sol2.
 
 ## Overview
 
 JaguarEngine provides Lua bindings for scripting simulations, creating scenarios, and automating entity behaviors. Lua scripts can control entities, query environment data, and implement custom logic.
 
-## Loading Scripts
+## Installation
 
-```cpp
-// C++ side: Load and execute Lua script
-#include <jaguar/interface/scripting.h>
+### Build from Source
 
-scripting::LuaEngine lua;
-lua.initialize(engine);  // Bind engine to Lua
-lua.execute_file("scripts/scenario.lua");
-lua.execute_string("print('Hello from Lua!')");
+```bash
+cd JaguarEngine
+
+# Configure with Lua bindings enabled
+cmake -B build -DJAGUAR_BUILD_LUA=ON
+
+# Build
+cmake --build build --parallel
+
+# The module will be at build/jaguar.so (or jaguar.dll on Windows)
+```
+
+**Requirements:**
+- Lua 5.4+ (bundled if not found on system)
+- sol2 (auto-fetched by CMake)
+
+### Loading the Module
+
+```lua
+-- Add build directory to cpath
+package.cpath = package.cpath .. ";./build/?.so;./build/?.dll"
+
+-- Load the module
+local jag = require("jaguar")
+
+-- All types are now in global scope: Vec3, Quat, Engine, etc.
 ```
 
 ## Basic Usage
 
 ```lua
--- Access the engine
-local engine = jaguar.engine
+-- Load the module
+require("jaguar")
+
+-- Create and initialize engine
+local engine = Engine()
+engine:initialize()
 
 -- Create an entity
-local aircraft = engine:create_entity("F-16", jaguar.Domain.Air)
+local aircraft = engine:create_entity("F-16", Domain.Air)
 
 -- Set state
-local state = jaguar.EntityState()
-state.position = jaguar.Vec3(0, 0, -5000)
-state.velocity = jaguar.Vec3(200, 0, 0)
+local state = EntityState()
+state.position = Vec3(0, 0, -5000)
+state.velocity = Vec3(200, 0, 0)
 state.mass = 12000
 engine:set_entity_state(aircraft, state)
 
@@ -38,6 +62,8 @@ engine:set_entity_state(aircraft, state)
 for i = 1, 10000 do
     engine:step(0.01)
 end
+
+engine:shutdown()
 ```
 
 ## Core Types
@@ -45,75 +71,115 @@ end
 ### Vec3
 
 ```lua
--- Construction
-local v = jaguar.Vec3()           -- (0, 0, 0)
-local v = jaguar.Vec3(1, 2, 3)    -- (1, 2, 3)
+-- Construction (both syntaxes work)
+local v = Vec3()              -- (0, 0, 0)
+local v = Vec3(1, 2, 3)       -- (1, 2, 3)
+local v = Vec3.new(1, 2, 3)   -- Alternative syntax
 
 -- Properties
 local x, y, z = v.x, v.y, v.z
 
 -- Methods
-local length = v:norm()
+local length = v:length()
+local length_sq = v:length_squared()
 local unit = v:normalized()
 local dot = v:dot(other)
 local cross = v:cross(other)
+
+-- Static factory methods
+local zero = Vec3.zero()
+local unit_x = Vec3.unit_x()
+local unit_y = Vec3.unit_y()
+local unit_z = Vec3.unit_z()
 
 -- Operators
 local v3 = v1 + v2
 local v3 = v1 - v2
 local v3 = v * 2.0
 local v3 = v / 2.0
+local neg = -v
+
+-- String conversion
+print(v)  -- "Vec3(1.000000, 2.000000, 3.000000)"
+
+-- Table conversion
+local t = v:to_table()       -- {x=1, y=2, z=3}
+local v = Vec3.from_table(t) -- Back to Vec3
 ```
 
-### Quaternion
+### Quat
 
 ```lua
 -- Construction
-local q = jaguar.Quaternion()                      -- Identity
-local q = jaguar.Quaternion(w, x, y, z)
-local q = jaguar.Quaternion.from_euler(roll, pitch, yaw)
-local q = jaguar.Quaternion.from_axis_angle(axis, angle)
+local q = Quat()                           -- Identity
+local q = Quat(w, x, y, z)
+local q = Quat.identity()                  -- Factory method
+
+-- From rotation
+local q = Quat.from_euler(roll, pitch, yaw)
+local q = Quat.from_axis_angle(axis, angle)
+
+-- Properties
+local w, x, y, z = q.w, q.x, q.y, q.z
 
 -- Methods
 local q_norm = q:normalized()
 local q_conj = q:conjugate()
+local q_inv = q:inverse()
 local v_rot = q:rotate(v)
 local roll, pitch, yaw = q:to_euler()
+local mat = q:to_rotation_matrix()
+local n = q:norm()
+local n_sq = q:norm_squared()
 
 -- Operators
-local q3 = q1 * q2  -- Rotation composition
+local q3 = q1 * q2   -- Rotation composition
+local v_rot = q * v  -- Rotate vector
+
+-- Table conversion
+local t = q:to_table()       -- {w=1, x=0, y=0, z=0}
+local q = Quat.from_table(t) -- Back to Quat
 ```
 
 ### Mat3x3
 
 ```lua
 -- Construction
-local m = jaguar.Mat3x3()                    -- Identity
-local m = jaguar.Mat3x3.from_euler(r, p, y)
+local m = Mat3x3()              -- Zero matrix
+local m = Mat3x3.identity()     -- Identity matrix
+local m = Mat3x3.zero()         -- Zero matrix
+local m = Mat3x3.diagonal(a, b, c)
+local m = Mat3x3.inertia(ixx, iyy, izz)
+local m = Mat3x3.inertia(ixx, iyy, izz, ixy, ixz, iyz)
 
--- Access
-local value = m:get(i, j)
-m:set(i, j, value)
+-- Element access (0-indexed)
+local value = m:get(row, col)
+m:set(row, col, value)
 
 -- Methods
-local v_out = m * v_in
-local m_out = m1 * m2
-local m_t = m:transpose()
+local mt = m:transpose()
+local det = m:determinant()
+local minv = m:inverse()
+local tr = m:trace()
+
+-- Operators
+local v_out = m * v_in     -- Matrix-vector multiply
+local m_out = m1 + m2      -- Matrix addition
+local m_scaled = m * 2.0   -- Scalar multiply
 ```
 
 ## Engine API
 
 ```lua
 -- Initialization
-local engine = jaguar.Engine()
+local engine = Engine()
 engine:initialize()
--- or with config
-local config = jaguar.EngineConfig()
-config.time_step = 0.01
-engine:initialize(config)
+-- or with config file
+engine:initialize("config/simulation.xml")
 
 -- Entity management
-local id = engine:create_entity("name", jaguar.Domain.Air)
+local id = engine:create_entity("name", Domain.Air)
+local id = engine:create_entity("name", "air")  -- String domain also works
 engine:destroy_entity(id)
 local exists = engine:entity_exists(id)
 
@@ -121,61 +187,100 @@ local exists = engine:entity_exists(id)
 local state = engine:get_entity_state(id)
 engine:set_entity_state(id, state)
 
--- Forces
-local forces = jaguar.EntityForces()
-engine:apply_forces(id, forces)
+-- Simulation control
+engine:step(dt)           -- Single step
+engine:run()              -- Run until stopped
+engine:run_for(duration)  -- Run for duration seconds
+engine:pause()
+engine:resume()
+engine:stop()
 
--- Environment
-local env = engine:get_environment(id)
-local env = engine:get_environment_at(position)
-
--- Simulation
-engine:step(dt)
-engine:run_for(duration)
-
--- Time
+-- Time access
 local t = engine:get_time()
-engine:set_time(t)
+local scale = engine:get_time_scale()
+engine:set_time_scale(2.0)     -- 2x speed
+engine:set_fixed_time_step(0.01)
+
+-- State query
+local state = engine:get_state()  -- SimulationState enum
+local init = engine:is_initialized()
+
+-- Property access
+local val = engine:get_property("time.scale")
+local val = engine:get_property(entity_id, "fuel.remaining")
+engine:set_property("time.scale", 2.0)
+engine:set_property(entity_id, "throttle", 0.8)
 
 -- Cleanup
 engine:shutdown()
 ```
 
+## Enumerations
+
+```lua
+-- Domain enum
+Domain.Air
+Domain.Land
+Domain.Sea
+Domain.Space
+Domain.Generic
+
+-- CoordinateFrame enum
+CoordinateFrame.ECEF
+CoordinateFrame.ECI
+CoordinateFrame.NED
+CoordinateFrame.ENU
+CoordinateFrame.Body
+
+-- SimulationState enum
+SimulationState.Uninitialized
+SimulationState.Initialized
+SimulationState.Running
+SimulationState.Paused
+SimulationState.Stopped
+SimulationState.Error
+```
+
 ## EntityState
 
 ```lua
-local state = jaguar.EntityState()
+local state = EntityState()
 
--- Properties
-state.position = jaguar.Vec3(x, y, z)
-state.velocity = jaguar.Vec3(vx, vy, vz)
-state.orientation = jaguar.Quaternion.from_euler(roll, pitch, yaw)
-state.angular_velocity = jaguar.Vec3(p, q, r)
-state.mass = 12000
--- state.inertia = jaguar.Mat3x3()
+-- Position and velocity
+state.position = Vec3(x, y, z)           -- m (ECEF)
+state.velocity = Vec3(vx, vy, vz)        -- m/s
+state.acceleration = Vec3(ax, ay, az)    -- m/s²
 
--- Derived
-local roll = state:get_roll()
-local pitch = state:get_pitch()
-local yaw = state:get_yaw()
+-- Orientation
+state.orientation = Quat.from_euler(roll, pitch, yaw)
+state.angular_velocity = Vec3(p, q, r)   -- rad/s
+state.angular_accel = Vec3(pdot, qdot, rdot)  -- rad/s²
+
+-- Mass properties
+state.mass = 12000                        -- kg
+state.inertia = Mat3x3.inertia(ixx, iyy, izz)  -- kg·m²
+
+-- String representation
+print(state)  -- "EntityState(pos=(x, y, z), mass=12000)"
 ```
 
 ## EntityForces
 
 ```lua
-local forces = jaguar.EntityForces()
+local forces = EntityForces()
 
--- Clear
+-- Access properties
+local f = forces.force    -- Vec3, N
+local t = forces.torque   -- Vec3, N·m
+
+-- Modification
 forces:clear()
+forces:add_force(Vec3(fx, fy, fz))
+forces:add_torque(Vec3(tx, ty, tz))
+forces:add_force_at_point(force, point, cg)  -- Applies force and computes torque
 
--- Add forces
-forces:add_force(jaguar.Vec3(fx, fy, fz))
-forces:add_torque(jaguar.Vec3(tx, ty, tz))
-forces:add_force_at_point(force, point, cg)
-
--- Access
-local f = forces.force
-local t = forces.torque
+-- String representation
+print(forces)  -- "EntityForces(force=(fx, fy, fz))"
 ```
 
 ## Environment

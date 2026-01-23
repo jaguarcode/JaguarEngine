@@ -378,6 +378,59 @@ class WebSocketService {
     });
   }
 
+  //============================================================================
+  // Physics Debug Commands
+  //============================================================================
+
+  /**
+   * Enable or disable physics debug data streaming from the server
+   */
+  setPhysicsDebugEnabled(enabled: boolean): void {
+    this.send({
+      type: 'command',
+      timestamp: Date.now(),
+      data: {
+        command: 'set_physics_debug',
+        params: { enabled },
+      },
+    });
+  }
+
+  /**
+   * Configure physics debug data stream settings
+   */
+  configurePhysicsDebug(config: {
+    collisionShapes?: boolean;
+    aabbTree?: boolean;
+    contacts?: boolean;
+    constraints?: boolean;
+    forces?: boolean;
+    energy?: boolean;
+    momentum?: boolean;
+    integrator?: boolean;
+    updateRate?: number; // Hz
+  }): void {
+    this.send({
+      type: 'command',
+      timestamp: Date.now(),
+      data: {
+        command: 'configure_physics_debug',
+        params: config,
+      },
+    });
+  }
+
+  /**
+   * Request a single snapshot of physics debug data (useful for debugging)
+   */
+  requestPhysicsSnapshot(): void {
+    this.send({
+      type: 'command',
+      timestamp: Date.now(),
+      data: { command: 'request_physics_snapshot' },
+    });
+  }
+
   // Connection state
   get isConnected(): boolean {
     return this.ws?.readyState === WebSocket.OPEN;

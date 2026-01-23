@@ -4,6 +4,8 @@
  */
 
 #include "jaguar/physics/entity.h"
+#include "jaguar/events/event.h"
+#include "jaguar/events/event_dispatcher.h"
 #include "jaguar/core/simd.h"
 #include <vector>
 
@@ -243,12 +245,26 @@ EntityId EntityManager::create_entity(const std::string& name, Domain domain) {
     entity.active = true;
 
     entities_[id] = std::move(entity);
+
+    // Emit EntityCreated event
+    if (event_dispatcher_) {
+        auto event = events::Event::create_entity_created(id, name, domain, current_time_);
+        event_dispatcher_->dispatch(event);
+    }
+
     return id;
 }
 
 void EntityManager::destroy_entity(EntityId id) {
     auto it = entities_.find(id);
     if (it != entities_.end()) {
+        // Emit EntityDestroyed event before destroying
+        if (event_dispatcher_) {
+            auto event = events::Event::create_entity_destroyed(
+                id, it->second.name, current_time_);
+            event_dispatcher_->dispatch(event);
+        }
+
         state_storage_.free(it->second.state_index);
         entities_.erase(it);
     }
@@ -289,6 +305,41 @@ SizeT EntityManager::active_entity_count() const {
         if (entity.active) count++;
     }
     return count;
+}
+
+EntityState* EntityManager::get_entity_state(EntityId id) {
+    Entity* entity = get_entity(id);
+    if (!entity) {
+        return nullptr;
+    }
+
+    // Check if already in cache
+    auto it = constraint_state_cache_.find(id);
+    if (it != constraint_state_cache_.end()) {
+        return &it->second;
+    }
+
+    // Load state from SoA storage into cache
+    EntityState state = state_storage_.get_state(entity->state_index);
+    auto [inserted_it, success] = constraint_state_cache_.emplace(id, state);
+    return &inserted_it->second;
+}
+
+void EntityManager::sync_entity_states() {
+    // Write back all cached states to SoA storage
+    for (auto& [id, state] : constraint_state_cache_) {
+        Entity* entity = get_entity(id);
+        if (entity) {
+            state_storage_.set_state(entity->state_index, state);
+        }
+    }
+
+    // Clear the cache for next frame
+    constraint_state_cache_.clear();
+}
+
+void EntityManager::set_event_dispatcher(events::EventDispatcher* dispatcher) {
+    event_dispatcher_ = dispatcher;
 }
 
 } // namespace jaguar::physics

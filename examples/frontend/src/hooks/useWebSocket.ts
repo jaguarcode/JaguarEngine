@@ -3,8 +3,20 @@ import { websocketService } from '@/services/websocket';
 import { useSimulationStore } from '@/stores/simulationStore';
 import { useEntityStore } from '@/stores/entityStore';
 import { useAIAgentStore } from '@/stores/aiAgentStore';
+import { usePhysicsDebugStore } from '@/stores/physicsDebugStore';
 import { entityPositionBuffer } from '@/stores/entityPositionBuffer';
 import type { WebSocketMessage, EntityState, SimulationStats } from '@/types';
+import type {
+  CollisionShape,
+  AABBTree,
+  ContactPoint,
+  Constraint,
+  EntityForces,
+  EnergyMetrics,
+  MomentumMetrics,
+  IntegratorMetrics,
+  PhysicsEvent,
+} from '@/types/physics';
 
 export function useWebSocket() {
   // Track if we've already initialized
@@ -92,6 +104,136 @@ export function useWebSocket() {
       }
     };
 
+    //==========================================================================
+    // Physics Debug Message Handlers
+    //==========================================================================
+
+    // Handle physics debug state updates (main debug data stream)
+    const handlePhysicsDebug = (message: WebSocketMessage) => {
+      const store = usePhysicsDebugStore.getState();
+      const data = message.data as {
+        simulationTime?: number;
+        collisionShapes?: Array<{ entityId: string; shape: CollisionShape }>;
+        aabbTree?: AABBTree;
+        contacts?: ContactPoint[];
+        constraints?: Constraint[];
+        forces?: EntityForces[];
+        energy?: EnergyMetrics;
+        momentum?: MomentumMetrics;
+        integrator?: IntegratorMetrics;
+        collisionStats?: { broadPhase: number; narrowPhase: number };
+        constraintStats?: { iterations: number; error: number };
+      };
+
+      const simTime = data.simulationTime ?? store.lastSimulationTime;
+
+      // Update collision shapes
+      if (data.collisionShapes) {
+        store.updateCollisionShapes(data.collisionShapes);
+      }
+
+      // Update AABB tree
+      if (data.aabbTree) {
+        store.updateAABBTree(data.aabbTree);
+      }
+
+      // Update contacts
+      if (data.contacts) {
+        store.updateContacts(data.contacts);
+      }
+
+      // Update constraints
+      if (data.constraints) {
+        store.updateConstraints(data.constraints);
+      }
+
+      // Update forces
+      if (data.forces) {
+        store.updateEntityForces(data.forces);
+      }
+
+      // Update energy metrics
+      if (data.energy) {
+        store.updateEnergy(data.energy, simTime);
+      }
+
+      // Update momentum metrics
+      if (data.momentum) {
+        store.updateMomentum(data.momentum, simTime);
+      }
+
+      // Update integrator metrics
+      if (data.integrator) {
+        store.updateIntegrator(data.integrator);
+      }
+
+      // Update collision stats
+      if (data.collisionStats) {
+        store.updateCollisionStats(
+          data.collisionStats.broadPhase,
+          data.collisionStats.narrowPhase
+        );
+      }
+
+      // Update constraint stats
+      if (data.constraintStats) {
+        store.updateConstraintStats(
+          data.constraintStats.iterations,
+          data.constraintStats.error
+        );
+      }
+
+      // Mark debug stream as connected
+      if (!store.debugStreamConnected) {
+        store.setDebugStreamConnected(true);
+      }
+    };
+
+    // Handle physics events (collisions, constraint breaks, etc.)
+    const handlePhysicsEvent = (message: WebSocketMessage) => {
+      const event = message.data as PhysicsEvent;
+      usePhysicsDebugStore.getState().addEvent(event);
+    };
+
+    // Handle physics metrics updates (periodic summary data)
+    const handlePhysicsMetrics = (message: WebSocketMessage) => {
+      const store = usePhysicsDebugStore.getState();
+      const data = message.data as {
+        simulationTime: number;
+        energy?: EnergyMetrics;
+        momentum?: MomentumMetrics;
+        integrator?: IntegratorMetrics;
+        collisionStats?: { broadPhase: number; narrowPhase: number };
+        constraintStats?: { iterations: number; error: number };
+      };
+
+      if (data.energy) {
+        store.updateEnergy(data.energy, data.simulationTime);
+      }
+
+      if (data.momentum) {
+        store.updateMomentum(data.momentum, data.simulationTime);
+      }
+
+      if (data.integrator) {
+        store.updateIntegrator(data.integrator);
+      }
+
+      if (data.collisionStats) {
+        store.updateCollisionStats(
+          data.collisionStats.broadPhase,
+          data.collisionStats.narrowPhase
+        );
+      }
+
+      if (data.constraintStats) {
+        store.updateConstraintStats(
+          data.constraintStats.iterations,
+          data.constraintStats.error
+        );
+      }
+    };
+
     // Connection handler
     const unsubConnection = websocketService.onConnection((connected, error) => {
       useSimulationStore.getState().setConnected(connected, error);
@@ -104,6 +246,11 @@ export function useWebSocket() {
     const unsubEntityDestroyed = websocketService.onMessage('entity_destroyed', handleEntityDestroyed);
     const unsubTelemetry = websocketService.onMessage('telemetry', handleTelemetry);
 
+    // Physics debug message handlers
+    const unsubPhysicsDebug = websocketService.onMessage('physics_debug', handlePhysicsDebug);
+    const unsubPhysicsEvent = websocketService.onMessage('physics_event', handlePhysicsEvent);
+    const unsubPhysicsMetrics = websocketService.onMessage('physics_metrics', handlePhysicsMetrics);
+
     // Connect
     websocketService.connect();
 
@@ -115,6 +262,12 @@ export function useWebSocket() {
       unsubEntitySpawned();
       unsubEntityDestroyed();
       unsubTelemetry();
+      // Physics debug cleanup
+      unsubPhysicsDebug();
+      unsubPhysicsEvent();
+      unsubPhysicsMetrics();
+      // Reset physics debug store connection status
+      usePhysicsDebugStore.getState().setDebugStreamConnected(false);
       initializedRef.current = false;
     };
   }, []); // Empty dependency array - only run once
@@ -144,6 +297,10 @@ export function useWebSocket() {
     // Space domain controls
     setSpaceControls: websocketService.setSpaceControls.bind(websocketService),
     setSpaceAutopilot: websocketService.setSpaceAutopilot.bind(websocketService),
+    // Physics debug controls
+    setPhysicsDebugEnabled: websocketService.setPhysicsDebugEnabled.bind(websocketService),
+    configurePhysicsDebug: websocketService.configurePhysicsDebug.bind(websocketService),
+    requestPhysicsSnapshot: websocketService.requestPhysicsSnapshot.bind(websocketService),
   }), []); // Empty deps - websocketService is a singleton, functions never change
 }
 

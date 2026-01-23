@@ -7,9 +7,12 @@
  * - EPA algorithm for contact generation
  * - Dynamic AABB tree for broad-phase
  * - Collision world management
+ * - Event system integration
  */
 
 #include "jaguar/physics/collision.h"
+#include "jaguar/events/event.h"
+#include "jaguar/events/event_dispatcher.h"
 
 #include <algorithm>
 #include <chrono>
@@ -22,25 +25,25 @@ namespace jaguar::physics {
 // GJK Implementation
 // ============================================================================
 
-math::Vec3 GJK::minkowski_support(
-    const CollisionShape& shape_a, const math::Vec3& pos_a, const math::Quat& rot_a,
-    const CollisionShape& shape_b, const math::Vec3& pos_b, const math::Quat& rot_b,
-    const math::Vec3& direction)
+Vec3 GJK::minkowski_support(
+    const CollisionShape& shape_a, const Vec3& pos_a, const Quat& rot_a,
+    const CollisionShape& shape_b, const Vec3& pos_b, const Quat& rot_b,
+    const Vec3& direction)
 {
     // Support(A-B, d) = Support(A, d) - Support(B, -d)
-    math::Vec3 support_a = shape_a.support(direction, pos_a, rot_a);
-    math::Vec3 support_b = shape_b.support(-direction, pos_b, rot_b);
+    Vec3 support_a = shape_a.support(direction, pos_a, rot_a);
+    Vec3 support_b = shape_b.support(-direction, pos_b, rot_b);
     return support_a - support_b;
 }
 
 bool GJK::test_collision(
-    const CollisionShape& shape_a, const math::Vec3& pos_a, const math::Quat& rot_a,
-    const CollisionShape& shape_b, const math::Vec3& pos_b, const math::Quat& rot_b)
+    const CollisionShape& shape_a, const Vec3& pos_a, const Quat& rot_a,
+    const CollisionShape& shape_b, const Vec3& pos_b, const Quat& rot_b)
 {
     // Initial direction: from A to B
-    math::Vec3 direction = pos_b - pos_a;
+    Vec3 direction = pos_b - pos_a;
     if (direction.length_squared() < EPSILON * EPSILON) {
-        direction = math::Vec3(1, 0, 0);
+        direction = Vec3(1, 0, 0);
     }
 
     Simplex simplex;
@@ -50,7 +53,7 @@ bool GJK::test_collision(
     direction = -simplex[0];
 
     for (int i = 0; i < MAX_ITERATIONS; ++i) {
-        math::Vec3 new_point = minkowski_support(shape_a, pos_a, rot_a, shape_b, pos_b, rot_b, direction);
+        Vec3 new_point = minkowski_support(shape_a, pos_a, rot_a, shape_b, pos_b, rot_b, direction);
 
         // Check if new point passed the origin
         if (new_point.dot(direction) < 0) {
@@ -68,14 +71,14 @@ bool GJK::test_collision(
 }
 
 bool GJK::get_contact(
-    const CollisionShape& shape_a, const math::Vec3& pos_a, const math::Quat& rot_a,
-    const CollisionShape& shape_b, const math::Vec3& pos_b, const math::Quat& rot_b,
+    const CollisionShape& shape_a, const Vec3& pos_a, const Quat& rot_a,
+    const CollisionShape& shape_b, const Vec3& pos_b, const Quat& rot_b,
     ContactPoint& contact)
 {
     // First, run GJK to check collision
-    math::Vec3 direction = pos_b - pos_a;
+    Vec3 direction = pos_b - pos_a;
     if (direction.length_squared() < EPSILON * EPSILON) {
-        direction = math::Vec3(1, 0, 0);
+        direction = Vec3(1, 0, 0);
     }
 
     Simplex simplex;
@@ -83,7 +86,7 @@ bool GJK::get_contact(
     direction = -simplex[0];
 
     for (int i = 0; i < MAX_ITERATIONS; ++i) {
-        math::Vec3 new_point = minkowski_support(shape_a, pos_a, rot_a, shape_b, pos_b, rot_b, direction);
+        Vec3 new_point = minkowski_support(shape_a, pos_a, rot_a, shape_b, pos_b, rot_b, direction);
 
         if (new_point.dot(direction) < 0) {
             return false;
@@ -104,7 +107,7 @@ bool GJK::get_contact(
 
             // Find closest point to origin on the Minkowski difference boundary
             // This is a simplified version - full EPA would be more accurate
-            math::Vec3 closest = simplex[0];
+            Vec3 closest = simplex[0];
             Real min_dist = simplex[0].length_squared();
 
             for (int j = 1; j < simplex.count; ++j) {
@@ -118,8 +121,8 @@ bool GJK::get_contact(
             contact.penetration_depth = std::sqrt(min_dist);
 
             // Compute contact position (midpoint between supports)
-            math::Vec3 support_a = shape_a.support(contact.normal, pos_a, rot_a);
-            math::Vec3 support_b = shape_b.support(-contact.normal, pos_b, rot_b);
+            Vec3 support_a = shape_a.support(contact.normal, pos_a, rot_a);
+            Vec3 support_b = shape_b.support(-contact.normal, pos_b, rot_b);
             contact.position = (support_a + support_b) * 0.5;
 
             // Local coordinates
@@ -133,7 +136,7 @@ bool GJK::get_contact(
     return false;
 }
 
-bool GJK::do_simplex(Simplex& simplex, math::Vec3& direction) {
+bool GJK::do_simplex(Simplex& simplex, Vec3& direction) {
     switch (simplex.count) {
         case 2: return line_case(simplex, direction);
         case 3: return triangle_case(simplex, direction);
@@ -142,12 +145,12 @@ bool GJK::do_simplex(Simplex& simplex, math::Vec3& direction) {
     }
 }
 
-bool GJK::line_case(Simplex& simplex, math::Vec3& direction) {
-    math::Vec3 a = simplex[0];
-    math::Vec3 b = simplex[1];
+bool GJK::line_case(Simplex& simplex, Vec3& direction) {
+    Vec3 a = simplex[0];
+    Vec3 b = simplex[1];
 
-    math::Vec3 ab = b - a;
-    math::Vec3 ao = -a;
+    Vec3 ab = b - a;
+    Vec3 ao = -a;
 
     if (ab.dot(ao) > 0) {
         // Origin is in region of line
@@ -161,19 +164,19 @@ bool GJK::line_case(Simplex& simplex, math::Vec3& direction) {
     return false;
 }
 
-bool GJK::triangle_case(Simplex& simplex, math::Vec3& direction) {
-    math::Vec3 a = simplex[0];
-    math::Vec3 b = simplex[1];
-    math::Vec3 c = simplex[2];
+bool GJK::triangle_case(Simplex& simplex, Vec3& direction) {
+    Vec3 a = simplex[0];
+    Vec3 b = simplex[1];
+    Vec3 c = simplex[2];
 
-    math::Vec3 ab = b - a;
-    math::Vec3 ac = c - a;
-    math::Vec3 ao = -a;
+    Vec3 ab = b - a;
+    Vec3 ac = c - a;
+    Vec3 ao = -a;
 
-    math::Vec3 abc = ab.cross(ac);
+    Vec3 abc = ab.cross(ac);
 
     // Check which side of triangle the origin is on
-    math::Vec3 abc_ac = abc.cross(ac);
+    Vec3 abc_ac = abc.cross(ac);
     if (abc_ac.dot(ao) > 0) {
         if (ac.dot(ao) > 0) {
             // Origin in region of AC edge
@@ -188,7 +191,7 @@ bool GJK::triangle_case(Simplex& simplex, math::Vec3& direction) {
         return false;
     }
 
-    math::Vec3 ab_abc = ab.cross(abc);
+    Vec3 ab_abc = ab.cross(abc);
     if (ab_abc.dot(ao) > 0) {
         // Origin in region of AB edge
         simplex.count = 2;
@@ -209,20 +212,20 @@ bool GJK::triangle_case(Simplex& simplex, math::Vec3& direction) {
     return false;
 }
 
-bool GJK::tetrahedron_case(Simplex& simplex, math::Vec3& direction) {
-    math::Vec3 a = simplex[0];
-    math::Vec3 b = simplex[1];
-    math::Vec3 c = simplex[2];
-    math::Vec3 d = simplex[3];
+bool GJK::tetrahedron_case(Simplex& simplex, Vec3& direction) {
+    Vec3 a = simplex[0];
+    Vec3 b = simplex[1];
+    Vec3 c = simplex[2];
+    Vec3 d = simplex[3];
 
-    math::Vec3 ab = b - a;
-    math::Vec3 ac = c - a;
-    math::Vec3 ad = d - a;
-    math::Vec3 ao = -a;
+    Vec3 ab = b - a;
+    Vec3 ac = c - a;
+    Vec3 ad = d - a;
+    Vec3 ao = -a;
 
-    math::Vec3 abc = ab.cross(ac);
-    math::Vec3 acd = ac.cross(ad);
-    math::Vec3 adb = ad.cross(ab);
+    Vec3 abc = ab.cross(ac);
+    Vec3 acd = ac.cross(ad);
+    Vec3 adb = ad.cross(ab);
 
     // Check each face
     if (abc.dot(ao) > 0) {
@@ -597,7 +600,7 @@ void AABBTree::query_recursive(int node_index, const AABB& aabb,
     }
 }
 
-void AABBTree::raycast(const math::Vec3& origin, const math::Vec3& direction,
+void AABBTree::raycast(const Vec3& origin, const Vec3& direction,
                         Real max_distance, std::vector<EntityId>& results) const {
     results.clear();
     if (root_ == NULL_NODE) return;
@@ -605,7 +608,7 @@ void AABBTree::raycast(const math::Vec3& origin, const math::Vec3& direction,
     std::stack<int> stack;
     stack.push(root_);
 
-    math::Vec3 inv_dir(
+    Vec3 inv_dir(
         1.0 / direction.x,
         1.0 / direction.y,
         1.0 / direction.z
@@ -689,8 +692,8 @@ void CollisionWorld::remove_body(EntityId entity_id) {
     bodies_.erase(entity_id);
 }
 
-void CollisionWorld::update_body(EntityId entity_id, const math::Vec3& position,
-                                  const math::Quat& orientation) {
+void CollisionWorld::update_body(EntityId entity_id, const Vec3& position,
+                                  const Quat& orientation) {
     auto it = bodies_.find(entity_id);
     if (it == bodies_.end()) return;
 
@@ -770,6 +773,7 @@ void CollisionWorld::run_broad_phase(std::vector<std::pair<EntityId, EntityId>>&
 
 void CollisionWorld::run_narrow_phase(const std::vector<std::pair<EntityId, EntityId>>& pairs) {
     contacts_.clear();
+    std::unordered_set<uint64_t> current_collisions;
 
     for (const auto& [entity_a, entity_b] : pairs) {
         auto it_a = bodies_.find(entity_a);
@@ -795,11 +799,46 @@ void CollisionWorld::run_narrow_phase(const std::vector<std::pair<EntityId, Enti
 
             contacts_.push_back(manifold);
 
-            if (collision_callback_ && !manifold.is_trigger) {
-                collision_callback_(manifold);
+            if (!manifold.is_trigger) {
+                uint64_t pair_id = pack_entity_pair(entity_a, entity_b);
+                current_collisions.insert(pair_id);
+
+                // Check for new collision (collision enter)
+                if (active_collisions_.find(pair_id) == active_collisions_.end()) {
+                    // Emit CollisionEnter event
+                    if (event_dispatcher_) {
+                        auto event = events::Event::create_collision_enter(
+                            entity_a, entity_b,
+                            Vec3(contact.position.x, contact.position.y, contact.position.z),
+                            Vec3(contact.normal.x, contact.normal.y, contact.normal.z),
+                            contact.penetration_depth,
+                            current_time_);
+                        event_dispatcher_->dispatch(event);
+                    }
+                }
+
+                if (collision_callback_) {
+                    collision_callback_(manifold);
+                }
             }
         }
     }
+
+    // Check for collision exits
+    for (uint64_t pair_id : active_collisions_) {
+        if (current_collisions.find(pair_id) == current_collisions.end()) {
+            EntityId a = static_cast<EntityId>(pair_id >> 32);
+            EntityId b = static_cast<EntityId>(pair_id & 0xFFFFFFFF);
+
+            // Emit CollisionExit event
+            if (event_dispatcher_) {
+                auto event = events::Event::create_collision_exit(a, b, current_time_);
+                event_dispatcher_->dispatch(event);
+            }
+        }
+    }
+
+    active_collisions_ = std::move(current_collisions);
 }
 
 void CollisionWorld::process_triggers(const std::vector<ContactManifold>& new_contacts) {
@@ -833,7 +872,7 @@ void CollisionWorld::process_triggers(const std::vector<ContactManifold>& new_co
     active_triggers_ = std::move(current_triggers);
 }
 
-std::vector<EntityId> CollisionWorld::query_point(const math::Vec3& point) const {
+std::vector<EntityId> CollisionWorld::query_point(const Vec3& point) const {
     AABB point_aabb(point, point);
     point_aabb = point_aabb.expand(0.001);  // Small epsilon
 
@@ -861,7 +900,7 @@ std::vector<EntityId> CollisionWorld::query_aabb(const AABB& aabb) const {
 }
 
 std::vector<CollisionWorld::RayHit> CollisionWorld::raycast(
-    const math::Vec3& origin, const math::Vec3& direction, Real max_distance) const {
+    const Vec3& origin, const Vec3& direction, Real max_distance) const {
     std::vector<EntityId> candidates;
     broad_phase_->raycast(origin, direction, max_distance, candidates);
 
@@ -887,12 +926,16 @@ std::vector<CollisionWorld::RayHit> CollisionWorld::raycast(
     return hits;
 }
 
-bool CollisionWorld::raycast_closest(const math::Vec3& origin, const math::Vec3& direction,
+bool CollisionWorld::raycast_closest(const Vec3& origin, const Vec3& direction,
                                       RayHit& hit, Real max_distance) const {
     auto hits = raycast(origin, direction, max_distance);
     if (hits.empty()) return false;
     hit = hits[0];
     return true;
+}
+
+void CollisionWorld::set_event_dispatcher(events::EventDispatcher* dispatcher) {
+    event_dispatcher_ = dispatcher;
 }
 
 } // namespace jaguar::physics

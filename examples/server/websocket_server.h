@@ -144,7 +144,26 @@ enum class MessageType {
     Command,
     EntitySpawn,
     EntityDestroy,
-    Error
+    Error,
+    PhysicsDebug,
+    PhysicsEvent,
+    PhysicsMetrics
+};
+
+/**
+ * @brief Physics debug stream configuration
+ */
+struct PhysicsDebugConfig {
+    bool enabled = false;
+    bool collisionShapes = true;
+    bool aabbTree = true;
+    bool contacts = true;
+    bool constraints = true;
+    bool forces = true;
+    bool energy = true;
+    bool momentum = true;
+    bool integrator = true;
+    double updateRate = 20.0;  // Hz
 };
 
 /**
@@ -242,6 +261,16 @@ public:
      */
     void apply_autopilot_guidance();
 
+    /**
+     * @brief Broadcast physics debug data to clients with debug enabled
+     */
+    void broadcast_physics_debug();
+
+    /**
+     * @brief Check if any client has physics debug enabled
+     */
+    bool has_physics_debug_clients() const;
+
 private:
     // Internal methods
     void handle_message(lws* wsi, const std::string& message);
@@ -264,6 +293,12 @@ private:
     // Space domain handlers
     void handle_set_space_controls(const std::string& message, lws* wsi);
     void handle_set_space_autopilot(const std::string& message, lws* wsi);
+
+    // Physics debug handlers
+    void handle_set_physics_debug(const std::string& message, lws* wsi);
+    void handle_configure_physics_debug(const std::string& message, lws* wsi);
+    void handle_request_physics_snapshot(lws* wsi);
+
     void send_message(lws* wsi, const std::string& message);
     void broadcast_message(const std::string& message);
 
@@ -271,6 +306,11 @@ private:
     std::string serialize_world_state();
     std::string serialize_entity(const EntityData& entity);
     std::string serialize_error(const std::string& error);
+    std::string serialize_physics_debug();
+    std::string serialize_physics_event(const std::string& event_type, const std::string& message,
+                                        const std::string& category, const std::string& severity,
+                                        const std::string& entity_id = "");
+    std::string serialize_physics_metrics();
 
     // State collection
     WorldState collect_world_state();
@@ -304,6 +344,11 @@ private:
     std::unordered_map<jaguar::EntityId, VehicleCommand> vehicle_commands_;      // Land
     std::unordered_map<jaguar::EntityId, ShipCommand> ship_commands_;            // Sea
     std::unordered_map<jaguar::EntityId, SpaceCommand> space_commands_;          // Space
+
+    // Physics debug configuration per client
+    std::map<lws*, PhysicsDebugConfig> physics_debug_configs_;
+    std::chrono::steady_clock::time_point last_physics_debug_broadcast_;
+    uint64_t physics_event_counter_ = 0;
 
     // Callback for libwebsockets
     static int callback_websocket(lws* wsi, enum lws_callback_reasons reason, void* user, void* in, size_t len);

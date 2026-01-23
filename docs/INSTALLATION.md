@@ -41,6 +41,9 @@ These dependencies are automatically downloaded by CMake if not found:
 | sol2 | 3.3+ | Lua bindings | `JAGUAR_BUILD_LUA` |
 | OpenDIS | - | DIS protocol | `JAGUAR_ENABLE_DIS` |
 | HLA RTI | - | HLA protocol | `JAGUAR_ENABLE_HLA` |
+| CUDA Toolkit | 11.0+ | GPU acceleration | `JAGUAR_ENABLE_CUDA` |
+| Vulkan SDK | 1.3+ | Vulkan compute | `JAGUAR_ENABLE_VULKAN` |
+| OpenXR | 1.0+ | XR (VR/AR) support | `JAGUAR_ENABLE_OPENXR` |
 
 ## Quick Build
 
@@ -196,6 +199,11 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 | `JAGUAR_ENABLE_DIS` | OFF | Enable DIS network protocol |
 | `JAGUAR_ENABLE_HLA` | OFF | Enable HLA federation |
 | `JAGUAR_ENABLE_SIMD` | ON | Enable AVX2/FMA optimizations |
+| `JAGUAR_ENABLE_CUDA` | OFF | Enable CUDA GPU acceleration |
+| `JAGUAR_ENABLE_METAL` | OFF | Enable Metal GPU acceleration (macOS) |
+| `JAGUAR_ENABLE_VULKAN` | OFF | Enable Vulkan compute |
+| `JAGUAR_ENABLE_XR` | ON | Enable XR (VR/AR) subsystem |
+| `JAGUAR_ENABLE_OPENXR` | OFF | Enable OpenXR runtime support |
 
 ## Installing
 
@@ -232,9 +240,9 @@ cd build
 
 Expected output:
 ```
-[==========] Running 237 tests from 41 test suites.
+[==========] Running 400+ tests from 60+ test suites.
 ...
-[  PASSED  ] 237 tests.
+[  PASSED  ] 400+ tests.
 ```
 
 ### Run Examples
@@ -297,6 +305,145 @@ The build system automatically detects Rosetta and disables native optimizations
    - Compiler version (`g++ --version`)
    - CMake version (`cmake --version`)
    - Full error output
+
+## Scripting Bindings
+
+JaguarEngine provides scripting bindings for Python and Lua, enabling rapid prototyping, scenario automation, and interactive simulation control.
+
+### Python Bindings
+
+Python bindings require Python 3.8+ and use pybind11 for seamless NumPy integration.
+
+#### Prerequisites
+
+```bash
+# Ensure Python development headers are installed
+# Ubuntu/Debian
+sudo apt install python3-dev python3-pip python3-numpy
+
+# macOS
+brew install python
+pip3 install numpy
+
+# Windows (install Python from python.org, includes pip)
+pip install numpy
+```
+
+#### Building Python Bindings
+
+```bash
+cd JaguarEngine
+
+# Configure with Python bindings enabled
+cmake -B build -DJAGUAR_BUILD_PYTHON=ON
+
+# Build
+cmake --build build --parallel
+
+# Install the Python module (editable mode)
+pip install -e .
+
+# Or install globally
+pip install .
+```
+
+#### Verifying Python Installation
+
+```python
+import jaguar
+print(f"JaguarEngine Python bindings loaded!")
+
+# Quick test
+engine = jaguar.Engine()
+engine.initialize()
+entity = engine.create_entity("Test", jaguar.Domain.Air)
+print(f"Created entity: {entity}")
+engine.shutdown()
+```
+
+### Lua Bindings
+
+Lua bindings use sol2 and support Lua 5.4+. Lua is bundled with JaguarEngine if not found on the system.
+
+#### Prerequisites
+
+Lua is automatically bundled if not installed. For system Lua:
+
+```bash
+# Ubuntu/Debian
+sudo apt install lua5.4 liblua5.4-dev
+
+# macOS
+brew install lua
+
+# Windows
+# Download from https://www.lua.org/download.html
+```
+
+#### Building Lua Bindings
+
+```bash
+cd JaguarEngine
+
+# Configure with Lua bindings enabled
+cmake -B build -DJAGUAR_BUILD_LUA=ON
+
+# Build
+cmake --build build --parallel
+
+# The module is at: build/jaguar.so (or jaguar.dll on Windows)
+```
+
+#### Verifying Lua Installation
+
+```lua
+-- Add build directory to cpath
+package.cpath = package.cpath .. ";./build/?.so;./build/?.dll"
+
+-- Load and test
+local jag = require("jaguar")
+print("JaguarEngine Lua bindings loaded!")
+
+local engine = Engine()
+engine:initialize()
+local entity = engine:create_entity("Test", Domain.Air)
+print("Created entity: " .. entity)
+engine:shutdown()
+```
+
+### Building Both Bindings
+
+```bash
+# Enable both Python and Lua bindings
+cmake -B build \
+    -DJAGUAR_BUILD_PYTHON=ON \
+    -DJAGUAR_BUILD_LUA=ON
+
+cmake --build build --parallel
+```
+
+### Cross-Compilation Notes
+
+When building on Apple Silicon (arm64) Macs:
+
+```bash
+# Ensure native arm64 build
+cmake -B build \
+    -DCMAKE_OSX_ARCHITECTURES=arm64 \
+    -DJAGUAR_BUILD_PYTHON=ON \
+    -DJAGUAR_BUILD_LUA=ON
+
+cmake --build build --parallel
+```
+
+SIMD optimizations (AVX2, FMA) are automatically disabled on ARM platforms.
+
+### Scripting Documentation
+
+- [Python API Reference](web/api/python.md) - Complete Python API documentation
+- [Lua API Reference](web/api/lua.md) - Complete Lua API documentation
+- [Python Scripting Tutorial](web/tutorials/python-scripting.md) - Python tutorial
+- [Lua Scripting Tutorial](web/tutorials/lua-scripting.md) - Lua tutorial
 
 ## Next Steps
 

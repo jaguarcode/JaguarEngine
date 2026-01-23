@@ -13,6 +13,11 @@
 #include <string>
 #include <functional>
 
+// Forward declaration for event system integration
+namespace jaguar::events {
+    class EventDispatcher;
+}
+
 namespace jaguar::physics {
 
 // ============================================================================
@@ -317,10 +322,26 @@ public:
     const Entity* get_entity(EntityId id) const;
 
     /**
-     * @brief Get entity state
+     * @brief Get entity state (copy)
      */
     EntityState get_state(EntityId id) const;
     void set_state(EntityId id, const EntityState& state);
+
+    /**
+     * @brief Get mutable pointer to entity state for constraint solving
+     *
+     * This returns a pointer to a temporary EntityState that is valid only
+     * during the current physics step. The state is synchronized with
+     * the SoA storage before and after constraint solving.
+     *
+     * @return Pointer to EntityState, or nullptr if entity not found
+     */
+    EntityState* get_entity_state(EntityId id);
+
+    /**
+     * @brief Sync constraint solver state back to SoA storage
+     */
+    void sync_entity_states();
 
     /**
      * @brief Access state storage directly (for batch processing)
@@ -362,10 +383,43 @@ public:
      */
     SizeT active_entity_count() const;
 
+    // ========================================================================
+    // Event System Integration
+    // ========================================================================
+
+    /**
+     * @brief Set event dispatcher for entity lifecycle events
+     *
+     * When set, the EntityManager will emit events on:
+     * - EntityCreated: When create_entity() is called
+     * - EntityDestroyed: When destroy_entity() is called
+     * - EntityActivated/Deactivated: When entity active state changes
+     *
+     * @param dispatcher Pointer to event dispatcher (can be null to disable)
+     */
+    void set_event_dispatcher(events::EventDispatcher* dispatcher);
+
+    /**
+     * @brief Get current event dispatcher
+     */
+    events::EventDispatcher* get_event_dispatcher() const { return event_dispatcher_; }
+
+    /**
+     * @brief Set current simulation time for event timestamps
+     */
+    void set_current_time(Real time) { current_time_ = time; }
+
 private:
     EntityId next_id_{0};
     std::unordered_map<EntityId, Entity> entities_;
     EntityStateStorage state_storage_;
+
+    // Temporary state cache for constraint solving (maps entity ID to EntityState)
+    std::unordered_map<EntityId, EntityState> constraint_state_cache_;
+
+    // Event system integration
+    events::EventDispatcher* event_dispatcher_{nullptr};
+    Real current_time_{0.0};
 };
 
 } // namespace jaguar::physics

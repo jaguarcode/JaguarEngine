@@ -11,14 +11,12 @@
  * - Contact point generation
  * - Collision groups/layers/masks
  * - Continuous collision detection (CCD) for fast-moving objects
+ * - Event system integration for collision events
  */
 
 #pragma once
 
 #include "jaguar/core/types.h"
-#include "jaguar/core/math/vector.h"
-#include "jaguar/core/math/quaternion.h"
-#include "jaguar/core/math/matrix.h"
 
 #include <vector>
 #include <functional>
@@ -28,6 +26,11 @@
 #include <bitset>
 #include <limits>
 #include <algorithm>
+
+// Forward declaration for event system integration
+namespace jaguar::events {
+    class EventDispatcher;
+}
 
 namespace jaguar::physics {
 
@@ -90,23 +93,23 @@ enum class ShapeType : uint8_t {
  * @brief Axis-Aligned Bounding Box for broad-phase collision
  */
 struct AABB {
-    math::Vec3 min;
-    math::Vec3 max;
+    Vec3 min;
+    Vec3 max;
 
-    AABB() : min(math::Vec3::zero()), max(math::Vec3::zero()) {}
-    AABB(const math::Vec3& min_, const math::Vec3& max_) : min(min_), max(max_) {}
+    AABB() : min(Vec3::Zero()), max(Vec3::Zero()) {}
+    AABB(const Vec3& min_, const Vec3& max_) : min(min_), max(max_) {}
 
     /**
      * @brief Get center of AABB
      */
-    math::Vec3 center() const {
+    Vec3 center() const {
         return (min + max) * 0.5;
     }
 
     /**
      * @brief Get half-extents (half-size)
      */
-    math::Vec3 half_extents() const {
+    Vec3 half_extents() const {
         return (max - min) * 0.5;
     }
 
@@ -114,7 +117,7 @@ struct AABB {
      * @brief Get surface area (for tree optimization)
      */
     Real surface_area() const {
-        math::Vec3 d = max - min;
+        Vec3 d = max - min;
         return 2.0 * (d.x * d.y + d.y * d.z + d.z * d.x);
     }
 
@@ -122,7 +125,7 @@ struct AABB {
      * @brief Get volume
      */
     Real volume() const {
-        math::Vec3 d = max - min;
+        Vec3 d = max - min;
         return d.x * d.y * d.z;
     }
 
@@ -139,7 +142,7 @@ struct AABB {
     /**
      * @brief Test if point is inside AABB
      */
-    bool contains(const math::Vec3& point) const {
+    bool contains(const Vec3& point) const {
         return point.x >= min.x && point.x <= max.x &&
                point.y >= min.y && point.y <= max.y &&
                point.z >= min.z && point.z <= max.z;
@@ -150,12 +153,12 @@ struct AABB {
      */
     AABB merge(const AABB& other) const {
         return AABB(
-            math::Vec3(
+            Vec3(
                 std::min(min.x, other.min.x),
                 std::min(min.y, other.min.y),
                 std::min(min.z, other.min.z)
             ),
-            math::Vec3(
+            Vec3(
                 std::max(max.x, other.max.x),
                 std::max(max.y, other.max.y),
                 std::max(max.z, other.max.z)
@@ -167,14 +170,14 @@ struct AABB {
      * @brief Expand AABB by margin
      */
     AABB expand(Real margin) const {
-        math::Vec3 m(margin, margin, margin);
+        Vec3 m(margin, margin, margin);
         return AABB(min - m, max + m);
     }
 
     /**
      * @brief Create AABB from center and half-extents
      */
-    static AABB from_center_extents(const math::Vec3& center, const math::Vec3& half_extents) {
+    static AABB from_center_extents(const Vec3& center, const Vec3& half_extents) {
         return AABB(center - half_extents, center + half_extents);
     }
 };
@@ -198,15 +201,15 @@ public:
     /**
      * @brief Compute AABB for this shape at given transform
      */
-    virtual AABB compute_aabb(const math::Vec3& position,
-                               const math::Quat& orientation) const = 0;
+    virtual AABB compute_aabb(const Vec3& position,
+                               const Quat& orientation) const = 0;
 
     /**
      * @brief Get support point in given direction (for GJK)
      */
-    virtual math::Vec3 support(const math::Vec3& direction,
-                                const math::Vec3& position,
-                                const math::Quat& orientation) const = 0;
+    virtual Vec3 support(const Vec3& direction,
+                                const Vec3& position,
+                                const Quat& orientation) const = 0;
 
     /**
      * @brief Clone this shape
@@ -223,15 +226,15 @@ public:
 
     ShapeType type() const override { return ShapeType::Sphere; }
 
-    AABB compute_aabb(const math::Vec3& position,
-                       const math::Quat& /*orientation*/) const override {
-        math::Vec3 extents(radius_, radius_, radius_);
+    AABB compute_aabb(const Vec3& position,
+                       const Quat& /*orientation*/) const override {
+        Vec3 extents(radius_, radius_, radius_);
         return AABB(position - extents, position + extents);
     }
 
-    math::Vec3 support(const math::Vec3& direction,
-                        const math::Vec3& position,
-                        const math::Quat& /*orientation*/) const override {
+    Vec3 support(const Vec3& direction,
+                        const Vec3& position,
+                        const Quat& /*orientation*/) const override {
         return position + direction.normalized() * radius_;
     }
 
@@ -250,33 +253,33 @@ private:
  */
 class BoxShape : public CollisionShape {
 public:
-    explicit BoxShape(const math::Vec3& half_extents) : half_extents_(half_extents) {}
+    explicit BoxShape(const Vec3& half_extents) : half_extents_(half_extents) {}
 
     ShapeType type() const override { return ShapeType::Box; }
 
-    AABB compute_aabb(const math::Vec3& position,
-                       const math::Quat& orientation) const override {
+    AABB compute_aabb(const Vec3& position,
+                       const Quat& orientation) const override {
         // Transform each corner and find min/max
-        math::Vec3 corners[8] = {
-            math::Vec3(-half_extents_.x, -half_extents_.y, -half_extents_.z),
-            math::Vec3(+half_extents_.x, -half_extents_.y, -half_extents_.z),
-            math::Vec3(-half_extents_.x, +half_extents_.y, -half_extents_.z),
-            math::Vec3(+half_extents_.x, +half_extents_.y, -half_extents_.z),
-            math::Vec3(-half_extents_.x, -half_extents_.y, +half_extents_.z),
-            math::Vec3(+half_extents_.x, -half_extents_.y, +half_extents_.z),
-            math::Vec3(-half_extents_.x, +half_extents_.y, +half_extents_.z),
-            math::Vec3(+half_extents_.x, +half_extents_.y, +half_extents_.z)
+        Vec3 corners[8] = {
+            Vec3(-half_extents_.x, -half_extents_.y, -half_extents_.z),
+            Vec3(+half_extents_.x, -half_extents_.y, -half_extents_.z),
+            Vec3(-half_extents_.x, +half_extents_.y, -half_extents_.z),
+            Vec3(+half_extents_.x, +half_extents_.y, -half_extents_.z),
+            Vec3(-half_extents_.x, -half_extents_.y, +half_extents_.z),
+            Vec3(+half_extents_.x, -half_extents_.y, +half_extents_.z),
+            Vec3(-half_extents_.x, +half_extents_.y, +half_extents_.z),
+            Vec3(+half_extents_.x, +half_extents_.y, +half_extents_.z)
         };
 
-        math::Vec3 min_pt(std::numeric_limits<Real>::max(),
+        Vec3 min_pt(std::numeric_limits<Real>::max(),
                           std::numeric_limits<Real>::max(),
                           std::numeric_limits<Real>::max());
-        math::Vec3 max_pt(std::numeric_limits<Real>::lowest(),
+        Vec3 max_pt(std::numeric_limits<Real>::lowest(),
                           std::numeric_limits<Real>::lowest(),
                           std::numeric_limits<Real>::lowest());
 
         for (const auto& corner : corners) {
-            math::Vec3 world_pt = position + orientation.rotate(corner);
+            Vec3 world_pt = position + orientation.rotate(corner);
             min_pt.x = std::min(min_pt.x, world_pt.x);
             min_pt.y = std::min(min_pt.y, world_pt.y);
             min_pt.z = std::min(min_pt.z, world_pt.z);
@@ -288,14 +291,14 @@ public:
         return AABB(min_pt, max_pt);
     }
 
-    math::Vec3 support(const math::Vec3& direction,
-                        const math::Vec3& position,
-                        const math::Quat& orientation) const override {
+    Vec3 support(const Vec3& direction,
+                        const Vec3& position,
+                        const Quat& orientation) const override {
         // Transform direction to local space
-        math::Vec3 local_dir = orientation.conjugate().rotate(direction);
+        Vec3 local_dir = orientation.conjugate().rotate(direction);
 
         // Find support point in local space
-        math::Vec3 local_support(
+        Vec3 local_support(
             (local_dir.x > 0) ? half_extents_.x : -half_extents_.x,
             (local_dir.y > 0) ? half_extents_.y : -half_extents_.y,
             (local_dir.z > 0) ? half_extents_.z : -half_extents_.z
@@ -309,10 +312,10 @@ public:
         return std::make_unique<BoxShape>(half_extents_);
     }
 
-    const math::Vec3& half_extents() const { return half_extents_; }
+    const Vec3& half_extents() const { return half_extents_; }
 
 private:
-    math::Vec3 half_extents_;
+    Vec3 half_extents_;
 };
 
 /**
@@ -325,23 +328,23 @@ public:
 
     ShapeType type() const override { return ShapeType::Capsule; }
 
-    AABB compute_aabb(const math::Vec3& position,
-                       const math::Quat& orientation) const override {
+    AABB compute_aabb(const Vec3& position,
+                       const Quat& orientation) const override {
         // Capsule endpoints in local space
-        math::Vec3 top(0, half_height_, 0);
-        math::Vec3 bottom(0, -half_height_, 0);
+        Vec3 top(0, half_height_, 0);
+        Vec3 bottom(0, -half_height_, 0);
 
         // Transform to world space
-        math::Vec3 world_top = position + orientation.rotate(top);
-        math::Vec3 world_bottom = position + orientation.rotate(bottom);
+        Vec3 world_top = position + orientation.rotate(top);
+        Vec3 world_bottom = position + orientation.rotate(bottom);
 
         // Compute AABB including sphere radius at each end
-        math::Vec3 min_pt(
+        Vec3 min_pt(
             std::min(world_top.x, world_bottom.x) - radius_,
             std::min(world_top.y, world_bottom.y) - radius_,
             std::min(world_top.z, world_bottom.z) - radius_
         );
-        math::Vec3 max_pt(
+        Vec3 max_pt(
             std::max(world_top.x, world_bottom.x) + radius_,
             std::max(world_top.y, world_bottom.y) + radius_,
             std::max(world_top.z, world_bottom.z) + radius_
@@ -350,18 +353,18 @@ public:
         return AABB(min_pt, max_pt);
     }
 
-    math::Vec3 support(const math::Vec3& direction,
-                        const math::Vec3& position,
-                        const math::Quat& orientation) const override {
+    Vec3 support(const Vec3& direction,
+                        const Vec3& position,
+                        const Quat& orientation) const override {
         // Transform direction to local space
-        math::Vec3 local_dir = orientation.conjugate().rotate(direction);
+        Vec3 local_dir = orientation.conjugate().rotate(direction);
 
         // Find which hemisphere cap
-        math::Vec3 local_support;
+        Vec3 local_support;
         if (local_dir.y > 0) {
-            local_support = math::Vec3(0, half_height_, 0);
+            local_support = Vec3(0, half_height_, 0);
         } else {
-            local_support = math::Vec3(0, -half_height_, 0);
+            local_support = Vec3(0, -half_height_, 0);
         }
 
         // Add sphere support
@@ -388,24 +391,24 @@ private:
  */
 class ConvexHullShape : public CollisionShape {
 public:
-    explicit ConvexHullShape(const std::vector<math::Vec3>& vertices)
+    explicit ConvexHullShape(const std::vector<Vec3>& vertices)
         : vertices_(vertices) {
         compute_local_aabb();
     }
 
     ShapeType type() const override { return ShapeType::ConvexHull; }
 
-    AABB compute_aabb(const math::Vec3& position,
-                       const math::Quat& orientation) const override {
-        math::Vec3 min_pt(std::numeric_limits<Real>::max(),
+    AABB compute_aabb(const Vec3& position,
+                       const Quat& orientation) const override {
+        Vec3 min_pt(std::numeric_limits<Real>::max(),
                           std::numeric_limits<Real>::max(),
                           std::numeric_limits<Real>::max());
-        math::Vec3 max_pt(std::numeric_limits<Real>::lowest(),
+        Vec3 max_pt(std::numeric_limits<Real>::lowest(),
                           std::numeric_limits<Real>::lowest(),
                           std::numeric_limits<Real>::lowest());
 
         for (const auto& vertex : vertices_) {
-            math::Vec3 world_pt = position + orientation.rotate(vertex);
+            Vec3 world_pt = position + orientation.rotate(vertex);
             min_pt.x = std::min(min_pt.x, world_pt.x);
             min_pt.y = std::min(min_pt.y, world_pt.y);
             min_pt.z = std::min(min_pt.z, world_pt.z);
@@ -417,15 +420,15 @@ public:
         return AABB(min_pt, max_pt);
     }
 
-    math::Vec3 support(const math::Vec3& direction,
-                        const math::Vec3& position,
-                        const math::Quat& orientation) const override {
+    Vec3 support(const Vec3& direction,
+                        const Vec3& position,
+                        const Quat& orientation) const override {
         // Transform direction to local space
-        math::Vec3 local_dir = orientation.conjugate().rotate(direction);
+        Vec3 local_dir = orientation.conjugate().rotate(direction);
 
         // Find vertex with maximum dot product
         Real max_dot = std::numeric_limits<Real>::lowest();
-        math::Vec3 support_vertex = vertices_[0];
+        Vec3 support_vertex = vertices_[0];
 
         for (const auto& vertex : vertices_) {
             Real d = vertex.dot(local_dir);
@@ -443,10 +446,10 @@ public:
         return std::make_unique<ConvexHullShape>(vertices_);
     }
 
-    const std::vector<math::Vec3>& vertices() const { return vertices_; }
+    const std::vector<Vec3>& vertices() const { return vertices_; }
 
 private:
-    std::vector<math::Vec3> vertices_;
+    std::vector<Vec3> vertices_;
     AABB local_aabb_;
 
     void compute_local_aabb() {
@@ -474,18 +477,18 @@ private:
  * @brief Contact point between two colliders
  */
 struct ContactPoint {
-    math::Vec3 position;        // World-space contact position
-    math::Vec3 normal;          // Contact normal (from A to B)
+    Vec3 position;        // World-space contact position
+    Vec3 normal;          // Contact normal (from A to B)
     Real penetration_depth;     // Overlap distance
-    math::Vec3 local_point_a;   // Contact in A's local space
-    math::Vec3 local_point_b;   // Contact in B's local space
+    Vec3 local_point_a;   // Contact in A's local space
+    Vec3 local_point_b;   // Contact in B's local space
 
     ContactPoint()
-        : position(math::Vec3::zero())
-        , normal(math::Vec3(0, 1, 0))
+        : position(Vec3::Zero())
+        , normal(Vec3(0, 1, 0))
         , penetration_depth(0)
-        , local_point_a(math::Vec3::zero())
-        , local_point_b(math::Vec3::zero()) {}
+        , local_point_a(Vec3::Zero())
+        , local_point_b(Vec3::Zero()) {}
 };
 
 /**
@@ -529,8 +532,8 @@ struct CollisionBody {
     std::unique_ptr<CollisionShape> shape;
 
     // Transform (from EntityState)
-    math::Vec3 position;
-    math::Quat orientation;
+    Vec3 position;
+    Quat orientation;
 
     // Collision filtering
     CollisionLayer layer;
@@ -551,8 +554,8 @@ struct CollisionBody {
     CollisionBody()
         : entity_id(INVALID_ENTITY_ID)
         , shape(nullptr)
-        , position(math::Vec3::zero())
-        , orientation(math::Quat::identity())
+        , position(Vec3::Zero())
+        , orientation(Quat::Identity())
         , layer(CollisionLayer::Default)
         , is_static(false)
         , is_trigger(false)
@@ -603,26 +606,26 @@ public:
      * @return true if shapes are intersecting
      */
     static bool test_collision(
-        const CollisionShape& shape_a, const math::Vec3& pos_a, const math::Quat& rot_a,
-        const CollisionShape& shape_b, const math::Vec3& pos_b, const math::Quat& rot_b);
+        const CollisionShape& shape_a, const Vec3& pos_a, const Quat& rot_a,
+        const CollisionShape& shape_b, const Vec3& pos_b, const Quat& rot_b);
 
     /**
      * @brief Get penetration depth and normal using EPA
      * @return true if collision found with contact info
      */
     static bool get_contact(
-        const CollisionShape& shape_a, const math::Vec3& pos_a, const math::Quat& rot_a,
-        const CollisionShape& shape_b, const math::Vec3& pos_b, const math::Quat& rot_b,
+        const CollisionShape& shape_a, const Vec3& pos_a, const Quat& rot_a,
+        const CollisionShape& shape_b, const Vec3& pos_b, const Quat& rot_b,
         ContactPoint& contact);
 
 private:
     struct Simplex {
-        math::Vec3 points[4];
+        Vec3 points[4];
         int count;
 
         Simplex() : count(0) {}
 
-        void push(const math::Vec3& point) {
+        void push(const Vec3& point) {
             for (int i = count; i > 0; --i) {
                 points[i] = points[i - 1];
             }
@@ -630,19 +633,19 @@ private:
             count = std::min(count + 1, 4);
         }
 
-        math::Vec3& operator[](int i) { return points[i]; }
-        const math::Vec3& operator[](int i) const { return points[i]; }
+        Vec3& operator[](int i) { return points[i]; }
+        const Vec3& operator[](int i) const { return points[i]; }
     };
 
-    static math::Vec3 minkowski_support(
-        const CollisionShape& shape_a, const math::Vec3& pos_a, const math::Quat& rot_a,
-        const CollisionShape& shape_b, const math::Vec3& pos_b, const math::Quat& rot_b,
-        const math::Vec3& direction);
+    static Vec3 minkowski_support(
+        const CollisionShape& shape_a, const Vec3& pos_a, const Quat& rot_a,
+        const CollisionShape& shape_b, const Vec3& pos_b, const Quat& rot_b,
+        const Vec3& direction);
 
-    static bool do_simplex(Simplex& simplex, math::Vec3& direction);
-    static bool line_case(Simplex& simplex, math::Vec3& direction);
-    static bool triangle_case(Simplex& simplex, math::Vec3& direction);
-    static bool tetrahedron_case(Simplex& simplex, math::Vec3& direction);
+    static bool do_simplex(Simplex& simplex, Vec3& direction);
+    static bool line_case(Simplex& simplex, Vec3& direction);
+    static bool triangle_case(Simplex& simplex, Vec3& direction);
+    static bool tetrahedron_case(Simplex& simplex, Vec3& direction);
 };
 
 // ============================================================================
@@ -693,7 +696,7 @@ public:
     /**
      * @brief Ray cast against tree
      */
-    void raycast(const math::Vec3& origin, const math::Vec3& direction,
+    void raycast(const Vec3& origin, const Vec3& direction,
                  Real max_distance, std::vector<EntityId>& results) const;
 
     /**
@@ -768,8 +771,8 @@ public:
     /**
      * @brief Update body transform
      */
-    void update_body(EntityId entity_id, const math::Vec3& position,
-                     const math::Quat& orientation);
+    void update_body(EntityId entity_id, const Vec3& position,
+                     const Quat& orientation);
 
     /**
      * @brief Set body as static (never moves)
@@ -814,7 +817,7 @@ public:
     /**
      * @brief Test if point is inside any body
      */
-    std::vector<EntityId> query_point(const math::Vec3& point) const;
+    std::vector<EntityId> query_point(const Vec3& point) const;
 
     /**
      * @brief Query all bodies overlapping with AABB
@@ -826,18 +829,18 @@ public:
      */
     struct RayHit {
         EntityId entity_id;
-        math::Vec3 point;
-        math::Vec3 normal;
+        Vec3 point;
+        Vec3 normal;
         Real distance;
     };
 
-    std::vector<RayHit> raycast(const math::Vec3& origin, const math::Vec3& direction,
+    std::vector<RayHit> raycast(const Vec3& origin, const Vec3& direction,
                                  Real max_distance = std::numeric_limits<Real>::max()) const;
 
     /**
      * @brief Ray cast and get closest hit
      */
-    bool raycast_closest(const math::Vec3& origin, const math::Vec3& direction,
+    bool raycast_closest(const Vec3& origin, const Vec3& direction,
                          RayHit& hit, Real max_distance = std::numeric_limits<Real>::max()) const;
 
     // ========================================================================
@@ -881,13 +884,44 @@ public:
 
     const Statistics& get_statistics() const { return stats_; }
 
+    // ========================================================================
+    // Event System Integration
+    // ========================================================================
+
+    /**
+     * @brief Set event dispatcher for collision events
+     *
+     * When set, the CollisionWorld will emit events on:
+     * - CollisionEnter: When two bodies start colliding
+     * - CollisionExit: When two bodies stop colliding
+     * - TriggerEnter/TriggerExit: For trigger volumes
+     *
+     * @param dispatcher Pointer to event dispatcher (can be null to disable)
+     */
+    void set_event_dispatcher(events::EventDispatcher* dispatcher);
+
+    /**
+     * @brief Get current event dispatcher
+     */
+    events::EventDispatcher* get_event_dispatcher() const { return event_dispatcher_; }
+
+    /**
+     * @brief Set current simulation time for event timestamps
+     */
+    void set_current_time(Real time) { current_time_ = time; }
+
 private:
     std::unordered_map<EntityId, CollisionBody> bodies_;
     std::unordered_map<EntityId, int> body_to_tree_node_;
     std::unique_ptr<AABBTree> broad_phase_;
 
+    // Event system integration
+    events::EventDispatcher* event_dispatcher_{nullptr};
+    Real current_time_{0.0};
+
     std::vector<ContactManifold> contacts_;
     std::unordered_set<uint64_t> active_triggers_;  // Packed entity pair IDs
+    std::unordered_set<uint64_t> active_collisions_;  // Packed entity pair IDs for collision enter/exit
 
     CollisionCallback collision_callback_;
     TriggerCallback trigger_enter_callback_;

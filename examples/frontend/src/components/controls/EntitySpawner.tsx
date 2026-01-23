@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { useUIStore } from '@/stores/uiStore';
@@ -43,15 +43,31 @@ const DEFAULT_POSITION = {
   altitude: 5000,
 };
 
-export const EntitySpawner: React.FC = () => {
+interface EntitySpawnerProps {
+  variant?: 'default' | 'header';
+}
+
+export const EntitySpawner: React.FC<EntitySpawnerProps> = ({ variant = 'default' }) => {
   const { spawnEntity } = useWebSocket();
   const cameraPosition = useUIStore((s) => s.view?.cameraPosition);
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedDomain, setSelectedDomain] = useState<Domain>('air');
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
   const [entityName, setEntityName] = useState<string>('');
   const [position, setPosition] = useState(DEFAULT_POSITION);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const templates = ENTITY_TEMPLATES[selectedDomain];
   const selectedTemplateData = templates.find((t) => t.template === selectedTemplate);
@@ -83,34 +99,123 @@ export const EntitySpawner: React.FC = () => {
     });
   };
 
-  // Collapsed view - just a button to expand
-  if (isCollapsed) {
+  // Header variant - compact dropdown
+  if (variant === 'header') {
     return (
-      <button
-        className="px-4 py-2 bg-gray-800/90 border border-gray-700/50 rounded-lg text-sm text-gray-300 hover:bg-gray-700/90 hover:text-white transition-colors flex items-center gap-2"
-        onClick={() => setIsCollapsed(false)}
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
-        Spawn Entity
-      </button>
+      <div className="relative" ref={dropdownRef}>
+        <button
+          className={clsx(
+            'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5',
+            isOpen
+              ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+              : 'bg-gray-700/50 text-gray-400 border border-gray-600/30 hover:bg-gray-700'
+          )}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Spawn</span>
+        </button>
+
+        {isOpen && (
+          <div className="absolute top-full right-0 mt-2 w-80 bg-gray-900/95 border border-gray-700/50 rounded-lg shadow-xl z-50 p-4 space-y-3">
+            {/* Domain selection */}
+            <div className="flex gap-1">
+              {(['air', 'land', 'sea', 'space'] as Domain[]).map((domain) => (
+                <button
+                  key={domain}
+                  className={clsx(
+                    'flex-1 px-2 py-1 text-xs rounded capitalize transition-colors',
+                    selectedDomain === domain
+                      ? clsx({
+                          'bg-domain-air text-white': domain === 'air',
+                          'bg-domain-land text-white': domain === 'land',
+                          'bg-domain-sea text-white': domain === 'sea',
+                          'bg-domain-space text-white': domain === 'space',
+                        })
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  )}
+                  onClick={() => {
+                    setSelectedDomain(domain);
+                    setSelectedTemplate('');
+                  }}
+                >
+                  {domain}
+                </button>
+              ))}
+            </div>
+
+            {/* Template selection */}
+            <select
+              className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1.5 text-xs text-white"
+              value={selectedTemplate}
+              onChange={(e) => setSelectedTemplate(e.target.value)}
+            >
+              <option value="">Select entity...</option>
+              {templates.map((t) => (
+                <option key={t.template} value={t.template}>
+                  {t.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Position (simplified) */}
+            <div className="grid grid-cols-3 gap-2 text-xs">
+              <div>
+                <label className="text-gray-500">Lat</label>
+                <input
+                  type="number"
+                  className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white"
+                  step="0.01"
+                  value={position.latitude}
+                  onChange={(e) => setPosition({ ...position, latitude: parseFloat(e.target.value) })}
+                />
+              </div>
+              <div>
+                <label className="text-gray-500">Lon</label>
+                <input
+                  type="number"
+                  className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white"
+                  step="0.01"
+                  value={position.longitude}
+                  onChange={(e) => setPosition({ ...position, longitude: parseFloat(e.target.value) })}
+                />
+              </div>
+              <div>
+                <label className="text-gray-500">Alt</label>
+                <input
+                  type="number"
+                  className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white"
+                  step="100"
+                  value={position.altitude}
+                  onChange={(e) => setPosition({ ...position, altitude: parseFloat(e.target.value) })}
+                />
+              </div>
+            </div>
+
+            {/* Spawn button */}
+            <button
+              className="w-full py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => {
+                handleSpawn();
+                setIsOpen(false);
+              }}
+              disabled={!selectedTemplate}
+            >
+              Spawn {selectedTemplateData?.name || 'Entity'}
+            </button>
+          </div>
+        )}
+      </div>
     );
   }
 
+  // Default variant - panel style
   return (
     <div className="panel">
       <div className="panel-header">
         <h3 className="panel-title">Spawn Entity</h3>
-        <button
-          className="text-gray-500 hover:text-gray-300 transition-colors"
-          onClick={() => setIsCollapsed(true)}
-          title="Hide spawner"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
       </div>
 
       <div className="panel-content space-y-4">

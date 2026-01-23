@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.25)
 
 project(JaguarEngine
-    VERSION 0.4.0
+    VERSION 0.5.0
     DESCRIPTION "Next-Generation Multi-Domain Physics Simulation Platform"
-    LANGUAGES CXX
+    LANGUAGES CXX C
 )
 
 # ============================================================================
@@ -63,8 +63,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
     # Architecture-specific optimizations (disabled for cross-compilation compatibility)
     # Note: -march=native and -mcpu=native cause issues under Rosetta
     if(JAGUAR_ENABLE_SIMD)
-        # Only enable SIMD on native x86_64 systems
-        if(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64" AND CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+        # Only enable SIMD on native x86_64 systems (not cross-compiling to arm64)
+        if(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64" AND CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64"
+           AND NOT CMAKE_OSX_ARCHITECTURES MATCHES "arm64")
             target_compile_options(jaguar_compiler_flags INTERFACE
                 -mavx2
                 -mfma
@@ -94,18 +95,40 @@ find_package(Eigen3 3.4 QUIET)
 if(NOT Eigen3_FOUND)
     message(STATUS "Eigen3 not found, will use FetchContent")
     include(FetchContent)
+
+    # Disable Eigen's Fortran-dependent components to avoid architecture conflicts
+    # These must be set before FetchContent_Declare for the options to be respected
+    set(EIGEN_BUILD_TESTING OFF CACHE BOOL "" FORCE)
+    set(EIGEN_BUILD_DOC OFF CACHE BOOL "" FORCE)
+    set(EIGEN_BUILD_BLAS OFF CACHE BOOL "" FORCE)
+    set(EIGEN_BUILD_LAPACK OFF CACHE BOOL "" FORCE)
+    set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+
     FetchContent_Declare(
         eigen
         GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
         GIT_TAG 3.4.0
         GIT_SHALLOW TRUE
     )
-    FetchContent_MakeAvailable(eigen)
+
+    # Use FetchContent_GetProperties and FetchContent_Populate for more control
+    FetchContent_GetProperties(eigen)
+    if(NOT eigen_POPULATED)
+        FetchContent_Populate(eigen)
+        # Add Eigen as a subdirectory but only include the main Eigen target
+        # Skip blas/lapack/test subdirectories by not using add_subdirectory on them
+        add_library(Eigen3::Eigen INTERFACE IMPORTED GLOBAL)
+        target_include_directories(Eigen3::Eigen INTERFACE "${eigen_SOURCE_DIR}")
+    endif()
 endif()
 
 # pugixml (XML Parsing)
-find_package(pugixml QUIET)
+# Skip system pugixml if cross-compiling (architecture mismatch)
+if(NOT CMAKE_OSX_ARCHITECTURES OR CMAKE_OSX_ARCHITECTURES STREQUAL CMAKE_HOST_SYSTEM_PROCESSOR)
+    find_package(pugixml QUIET)
+endif()
 if(NOT pugixml_FOUND)
+    message(STATUS "Using FetchContent for pugixml")
     include(FetchContent)
     FetchContent_Declare(
         pugixml
@@ -169,14 +192,30 @@ add_library(jaguar_physics STATIC
     src/physics/entity_manager.cpp
     src/physics/physics_system.cpp
     src/physics/force_generators.cpp
+    src/physics/collision.cpp
+    # Integrators
     src/physics/integrators/rk4.cpp
     src/physics/integrators/abm4.cpp
     src/physics/integrators/adaptive.cpp
+    src/physics/integrators/symplectic_euler.cpp
+    src/physics/integrators/verlet.cpp
+    src/physics/integrators/dormand_prince.cpp
+    src/physics/integrators/boris.cpp
+    # Constraints
+    src/physics/constraints/constraint.cpp
+    src/physics/constraints/sequential_impulse_solver.cpp
+    src/physics/constraints/distance_constraint.cpp
+    src/physics/constraints/hinge_constraint.cpp
+    src/physics/constraints/ball_socket_constraint.cpp
+    src/physics/constraints/slider_constraint.cpp
+    src/physics/constraints/fixed_constraint.cpp
+    src/physics/constraints/contact_constraint.cpp
 )
 
 target_link_libraries(jaguar_physics
     PUBLIC
         jaguar_core
+        jaguar_events
     PRIVATE
         jaguar_compiler_flags
 )
@@ -239,6 +278,177 @@ target_link_libraries(jaguar_domain_space
 )
 
 # ============================================================================
+# Events Library
+# ============================================================================
+add_library(jaguar_events STATIC
+    src/events/event.cpp
+    src/events/event_dispatcher.cpp
+)
+
+target_link_libraries(jaguar_events
+    PUBLIC
+        jaguar_core
+    PRIVATE
+        jaguar_compiler_flags
+)
+
+# ============================================================================
+# GPU Library
+# ============================================================================
+option(JAGUAR_ENABLE_GPU "Enable GPU acceleration support" ON)
+option(JAGUAR_ENABLE_CUDA "Enable CUDA backend" OFF)
+option(JAGUAR_ENABLE_OPENCL "Enable OpenCL backend" OFF)
+option(JAGUAR_ENABLE_METAL "Enable Metal backend (macOS only)" OFF)
+
+# GPU source files (always include CPU backend)
+set(JAGUAR_GPU_SOURCES
+    src/gpu/compute_backend.cpp
+    src/gpu/cpu_backend.cpp
+    src/gpu/physics_kernels.cpp
+    src/gpu/memory_pool.cpp
+    src/gpu/hybrid_physics.cpp
+)
+
+# ============================================================================
+# CUDA Backend (Optional)
+# ============================================================================
+if(JAGUAR_ENABLE_CUDA)
+    # Enable CUDA language
+    enable_language(CUDA)
+    find_package(CUDAToolkit REQUIRED)
+
+    # Check CUDA version
+    if(CUDAToolkit_VERSION VERSION_LESS "11.0")
+        message(FATAL_ERROR "CUDA 11.0 or later is required (found ${CUDAToolkit_VERSION})")
+    endif()
+
+    # Add CUDA source files
+    list(APPEND JAGUAR_GPU_SOURCES
+        src/gpu/cuda/cuda_backend.cu
+    )
+
+    message(STATUS "  CUDA Backend: ON (${CUDAToolkit_VERSION})")
+    message(STATUS "    CUDA Toolkit: ${CUDAToolkit_LIBRARY_DIR}")
+    message(STATUS "    NVRTC: ${CUDAToolkit_nvrtc_LIBRARY}")
+else()
+    message(STATUS "  CUDA Backend: OFF")
+endif()
+
+# ============================================================================
+# OpenCL Backend (Optional)
+# ============================================================================
+if(JAGUAR_ENABLE_OPENCL)
+    find_package(OpenCL REQUIRED)
+    list(APPEND JAGUAR_GPU_SOURCES
+        src/gpu/opencl/opencl_backend.cpp
+    )
+    message(STATUS "  OpenCL Backend: ON (${OpenCL_VERSION_STRING})")
+else()
+    message(STATUS "  OpenCL Backend: OFF")
+endif()
+
+# ============================================================================
+# Metal Backend (Optional, macOS only)
+# ============================================================================
+if(JAGUAR_ENABLE_METAL AND APPLE)
+    find_library(METAL_FRAMEWORK Metal REQUIRED)
+    find_library(METALKIT_FRAMEWORK MetalKit REQUIRED)
+    list(APPEND JAGUAR_GPU_SOURCES
+        src/gpu/metal/metal_backend.mm
+    )
+    message(STATUS "  Metal Backend: ON")
+elseif(JAGUAR_ENABLE_METAL AND NOT APPLE)
+    message(WARNING "Metal backend is only available on macOS")
+    set(JAGUAR_ENABLE_METAL OFF)
+else()
+    message(STATUS "  Metal Backend: OFF")
+endif()
+
+# ============================================================================
+# Create GPU Library
+# ============================================================================
+add_library(jaguar_gpu STATIC ${JAGUAR_GPU_SOURCES})
+
+target_link_libraries(jaguar_gpu
+    PUBLIC
+        jaguar_core
+    PRIVATE
+        jaguar_compiler_flags
+)
+
+# CUDA specific configuration
+if(JAGUAR_ENABLE_CUDA)
+    # Set CUDA standard and properties
+    set_target_properties(jaguar_gpu PROPERTIES
+        CUDA_STANDARD 17
+        CUDA_STANDARD_REQUIRED ON
+        CUDA_SEPARABLE_COMPILATION ON
+    )
+
+    # CUDA architectures (support compute capability 5.0+)
+    if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
+        set(CMAKE_CUDA_ARCHITECTURES "50;60;70;75;80;86;89;90")
+    endif()
+    set_target_properties(jaguar_gpu PROPERTIES
+        CUDA_ARCHITECTURES "${CMAKE_CUDA_ARCHITECTURES}"
+    )
+
+    # Link CUDA libraries
+    target_link_libraries(jaguar_gpu
+        PRIVATE
+            CUDA::cudart
+            CUDA::cuda_driver
+            CUDA::nvrtc
+    )
+
+    # Define preprocessor macro for CUDA support
+    target_compile_definitions(jaguar_gpu
+        PUBLIC JAGUAR_HAS_CUDA
+        PRIVATE JAGUAR_HAS_CUDA
+    )
+
+    # CUDA-specific compiler options
+    target_compile_options(jaguar_gpu PRIVATE
+        $<$<COMPILE_LANGUAGE:CUDA>:
+            --expt-relaxed-constexpr
+            --extended-lambda
+            -Wno-deprecated-gpu-targets
+        >
+    )
+endif()
+
+# OpenCL specific configuration
+if(JAGUAR_ENABLE_OPENCL)
+    target_link_libraries(jaguar_gpu PRIVATE OpenCL::OpenCL)
+    target_compile_definitions(jaguar_gpu
+        PUBLIC JAGUAR_HAS_OPENCL
+        PRIVATE JAGUAR_HAS_OPENCL
+    )
+endif()
+
+# Metal specific configuration
+if(JAGUAR_ENABLE_METAL AND APPLE)
+    target_link_libraries(jaguar_gpu PRIVATE
+        ${METAL_FRAMEWORK}
+        ${METALKIT_FRAMEWORK}
+    )
+    target_compile_definitions(jaguar_gpu
+        PUBLIC JAGUAR_HAS_METAL
+        PRIVATE JAGUAR_HAS_METAL
+    )
+endif()
+
+# Optional: OpenMP support for CPU backend
+find_package(OpenMP QUIET)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(jaguar_gpu PRIVATE OpenMP::OpenMP_CXX)
+    target_compile_definitions(jaguar_gpu PRIVATE _OPENMP)
+    message(STATUS "  OpenMP: ON (CPU backend parallel execution)")
+else()
+    message(STATUS "  OpenMP: OFF (CPU backend uses std::thread)")
+endif()
+
+# ============================================================================
 # Environment Library
 # ============================================================================
 add_library(jaguar_environment STATIC
@@ -247,6 +457,7 @@ add_library(jaguar_environment STATIC
     src/environment/terrain/gdal_loader.cpp
     src/environment/atmosphere/standard_atmosphere.cpp
     src/environment/ocean/wave_spectrum.cpp
+    src/environment/dryden_turbulence.cpp
 )
 
 target_link_libraries(jaguar_environment
@@ -262,6 +473,71 @@ if(GDAL_FOUND)
 endif()
 
 # ============================================================================
+# Sensors Library
+# ============================================================================
+add_library(jaguar_sensors STATIC
+    src/sensors/sensor.cpp
+    src/sensors/imu_sensor.cpp
+)
+
+target_link_libraries(jaguar_sensors
+    PUBLIC
+        jaguar_core
+        jaguar_events
+        jaguar_physics
+        jaguar_environment
+    PRIVATE
+        jaguar_compiler_flags
+)
+
+# ============================================================================
+# XR Library (Extended Reality / VR/AR Support)
+# ============================================================================
+option(JAGUAR_ENABLE_XR "Enable XR (VR/AR) support" ON)
+option(JAGUAR_ENABLE_OPENXR "Enable OpenXR runtime" OFF)
+
+# XR source files
+set(JAGUAR_XR_SOURCES
+    src/xr/xr_session.cpp
+    src/xr/mock_xr_runtime.cpp
+    src/xr/spatial_audio.cpp
+)
+
+# OpenXR integration (optional)
+if(JAGUAR_ENABLE_OPENXR)
+    find_package(OpenXR QUIET)
+    if(OpenXR_FOUND)
+        list(APPEND JAGUAR_XR_SOURCES
+            src/xr/openxr_runtime.cpp
+        )
+        message(STATUS "  OpenXR: ON (${OpenXR_VERSION})")
+    else()
+        message(WARNING "OpenXR requested but not found. Using mock runtime only.")
+        set(JAGUAR_ENABLE_OPENXR OFF)
+    endif()
+else()
+    message(STATUS "  OpenXR: OFF (using mock runtime)")
+endif()
+
+add_library(jaguar_xr STATIC ${JAGUAR_XR_SOURCES})
+
+target_link_libraries(jaguar_xr
+    PUBLIC
+        jaguar_core
+        jaguar_events
+    PRIVATE
+        jaguar_compiler_flags
+)
+
+if(JAGUAR_ENABLE_OPENXR AND OpenXR_FOUND)
+    target_link_libraries(jaguar_xr PRIVATE OpenXR::openxr_loader)
+    target_compile_definitions(jaguar_xr
+        PUBLIC JAGUAR_HAS_OPENXR
+        PRIVATE JAGUAR_HAS_OPENXR
+    )
+endif()
+
+# ============================================================================
 # Main Engine Library (combines all modules)
 # ============================================================================
 add_library(jaguar INTERFACE)
@@ -269,11 +545,15 @@ add_library(jaguar INTERFACE)
 target_link_libraries(jaguar INTERFACE
     jaguar_core
     jaguar_physics
+    jaguar_events
+    jaguar_gpu
+    jaguar_xr
     jaguar_domain_air
     jaguar_domain_land
     jaguar_domain_sea
     jaguar_domain_space
     jaguar_environment
+    jaguar_sensors
 )
 
 # ============================================================================
@@ -326,6 +606,121 @@ if(JAGUAR_BUILD_PYTHON)
 endif()
 
 # ============================================================================
+# Lua Bindings (Optional)
+# ============================================================================
+if(JAGUAR_BUILD_LUA)
+    # Find system Lua first (preferred)
+    find_package(Lua 5.4 QUIET)
+    if(NOT Lua_FOUND)
+        find_package(Lua 5.3 QUIET)
+    endif()
+
+    if(NOT Lua_FOUND)
+        message(STATUS "System Lua not found. Using bundled Lua source...")
+
+        # Use bundled Lua source in external directory
+        set(LUA_SOURCE_DIR ${CMAKE_SOURCE_DIR}/external/lua-5.4.6/src)
+
+        if(NOT EXISTS ${LUA_SOURCE_DIR}/lua.h)
+            message(FATAL_ERROR "Bundled Lua not found at ${LUA_SOURCE_DIR}. "
+                "Please download Lua 5.4.6 from https://www.lua.org/ftp/lua-5.4.6.tar.gz "
+                "and extract to external/lua-5.4.6/")
+        endif()
+        set(LUA_CORE_SOURCES
+            ${LUA_SOURCE_DIR}/lapi.c
+            ${LUA_SOURCE_DIR}/lcode.c
+            ${LUA_SOURCE_DIR}/lctype.c
+            ${LUA_SOURCE_DIR}/ldebug.c
+            ${LUA_SOURCE_DIR}/ldo.c
+            ${LUA_SOURCE_DIR}/ldump.c
+            ${LUA_SOURCE_DIR}/lfunc.c
+            ${LUA_SOURCE_DIR}/lgc.c
+            ${LUA_SOURCE_DIR}/llex.c
+            ${LUA_SOURCE_DIR}/lmem.c
+            ${LUA_SOURCE_DIR}/lobject.c
+            ${LUA_SOURCE_DIR}/lopcodes.c
+            ${LUA_SOURCE_DIR}/lparser.c
+            ${LUA_SOURCE_DIR}/lstate.c
+            ${LUA_SOURCE_DIR}/lstring.c
+            ${LUA_SOURCE_DIR}/ltable.c
+            ${LUA_SOURCE_DIR}/ltm.c
+            ${LUA_SOURCE_DIR}/lundump.c
+            ${LUA_SOURCE_DIR}/lvm.c
+            ${LUA_SOURCE_DIR}/lzio.c
+        )
+        set(LUA_LIB_SOURCES
+            ${LUA_SOURCE_DIR}/lauxlib.c
+            ${LUA_SOURCE_DIR}/lbaselib.c
+            ${LUA_SOURCE_DIR}/lcorolib.c
+            ${LUA_SOURCE_DIR}/ldblib.c
+            ${LUA_SOURCE_DIR}/liolib.c
+            ${LUA_SOURCE_DIR}/lmathlib.c
+            ${LUA_SOURCE_DIR}/loadlib.c
+            ${LUA_SOURCE_DIR}/loslib.c
+            ${LUA_SOURCE_DIR}/lstrlib.c
+            ${LUA_SOURCE_DIR}/ltablib.c
+            ${LUA_SOURCE_DIR}/lutf8lib.c
+            ${LUA_SOURCE_DIR}/linit.c
+        )
+
+        add_library(lua_static STATIC ${LUA_CORE_SOURCES} ${LUA_LIB_SOURCES})
+        target_include_directories(lua_static PUBLIC ${LUA_SOURCE_DIR})
+
+        # Platform-specific definitions
+        if(UNIX AND NOT APPLE)
+            target_compile_definitions(lua_static PRIVATE LUA_USE_LINUX)
+            target_link_libraries(lua_static PRIVATE dl m)
+        elseif(APPLE)
+            target_compile_definitions(lua_static PRIVATE LUA_USE_MACOSX)
+            target_link_libraries(lua_static PRIVATE dl m)
+        endif()
+
+        set(LUA_INCLUDE_DIR ${LUA_SOURCE_DIR})
+        set(LUA_LIBRARIES lua_static)
+        set(LUA_FETCHED TRUE)
+    endif()
+
+    # Fetch sol2 (header-only) - use develop branch for C++20 compatibility
+    include(FetchContent)
+    FetchContent_Declare(
+        sol2
+        GIT_REPOSITORY https://github.com/ThePhD/sol2.git
+        GIT_TAG develop
+        GIT_SHALLOW TRUE
+    )
+    # sol2 configuration for C++20 compatibility
+    set(SOL2_LUA_VERSION "5.4" CACHE STRING "" FORCE)
+    set(SOL2_BUILD_LUA FALSE CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(sol2)
+
+    # Build Lua module
+    add_library(luajaguar SHARED
+        src/interface/script/lua_bindings.cpp
+    )
+    target_link_libraries(luajaguar PRIVATE
+        jaguar
+        sol2::sol2
+    )
+    if(Lua_FOUND)
+        target_include_directories(luajaguar PRIVATE ${LUA_INCLUDE_DIR})
+        target_link_libraries(luajaguar PRIVATE ${LUA_LIBRARIES})
+    elseif(LUA_FETCHED)
+        target_include_directories(luajaguar PRIVATE ${LUA_INCLUDE_DIR})
+        target_link_libraries(luajaguar PRIVATE ${LUA_LIBRARIES})
+    endif()
+    target_compile_definitions(luajaguar PRIVATE JAGUAR_BUILD_LUA)
+
+    # Set output name for Lua module (jaguar.so / jaguar.dll)
+    set_target_properties(luajaguar PROPERTIES
+        OUTPUT_NAME "jaguar"
+        PREFIX ""
+    )
+    if(APPLE)
+        set_target_properties(luajaguar PROPERTIES SUFFIX ".so")
+    endif()
+endif()
+
+# ============================================================================
 # Tests
 # ============================================================================
 if(JAGUAR_BUILD_TESTS)
@@ -357,6 +752,9 @@ if(JAGUAR_BUILD_TESTS)
         tests/unit/test_sea_domain.cpp
         tests/unit/test_space_domain.cpp
         tests/unit/test_simd.cpp
+        tests/unit/test_events.cpp
+        tests/unit/test_sensors.cpp
+        tests/unit/test_compute_backend.cpp
     )
     target_link_libraries(jaguar_unit_tests PRIVATE
         jaguar
@@ -364,6 +762,118 @@ if(JAGUAR_BUILD_TESTS)
         GTest::gtest_main
     )
     gtest_discover_tests(jaguar_unit_tests)
+
+    # CUDA backend tests (only when CUDA is enabled)
+    if(JAGUAR_ENABLE_CUDA)
+        add_executable(jaguar_cuda_tests
+            tests/gpu/cuda_tests.cpp
+        )
+        target_link_libraries(jaguar_cuda_tests PRIVATE
+            jaguar
+            GTest::gtest
+        )
+        # Set CUDA properties for test executable
+        set_target_properties(jaguar_cuda_tests PROPERTIES
+            CUDA_STANDARD 17
+            CUDA_STANDARD_REQUIRED ON
+        )
+        gtest_discover_tests(jaguar_cuda_tests)
+        message(STATUS "  CUDA Tests: ON")
+    endif()
+
+    # OpenCL backend tests (only when OpenCL is enabled)
+    if(JAGUAR_ENABLE_OPENCL)
+        add_executable(jaguar_opencl_tests
+            tests/gpu/opencl_tests.cpp
+        )
+        target_link_libraries(jaguar_opencl_tests PRIVATE
+            jaguar
+            GTest::gtest
+        )
+        gtest_discover_tests(jaguar_opencl_tests)
+        message(STATUS "  OpenCL Tests: ON")
+    endif()
+
+    # Metal backend tests (only when Metal is enabled on macOS)
+    if(JAGUAR_ENABLE_METAL AND APPLE)
+        add_executable(jaguar_metal_tests
+            tests/gpu/metal_tests.mm
+        )
+        target_link_libraries(jaguar_metal_tests PRIVATE
+            jaguar
+            GTest::gtest
+            ${METAL_FRAMEWORK}
+            ${METALKIT_FRAMEWORK}
+        )
+        # Enable Objective-C++ for Metal tests
+        set_target_properties(jaguar_metal_tests PROPERTIES
+            COMPILE_FLAGS "-x objective-c++"
+        )
+        gtest_discover_tests(jaguar_metal_tests)
+        message(STATUS "  Metal Tests: ON")
+    endif()
+
+    # Physics Kernel Tests (runs on any available backend)
+    add_executable(jaguar_physics_kernel_tests
+        tests/gpu/physics_kernel_tests.cpp
+    )
+    target_link_libraries(jaguar_physics_kernel_tests PRIVATE
+        jaguar_gpu
+        GTest::gtest
+        GTest::gmock
+    )
+    gtest_discover_tests(jaguar_physics_kernel_tests)
+    message(STATUS "  Physics Kernel Tests: ON")
+
+    # Memory Pool Tests
+    add_executable(jaguar_memory_pool_tests
+        tests/gpu/memory_pool_tests.cpp
+    )
+    target_link_libraries(jaguar_memory_pool_tests PRIVATE
+        jaguar_gpu
+        GTest::gtest
+        GTest::gmock
+    )
+    gtest_discover_tests(jaguar_memory_pool_tests)
+    message(STATUS "  Memory Pool Tests: ON")
+
+    # Hybrid Physics Tests
+    add_executable(jaguar_hybrid_physics_tests
+        tests/gpu/hybrid_physics_tests.cpp
+    )
+    target_link_libraries(jaguar_hybrid_physics_tests PRIVATE
+        jaguar_gpu
+        jaguar_physics
+        GTest::gtest
+        GTest::gmock
+    )
+    gtest_discover_tests(jaguar_hybrid_physics_tests)
+    message(STATUS "  Hybrid Physics Tests: ON")
+
+    # XR Session Tests
+    add_executable(jaguar_xr_tests
+        tests/xr/xr_session_tests.cpp
+    )
+    target_link_libraries(jaguar_xr_tests PRIVATE
+        jaguar_xr
+        jaguar_events
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_xr_tests)
+    message(STATUS "  XR Session Tests: ON")
+
+    # Spatial Audio Tests
+    add_executable(jaguar_spatial_audio_tests
+        tests/xr/spatial_audio_tests.cpp
+    )
+    target_link_libraries(jaguar_spatial_audio_tests PRIVATE
+        jaguar_xr
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_spatial_audio_tests)
+    message(STATUS "  Spatial Audio Tests: ON")
 endif()
 
 # ============================================================================
@@ -438,11 +948,14 @@ include(CMakePackageConfigHelpers)
 install(TARGETS
     jaguar_core
     jaguar_physics
+    jaguar_events
+    jaguar_gpu
     jaguar_domain_air
     jaguar_domain_land
     jaguar_domain_sea
     jaguar_domain_space
     jaguar_environment
+    jaguar_sensors
     jaguar
     jaguar_compiler_flags
     EXPORT JaguarTargets
@@ -499,6 +1012,7 @@ message(STATUS "  Lua bindings:    ${JAGUAR_BUILD_LUA}")
 message(STATUS "  DIS support:     ${JAGUAR_ENABLE_DIS}")
 message(STATUS "  HLA support:     ${JAGUAR_ENABLE_HLA}")
 message(STATUS "  SIMD:            ${JAGUAR_ENABLE_SIMD}")
+message(STATUS "  GPU support:     ${JAGUAR_ENABLE_GPU}")
 message(STATUS "")
 message(STATUS "Dependencies:")
 message(STATUS "  Eigen3:          ${Eigen3_FOUND}")

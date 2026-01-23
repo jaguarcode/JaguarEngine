@@ -6,17 +6,47 @@ JaguarEngine is a high-performance physics simulation framework designed for def
 
 ## Features
 
+### Core Physics
 - **Multi-Domain Physics**: Unified framework supporting aircraft, ground vehicles, surface vessels, and spacecraft
 - **High Performance**: Data-oriented design with Structure-of-Arrays (SoA) memory layout and SIMD optimization
-- **Accurate Models**:
-  - 6-DOF rigid body dynamics with multiple integration methods (RK4, Adams-Bashforth)
-  - US Standard Atmosphere 1976
-  - Bekker-Wong terramechanics
-  - MMG ship maneuvering model
-  - SGP4/SDP4 orbital propagation
-- **Flexible Architecture**: Component-based force generators, property system, and event-driven design
-- **Network Ready**: DIS and HLA protocol support for distributed simulation
-- **Scriptable**: Python and Lua bindings for rapid prototyping
+- **Advanced Integrators**:
+  - RK4, Adams-Bashforth-Moulton (ABM4)
+  - Energy-conserving Symplectic Euler and Verlet integrators
+  - Adaptive Dormand-Prince (RK45) with automatic error control
+  - Boris integrator for charged particle dynamics
+- **Constraint System**: Joint constraints, distance constraints, XPB solver
+
+### Domain Models
+- 6-DOF rigid body dynamics
+- US Standard Atmosphere 1976 with Dryden turbulence
+- Bekker-Wong terramechanics
+- MMG ship maneuvering model
+- SGP4/SDP4 orbital propagation
+
+### GPU Acceleration (Phase 7A)
+- CUDA/Metal/Vulkan compute backends
+- GPU-accelerated collision detection
+- Hybrid CPU-GPU physics pipeline
+
+### Extended Reality (Phase 7B)
+- **OpenXR Integration**: VR/AR headset support with full hand/eye tracking
+- **Spatial Audio**: HRTF-based 3D audio with distance attenuation, room acoustics, occlusion, and Doppler effect
+- **XR Session Management**: Multi-platform XR runtime abstraction
+
+### Event System
+- Thread-safe event bus with pub/sub pattern
+- Type-safe event dispatching
+- Async and deferred event processing
+
+### Scripting Support
+- **Python bindings** with NumPy interoperability
+- **Lua bindings** with full operator support and table conversion
+
+### Architecture
+- Component-based force generators
+- Property system with reflection
+- Event-driven design
+- DIS and HLA protocol support for distributed simulation
 
 ## Quick Start
 
@@ -76,19 +106,88 @@ int main() {
 }
 ```
 
+### Python Example
+
+```python
+import jaguar
+
+# Create and initialize engine
+engine = jaguar.Engine()
+engine.initialize()
+
+# Create an aircraft entity
+aircraft = engine.create_entity("F16", jaguar.Domain.Air)
+
+# Set initial state
+state = jaguar.EntityState()
+state.position = jaguar.Vec3(0, 0, -1000)  # 1000m altitude
+state.velocity = jaguar.Vec3(200, 0, 0)    # 200 m/s
+state.mass = 12000.0
+engine.set_entity_state(aircraft, state)
+
+# Run simulation
+for _ in range(100):
+    engine.step(0.01)
+
+# Get final position
+final = engine.get_entity_state(aircraft)
+print(f"Final altitude: {-final.position.z:.1f} m")
+
+engine.shutdown()
+```
+
+### Lua Example
+
+```lua
+local jag = require("jaguar")
+
+-- Create and initialize engine
+local engine = Engine()
+engine:initialize()
+
+-- Create an aircraft entity
+local aircraft = engine:create_entity("F16", Domain.Air)
+
+-- Set initial state
+local state = EntityState()
+state.position = Vec3(0, 0, -1000)  -- 1000m altitude
+state.velocity = Vec3(200, 0, 0)    -- 200 m/s
+state.mass = 12000.0
+engine:set_entity_state(aircraft, state)
+
+-- Run simulation
+for i = 1, 100 do
+    engine:step(0.01)
+end
+
+-- Get final position
+local final = engine:get_entity_state(aircraft)
+print(string.format("Final altitude: %.1f m", -final.position.z))
+
+engine:shutdown()
+```
+
 ## Project Structure
 
 ```
 JaguarEngine/
 ├── include/jaguar/          # Public headers
-│   ├── core/                # Core types, math, memory
-│   ├── physics/             # Entity management, forces, solvers
+│   ├── core/                # Core types, math, memory, threading
+│   ├── physics/             # Entity management, forces, integrators, constraints
+│   │   ├── integrators/     # RK4, ABM4, Symplectic, Verlet, Dormand-Prince, Boris
+│   │   └── constraints/     # Joint, distance, and angle constraints
 │   ├── domain/              # Domain-specific physics (air, land, sea, space)
-│   ├── environment/         # Terrain, atmosphere, ocean
-│   └── interface/           # API facade, configuration
+│   ├── environment/         # Terrain, atmosphere, ocean, turbulence
+│   ├── events/              # Event bus and type-safe dispatching
+│   ├── gpu/                 # GPU compute backends (CUDA, Metal, Vulkan)
+│   ├── sensors/             # Sensor simulation (IMU, GPS, radar)
+│   ├── xr/                  # XR integration (OpenXR, spatial audio)
+│   └── interface/           # API facade, configuration, scripting
 ├── src/                     # Implementation
-├── tests/                   # Unit and integration tests
+├── tests/                   # Unit, integration, and GPU tests
 ├── examples/                # Example applications
+│   ├── frontend/            # React/Cesium visualization frontend
+│   └── server/              # WebSocket server for real-time data
 ├── docs/                    # Documentation
 └── data/                    # Configuration files and models
 ```
@@ -108,12 +207,23 @@ JaguarEngine/
 | Module | Description |
 |--------|-------------|
 | [Core](docs/modules/CORE.md) | Types, math, memory, property system |
-| [Physics](docs/modules/PHYSICS.md) | Entity management, integration |
+| [Physics](docs/modules/PHYSICS.md) | Entity management, integrators, constraints |
 | [Air Domain](docs/modules/AIR_DOMAIN.md) | Aerodynamics, propulsion, flight control |
 | [Land Domain](docs/modules/LAND_DOMAIN.md) | Terramechanics, suspension |
 | [Sea Domain](docs/modules/SEA_DOMAIN.md) | Hydrodynamics, buoyancy, waves |
 | [Space Domain](docs/modules/SPACE_DOMAIN.md) | Orbital mechanics, SGP4 |
-| [Environment](docs/modules/ENVIRONMENT.md) | Terrain, atmosphere, ocean |
+| [Environment](docs/modules/ENVIRONMENT.md) | Terrain, atmosphere, ocean, turbulence |
+| [GPU](docs/modules/GPU.md) | CUDA/Metal/Vulkan compute backends |
+| [Events](docs/modules/EVENTS.md) | Event bus and pub/sub system |
+| [XR](docs/modules/XR.md) | OpenXR integration and spatial audio |
+| [Sensors](docs/modules/SENSORS.md) | IMU, GPS, radar simulation |
+
+### Scripting APIs
+
+| Language | Documentation | Description |
+|----------|---------------|-------------|
+| [Python](docs/web/api/python.md) | Full API reference | pybind11 bindings with NumPy support |
+| [Lua](docs/web/api/lua.md) | Full API reference | sol2 bindings with table conversion |
 
 ## Physics Domains
 
@@ -141,14 +251,20 @@ JaguarEngine/
 ## Test Coverage
 
 ```
-237 tests across 41 test suites
+400+ tests across 60+ test suites
 - Math: Vector, quaternion, matrix operations
 - Physics: Entity state, force accumulation, integration
+- Integrators: Symplectic Euler, Verlet, Dormand-Prince, Boris
+- Constraints: Joint, distance, angle constraints
 - Coordinates: ECEF, NED, ECI transformations
 - Atmosphere: US Standard 1976 verification
 - Air Domain: Aerodynamics, propulsion, flight control
 - Land Domain: Terramechanics, suspension, tracked vehicles
 - Sea Domain: Buoyancy, hydrodynamics, waves, RAO
+- GPU: Compute backend validation, collision detection
+- Events: Event bus, async dispatching
+- XR: Session management, tracking, spatial audio
+- Sensors: IMU, GPS, radar simulation
 ```
 
 ## Build Options
@@ -163,6 +279,11 @@ JaguarEngine/
 | `JAGUAR_ENABLE_DIS` | OFF | Enable DIS network support |
 | `JAGUAR_ENABLE_HLA` | OFF | Enable HLA network support |
 | `JAGUAR_ENABLE_SIMD` | ON | Enable SIMD optimizations |
+| `JAGUAR_ENABLE_CUDA` | OFF | Enable CUDA GPU acceleration |
+| `JAGUAR_ENABLE_METAL` | OFF | Enable Metal GPU acceleration (macOS) |
+| `JAGUAR_ENABLE_VULKAN` | OFF | Enable Vulkan compute |
+| `JAGUAR_ENABLE_XR` | ON | Enable XR (VR/AR) support |
+| `JAGUAR_ENABLE_OPENXR` | OFF | Enable OpenXR runtime |
 
 ## Dependencies
 
@@ -172,7 +293,9 @@ JaguarEngine/
 | pugixml | 1.14+ | XML parsing | Yes (auto-fetched) |
 | GDAL | 3.0+ | Geospatial terrain | Optional |
 | GoogleTest | 1.14+ | Testing | Auto-fetched |
-| pybind11 | 2.11+ | Python bindings | Optional |
+| pybind11 | 2.11+ | Python bindings | Optional (auto-fetched) |
+| sol2 | develop | Lua bindings | Optional (auto-fetched) |
+| Lua | 5.4+ | Lua runtime | Optional (bundled) |
 
 ## Contributing
 
