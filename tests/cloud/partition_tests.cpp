@@ -1017,5 +1017,3 @@ TEST(PartitionManagerEdgeCases, ShutdownAndReinit) {
 
     manager.shutdown();
 }
-
-} // namespace
