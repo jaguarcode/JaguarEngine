@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <mutex>
+#include <cstring>
 
 namespace jaguar::audio {
 

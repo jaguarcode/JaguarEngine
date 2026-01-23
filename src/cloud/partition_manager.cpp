@@ -9,6 +9,7 @@
 #include <cmath>
 #include <mutex>
 #include <atomic>
+#include <cstring>
 
 namespace jaguar::cloud {
 
