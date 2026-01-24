@@ -1,0 +1,213 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaguar-engine
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: simulation
+    version: v1
+spec:
+  replicas: 1  # Initial replicas, HPA will manage this
+  selector:
+    matchLabels:
+      app: jaguar-engine
+      component: simulation
+  template:
+    metadata:
+      labels:
+        app: jaguar-engine
+        component: simulation
+        version: v1
+      annotations:
+        # Prometheus scraping configuration
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Enable service account for Kubernetes API access (peer discovery)
+      serviceAccountName: jaguar-engine
+
+      # Spread pods across nodes for high availability
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - jaguar-engine
+              topologyKey: kubernetes.io/hostname
+
+      containers:
+      - name: jaguar-engine
+        image: jaguar-engine:latest  # Replace with your actual image
+        imagePullPolicy: IfNotPresent
+
+        # Resource requests and limits for predictable scaling
+        resources:
+          requests:
+            cpu: 1000m      # 1 CPU core
+            memory: 2Gi     # 2 GB RAM
+          limits:
+            cpu: 4000m      # 4 CPU cores max
+            memory: 8Gi     # 8 GB RAM max
+
+        # Container ports
+        ports:
+        - name: grpc
+          containerPort: 50051
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        - name: peer-discovery
+          containerPort: 8080
+          protocol: TCP
+
+        # Environment variables for cluster configuration
+        env:
+        - name: JAGUAR_NODE_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+
+        - name: JAGUAR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+
+        - name: JAGUAR_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+
+        # Cluster mode configuration
+        - name: JAGUAR_CLUSTER_MODE
+          value: "kubernetes"
+
+        - name: JAGUAR_CLUSTER_SERVICE
+          value: "jaguar-engine-headless"
+
+        # Scaling thresholds from ConfigMap
+        - name: JAGUAR_ENTITY_SCALE_UP_THRESHOLD
+          valueFrom:
+            configMapKeyRef:
+              name: jaguar-engine-config
+              key: entity_scale_up_threshold
+
+        - name: JAGUAR_ENTITY_SCALE_DOWN_THRESHOLD
+          valueFrom:
+            configMapKeyRef:
+              name: jaguar-engine-config
+              key: entity_scale_down_threshold
+
+        - name: JAGUAR_CPU_SCALE_UP_THRESHOLD
+          valueFrom:
+            configMapKeyRef:
+              name: jaguar-engine-config
+              key: cpu_scale_up_threshold
+
+        - name: JAGUAR_CPU_SCALE_DOWN_THRESHOLD
+          valueFrom:
+            configMapKeyRef:
+              name: jaguar-engine-config
+              key: cpu_scale_down_threshold
+
+        # Metrics export configuration
+        - name: JAGUAR_METRICS_PORT
+          value: "9090"
+
+        - name: JAGUAR_METRICS_ENABLED
+          value: "true"
+
+        # Liveness probe - checks if the application is running
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: metrics
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+
+        # Readiness probe - checks if the application can handle traffic
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: metrics
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+
+        # Startup probe - for slow-starting containers
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: metrics
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 30  # Allow up to 5 minutes for startup
+
+        # Volume mounts for configuration and persistent data
+        volumeMounts:
+        - name: config
+          mountPath: /etc/jaguar
+          readOnly: true
+        - name: data
+          mountPath: /var/lib/jaguar
+
+      # Volumes
+      volumes:
+      - name: config
+        configMap:
+          name: jaguar-engine-config
+      - name: data
+        emptyDir: {}  # Use persistent volumes for production
+
+      # Graceful shutdown configuration
+      terminationGracePeriodSeconds: 60
+
+---
+# ServiceAccount for peer discovery via Kubernetes API
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jaguar-engine
+  namespace: default
+
+---
+# Role to allow reading pods for peer discovery
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jaguar-engine-peer-discovery
+  namespace: default
+rules:
+- apiGroups: [""]
+  resources: ["pods", "endpoints"]
+  verbs: ["get", "list", "watch"]
+
+---
+# Bind the role to the service account
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jaguar-engine-peer-discovery
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: jaguar-engine
+  namespace: default
+roleRef:
+  kind: Role
+  name: jaguar-engine-peer-discovery
+  apiGroup: rbac.authorization.k8s.io

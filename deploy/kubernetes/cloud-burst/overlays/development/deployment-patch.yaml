@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaguar-engine
+spec:
+  template:
+    spec:
+      containers:
+      - name: jaguar-engine
+        # Lower resource limits for development
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+
+        # Development environment variables
+        env:
+        - name: ENVIRONMENT
+          value: "development"
+        - name: LOG_LEVEL
+          value: "DEBUG"
+        - name: JAGUAR_METRICS_ENABLED
+          value: "true"
+        - name: JAGUAR_PROFILING_ENABLED
+          value: "true"

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaguar-engine
+spec:
+  template:
+    spec:
+      containers:
+      - name: jaguar-engine
+        # Staging resource limits (between dev and prod)
+        resources:
+          requests:
+            cpu: 1000m
+            memory: 2Gi
+          limits:
+            cpu: 4000m
+            memory: 8Gi
+
+        # Staging environment variables
+        env:
+        - name: ENVIRONMENT
+          value: "staging"
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: JAGUAR_METRICS_ENABLED
+          value: "true"
+        - name: JAGUAR_PROFILING_ENABLED
+          value: "true"  # Enable profiling for testing

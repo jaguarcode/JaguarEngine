@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-engine-config
+data:
+  # Development-specific thresholds
+  entity_scale_up_threshold: "5000"
+  entity_scale_down_threshold: "1000"
+
+  cpu_scale_up_threshold: "80"
+  cpu_scale_down_threshold: "40"
+
+  # Shorter cooldowns for faster testing
+  scale_up_cooldown_seconds: "60"
+  scale_down_cooldown_seconds: "180"
+
+  # Debug logging
+  log_level: "DEBUG"
+  structured_logging: "true"
+
+  # Enable profiling
+  profiling_enabled: "true"
+
+  # Smaller batch sizes for testing
+  entity_migration_batch_size: "50"
+  max_concurrent_migrations: "2"

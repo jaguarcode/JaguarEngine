@@ -1,0 +1,74 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: jaguar-engine-hpa
+spec:
+  # Large-scale production cluster
+  minReplicas: 3
+  maxReplicas: 100
+
+  # Production metrics configuration
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70  # Production threshold
+
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 75
+
+  - type: Pods
+    pods:
+      metric:
+        name: jaguar_entity_count
+      target:
+        type: AverageValue
+        averageValue: "7000"
+
+  # Production scaling behavior - aggressive scale-up, conservative scale-down
+  behavior:
+    scaleUp:
+      selectPolicy: Max
+      policies:
+      # Fast initial scale-up
+      - type: Percent
+        value: 100
+        periodSeconds: 15
+
+      # Steady scale-up
+      - type: Pods
+        value: 5
+        periodSeconds: 15
+
+      # Rate limiter
+      - type: Pods
+        value: 20
+        periodSeconds: 60
+
+      stabilizationWindowSeconds: 15  # Quick response to load spikes
+
+    scaleDown:
+      selectPolicy: Min  # Most conservative policy
+      policies:
+      # Very conservative scale-down
+      - type: Percent
+        value: 5
+        periodSeconds: 120
+
+      # Gradual pod removal
+      - type: Pods
+        value: 1
+        periodSeconds: 120
+
+      # Maximum rate limiter
+      - type: Pods
+        value: 3
+        periodSeconds: 300
+
+      stabilizationWindowSeconds: 600  # 10 minutes before scaling down

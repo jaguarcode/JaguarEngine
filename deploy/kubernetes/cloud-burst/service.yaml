@@ -1,0 +1,195 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-engine
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: service
+  annotations:
+    # Prometheus scraping annotations
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+    prometheus.io/path: "/metrics"
+spec:
+  # Service type for internal cluster communication
+  type: ClusterIP
+
+  # Standard service for load-balanced access
+  selector:
+    app: jaguar-engine
+    component: simulation
+
+  # Session affinity for stateful connections (optional)
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800  # 3 hours
+
+  ports:
+  # gRPC API port
+  - name: grpc
+    port: 50051
+    targetPort: grpc
+    protocol: TCP
+
+  # Metrics port for Prometheus
+  - name: metrics
+    port: 9090
+    targetPort: metrics
+    protocol: TCP
+
+  # Peer discovery port
+  - name: peer-discovery
+    port: 8080
+    targetPort: peer-discovery
+    protocol: TCP
+
+---
+# Headless service for direct pod-to-pod communication and peer discovery
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-engine-headless
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: service
+    service-type: headless
+  annotations:
+    # Service discovery annotations
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  # Headless service (no ClusterIP)
+  clusterIP: None
+
+  # Publish individual pod IPs for direct communication
+  publishNotReadyAddresses: true
+
+  selector:
+    app: jaguar-engine
+    component: simulation
+
+  ports:
+  # gRPC API port
+  - name: grpc
+    port: 50051
+    targetPort: grpc
+    protocol: TCP
+
+  # Metrics port
+  - name: metrics
+    port: 9090
+    targetPort: metrics
+    protocol: TCP
+
+  # Peer discovery port
+  - name: peer-discovery
+    port: 8080
+    targetPort: peer-discovery
+    protocol: TCP
+
+---
+# External LoadBalancer service (optional) for external access
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-engine-external
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: service
+    service-type: external
+  annotations:
+    # Cloud provider specific annotations
+    # AWS Example:
+    # service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+
+    # GCP Example:
+    # cloud.google.com/load-balancer-type: "Internal"
+
+    # Azure Example:
+    # service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+
+    # Prometheus scraping (if external metrics access needed)
+    prometheus.io/scrape: "false"
+spec:
+  # LoadBalancer type for external access
+  type: LoadBalancer
+
+  # External traffic policy to preserve client IP
+  externalTrafficPolicy: Local
+
+  selector:
+    app: jaguar-engine
+    component: simulation
+
+  ports:
+  # gRPC API port (external access)
+  - name: grpc
+    port: 50051
+    targetPort: grpc
+    protocol: TCP
+
+  # Metrics port (optional, typically kept internal)
+  # - name: metrics
+  #   port: 9090
+  #   targetPort: metrics
+  #   protocol: TCP
+
+---
+# Service for internal monitoring endpoints
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaguar-engine-metrics
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: metrics
+  annotations:
+    # Prometheus scraping configuration
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+    prometheus.io/path: "/metrics"
+spec:
+  type: ClusterIP
+
+  selector:
+    app: jaguar-engine
+    component: simulation
+
+  ports:
+  # Metrics port only
+  - name: metrics
+    port: 9090
+    targetPort: metrics
+    protocol: TCP
+
+  # Health check endpoints
+  - name: health
+    port: 8081
+    targetPort: metrics
+    protocol: TCP
+
+---
+# Endpoints for service discovery (auto-managed by Kubernetes)
+# This is informational only - Kubernetes creates this automatically
+# apiVersion: v1
+# kind: Endpoints
+# metadata:
+#   name: jaguar-engine
+#   namespace: default
+# subsets:
+# - addresses:
+#   - ip: 10.0.0.1
+#     nodeName: node-1
+#     targetRef:
+#       kind: Pod
+#       name: jaguar-engine-abc123
+#       namespace: default
+#   ports:
+#   - name: grpc
+#     port: 50051
+#     protocol: TCP

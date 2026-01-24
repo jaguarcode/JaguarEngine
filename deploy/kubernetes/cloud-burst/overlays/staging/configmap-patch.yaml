@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-engine-config
+data:
+  # Staging thresholds (similar to production)
+  entity_scale_up_threshold: "8000"
+  entity_scale_down_threshold: "2000"
+
+  cpu_scale_up_threshold: "70"
+  cpu_scale_down_threshold: "30"
+
+  # Moderate cooldowns
+  scale_up_cooldown_seconds: "30"
+  scale_down_cooldown_seconds: "300"
+
+  # Info logging
+  log_level: "INFO"
+
+  # Enable profiling for performance testing
+  profiling_enabled: "true"

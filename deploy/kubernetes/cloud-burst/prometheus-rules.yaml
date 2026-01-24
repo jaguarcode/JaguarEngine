@@ -1,0 +1,312 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jaguar-engine
+  namespace: default
+  labels:
+    app: jaguar-engine
+    prometheus: kube-prometheus
+spec:
+  # Select services to scrape
+  selector:
+    matchLabels:
+      app: jaguar-engine
+
+  # Namespaces to search for services
+  namespaceSelector:
+    matchNames:
+    - default
+
+  # Endpoints to scrape
+  endpoints:
+  - port: metrics
+    interval: 15s          # Scrape every 15 seconds
+    scrapeTimeout: 10s     # Timeout after 10 seconds
+    path: /metrics         # Metrics endpoint path
+    scheme: http           # Use HTTP (change to https if TLS enabled)
+
+    # Relabeling for additional metadata
+    relabelings:
+    - sourceLabels: [__meta_kubernetes_pod_name]
+      targetLabel: pod_name
+    - sourceLabels: [__meta_kubernetes_pod_node_name]
+      targetLabel: node_name
+    - sourceLabels: [__meta_kubernetes_namespace]
+      targetLabel: namespace
+
+    # Metric relabeling (optional)
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      regex: 'jaguar_.*'
+      action: keep  # Only keep metrics starting with jaguar_
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: jaguar-engine-alerts
+  namespace: default
+  labels:
+    app: jaguar-engine
+    prometheus: kube-prometheus
+spec:
+  groups:
+  # ==========================================
+  # Entity Count Alerts
+  # ==========================================
+  - name: jaguar-engine-entity-alerts
+    interval: 30s
+    rules:
+    # Alert when entity count is approaching scale-up threshold
+    - alert: JaguarEngineHighEntityCount
+      expr: jaguar_entity_count > 7500
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High entity count on {{ $labels.pod_name }}"
+        description: "Entity count is {{ $value }} (threshold: 8000). Scaling may occur soon."
+
+    # Alert when entity count exceeds scale-up threshold
+    - alert: JaguarEngineEntityCountCritical
+      expr: jaguar_entity_count > 8000
+      for: 1m
+      labels:
+        severity: critical
+        component: jaguar-engine
+      annotations:
+        summary: "Critical entity count on {{ $labels.pod_name }}"
+        description: "Entity count {{ $value }} exceeds scale-up threshold of 8000."
+
+    # Alert when entity count is very low (wasteful resources)
+    - alert: JaguarEngineLowEntityCount
+      expr: jaguar_entity_count < 2000
+      for: 10m
+      labels:
+        severity: info
+        component: jaguar-engine
+      annotations:
+        summary: "Low entity count on {{ $labels.pod_name }}"
+        description: "Entity count is {{ $value }} (threshold: 2000). Scaling down may occur."
+
+  # ==========================================
+  # CPU and Memory Alerts
+  # ==========================================
+  - name: jaguar-engine-resource-alerts
+    interval: 30s
+    rules:
+    # High CPU utilization
+    - alert: JaguarEngineHighCPU
+      expr: rate(container_cpu_usage_seconds_total{pod=~"jaguar-engine-.*"}[5m]) * 100 > 70
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High CPU usage on {{ $labels.pod }}"
+        description: "CPU usage is {{ $value }}% (threshold: 70%)."
+
+    # Critical CPU utilization
+    - alert: JaguarEngineCriticalCPU
+      expr: rate(container_cpu_usage_seconds_total{pod=~"jaguar-engine-.*"}[5m]) * 100 > 90
+      for: 1m
+      labels:
+        severity: critical
+        component: jaguar-engine
+      annotations:
+        summary: "Critical CPU usage on {{ $labels.pod }}"
+        description: "CPU usage is {{ $value }}% (threshold: 90%). Immediate scaling required."
+
+    # High memory utilization
+    - alert: JaguarEngineHighMemory
+      expr: (container_memory_usage_bytes{pod=~"jaguar-engine-.*"} / container_spec_memory_limit_bytes{pod=~"jaguar-engine-.*"}) * 100 > 75
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High memory usage on {{ $labels.pod }}"
+        description: "Memory usage is {{ $value }}% (threshold: 75%)."
+
+    # Critical memory utilization
+    - alert: JaguarEngineCriticalMemory
+      expr: (container_memory_usage_bytes{pod=~"jaguar-engine-.*"} / container_spec_memory_limit_bytes{pod=~"jaguar-engine-.*"}) * 100 > 90
+      for: 1m
+      labels:
+        severity: critical
+        component: jaguar-engine
+      annotations:
+        summary: "Critical memory usage on {{ $labels.pod }}"
+        description: "Memory usage is {{ $value }}% (threshold: 90%). Risk of OOM kill."
+
+  # ==========================================
+  # Performance Alerts
+  # ==========================================
+  - name: jaguar-engine-performance-alerts
+    interval: 30s
+    rules:
+    # Low simulation tick rate
+    - alert: JaguarEngineLowTickRate
+      expr: jaguar_simulation_tick_rate < 30
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "Low simulation tick rate on {{ $labels.pod_name }}"
+        description: "Tick rate is {{ $value }} Hz (minimum: 30 Hz). Performance degraded."
+
+    # High simulation latency
+    - alert: JaguarEngineHighLatency
+      expr: jaguar_simulation_frame_time_ms > 50
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High simulation latency on {{ $labels.pod_name }}"
+        description: "Frame time is {{ $value }}ms (target: <16.67ms for 60Hz)."
+
+    # Physics simulation overload
+    - alert: JaguarEnginePhysicsOverload
+      expr: jaguar_physics_computation_time_ms > 100
+      for: 1m
+      labels:
+        severity: critical
+        component: jaguar-engine
+      annotations:
+        summary: "Physics computation overload on {{ $labels.pod_name }}"
+        description: "Physics computation time {{ $value }}ms exceeds budget."
+
+  # ==========================================
+  # Cluster Health Alerts
+  # ==========================================
+  - name: jaguar-engine-cluster-alerts
+    interval: 30s
+    rules:
+    # Pod not ready
+    - alert: JaguarEnginePodNotReady
+      expr: kube_pod_status_phase{pod=~"jaguar-engine-.*", phase!="Running"} == 1
+      for: 5m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "Pod {{ $labels.pod }} is not ready"
+        description: "Pod has been in {{ $labels.phase }} state for 5 minutes."
+
+    # Pod restart rate high
+    - alert: JaguarEngineHighRestartRate
+      expr: rate(kube_pod_container_status_restarts_total{pod=~"jaguar-engine-.*"}[15m]) > 0.1
+      for: 5m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High pod restart rate for {{ $labels.pod }}"
+        description: "Pod restart rate is {{ $value }} restarts/sec."
+
+    # Cluster size at minimum
+    - alert: JaguarEngineMinimumReplicas
+      expr: kube_deployment_status_replicas{deployment="jaguar-engine"} <= 1
+      for: 5m
+      labels:
+        severity: info
+        component: jaguar-engine
+      annotations:
+        summary: "JaguarEngine running at minimum replicas"
+        description: "Only {{ $value }} replica(s) running. No redundancy."
+
+    # Cluster size at maximum
+    - alert: JaguarEngineMaximumReplicas
+      expr: kube_deployment_status_replicas{deployment="jaguar-engine"} >= 100
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "JaguarEngine at maximum replicas"
+        description: "Running {{ $value }} replicas (maximum: 100). Cannot scale further."
+
+  # ==========================================
+  # Migration and State Sync Alerts
+  # ==========================================
+  - name: jaguar-engine-migration-alerts
+    interval: 30s
+    rules:
+    # High migration failure rate
+    - alert: JaguarEngineHighMigrationFailures
+      expr: rate(jaguar_entity_migration_failures_total[5m]) > 0.1
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High entity migration failure rate"
+        description: "Migration failure rate is {{ $value }} failures/sec."
+
+    # State sync lag
+    - alert: JaguarEngineStateSyncLag
+      expr: jaguar_state_sync_lag_ms > 1000
+      for: 2m
+      labels:
+        severity: warning
+        component: jaguar-engine
+      annotations:
+        summary: "High state sync lag on {{ $labels.pod_name }}"
+        description: "State sync lag is {{ $value }}ms (threshold: 1000ms)."
+
+  # ==========================================
+  # Recording Rules (Pre-computed Metrics)
+  # ==========================================
+  - name: jaguar-engine-recording-rules
+    interval: 15s
+    rules:
+    # Average entity count across all pods
+    - record: jaguar:entity_count:avg
+      expr: avg(jaguar_entity_count)
+
+    # Total entity count across cluster
+    - record: jaguar:entity_count:sum
+      expr: sum(jaguar_entity_count)
+
+    # CPU utilization per pod
+    - record: jaguar:cpu_utilization:rate5m
+      expr: rate(container_cpu_usage_seconds_total{pod=~"jaguar-engine-.*"}[5m]) * 100
+
+    # Memory utilization per pod
+    - record: jaguar:memory_utilization:percent
+      expr: (container_memory_usage_bytes{pod=~"jaguar-engine-.*"} / container_spec_memory_limit_bytes{pod=~"jaguar-engine-.*"}) * 100
+
+    # Simulation load (composite metric)
+    - record: jaguar:simulation_load:value
+      expr: jaguar_entity_count * (1 + (jaguar_physics_computation_time_ms / 100))
+
+    # Average tick rate across cluster
+    - record: jaguar:tick_rate:avg
+      expr: avg(jaguar_simulation_tick_rate)
+
+    # Migration success rate
+    - record: jaguar:migration_success_rate:5m
+      expr: rate(jaguar_entity_migration_success_total[5m]) / (rate(jaguar_entity_migration_success_total[5m]) + rate(jaguar_entity_migration_failures_total[5m]))
+
+---
+# PodMonitor for direct pod monitoring (alternative to ServiceMonitor)
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: jaguar-engine-pods
+  namespace: default
+  labels:
+    app: jaguar-engine
+spec:
+  selector:
+    matchLabels:
+      app: jaguar-engine
+      component: simulation
+
+  podMetricsEndpoints:
+  - port: metrics
+    interval: 15s
+    path: /metrics

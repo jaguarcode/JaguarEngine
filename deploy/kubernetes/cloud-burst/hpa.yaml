@@ -1,0 +1,162 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: jaguar-engine-hpa
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: autoscaling
+spec:
+  # Target deployment
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: jaguar-engine
+
+  # Replica bounds
+  minReplicas: 1
+  maxReplicas: 100
+
+  # Metrics to scale on
+  metrics:
+  # CPU-based scaling (primary metric)
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70  # Target 70% CPU utilization
+
+  # Memory-based scaling (secondary metric)
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 75  # Target 75% memory utilization
+
+  # Custom metric: Entity count per pod
+  # This requires Prometheus adapter to expose custom metrics
+  - type: Pods
+    pods:
+      metric:
+        name: jaguar_entity_count
+      target:
+        type: AverageValue
+        averageValue: "7000"  # Target 7000 entities per pod (below 8000 threshold)
+
+  # Custom metric: Simulation load (entities * complexity)
+  - type: Pods
+    pods:
+      metric:
+        name: jaguar_simulation_load
+      target:
+        type: AverageValue
+        averageValue: "500000"  # Composite load metric
+
+  # Scaling behavior configuration
+  behavior:
+    # Scale-up policies
+    scaleUp:
+      # How to select which policy to use
+      selectPolicy: Max  # Use the policy that scales up most aggressively
+
+      # Multiple policies for different scenarios
+      policies:
+      # Fast scale-up when load spikes
+      - type: Percent
+        value: 100  # Double the replicas
+        periodSeconds: 15  # Every 15 seconds
+
+      # Steady scale-up for gradual increases
+      - type: Pods
+        value: 4  # Add 4 pods at a time
+        periodSeconds: 15
+
+      # Maximum scale-up rate limiter
+      - type: Pods
+        value: 10  # Never add more than 10 pods
+        periodSeconds: 60  # In a 60-second window
+
+      # Stabilization window to prevent thrashing
+      stabilizationWindowSeconds: 30  # Wait 30s before scaling up again
+
+    # Scale-down policies
+    scaleDown:
+      # How to select which policy to use
+      selectPolicy: Min  # Use the most conservative policy (slowest scale-down)
+
+      # Multiple policies for safe scale-down
+      policies:
+      # Conservative scale-down to prevent oscillation
+      - type: Percent
+        value: 10  # Remove 10% of replicas
+        periodSeconds: 60  # Every 60 seconds
+
+      # Gradual pod removal
+      - type: Pods
+        value: 2  # Remove 2 pods at a time
+        periodSeconds: 60
+
+      # Maximum scale-down rate limiter
+      - type: Pods
+        value: 5  # Never remove more than 5 pods
+        periodSeconds: 120  # In a 2-minute window
+
+      # Stabilization window to prevent premature scale-down
+      stabilizationWindowSeconds: 300  # Wait 5 minutes before scaling down
+
+---
+# PodDisruptionBudget to ensure availability during scaling
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: jaguar-engine-pdb
+  namespace: default
+  labels:
+    app: jaguar-engine
+spec:
+  # Ensure at least 1 pod is always available during voluntary disruptions
+  minAvailable: 1
+
+  selector:
+    matchLabels:
+      app: jaguar-engine
+      component: simulation
+
+---
+# VerticalPodAutoscaler (optional) for resource right-sizing
+# Requires VPA to be installed in the cluster
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: jaguar-engine-vpa
+  namespace: default
+  labels:
+    app: jaguar-engine
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: jaguar-engine
+
+  # Update mode: Off (recommendation only), Initial, Recreate, Auto
+  updatePolicy:
+    updateMode: "Recreate"  # Recreate pods to apply VPA recommendations
+
+  # Resource policy for VPA
+  resourcePolicy:
+    containerPolicies:
+    - containerName: jaguar-engine
+      # Minimum allowed resources
+      minAllowed:
+        cpu: 500m
+        memory: 1Gi
+      # Maximum allowed resources
+      maxAllowed:
+        cpu: 8000m
+        memory: 16Gi
+      # Controlled resources
+      controlledResources:
+      - cpu
+      - memory

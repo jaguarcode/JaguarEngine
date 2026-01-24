@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-engine-config
+data:
+  # Production scaling thresholds
+  entity_scale_up_threshold: "8000"
+  entity_scale_down_threshold: "2000"
+  entity_hard_limit: "1000000"
+
+  cpu_scale_up_threshold: "70"
+  cpu_scale_down_threshold: "30"
+
+  memory_scale_up_threshold: "75"
+  memory_scale_down_threshold: "40"
+
+  # Production cooldown periods
+  scale_up_cooldown_seconds: "15"
+  scale_down_cooldown_seconds: "600"
+  metrics_evaluation_window_seconds: "60"
+
+  # Production performance settings
+  target_tick_rate: "60"
+  min_tick_rate: "30"
+  max_entities_per_tick: "10000"
+  physics_substeps: "4"
+
+  # Production cluster settings
+  cluster_enabled: "true"
+  cluster_discovery_method: "kubernetes"
+  cluster_heartbeat_interval_ms: "1000"
+  cluster_node_timeout_ms: "5000"
+  load_balancing_strategy: "least_loaded"
+
+  # Production entity migration
+  entity_migration_enabled: "true"
+  entity_migration_batch_size: "100"
+  max_concurrent_migrations: "10"
+  migration_timeout_seconds: "60"
+
+  # Production state sync
+  state_sync_interval_ms: "50"
+  state_compression_enabled: "true"
+  delta_encoding_enabled: "true"
+
+  # Production metrics
+  metrics_enabled: "true"
+  metrics_collection_interval_ms: "1000"
+  detailed_metrics_enabled: "false"  # Reduce overhead
+
+  # Production logging
+  log_level: "INFO"
+  log_format: "json"
+  structured_logging: "true"
+
+  # Production health checks
+  liveness_timeout_seconds: "5"
+  readiness_timeout_seconds: "3"
+  health_failure_threshold: "3"
+
+  # Production performance tuning
+  physics_thread_pool_size: "8"
+  network_thread_pool_size: "4"
+  simd_enabled: "true"
+  physics_multithreading: "true"
+
+  # Production profiling
+  profiling_enabled: "false"

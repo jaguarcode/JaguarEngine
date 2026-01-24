@@ -11,9 +11,6 @@
 #pragma once
 
 #include "jaguar/core/types.h"
-#include "jaguar/core/math/vector.h"
-#include "jaguar/core/math/quaternion.h"
-#include "jaguar/physics/entity_state.h"
 
 #include <string>
 #include <vector>
@@ -120,12 +117,12 @@ struct WorldLocation {
     WorldLocation() : x(0), y(0), z(0) {}
     WorldLocation(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {}
 
-    static WorldLocation from_vec3(const math::Vec3& v) {
+    static WorldLocation from_vec3(const Vec3& v) {
         return WorldLocation(v.x, v.y, v.z);
     }
 
-    math::Vec3 to_vec3() const {
-        return math::Vec3(x, y, z);
+    Vec3 to_vec3() const {
+        return Vec3(x, y, z);
     }
 };
 
@@ -141,7 +138,7 @@ struct VelocityVector {
     VelocityVector(float vx, float vy, float vz)
         : x_velocity(vx), y_velocity(vy), z_velocity(vz) {}
 
-    static VelocityVector from_vec3(const math::Vec3& v) {
+    static VelocityVector from_vec3(const Vec3& v) {
         return VelocityVector(
             static_cast<float>(v.x),
             static_cast<float>(v.y),
@@ -149,8 +146,8 @@ struct VelocityVector {
         );
     }
 
-    math::Vec3 to_vec3() const {
-        return math::Vec3(x_velocity, y_velocity, z_velocity);
+    Vec3 to_vec3() const {
+        return Vec3(x_velocity, y_velocity, z_velocity);
     }
 };
 
@@ -165,7 +162,7 @@ struct Orientation {
     Orientation() : psi(0), theta(0), phi(0) {}
     Orientation(float p, float t, float r) : psi(p), theta(t), phi(r) {}
 
-    static Orientation from_quaternion(const math::Quat& q) {
+    static Orientation from_quaternion(const Quat& q) {
         // Convert quaternion to Euler angles
         auto euler = q.to_euler();
         return Orientation(
@@ -175,8 +172,8 @@ struct Orientation {
         );
     }
 
-    math::Quat to_quaternion() const {
-        return math::Quat::from_euler(phi, theta, psi);
+    Quat to_quaternion() const {
+        return Quat::from_euler(phi, theta, psi);
     }
 };
 
@@ -842,12 +839,12 @@ inline physics::EntityState spatial_to_entity_state(const SpatialRepresentation&
     state.velocity = spatial.velocity.to_vec3();
     state.orientation = spatial.orientation.to_quaternion();
 
-    state.acceleration = math::Vec3(
+    state.acceleration = Vec3(
         spatial.dead_reckoning.linear_acceleration[0],
         spatial.dead_reckoning.linear_acceleration[1],
         spatial.dead_reckoning.linear_acceleration[2]
     );
-    state.angular_velocity = math::Vec3(
+    state.angular_velocity = Vec3(
         spatial.dead_reckoning.angular_velocity[0],
         spatial.dead_reckoning.angular_velocity[1],
         spatial.dead_reckoning.angular_velocity[2]

@@ -1,0 +1,265 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaguar-engine-config
+  namespace: default
+  labels:
+    app: jaguar-engine
+    component: configuration
+data:
+  # ==========================================
+  # Entity-Based Scaling Thresholds
+  # ==========================================
+
+  # Scale up when entity count exceeds this value per pod
+  entity_scale_up_threshold: "8000"
+
+  # Scale down when entity count falls below this value per pod
+  entity_scale_down_threshold: "2000"
+
+  # Maximum total entities across all pods before hard limit
+  entity_hard_limit: "1000000"
+
+  # ==========================================
+  # CPU-Based Scaling Thresholds
+  # ==========================================
+
+  # Scale up when CPU utilization exceeds this percentage
+  cpu_scale_up_threshold: "70"
+
+  # Scale down when CPU utilization falls below this percentage
+  cpu_scale_down_threshold: "30"
+
+  # ==========================================
+  # Memory-Based Scaling Thresholds
+  # ==========================================
+
+  # Scale up when memory utilization exceeds this percentage
+  memory_scale_up_threshold: "75"
+
+  # Scale down when memory utilization falls below this percentage
+  memory_scale_down_threshold: "40"
+
+  # ==========================================
+  # Scaling Cooldown Periods
+  # ==========================================
+
+  # Minimum time (seconds) between scale-up operations
+  scale_up_cooldown_seconds: "30"
+
+  # Minimum time (seconds) between scale-down operations
+  scale_down_cooldown_seconds: "300"
+
+  # Time window (seconds) to evaluate metrics before scaling
+  metrics_evaluation_window_seconds: "60"
+
+  # ==========================================
+  # Simulation Performance Parameters
+  # ==========================================
+
+  # Target simulation tick rate (Hz)
+  target_tick_rate: "60"
+
+  # Minimum acceptable tick rate before scaling up
+  min_tick_rate: "30"
+
+  # Maximum entities per simulation tick
+  max_entities_per_tick: "10000"
+
+  # Physics substeps per tick
+  physics_substeps: "4"
+
+  # ==========================================
+  # Cluster Configuration
+  # ==========================================
+
+  # Enable distributed mode
+  cluster_enabled: "true"
+
+  # Cluster discovery method: kubernetes, consul, etcd
+  cluster_discovery_method: "kubernetes"
+
+  # Heartbeat interval (milliseconds) for cluster health
+  cluster_heartbeat_interval_ms: "1000"
+
+  # Timeout (milliseconds) before marking a node as dead
+  cluster_node_timeout_ms: "5000"
+
+  # Load balancing strategy: round_robin, least_loaded, consistent_hash
+  load_balancing_strategy: "least_loaded"
+
+  # ==========================================
+  # Network Configuration
+  # ==========================================
+
+  # gRPC server port
+  grpc_port: "50051"
+
+  # Metrics export port
+  metrics_port: "9090"
+
+  # Peer discovery port
+  peer_discovery_port: "8080"
+
+  # Enable TLS for inter-node communication
+  tls_enabled: "false"
+
+  # ==========================================
+  # Entity Migration Parameters
+  # ==========================================
+
+  # Enable automatic entity migration between nodes
+  entity_migration_enabled: "true"
+
+  # Batch size for entity migration
+  entity_migration_batch_size: "100"
+
+  # Maximum concurrent migration operations
+  max_concurrent_migrations: "5"
+
+  # Timeout (seconds) for migration operations
+  migration_timeout_seconds: "30"
+
+  # ==========================================
+  # State Synchronization
+  # ==========================================
+
+  # State sync interval (milliseconds)
+  state_sync_interval_ms: "100"
+
+  # State compression enabled
+  state_compression_enabled: "true"
+
+  # Delta encoding for state updates
+  delta_encoding_enabled: "true"
+
+  # ==========================================
+  # Metrics and Monitoring
+  # ==========================================
+
+  # Enable Prometheus metrics export
+  metrics_enabled: "true"
+
+  # Metrics collection interval (milliseconds)
+  metrics_collection_interval_ms: "1000"
+
+  # Enable detailed per-entity metrics (higher overhead)
+  detailed_metrics_enabled: "false"
+
+  # Enable profiling endpoint
+  profiling_enabled: "false"
+
+  # ==========================================
+  # Logging Configuration
+  # ==========================================
+
+  # Log level: DEBUG, INFO, WARN, ERROR
+  log_level: "INFO"
+
+  # Log format: json, text
+  log_format: "json"
+
+  # Enable structured logging
+  structured_logging: "true"
+
+  # ==========================================
+  # Health Check Configuration
+  # ==========================================
+
+  # Liveness probe timeout (seconds)
+  liveness_timeout_seconds: "5"
+
+  # Readiness probe timeout (seconds)
+  readiness_timeout_seconds: "3"
+
+  # Number of consecutive failures before pod restart
+  health_failure_threshold: "3"
+
+  # ==========================================
+  # Performance Tuning
+  # ==========================================
+
+  # Thread pool size for physics simulation
+  physics_thread_pool_size: "4"
+
+  # Thread pool size for network I/O
+  network_thread_pool_size: "2"
+
+  # Enable SIMD optimizations
+  simd_enabled: "true"
+
+  # Enable multithreading for physics
+  physics_multithreading: "true"
+
+  # ==========================================
+  # Advanced Configuration File (YAML)
+  # ==========================================
+
+  # Additional YAML configuration embedded
+  jaguar_config.yaml: |
+    simulation:
+      tick_rate: 60
+      max_entities: 10000
+      physics:
+        substeps: 4
+        gravity: [0.0, -9.81, 0.0]
+        enable_collision_detection: true
+        spatial_hash_cell_size: 10.0
+
+    cluster:
+      mode: kubernetes
+      service_name: jaguar-engine-headless
+      namespace: default
+      peer_discovery:
+        enabled: true
+        interval_ms: 5000
+
+    scaling:
+      strategy: hybrid  # cpu, entity, or hybrid
+      metrics:
+        entity_count:
+          scale_up: 8000
+          scale_down: 2000
+        cpu_utilization:
+          scale_up: 70
+          scale_down: 30
+        memory_utilization:
+          scale_up: 75
+          scale_down: 40
+
+      behavior:
+        scale_up_cooldown: 30s
+        scale_down_cooldown: 5m
+        evaluation_window: 1m
+
+    networking:
+      grpc:
+        port: 50051
+        max_message_size: 10485760  # 10 MB
+        keepalive_interval: 30s
+
+      state_sync:
+        protocol: grpc  # grpc or websocket
+        compression: true
+        batch_size: 100
+
+    monitoring:
+      prometheus:
+        enabled: true
+        port: 9090
+        path: /metrics
+
+      tracing:
+        enabled: false
+        provider: jaeger
+        endpoint: jaeger-collector:14268
+
+    security:
+      tls:
+        enabled: false
+        cert_path: /etc/certs/tls.crt
+        key_path: /etc/certs/tls.key
+
+      authentication:
+        enabled: false
+        method: jwt  # jwt or mutual_tls

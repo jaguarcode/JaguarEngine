@@ -1102,7 +1102,7 @@ Domain dis_to_domain(uint8_t dis_domain) {
         case 2: return Domain::Air;
         case 3: return Domain::Sea;
         case 5: return Domain::Space;
-        default: return Domain::Unknown;
+        default: return Domain::Generic;
     }
 }
 

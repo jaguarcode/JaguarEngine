@@ -1,0 +1,63 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Metadata
+namespace: default
+
+# Common labels applied to all resources
+commonLabels:
+  app.kubernetes.io/name: jaguar-engine
+  app.kubernetes.io/component: simulation
+  app.kubernetes.io/managed-by: kustomize
+
+# Common annotations
+commonAnnotations:
+  version: "1.0.0"
+  maintainer: "JaguarEngine Team"
+
+# Resources to include
+resources:
+- configmap.yaml
+- deployment.yaml
+- service.yaml
+- hpa.yaml
+- prometheus-rules.yaml
+
+# Image transformation
+images:
+- name: jaguar-engine
+  newName: jaguar-engine
+  newTag: latest
+
+# ConfigMap generator for environment-specific config
+configMapGenerator:
+- name: jaguar-engine-env-config
+  literals:
+  - ENVIRONMENT=production
+  - LOG_LEVEL=INFO
+
+# Patches for resource limits based on environment
+patchesStrategicMerge:
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: jaguar-engine
+  spec:
+    template:
+      metadata:
+        labels:
+          environment: production
+
+# Replacements for scaling parameters
+replacements:
+- source:
+    kind: ConfigMap
+    name: jaguar-engine-config
+    fieldPath: data.entity_scale_up_threshold
+  targets:
+  - select:
+      kind: HorizontalPodAutoscaler
+      name: jaguar-engine-hpa
+    fieldPaths:
+    - spec.metrics.[name=jaguar_entity_count].pods.target.averageValue
