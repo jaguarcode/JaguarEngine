@@ -506,6 +506,9 @@ option(JAGUAR_ENABLE_CLOUD "Enable cloud/distributed simulation support" ON)
 if(JAGUAR_ENABLE_CLOUD)
     add_library(jaguar_cloud STATIC
         src/cloud/partition_manager.cpp
+        src/cloud/auto_scaler.cpp
+        src/cloud/state_sync.cpp
+        src/cloud/distributed_time.cpp
     )
 
     target_link_libraries(jaguar_cloud
@@ -571,6 +574,57 @@ if(JAGUAR_ENABLE_OPENXR AND OpenXR_FOUND)
 endif()
 
 # ============================================================================
+# Digital Thread Library (Entity Lifecycle Management)
+# ============================================================================
+option(JAGUAR_ENABLE_THREAD "Enable Digital Thread support" ON)
+
+if(JAGUAR_ENABLE_THREAD)
+    add_library(jaguar_thread STATIC
+        src/thread/lifecycle_manager.cpp
+        src/thread/history_store.cpp
+        src/thread/degradation_model.cpp
+    )
+
+    target_link_libraries(jaguar_thread
+        PUBLIC
+            jaguar_core
+            jaguar_physics
+        PRIVATE
+            jaguar_compiler_flags
+    )
+
+    message(STATUS "  Digital Thread: ON")
+else()
+    message(STATUS "  Digital Thread: OFF")
+endif()
+
+# ============================================================================
+# Machine Learning Library (AI/ML Integration)
+# ============================================================================
+option(JAGUAR_ENABLE_ML "Enable Machine Learning support" ON)
+
+if(JAGUAR_ENABLE_ML)
+    add_library(jaguar_ml STATIC
+        src/ml/inference_session.cpp
+        src/ml/neural_autopilot.cpp
+        src/ml/model_repository.cpp
+        src/ml/rl_environment.cpp
+    )
+
+    target_link_libraries(jaguar_ml
+        PUBLIC
+            jaguar_core
+            jaguar_physics
+        PRIVATE
+            jaguar_compiler_flags
+    )
+
+    message(STATUS "  Machine Learning: ON")
+else()
+    message(STATUS "  Machine Learning: OFF")
+endif()
+
+# ============================================================================
 # Main Engine Library (combines all modules)
 # ============================================================================
 add_library(jaguar INTERFACE)
@@ -584,6 +638,8 @@ target_link_libraries(jaguar INTERFACE
     jaguar_domain_space
     jaguar_sensors
     $<$<BOOL:${JAGUAR_ENABLE_CLOUD}>:jaguar_cloud>
+    $<$<BOOL:${JAGUAR_ENABLE_THREAD}>:jaguar_thread>
+    $<$<BOOL:${JAGUAR_ENABLE_ML}>:jaguar_ml>
     # Handle circular dependencies between core libraries
     # GNU/Clang on Linux: use linker groups
     # AppleClang/MSVC: list libraries multiple times
@@ -601,26 +657,38 @@ target_link_libraries(jaguar INTERFACE
 # ============================================================================
 # Network Libraries (Optional)
 # ============================================================================
+
+# Network Transport (shared by DIS and HLA)
+add_library(jaguar_network_transport STATIC
+    src/federation/network_transport.cpp
+)
+target_link_libraries(jaguar_network_transport
+    PUBLIC jaguar_core
+    PRIVATE jaguar_compiler_flags
+)
+
 if(JAGUAR_ENABLE_DIS)
     add_library(jaguar_network_dis STATIC
         src/interface/network/dis_adapter.cpp
+        src/federation/dis_protocol.cpp
     )
     target_link_libraries(jaguar_network_dis
-        PUBLIC jaguar_core
+        PUBLIC jaguar_core jaguar_network_transport
         PRIVATE jaguar_compiler_flags
     )
-    # TODO: Link OpenDIS library
+    # TODO: Link OpenDIS library (currently using custom implementation)
 endif()
 
 if(JAGUAR_ENABLE_HLA)
     add_library(jaguar_network_hla STATIC
-        src/interface/network/hla_adapter.cpp
+        src/federation/hla_rti.cpp
+        src/federation/federation_orchestrator.cpp
     )
     target_link_libraries(jaguar_network_hla
-        PUBLIC jaguar_core
+        PUBLIC jaguar_core jaguar_network_transport
         PRIVATE jaguar_compiler_flags
     )
-    # TODO: Link HLA RTI library
+    # TODO: Link HLA RTI library (currently using stub implementation)
 endif()
 
 # ============================================================================
@@ -954,6 +1022,175 @@ if(JAGUAR_BUILD_TESTS)
         )
         gtest_discover_tests(jaguar_partition_tests)
         message(STATUS "  Partition Tests: ON")
+
+        # Auto-Scaler Tests
+        add_executable(jaguar_auto_scaler_tests
+            tests/cloud/auto_scaler_tests.cpp
+        )
+        target_link_libraries(jaguar_auto_scaler_tests PRIVATE
+            jaguar_cloud
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_auto_scaler_tests)
+        message(STATUS "  Auto-Scaler Tests: ON")
+
+        # State Sync Tests
+        add_executable(jaguar_state_sync_tests
+            tests/cloud/state_sync_tests.cpp
+        )
+        target_link_libraries(jaguar_state_sync_tests PRIVATE
+            jaguar_cloud
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_state_sync_tests)
+        message(STATUS "  State Sync Tests: ON")
+
+        # Distributed Time Tests
+        add_executable(jaguar_time_sync_tests
+            tests/cloud/time_sync_tests.cpp
+        )
+        target_link_libraries(jaguar_time_sync_tests PRIVATE
+            jaguar_cloud
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_time_sync_tests)
+        message(STATUS "  Time Sync Tests: ON")
+    endif()
+
+    # Federation Tests (DIS Protocol)
+    if(JAGUAR_ENABLE_DIS)
+        add_executable(jaguar_dis_protocol_tests
+            tests/federation/dis_protocol_tests.cpp
+        )
+        target_link_libraries(jaguar_dis_protocol_tests PRIVATE
+            jaguar_network_dis
+            jaguar_core
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_dis_protocol_tests)
+        message(STATUS "  DIS Protocol Tests: ON")
+    endif()
+
+    # Federation Tests (HLA RTI)
+    if(JAGUAR_ENABLE_HLA)
+        add_executable(jaguar_hla_rti_tests
+            tests/federation/hla_rti_tests.cpp
+        )
+        target_link_libraries(jaguar_hla_rti_tests PRIVATE
+            jaguar_network_hla
+            jaguar_core
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_hla_rti_tests)
+        message(STATUS "  HLA RTI Tests: ON")
+    endif()
+
+    # Network Transport Tests
+    add_executable(jaguar_network_transport_tests
+        tests/federation/network_transport_tests.cpp
+    )
+    target_link_libraries(jaguar_network_transport_tests PRIVATE
+        jaguar_network_transport
+        jaguar_core
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_network_transport_tests)
+    message(STATUS "  Network Transport Tests: ON")
+
+    # Digital Thread Tests (only when thread is enabled)
+    if(JAGUAR_ENABLE_THREAD)
+        # Lifecycle Manager Tests
+        add_executable(jaguar_lifecycle_tests
+            tests/thread/lifecycle_manager_tests.cpp
+        )
+        target_link_libraries(jaguar_lifecycle_tests PRIVATE
+            jaguar_thread
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_lifecycle_tests)
+        message(STATUS "  Lifecycle Manager Tests: ON")
+
+        # History Store Tests
+        add_executable(jaguar_history_tests
+            tests/thread/history_store_tests.cpp
+        )
+        target_link_libraries(jaguar_history_tests PRIVATE
+            jaguar_thread
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_history_tests)
+        message(STATUS "  History Store Tests: ON")
+
+        # Degradation Model Tests
+        add_executable(jaguar_degradation_tests
+            tests/thread/degradation_model_tests.cpp
+        )
+        target_link_libraries(jaguar_degradation_tests PRIVATE
+            jaguar_thread
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_degradation_tests)
+        message(STATUS "  Degradation Model Tests: ON")
+    endif()
+
+    # Machine Learning Tests (only when ML is enabled)
+    if(JAGUAR_ENABLE_ML)
+        # Inference Session Tests
+        add_executable(jaguar_inference_tests
+            tests/ml/inference_session_tests.cpp
+        )
+        target_link_libraries(jaguar_inference_tests PRIVATE
+            jaguar_ml
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_inference_tests)
+        message(STATUS "  Inference Session Tests: ON")
+
+        # Neural Autopilot Tests
+        add_executable(jaguar_autopilot_tests
+            tests/ml/neural_autopilot_tests.cpp
+        )
+        target_link_libraries(jaguar_autopilot_tests PRIVATE
+            jaguar_ml
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_autopilot_tests)
+        message(STATUS "  Neural Autopilot Tests: ON")
+
+        # Model Repository Tests
+        add_executable(jaguar_model_repo_tests
+            tests/ml/model_repository_tests.cpp
+        )
+        target_link_libraries(jaguar_model_repo_tests PRIVATE
+            jaguar_ml
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_model_repo_tests)
+        message(STATUS "  Model Repository Tests: ON")
+
+        # RL Environment Tests
+        add_executable(jaguar_rl_env_tests
+            tests/ml/rl_environment_tests.cpp
+        )
+        target_link_libraries(jaguar_rl_env_tests PRIVATE
+            jaguar_ml
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_rl_env_tests)
+        message(STATUS "  RL Environment Tests: ON")
     endif()
 endif()
 
@@ -1051,6 +1288,16 @@ if(JAGUAR_ENABLE_XR)
     list(APPEND JAGUAR_INSTALL_TARGETS jaguar_xr)
 endif()
 
+# Conditionally add Digital Thread library to install targets
+if(JAGUAR_ENABLE_THREAD)
+    list(APPEND JAGUAR_INSTALL_TARGETS jaguar_thread)
+endif()
+
+# Conditionally add Machine Learning library to install targets
+if(JAGUAR_ENABLE_ML)
+    list(APPEND JAGUAR_INSTALL_TARGETS jaguar_ml)
+endif()
+
 install(TARGETS ${JAGUAR_INSTALL_TARGETS}
     EXPORT JaguarTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -1109,6 +1356,8 @@ message(STATUS "  SIMD:            ${JAGUAR_ENABLE_SIMD}")
 message(STATUS "  GPU support:     ${JAGUAR_ENABLE_GPU}")
 message(STATUS "  XR support:      ${JAGUAR_ENABLE_XR}")
 message(STATUS "  Cloud support:   ${JAGUAR_ENABLE_CLOUD}")
+message(STATUS "  Digital Thread:  ${JAGUAR_ENABLE_THREAD}")
+message(STATUS "  Machine Learn:   ${JAGUAR_ENABLE_ML}")
 message(STATUS "")
 message(STATUS "Dependencies:")
 message(STATUS "  Eigen3:          ${Eigen3_FOUND}")
