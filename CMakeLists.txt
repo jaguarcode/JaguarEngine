@@ -644,7 +644,7 @@ if(JAGUAR_BUILD_PYTHON)
     pybind11_add_module(pyjaguar
         src/interface/script/python_bindings.cpp
     )
-    target_link_libraries(pyjaguar PRIVATE jaguar)
+    target_link_libraries(pyjaguar PRIVATE jaguar jaguar_compiler_flags)
 endif()
 
 # ============================================================================
@@ -742,6 +742,7 @@ if(JAGUAR_BUILD_LUA)
     target_link_libraries(luajaguar PRIVATE
         jaguar
         sol2::sol2
+        jaguar_compiler_flags
     )
     if(Lua_FOUND)
         target_include_directories(luajaguar PRIVATE ${LUA_INCLUDE_DIR})
