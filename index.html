@@ -2290,10 +2290,25 @@
 Unified framework supporting aircraft, ground vehicles, surface vessels, and spacecraft in a single simulation.
 
 ### High Performance
-Data-oriented design with Structure-of-Arrays (SoA) memory layout and SIMD optimization for real-time execution.
+Data-oriented design with Structure-of-Arrays (SoA) memory layout, SIMD optimization, and GPU compute acceleration (CUDA, OpenCL, Metal) for real-time execution.
 
 ### Accurate Models
 6-DOF rigid body dynamics, US Standard Atmosphere 1976, Bekker-Wong terramechanics, MMG ship maneuvering, SGP4/SDP4 orbital propagation.
+
+### Distributed Simulation
+Complete IEEE 1278.1-2012 DIS and IEEE 1516-2010 HLA RTI federation support for Live-Virtual-Constructive (LVC) integration.
+
+### Machine Learning
+Neural autopilot systems, ONNX model inference, reinforcement learning environments with Gym-compatible API, and model repository management.
+
+### Cloud Native
+Auto-scaling cloud burst capability with distributed state synchronization, Raft consensus, and spatial partitioning for massively concurrent simulations.
+
+### XR Ready
+Full OpenXR integration with spatial audio, haptic feedback, and training scenario management for immersive simulation experiences.
+
+### Digital Thread
+Complete lifecycle tracking with history store, predictive degradation models, and physics-based failure prediction for digital twin applications.
 
 ### Scriptable
 Python and Lua bindings for rapid prototyping and integration with data science workflows.
@@ -2325,6 +2340,27 @@ Python and Lua bindings for rapid prototyping and integration with data science 
 <td><a href="getting-started/first-simulation/">First Simulation</a></td>
 <td><a href="api/python/">Python API</a></td>
 <td><a href="advanced/networking/">Network Integration</a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Phase 7 Modules</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="api/cloud/">Cloud Burst</a></td>
+<td><a href="api/thread/">Digital Thread</a></td>
+<td><a href="api/ml/">Machine Learning</a></td>
+</tr>
+<tr>
+<td><a href="api/federation/">Federation</a></td>
+<td><a href="api/gpu/">GPU Compute</a></td>
+<td><a href="api/sensors/">Sensors</a></td>
 </tr>
 </tbody>
 </table>
@@ -2419,7 +2455,7 @@ Python and Lua bindings for rapid prototyping and integration with data science 
 <tr>
 <td>Core Engine</td>
 <td>Stable</td>
-<td>0.4.0</td>
+<td>0.5.0</td>
 </tr>
 <tr>
 <td>Air Domain</td>
@@ -2442,27 +2478,58 @@ Python and Lua bindings for rapid prototyping and integration with data science 
 <td>Complete</td>
 </tr>
 <tr>
-<td>Python Bindings</td>
-<td>Beta</td>
-<td>0.3.0</td>
+<td>XR Integration</td>
+<td>Stable</td>
+<td>Complete</td>
 </tr>
 <tr>
-<td>Lua Bindings</td>
-<td>Beta</td>
-<td>0.3.0</td>
+<td>Cloud Burst</td>
+<td>Stable</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>Digital Thread</td>
+<td>Stable</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>Machine Learning</td>
+<td>Stable</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>GPU Compute</td>
+<td>Stable</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td>Stable</td>
+<td>Complete</td>
 </tr>
 <tr>
 <td>DIS Protocol</td>
-<td>Alpha</td>
-<td>0.1.0</td>
+<td>Stable</td>
+<td>Complete</td>
 </tr>
 <tr>
 <td>HLA Protocol</td>
-<td>Planned</td>
-<td>-</td>
+<td>Stable</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>Python Bindings</td>
+<td>Stable</td>
+<td>0.5.0</td>
+</tr>
+<tr>
+<td>Lua Bindings</td>
+<td>Stable</td>
+<td>0.5.0</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Test Coverage</strong>: 1150+ unit tests across all modules</p>
 <hr />
 <h2 id="community-support">Community &amp; Support<a class="headerlink" href="#community-support" title="Permanent link">&para;</a></h2>
 <ul>

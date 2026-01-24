@@ -1636,6 +1636,83 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#cloud-burst-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Burst Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-thread-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Thread Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#machine-learning-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federation Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-compute-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Compute Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensors-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensors Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xr-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XR Module
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2420,6 +2497,83 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#cloud-burst-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Burst Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-thread-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Digital Thread Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#machine-learning-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federation-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Federation Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-compute-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Compute Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensors-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensors Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xr-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XR Module
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2618,7 +2772,14 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── physics/        # Entity management, forces, integration
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── domain/         # Domain-specific physics (air, land, sea, space)
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── environment/    # Terrain, atmosphere, ocean
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>└── interface/      # Public API facade, configuration
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── interface/      # Public API facade, configuration
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── cloud/          # Distributed simulation, state sync, partitioning
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── thread/         # Digital thread, history, degradation models
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── ml/             # Machine learning, neural autopilot, RL
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── federation/     # DIS/HLA network protocols
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── gpu/            # GPU compute backends (CUDA, OpenCL, Metal)
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── sensors/        # Sensor models with MIL-SPEC noise profiles
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└── xr/             # XR integration, spatial audio, haptics
 </span></code></pre></div>
 <hr />
 <h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
@@ -2915,6 +3076,182 @@
 <td>XML</td>
 <td><code>jaguar/interface/config.h</code></td>
 <td>Entity configs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cloud-burst-module"><a href="../cloud/">Cloud Burst Module</a><a class="headerlink" href="#cloud-burst-module" title="Permanent link">&para;</a></h3>
+<p>Distributed simulation and cloud scaling.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State Sync</td>
+<td><code>jaguar/cloud/state_sync.h</code></td>
+<td>Distributed state synchronization</td>
+</tr>
+<tr>
+<td>Partition Manager</td>
+<td><code>jaguar/cloud/partition_manager.h</code></td>
+<td>Spatial/domain partitioning</td>
+</tr>
+<tr>
+<td>Distributed Time</td>
+<td><code>jaguar/cloud/distributed_time.h</code></td>
+<td>Raft consensus, vector clocks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="digital-thread-module"><a href="../thread/">Digital Thread Module</a><a class="headerlink" href="#digital-thread-module" title="Permanent link">&para;</a></h3>
+<p>Lifecycle management and predictive maintenance.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>History Store</td>
+<td><code>jaguar/thread/history_store.h</code></td>
+<td>State history, snapshots, export</td>
+</tr>
+<tr>
+<td>Degradation Model</td>
+<td><code>jaguar/thread/degradation_model.h</code></td>
+<td>Failure prediction, maintenance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="machine-learning-module"><a href="../ml/">Machine Learning Module</a><a class="headerlink" href="#machine-learning-module" title="Permanent link">&para;</a></h3>
+<p>Neural networks and reinforcement learning.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Neural Autopilot</td>
+<td><code>jaguar/ml/neural_autopilot.h</code></td>
+<td>NN-based flight control</td>
+</tr>
+<tr>
+<td>Model Repository</td>
+<td><code>jaguar/ml/model_repository.h</code></td>
+<td>Model versioning, caching</td>
+</tr>
+<tr>
+<td>RL Environment</td>
+<td><code>jaguar/ml/rl_environment.h</code></td>
+<td>Gym-compatible RL interface</td>
+</tr>
+</tbody>
+</table>
+<h3 id="federation-module"><a href="../federation/">Federation Module</a><a class="headerlink" href="#federation-module" title="Permanent link">&para;</a></h3>
+<p>Distributed Interactive Simulation and HLA.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DIS Protocol</td>
+<td><code>jaguar/federation/dis_protocol.h</code></td>
+<td>IEEE 1278.1-2012 PDUs</td>
+</tr>
+<tr>
+<td>HLA RTI</td>
+<td><code>jaguar/federation/hla_rti.h</code></td>
+<td>IEEE 1516-2010 federation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gpu-compute-module"><a href="../gpu/">GPU Compute Module</a><a class="headerlink" href="#gpu-compute-module" title="Permanent link">&para;</a></h3>
+<p>Hardware-accelerated computation.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compute Backend</td>
+<td><code>jaguar/gpu/compute_backend.h</code></td>
+<td>CUDA, OpenCL, Metal abstraction</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensors-module"><a href="../sensors/">Sensors Module</a><a class="headerlink" href="#sensors-module" title="Permanent link">&para;</a></h3>
+<p>Sensor simulation with realistic noise models.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor Base</td>
+<td><code>jaguar/sensors/sensor.h</code></td>
+<td>Sensor interface, noise models</td>
+</tr>
+<tr>
+<td>IMU Sensor</td>
+<td><code>jaguar/sensors/imu_sensor.h</code></td>
+<td>MIL-SPEC IMU simulation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xr-module"><a href="../xr/">XR Module</a><a class="headerlink" href="#xr-module" title="Permanent link">&para;</a></h3>
+<p>Extended reality integration.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenXR</td>
+<td><code>jaguar/xr/openxr_integration.h</code></td>
+<td>VR/AR device support</td>
+</tr>
+<tr>
+<td>Spatial Audio</td>
+<td><code>jaguar/xr/spatial_audio.h</code></td>
+<td>3D audio rendering</td>
+</tr>
+<tr>
+<td>Haptics</td>
+<td><code>jaguar/xr/haptic_feedback.h</code></td>
+<td>Tactile feedback</td>
+</tr>
+<tr>
+<td>Training</td>
+<td><code>jaguar/xr/training_scenario.h</code></td>
+<td>Scenario management</td>
 </tr>
 </tbody>
 </table>

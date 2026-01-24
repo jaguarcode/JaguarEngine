@@ -2153,6 +2153,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Topics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coordinate-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinate Transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-time-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Time Synchronization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2477,6 +2527,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Topics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coordinate-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinate Transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-time-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Time Synchronization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2558,28 +2658,38 @@
 <h1 id="network-integration">Network Integration<a class="headerlink" href="#network-integration" title="Permanent link">&para;</a></h1>
 <p>This guide covers JaguarEngine's network interfaces for distributed simulation, including DIS (Distributed Interactive Simulation) and HLA (High Level Architecture).</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>JaguarEngine supports industry-standard networking protocols for Live-Virtual-Constructive (LVC) integration:</p>
+<p>JaguarEngine provides complete implementations of industry-standard networking protocols for Live-Virtual-Constructive (LVC) integration:</p>
 <table>
 <thead>
 <tr>
 <th>Protocol</th>
 <th>Standard</th>
+<th>Status</th>
 <th>Use Case</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>DIS</td>
-<td>IEEE 1278</td>
+<td>IEEE 1278.1-2012</td>
+<td><strong>Complete</strong></td>
 <td>Real-time entity state exchange</td>
 </tr>
 <tr>
 <td>HLA</td>
-<td>IEEE 1516</td>
+<td>IEEE 1516-2010</td>
+<td><strong>Complete</strong></td>
 <td>Federation-based distributed simulation</td>
 </tr>
 </tbody>
 </table>
+<p>Both protocols are fully implemented with:
+- Complete PDU/interaction support
+- Dead reckoning algorithms
+- Time management
+- Ownership management (HLA)
+- Data Distribution Management (HLA DDM)</p>
+<p>For detailed API reference, see <a href="../../api/federation/">Federation API</a>.</p>
 <h2 id="dis-protocol">DIS Protocol<a class="headerlink" href="#dis-protocol" title="Permanent link">&para;</a></h2>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Enable DIS in the engine configuration:</p>
@@ -2789,6 +2899,7 @@
 </span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1">// Entity state PDUs are only sent when thresholds are exceeded</span>
 </span></code></pre></div>
 <h3 id="supported-algorithms">Supported Algorithms<a class="headerlink" href="#supported-algorithms" title="Permanent link">&para;</a></h3>
+<p>JaguarEngine implements all IEEE 1278.1-2012 dead reckoning algorithms:</p>
 <table>
 <thead>
 <tr>
@@ -2798,8 +2909,8 @@
 </thead>
 <tbody>
 <tr>
-<td>DRM_STATIC</td>
-<td>No dead reckoning</td>
+<td>DRM_Static</td>
+<td>Static entity (no extrapolation)</td>
 </tr>
 <tr>
 <td>DRM_FPW</td>
@@ -2824,6 +2935,18 @@
 <tr>
 <td>DRM_RPB</td>
 <td>Rotating position, body coordinates</td>
+</tr>
+<tr>
+<td>DRM_RVB</td>
+<td>Rotating velocity, body coordinates</td>
+</tr>
+<tr>
+<td>DRM_FVB</td>
+<td>Fixed velocity, body coordinates</td>
+</tr>
+<tr>
+<td>DRM_*_HighRes</td>
+<td>High-resolution variants of above (IEEE 1278.1-2012)</td>
 </tr>
 </tbody>
 </table>
@@ -2892,9 +3015,44 @@
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
 </span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="c1">// Both federates now exchange entity states automatically</span>
 </span></code></pre></div>
+<h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
+<h3 id="coordinate-transformations">Coordinate Transformations<a class="headerlink" href="#coordinate-transformations" title="Permanent link">&para;</a></h3>
+<p>JaguarEngine handles all required coordinate transformations:</p>
+<ul>
+<li><strong>ECEF (Earth-Centered Earth-Fixed)</strong>: DIS wire format</li>
+<li><strong>Geodetic (WGS84)</strong>: Latitude, longitude, altitude</li>
+<li><strong>NED (North-East-Down)</strong>: Local tangent plane</li>
+<li><strong>Body Frame</strong>: Aircraft/vehicle body coordinates</li>
+</ul>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;jaguar/federation/dis_protocol.h&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">// Convert between coordinate frames</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">GeodeticCoordinates</span><span class="w"> </span><span class="n">geo</span><span class="p">{</span><span class="n">lat_rad</span><span class="p">,</span><span class="w"> </span><span class="n">lon_rad</span><span class="p">,</span><span class="w"> </span><span class="n">alt_m</span><span class="p">};</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">Vec3</span><span class="w"> </span><span class="n">ecef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geo</span><span class="p">.</span><span class="n">to_ecef</span><span class="p">();</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">GeodeticCoordinates</span><span class="w"> </span><span class="n">back</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GeodeticCoordinates</span><span class="o">::</span><span class="n">from_ecef</span><span class="p">(</span><span class="n">ecef</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="distributed-time-synchronization">Distributed Time Synchronization<a class="headerlink" href="#distributed-time-synchronization" title="Permanent link">&para;</a></h3>
+<p>For large-scale distributed simulations, JaguarEngine provides advanced time synchronization through the Cloud Burst module:</p>
+<ul>
+<li>Raft consensus for time master election</li>
+<li>Vector clocks for causal ordering</li>
+<li>Barrier synchronization for checkpoints</li>
+<li>Multiple time advancement modes (Conservative, Optimistic, Bounded, Adaptive)</li>
+</ul>
+<p>See <a href="../../api/cloud/">Cloud Burst API</a> for details.</p>
+<h3 id="scalability">Scalability<a class="headerlink" href="#scalability" title="Permanent link">&para;</a></h3>
+<p>JaguarEngine scales to thousands of entities through:</p>
+<ol>
+<li><strong>Spatial Partitioning</strong>: Octree-based entity distribution</li>
+<li><strong>Dead Reckoning</strong>: 80-90% bandwidth reduction</li>
+<li><strong>Interest Management</strong>: DDM for HLA, area-of-interest filtering for DIS</li>
+<li><strong>Load Balancing</strong>: Dynamic entity migration between compute nodes</li>
+</ol>
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../architecture/">Architecture</a> - System architecture</li>
+<li><a href="../../api/federation/">Federation API</a> - Complete DIS/HLA API reference</li>
+<li><a href="../../api/cloud/">Cloud Burst API</a> - Distributed simulation scaling</li>
 <li><a href="../../api/configuration/">Configuration</a> - Configuration options</li>
 <li><a href="../../tutorials/examples/">Examples</a> - Complete examples</li>
 </ul>

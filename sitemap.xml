@@ -29,6 +29,10 @@
          <lastmod>2026-01-24</lastmod>
     </url>
     <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/cloud/</loc>
+         <lastmod>2026-01-24</lastmod>
+    </url>
+    <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/api/configuration/</loc>
          <lastmod>2026-01-24</lastmod>
     </url>
@@ -41,11 +45,23 @@
          <lastmod>2026-01-24</lastmod>
     </url>
     <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/federation/</loc>
+         <lastmod>2026-01-24</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/gpu/</loc>
+         <lastmod>2026-01-24</lastmod>
+    </url>
+    <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/api/land/</loc>
          <lastmod>2026-01-24</lastmod>
     </url>
     <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/api/lua/</loc>
+         <lastmod>2026-01-24</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/ml/</loc>
          <lastmod>2026-01-24</lastmod>
     </url>
     <url>
@@ -65,7 +81,15 @@
          <lastmod>2026-01-24</lastmod>
     </url>
     <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/sensors/</loc>
+         <lastmod>2026-01-24</lastmod>
+    </url>
+    <url>
          <loc>https://jaguarcode.github.io/JaguarEngine/api/space/</loc>
+         <lastmod>2026-01-24</lastmod>
+    </url>
+    <url>
+         <loc>https://jaguarcode.github.io/JaguarEngine/api/thread/</loc>
          <lastmod>2026-01-24</lastmod>
     </url>
     <url>
