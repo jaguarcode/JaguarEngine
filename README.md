@@ -202,29 +202,29 @@ JaguarEngine/
 
 ## Documentation
 
-| Document                               | Description                          |
-| -------------------------------------- | ------------------------------------ |
-| [Architecture](docs/ARCHITECTURE.md)   | System design and component overview |
-| [Installation](docs/INSTALLATION.md)   | Build instructions and dependencies  |
-| [API Reference](docs/API_REFERENCE.md) | Complete API documentation           |
-| [Examples Guide](docs/EXAMPLES.md)     | Walkthrough of example code          |
-| [Configuration](docs/CONFIGURATION.md) | XML configuration reference          |
+| Document                                          | Description                          |
+| ------------------------------------------------- | ------------------------------------ |
+| [Architecture](docs/architecture/ARCHITECTURE.md) | System design and component overview |
+| [Installation](docs/INSTALLATION.md)              | Build instructions and dependencies  |
+| [API Reference](docs/API_REFERENCE.md)            | Complete API documentation           |
+| [Examples Guide](docs/EXAMPLES.md)                | Walkthrough of example code          |
+| [Configuration](docs/CONFIGURATION.md)            | XML configuration reference          |
 
 ### Module Documentation
 
-| Module                                       | Description                                 |
-| -------------------------------------------- | ------------------------------------------- |
-| [Core](docs/modules/CORE.md)                 | Types, math, memory, property system        |
-| [Physics](docs/modules/PHYSICS.md)           | Entity management, integrators, constraints |
-| [Air Domain](docs/modules/AIR_DOMAIN.md)     | Aerodynamics, propulsion, flight control    |
-| [Land Domain](docs/modules/LAND_DOMAIN.md)   | Terramechanics, suspension                  |
-| [Sea Domain](docs/modules/SEA_DOMAIN.md)     | Hydrodynamics, buoyancy, waves              |
-| [Space Domain](docs/modules/SPACE_DOMAIN.md) | Orbital mechanics, SGP4                     |
-| [Environment](docs/modules/ENVIRONMENT.md)   | Terrain, atmosphere, ocean, turbulence      |
-| [GPU](docs/modules/GPU.md)                   | CUDA/Metal/Vulkan compute backends          |
-| [Events](docs/modules/EVENTS.md)             | Event bus and pub/sub system                |
-| [XR](docs/modules/XR.md)                     | OpenXR integration and spatial audio        |
-| [Sensors](docs/modules/SENSORS.md)           | IMU, GPS, radar simulation                  |
+| Module                                       | Description                                    |
+| -------------------------------------------- | ---------------------------------------------- |
+| [Core](docs/modules/CORE.md)                 | Types, math, memory, property system           |
+| [Physics](docs/modules/PHYSICS.md)           | Entity management, integrators, constraints    |
+| [Air Domain](docs/modules/AIR_DOMAIN.md)     | Aerodynamics, propulsion, flight control       |
+| [Land Domain](docs/modules/LAND_DOMAIN.md)   | Terramechanics, suspension                     |
+| [Sea Domain](docs/modules/SEA_DOMAIN.md)     | Hydrodynamics, buoyancy, waves                 |
+| [Space Domain](docs/modules/SPACE_DOMAIN.md) | Orbital mechanics, SGP4                        |
+| [Environment](docs/modules/ENVIRONMENT.md)   | Terrain, atmosphere, ocean, turbulence         |
+| [Cloud](docs/modules/CLOUD.md)               | Distributed simulation, auto-scaling           |
+| [Federation](docs/modules/FEDERATION.md)     | DIS/HLA protocols, network transport           |
+| [Digital Thread](docs/modules/THREAD.md)     | Lifecycle management, history, degradation     |
+| [Machine Learning](docs/modules/ML.md)       | ONNX inference, neural autopilot, RL env       |
 
 ### Scripting APIs
 
@@ -263,7 +263,7 @@ JaguarEngine/
 ## Test Coverage
 
 ```
-400+ tests across 60+ test suites
+1150+ tests across 100+ test suites
 - Math: Vector, quaternion, matrix operations
 - Physics: Entity state, force accumulation, integration
 - Integrators: Symplectic Euler, Verlet, Dormand-Prince, Boris
@@ -277,6 +277,10 @@ JaguarEngine/
 - Events: Event bus, async dispatching
 - XR: Session management, tracking, spatial audio
 - Sensors: IMU, GPS, radar simulation
+- Cloud: Partitioning, auto-scaling, state sync, distributed time
+- Federation: DIS protocol, HLA RTI, network transport
+- Digital Thread: Lifecycle, history store, degradation model
+- Machine Learning: Inference, neural autopilot, RL environment
 ```
 
 ## Build Options
@@ -296,6 +300,9 @@ JaguarEngine/
 | `JAGUAR_ENABLE_VULKAN`    | OFF     | Enable Vulkan compute                 |
 | `JAGUAR_ENABLE_XR`        | ON      | Enable XR (VR/AR) support             |
 | `JAGUAR_ENABLE_OPENXR`    | OFF     | Enable OpenXR runtime                 |
+| `JAGUAR_ENABLE_CLOUD`     | ON      | Enable cloud/distributed simulation   |
+| `JAGUAR_ENABLE_THREAD`    | ON      | Enable Digital Thread support         |
+| `JAGUAR_ENABLE_ML`        | ON      | Enable Machine Learning support       |
 
 ## Dependencies
 
