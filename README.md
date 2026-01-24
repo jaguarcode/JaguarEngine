@@ -221,6 +221,10 @@ JaguarEngine/
 | [Sea Domain](docs/modules/SEA_DOMAIN.md)     | Hydrodynamics, buoyancy, waves                 |
 | [Space Domain](docs/modules/SPACE_DOMAIN.md) | Orbital mechanics, SGP4                        |
 | [Environment](docs/modules/ENVIRONMENT.md)   | Terrain, atmosphere, ocean, turbulence         |
+| [GPU Compute](docs/modules/GPU.md)           | CUDA/Metal/Vulkan backends, hybrid physics     |
+| [XR Integration](docs/modules/XR.md)         | OpenXR, spatial audio, haptics, motion platform|
+| [Sensors](docs/modules/SENSORS.md)           | IMU simulation, noise models, failure modes    |
+| [Events](docs/modules/EVENTS.md)             | Event bus, dispatching, threshold monitoring   |
 | [Cloud](docs/modules/CLOUD.md)               | Distributed simulation, auto-scaling           |
 | [Federation](docs/modules/FEDERATION.md)     | DIS/HLA protocols, network transport           |
 | [Digital Thread](docs/modules/THREAD.md)     | Lifecycle management, history, degradation     |
