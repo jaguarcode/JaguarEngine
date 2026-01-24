@@ -12,7 +12,14 @@ jaguar/
 ├── physics/        # Entity management, forces, integration
 ├── domain/         # Domain-specific physics (air, land, sea, space)
 ├── environment/    # Terrain, atmosphere, ocean
-└── interface/      # Public API facade, configuration
+├── interface/      # Public API facade, configuration
+├── cloud/          # Distributed simulation, state sync, partitioning
+├── thread/         # Digital thread, history, degradation models
+├── ml/             # Machine learning, neural autopilot, RL
+├── federation/     # DIS/HLA network protocols
+├── gpu/            # GPU compute backends (CUDA, OpenCL, Metal)
+├── sensors/        # Sensor models with MIL-SPEC noise profiles
+└── xr/             # XR integration, spatial audio, haptics
 ```
 
 ---
@@ -165,6 +172,72 @@ Configuration and setup.
 |-----------|--------|-------------|
 | Config | `jaguar/interface/config.h` | Engine config |
 | XML | `jaguar/interface/config.h` | Entity configs |
+
+### [Cloud Burst Module](cloud.md)
+
+Distributed simulation and cloud scaling.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| State Sync | `jaguar/cloud/state_sync.h` | Distributed state synchronization |
+| Partition Manager | `jaguar/cloud/partition_manager.h` | Spatial/domain partitioning |
+| Distributed Time | `jaguar/cloud/distributed_time.h` | Raft consensus, vector clocks |
+
+### [Digital Thread Module](thread.md)
+
+Lifecycle management and predictive maintenance.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| History Store | `jaguar/thread/history_store.h` | State history, snapshots, export |
+| Degradation Model | `jaguar/thread/degradation_model.h` | Failure prediction, maintenance |
+
+### [Machine Learning Module](ml.md)
+
+Neural networks and reinforcement learning.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| Neural Autopilot | `jaguar/ml/neural_autopilot.h` | NN-based flight control |
+| Model Repository | `jaguar/ml/model_repository.h` | Model versioning, caching |
+| RL Environment | `jaguar/ml/rl_environment.h` | Gym-compatible RL interface |
+
+### [Federation Module](federation.md)
+
+Distributed Interactive Simulation and HLA.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| DIS Protocol | `jaguar/federation/dis_protocol.h` | IEEE 1278.1-2012 PDUs |
+| HLA RTI | `jaguar/federation/hla_rti.h` | IEEE 1516-2010 federation |
+
+### [GPU Compute Module](gpu.md)
+
+Hardware-accelerated computation.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| Compute Backend | `jaguar/gpu/compute_backend.h` | CUDA, OpenCL, Metal abstraction |
+
+### [Sensors Module](sensors.md)
+
+Sensor simulation with realistic noise models.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| Sensor Base | `jaguar/sensors/sensor.h` | Sensor interface, noise models |
+| IMU Sensor | `jaguar/sensors/imu_sensor.h` | MIL-SPEC IMU simulation |
+
+### [XR Module](xr.md)
+
+Extended reality integration.
+
+| Component | Header | Description |
+|-----------|--------|-------------|
+| OpenXR | `jaguar/xr/openxr_integration.h` | VR/AR device support |
+| Spatial Audio | `jaguar/xr/spatial_audio.h` | 3D audio rendering |
+| Haptics | `jaguar/xr/haptic_feedback.h` | Tactile feedback |
+| Training | `jaguar/xr/training_scenario.h` | Scenario management |
 
 ---
 

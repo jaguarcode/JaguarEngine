@@ -4,12 +4,21 @@ This guide covers JaguarEngine's network interfaces for distributed simulation, 
 
 ## Overview
 
-JaguarEngine supports industry-standard networking protocols for Live-Virtual-Constructive (LVC) integration:
+JaguarEngine provides complete implementations of industry-standard networking protocols for Live-Virtual-Constructive (LVC) integration:
 
-| Protocol | Standard | Use Case |
-|----------|----------|----------|
-| DIS | IEEE 1278 | Real-time entity state exchange |
-| HLA | IEEE 1516 | Federation-based distributed simulation |
+| Protocol | Standard | Status | Use Case |
+|----------|----------|--------|----------|
+| DIS | IEEE 1278.1-2012 | **Complete** | Real-time entity state exchange |
+| HLA | IEEE 1516-2010 | **Complete** | Federation-based distributed simulation |
+
+Both protocols are fully implemented with:
+- Complete PDU/interaction support
+- Dead reckoning algorithms
+- Time management
+- Ownership management (HLA)
+- Data Distribution Management (HLA DDM)
+
+For detailed API reference, see [Federation API](../api/federation.md).
 
 ## DIS Protocol
 
@@ -216,15 +225,20 @@ dis.set_dead_reckoning(aircraft, dr_cfg);
 
 ### Supported Algorithms
 
+JaguarEngine implements all IEEE 1278.1-2012 dead reckoning algorithms:
+
 | Algorithm | Description |
 |-----------|-------------|
-| DRM_STATIC | No dead reckoning |
+| DRM_Static | Static entity (no extrapolation) |
 | DRM_FPW | Fixed position, world coordinates |
 | DRM_RPW | Rotating position, world coordinates |
 | DRM_RVW | Rotating velocity, world coordinates |
 | DRM_FVW | Fixed velocity, world coordinates |
 | DRM_FPB | Fixed position, body coordinates |
 | DRM_RPB | Rotating position, body coordinates |
+| DRM_RVB | Rotating velocity, body coordinates |
+| DRM_FVB | Fixed velocity, body coordinates |
+| DRM_*_HighRes | High-resolution variants of above (IEEE 1278.1-2012) |
 
 ## Python API
 
@@ -298,8 +312,50 @@ fed2.subscribe_object_class("Platform.Aircraft");
 // Both federates now exchange entity states automatically
 ```
 
+## Advanced Topics
+
+### Coordinate Transformations
+
+JaguarEngine handles all required coordinate transformations:
+
+- **ECEF (Earth-Centered Earth-Fixed)**: DIS wire format
+- **Geodetic (WGS84)**: Latitude, longitude, altitude
+- **NED (North-East-Down)**: Local tangent plane
+- **Body Frame**: Aircraft/vehicle body coordinates
+
+```cpp
+#include <jaguar/federation/dis_protocol.h>
+
+// Convert between coordinate frames
+GeodeticCoordinates geo{lat_rad, lon_rad, alt_m};
+Vec3 ecef = geo.to_ecef();
+GeodeticCoordinates back = GeodeticCoordinates::from_ecef(ecef);
+```
+
+### Distributed Time Synchronization
+
+For large-scale distributed simulations, JaguarEngine provides advanced time synchronization through the Cloud Burst module:
+
+- Raft consensus for time master election
+- Vector clocks for causal ordering
+- Barrier synchronization for checkpoints
+- Multiple time advancement modes (Conservative, Optimistic, Bounded, Adaptive)
+
+See [Cloud Burst API](../api/cloud.md) for details.
+
+### Scalability
+
+JaguarEngine scales to thousands of entities through:
+
+1. **Spatial Partitioning**: Octree-based entity distribution
+2. **Dead Reckoning**: 80-90% bandwidth reduction
+3. **Interest Management**: DDM for HLA, area-of-interest filtering for DIS
+4. **Load Balancing**: Dynamic entity migration between compute nodes
+
 ## See Also
 
 - [Architecture](architecture.md) - System architecture
+- [Federation API](../api/federation.md) - Complete DIS/HLA API reference
+- [Cloud Burst API](../api/cloud.md) - Distributed simulation scaling
 - [Configuration](../api/configuration.md) - Configuration options
 - [Examples](../tutorials/examples.md) - Complete examples
