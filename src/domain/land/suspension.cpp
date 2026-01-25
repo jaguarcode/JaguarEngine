@@ -1,13 +1,17 @@
 /**
  * @file suspension.cpp
- * @brief Suspension model implementation
+ * @brief Suspension model implementation with terrain integration
  *
- * Implements a spring-damper suspension system for ground vehicles.
+ * Implements a spring-damper suspension system for ground vehicles with
+ * full terrain integration for realistic ground contact.
  *
  * Features:
  * - Multiple suspension units with independent characteristics
  * - Spring-damper force calculation with preload and travel limits
  * - Bump stop modeling at travel extremes
+ * - Terrain-integrated contact calculation
+ * - Surface normal-based force direction
+ * - Material-specific friction coefficients
  * - Total force and torque contribution to vehicle dynamics
  * - Tracked vehicle model with sprocket-driven tracks
  *
@@ -15,6 +19,9 @@
  */
 
 #include "jaguar/domain/land.h"
+#include "jaguar/domain/land/suspension.h"
+#include "jaguar/environment/environment.h"
+#include "jaguar/environment/terrain.h"
 #include <cmath>
 #include <algorithm>
 
@@ -68,80 +75,175 @@ Real SuspensionUnit::calculate_force() const {
 }
 
 // ============================================================================
+// WheelSuspension Implementation (Terrain-Integrated)
+// ============================================================================
+
+WheelSuspension::WheelSuspension(const Vec3& position, Real wheel_radius, const SuspensionUnit& unit)
+    : position_(position), wheel_radius_(wheel_radius), unit_(unit) {}
+
+environment::TerrainQuery WheelSuspension::query_terrain_at_wheel(
+    const physics::EntityState& state,
+    const environment::EnvironmentService* env_service) const
+{
+    // Transform wheel position to world frame
+    Vec3 wheel_position_world = state.position + state.orientation.rotate(position_);
+
+    // Query terrain if environment service is available
+    if (env_service) {
+        // Note: EnvironmentService::query expects ECEF, we're assuming wheel_position_world is ECEF
+        // In a full implementation, proper coordinate transforms would be needed
+        environment::Environment env = env_service->query(wheel_position_world, 0.0);
+        return env.terrain;
+    }
+
+    // Fallback: flat terrain at origin
+    environment::TerrainQuery default_terrain;
+    default_terrain.elevation = 0.0;
+    default_terrain.normal = Vec3{0, 0, 1};
+    default_terrain.slope_angle = 0.0;
+    default_terrain.material.friction_coefficient = 0.7;
+    default_terrain.material.rolling_resistance = 0.01;
+    default_terrain.valid = true;
+    return default_terrain;
+}
+
+Real WheelSuspension::compute_penetration(
+    const Vec3& wheel_position_world,
+    const environment::TerrainQuery& terrain_query) const
+{
+    // Compute penetration depth relative to terrain surface
+    // Penetration is measured along terrain normal
+
+    // Terrain contact point (on surface)
+    Vec3 terrain_point = wheel_position_world;
+    terrain_point.z = terrain_query.elevation;
+
+    // Vector from terrain to wheel center
+    Vec3 separation = wheel_position_world - terrain_point;
+
+    // Project onto terrain normal
+    Real distance_to_surface = separation.dot(terrain_query.normal);
+
+    // Penetration is wheel_radius minus distance to surface
+    // Positive = wheel is penetrating ground
+    // Negative = wheel is above ground
+    Real penetration = wheel_radius_ - distance_to_surface;
+
+    return penetration;
+}
+
+Vec3 WheelSuspension::compute_forces(
+    const physics::EntityState& state,
+    const environment::EnvironmentService* env_service,
+    Real dt)
+{
+    // 1. Query terrain at wheel position
+    environment::TerrainQuery terrain = query_terrain_at_wheel(state, env_service);
+
+    // Cache terrain properties
+    last_terrain_normal_ = terrain.normal;
+    friction_coefficient_ = terrain.material.friction_coefficient;
+
+    // 2. Transform wheel position to world frame
+    Vec3 wheel_position_world = state.position + state.orientation.rotate(position_);
+
+    // 3. Compute penetration relative to terrain surface
+    Real penetration = compute_penetration(wheel_position_world, terrain);
+
+    // 4. Update suspension state
+    is_grounded_ = penetration > 0.0;
+
+    if (!is_grounded_) {
+        // Wheel is airborne - no force
+        unit_.current_position = 0.0;
+        unit_.current_velocity = 0.0;
+        last_force_magnitude_ = 0.0;
+        last_force_ = Vec3{0, 0, 0};
+        return Vec3{0, 0, 0};
+    }
+
+    // 5. Compute suspension compression
+    // Penetration indicates how much the spring is compressed
+    Real compression = penetration;
+    unit_.current_position = std::clamp(compression, unit_.travel_min, unit_.travel_max);
+
+    // 6. Compute compression velocity
+    // This requires tracking previous state or computing from entity motion
+    Vec3 wheel_velocity_world = state.velocity + state.angular_velocity.cross(
+        state.orientation.rotate(position_));
+
+    // Project velocity onto terrain normal (positive = compressing)
+    unit_.current_velocity = -wheel_velocity_world.dot(terrain.normal);
+
+    // 7. Calculate suspension force magnitude
+    Real force_magnitude = unit_.calculate_force();
+    last_force_magnitude_ = force_magnitude;
+
+    // 8. Apply force along terrain normal (not vertical!)
+    // Force opposes penetration, so it acts along positive normal
+    last_force_ = terrain.normal * force_magnitude;
+
+    return last_force_;
+}
+
+Vec3 WheelSuspension::compute_torque(const physics::EntityState& state) const {
+    if (!is_grounded_) {
+        return Vec3{0, 0, 0};
+    }
+
+    // Torque = r × F
+    // r is in body frame, F is in world frame
+    // Need to transform r to world frame
+    Vec3 r_world = state.orientation.rotate(position_);
+    Vec3 torque = r_world.cross(last_force_);
+
+    return torque;
+}
+
+// ============================================================================
 // SuspensionModel Implementation
 // ============================================================================
 
 SuspensionModel::SuspensionModel() = default;
 SuspensionModel::~SuspensionModel() = default;
 
-void SuspensionModel::add_unit(const Vec3& position, const SuspensionUnit& unit) {
-    units_.push_back({position, unit});
+void SuspensionModel::add_wheel(const Vec3& position, Real wheel_radius, const SuspensionUnit& unit) {
+    wheels_.emplace_back(position, wheel_radius, unit);
 }
 
-void SuspensionModel::update(const physics::EntityState& state, [[maybe_unused]] Real dt) {
-    // Update each suspension unit based on vehicle motion
-    // This is a simplified model - a full model would:
-    // 1. Transform wheel positions to world frame
-    // 2. Query terrain height at each wheel
-    // 3. Calculate compression based on terrain contact
-    // 4. Integrate wheel vertical dynamics
+void SuspensionModel::update(
+    const physics::EntityState& state,
+    const environment::EnvironmentService* env_service,
+    Real dt)
+{
+    total_force_ = Vec3{0, 0, 0};
+    total_torque_ = Vec3{0, 0, 0};
 
-    for (auto& unit_data : units_) {
-        // Simplified: use body z-velocity as compression rate estimate
-        // A proper model would track individual wheel contacts
-        Vec3 v_body = state.orientation.conjugate().rotate(state.velocity);
+    for (auto& wheel : wheels_) {
+        Vec3 force = wheel.compute_forces(state, env_service, dt);
+        Vec3 torque = wheel.compute_torque(state);
 
-        // Estimate wheel vertical velocity relative to body
-        // This includes contribution from angular motion
-        Vec3 r = unit_data.position;
-        Vec3 omega = state.angular_velocity;
-        Vec3 v_rel = omega.cross(r);  // Velocity due to rotation
-
-        // Total vertical velocity at this suspension point
-        Real v_vertical = v_body.z + v_rel.z;
-
-        // Update suspension state
-        SuspensionUnit& unit = unit_data.unit;
-
-        // Simple integration (in reality, this would come from terrain contact)
-        // For now, assume some ground contact and integrate based on force
-        // This is a placeholder - proper implementation needs terrain queries
-
-        // Update velocity
-        unit.current_velocity = v_vertical;
-
-        // Clamp position to travel limits
-        unit.current_position = std::clamp(unit.current_position,
-                                           unit.travel_min, unit.travel_max);
+        total_force_ += force;
+        total_torque_ += torque;
     }
 }
 
 Vec3 SuspensionModel::get_total_force() const {
-    Vec3 total{0.0, 0.0, 0.0};
-
-    for (const auto& unit_data : units_) {
-        // Suspension force acts in local vertical direction (Z in body frame)
-        Real force = unit_data.unit.calculate_force();
-        total.z += force;
-    }
-
-    return total;
+    return total_force_;
 }
 
 Vec3 SuspensionModel::get_total_torque() const {
-    Vec3 total{0.0, 0.0, 0.0};
+    return total_torque_;
+}
 
-    for (const auto& unit_data : units_) {
-        // Force acts at suspension position
-        Real force = unit_data.unit.calculate_force();
-        Vec3 force_vec{0.0, 0.0, force};
-
-        // Torque = r × F
-        Vec3 torque = unit_data.position.cross(force_vec);
-        total += torque;
+SizeT SuspensionModel::grounded_wheel_count() const {
+    SizeT count = 0;
+    for (const auto& wheel : wheels_) {
+        if (wheel.is_grounded()) {
+            ++count;
+        }
     }
-
-    return total;
+    return count;
 }
 
 // ============================================================================

@@ -10,11 +10,15 @@
 #include "jaguar/core/time.h"
 #include "jaguar/core/property.h"
 #include "jaguar/core/coordinates.h"
+#include "jaguar/core/constants.h"
+#include "jaguar/core/threading/thread_pool.h"
 #include "jaguar/physics/solver.h"
 #include "jaguar/physics/force.h"
+#include "jaguar/physics/component_force_registry.h"
 #include "jaguar/environment/environment.h"
 #include <atomic>
 #include <cmath>
+#include <vector>
 
 namespace jaguar {
 
@@ -142,6 +146,9 @@ public:
 
     physics::ForceGeneratorRegistry& get_force_registry() { return force_registry_; }
     const physics::ForceGeneratorRegistry& get_force_registry() const { return force_registry_; }
+
+    physics::ComponentForceRegistry& get_component_force_registry() { return component_force_registry_; }
+    const physics::ComponentForceRegistry& get_component_force_registry() const { return component_force_registry_; }
 
     environment::EnvironmentService& get_environment() { return environment_; }
     const environment::EnvironmentService& get_environment() const { return environment_; }
@@ -275,10 +282,10 @@ private:
             // Determine target altitude based on domain
             Real target_altitude = 0.0;  // Sea level for Sea domain
             if (entity.primary_domain == Domain::Land) {
-                // For Land domain, use terrain height if available
-                // For now, use a fixed ground altitude
-                target_altitude = 100.0;  // Simplified: 100m above sea level
-                // TODO: Query actual terrain height from environment service
+                // For Land domain, query terrain elevation from environment service
+                target_altitude = constants::DEFAULT_GROUND_LEVEL;
+                auto env = environment_.query(state.position, time_manager_.get_time());
+                target_altitude = env.terrain_elevation;
             }
 
             // Check if entity is below target altitude
@@ -312,31 +319,65 @@ private:
         auto& storage = entity_manager_.get_state_storage();
         auto enabled_generators = force_registry_.get_enabled_generators();
 
-        // Process each active entity
+        // Collect all active entity IDs for parallel iteration
+        std::vector<EntityId> active_entity_ids;
         entity_manager_.for_each([&](physics::Entity& entity) {
-            if (!entity.active) return;
+            if (entity.active) {
+                active_entity_ids.push_back(entity.id);
+            }
+        });
 
-            // Get entity state
-            physics::EntityState state = storage.get_state(entity.state_index);
+        // Early exit if no entities
+        if (active_entity_ids.empty()) {
+            return;
+        }
 
-            // Query environment at entity position
+        // Get global thread pool for parallel execution
+        auto& pool = core::ThreadPool::get_global();
+
+        // Parallelize force computation across entities
+        // Each entity's force computation is independent - no write conflicts
+        pool.parallel_for(0, active_entity_ids.size(), [&](SizeT i) {
+            EntityId entity_id = active_entity_ids[i];
+            physics::Entity* entity = entity_manager_.get_entity(entity_id);
+
+            if (!entity || !entity->active) return;
+
+            // Get entity state (read-only access, thread-safe)
+            physics::EntityState state = storage.get_state(entity->state_index);
+
+            // Query environment at entity position (thread-safe with shared_mutex)
             environment::Environment env = environment_.query(state.position, time_manager_.get_time());
 
-            // Accumulate forces from all generators
-            physics::EntityForces& forces = storage.forces(entity.state_index);
+            // Get mutable reference to forces (each entity has its own force slot)
+            physics::EntityForces& forces = storage.forces(entity->state_index);
 
-            for (auto* generator : enabled_generators) {
-                // Check if generator applies to this entity's domain
-                Domain gen_domain = generator->domain();
+            // Check for entity-specific force models (thread-safe with shared_mutex)
+            auto entity_models = component_force_registry_.get_all(entity->id);
 
-                if (gen_domain == Domain::Generic ||
-                    gen_domain == entity.primary_domain) {
-                    generator->compute_forces(state, env, dt, forces);
+            if (!entity_models.empty()) {
+                // Use entity-specific force models
+                for (auto* model : entity_models) {
+                    // Check if model is enabled (if it has enable/disable capability)
+                    // For now, assume all registered models are enabled
+                    model->compute_forces(state, env, dt, forces);
+                }
+            } else {
+                // Fall back to global force generators
+                for (auto* generator : enabled_generators) {
+                    // Check if generator applies to this entity's domain
+                    Domain gen_domain = generator->domain();
+
+                    if (gen_domain == Domain::Generic ||
+                        gen_domain == entity->primary_domain) {
+                        generator->compute_forces(state, env, dt, forces);
+                    }
                 }
             }
 
             // Apply entity-specific force generators based on component mask
-            compute_entity_specific_forces(entity, state, env, dt, forces);
+            // This is for future expansion with component-based models
+            compute_entity_specific_forces(*entity, state, env, dt, forces);
         });
     }
 
@@ -391,6 +432,7 @@ private:
     physics::EntityManager entity_manager_;
     physics::PhysicsSystem physics_system_;
     physics::ForceGeneratorRegistry force_registry_;
+    physics::ComponentForceRegistry component_force_registry_;
     environment::EnvironmentService environment_;
 
     // State
@@ -546,6 +588,16 @@ physics::EntityManager& Engine::get_entity_manager()
 const physics::EntityManager& Engine::get_entity_manager() const
 {
     return impl_->get_entity_manager();
+}
+
+physics::ComponentForceRegistry& Engine::get_component_force_registry()
+{
+    return impl_->get_component_force_registry();
+}
+
+const physics::ComponentForceRegistry& Engine::get_component_force_registry() const
+{
+    return impl_->get_component_force_registry();
 }
 
 // ============================================================================

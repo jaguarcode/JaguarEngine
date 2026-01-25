@@ -5,6 +5,8 @@
 
 #include "jaguar/environment/terrain.h"
 #include "jaguar/core/coordinates.h"
+#include <shared_mutex>
+#include <cmath>
 
 namespace jaguar::environment {
 
@@ -24,6 +26,13 @@ struct TerrainManager::Impl {
     // Default flat terrain (no data loaded)
     Real default_elevation{0.0};
     TerrainMaterial default_material;
+
+    // GDAL terrain loader (optional)
+    GDALTerrainLoader gdal_loader;
+    bool terrain_loaded{false};
+
+    // Thread safety for parallel queries
+    mutable std::shared_mutex terrain_mutex;
 
     Impl()
     {
@@ -55,6 +64,25 @@ void TerrainManager::add_data_path(const std::string& path)
     impl_->data_paths.push_back(path);
 }
 
+bool TerrainManager::load_terrain(const std::string& path)
+{
+    std::unique_lock lock(impl_->terrain_mutex);
+
+    // Try to open the terrain file
+    if (impl_->gdal_loader.open(path)) {
+        impl_->terrain_loaded = true;
+        return true;
+    }
+
+    return false;
+}
+
+bool TerrainManager::is_terrain_loaded() const
+{
+    std::shared_lock lock(impl_->terrain_mutex);
+    return impl_->terrain_loaded;
+}
+
 void TerrainManager::set_cache_size(SizeT mb)
 {
     impl_->cache_size_mb = mb;
@@ -62,25 +90,39 @@ void TerrainManager::set_cache_size(SizeT mb)
 
 bool TerrainManager::initialize()
 {
-    // In a full implementation, this would:
-    // 1. Scan data paths for terrain data
-    // 2. Build spatial index
-    // 3. Initialize cache
+    // Load terrain data from configured paths if available
+    for (const auto& path : impl_->data_paths) {
+        if (impl_->gdal_loader.open(path)) {
+            impl_->terrain_loaded = true;
+            break; // Use first successful terrain file
+        }
+    }
+
     impl_->initialized = true;
     return true;
 }
 
 void TerrainManager::shutdown()
 {
+    std::unique_lock lock(impl_->terrain_mutex);
+    impl_->gdal_loader.close();
+    impl_->terrain_loaded = false;
     impl_->initialized = false;
 }
 
 Real TerrainManager::get_elevation(Real lat, Real lon) const
 {
-    // For now, return flat terrain
-    // Full implementation would query loaded terrain data
-    (void)lat;
-    (void)lon;
+    std::shared_lock lock(impl_->terrain_mutex);
+
+    if (impl_->terrain_loaded) {
+        Real elevation = impl_->gdal_loader.get_elevation(lat, lon);
+        // If elevation is valid (not NaN), return it
+        if (!std::isnan(elevation)) {
+            return elevation;
+        }
+    }
+
+    // Fall back to default flat terrain
     return impl_->default_elevation;
 }
 
@@ -91,14 +133,35 @@ Real TerrainManager::get_elevation_ecef(const Vec3& ecef) const
     return get_elevation(lla.latitude, lla.longitude);
 }
 
-Vec3 TerrainManager::get_surface_normal([[maybe_unused]] Real lat, [[maybe_unused]] Real lon) const
+Vec3 TerrainManager::get_surface_normal(Real lat, Real lon) const
 {
+    std::shared_lock lock(impl_->terrain_mutex);
+
+    if (impl_->terrain_loaded) {
+        Vec3 normal = impl_->gdal_loader.get_normal(lat, lon);
+        // If normal is valid (not default), return it
+        if (normal.x != 0.0 || normal.y != 0.0 || normal.z != 1.0) {
+            return normal;
+        }
+    }
+
     // Flat terrain has upward normal
     return Vec3{0.0, 0.0, 1.0};
 }
 
-Real TerrainManager::get_slope_angle([[maybe_unused]] Real lat, [[maybe_unused]] Real lon) const
+Real TerrainManager::get_slope_angle(Real lat, Real lon) const
 {
+    std::shared_lock lock(impl_->terrain_mutex);
+
+    if (impl_->terrain_loaded) {
+        // Get the normal and compute slope from it
+        Vec3 normal = impl_->gdal_loader.get_normal(lat, lon);
+        // Slope angle is angle between normal and vertical (0,0,1)
+        Real cos_slope = normal.z;  // Dot product with (0,0,1)
+        cos_slope = std::max(-1.0, std::min(1.0, cos_slope));  // Clamp
+        return std::acos(cos_slope);
+    }
+
     return 0.0;
 }
 
@@ -109,6 +172,18 @@ TerrainMaterial TerrainManager::get_material([[maybe_unused]] Real lat, [[maybe_
 
 TerrainQuery TerrainManager::query(Real lat, Real lon) const
 {
+    std::shared_lock lock(impl_->terrain_mutex);
+
+    if (impl_->terrain_loaded) {
+        TerrainQuery result = impl_->gdal_loader.query(lat, lon);
+        if (result.valid) {
+            // Add material information (not in GDAL data)
+            result.material = impl_->default_material;
+            return result;
+        }
+    }
+
+    // Fall back to default flat terrain
     return impl_->query_default(lat, lon);
 }
 
@@ -144,58 +219,6 @@ SizeT TerrainManager::loaded_tile_count() const
 SizeT TerrainManager::cache_usage_bytes() const
 {
     return 0;
-}
-
-// ============================================================================
-// GDALTerrainLoader Implementation (Stub)
-// ============================================================================
-
-struct GDALTerrainLoader::Impl {
-    bool open{false};
-    Real min_lat{0}, max_lat{0};
-    Real min_lon{0}, max_lon{0};
-    Real resolution{0};
-};
-
-GDALTerrainLoader::GDALTerrainLoader()
-    : impl_(std::make_unique<Impl>()) {}
-
-GDALTerrainLoader::~GDALTerrainLoader() = default;
-
-bool GDALTerrainLoader::is_available()
-{
-    // GDAL not linked in this build
-    return false;
-}
-
-bool GDALTerrainLoader::open([[maybe_unused]] const std::string& path)
-{
-    // Would use GDAL to open GeoTIFF/DTED files
-    return false;
-}
-
-void GDALTerrainLoader::close()
-{
-    impl_->open = false;
-}
-
-Real GDALTerrainLoader::get_elevation([[maybe_unused]] Real lat, [[maybe_unused]] Real lon) const
-{
-    return 0.0;
-}
-
-void GDALTerrainLoader::get_bounds(Real& min_lat, Real& max_lat,
-                                    Real& min_lon, Real& max_lon) const
-{
-    min_lat = impl_->min_lat;
-    max_lat = impl_->max_lat;
-    min_lon = impl_->min_lon;
-    max_lon = impl_->max_lon;
-}
-
-Real GDALTerrainLoader::get_resolution() const
-{
-    return impl_->resolution;
 }
 
 } // namespace jaguar::environment

@@ -160,6 +160,7 @@ add_library(jaguar_core STATIC
     src/core/engine_exec.cpp
     src/core/property_manager.cpp
     src/core/config_loader.cpp
+    src/core/xml_entity_loader.cpp
     src/core/time_manager.cpp
     # Memory
     src/core/memory/pool_allocator.cpp
@@ -200,6 +201,7 @@ add_library(jaguar_physics STATIC
     src/physics/entity_manager.cpp
     src/physics/physics_system.cpp
     src/physics/force_generators.cpp
+    src/physics/component_force_registry.cpp
     src/physics/collision.cpp
     # Integrators
     src/physics/integrators/rk4.cpp
@@ -218,6 +220,7 @@ add_library(jaguar_physics STATIC
     src/physics/constraints/slider_constraint.cpp
     src/physics/constraints/fixed_constraint.cpp
     src/physics/constraints/contact_constraint.cpp
+    src/physics/constraints/ground_contact_constraint.cpp
 )
 
 target_link_libraries(jaguar_physics
@@ -255,6 +258,7 @@ add_library(jaguar_domain_land STATIC
 target_link_libraries(jaguar_domain_land
     PUBLIC
         jaguar_physics
+        jaguar_environment
     PRIVATE
         jaguar_compiler_flags
 )
@@ -671,6 +675,8 @@ if(JAGUAR_ENABLE_DIS)
     add_library(jaguar_network_dis STATIC
         src/interface/network/dis_adapter.cpp
         src/federation/dis_protocol.cpp
+        src/federation/dis_fire_pdu.cpp
+        src/federation/dis_socket.cpp
     )
     target_link_libraries(jaguar_network_dis
         PUBLIC jaguar_core jaguar_network_transport
@@ -688,6 +694,7 @@ if(JAGUAR_ENABLE_HLA)
         PUBLIC jaguar_core jaguar_network_transport
         PRIVATE jaguar_compiler_flags
     )
+    target_compile_definitions(jaguar_network_hla PUBLIC JAGUAR_ENABLE_HLA)
     # TODO: Link HLA RTI library (currently using stub implementation)
 endif()
 
@@ -856,6 +863,7 @@ if(JAGUAR_BUILD_TESTS)
         tests/unit/test_math.cpp
         tests/unit/test_physics.cpp
         tests/unit/test_force.cpp
+        tests/unit/test_component_force_integration.cpp
         tests/unit/test_coordinates.cpp
         tests/unit/test_atmosphere.cpp
         tests/unit/test_air_domain.cpp
@@ -866,6 +874,8 @@ if(JAGUAR_BUILD_TESTS)
         tests/unit/test_events.cpp
         tests/unit/test_sensors.cpp
         tests/unit/test_compute_backend.cpp
+        tests/unit/test_xml_entity_loader.cpp
+        tests/unit/test_ground_contact.cpp
     )
     target_link_libraries(jaguar_unit_tests PRIVATE
         jaguar
@@ -873,6 +883,48 @@ if(JAGUAR_BUILD_TESTS)
         GTest::gtest_main
     )
     gtest_discover_tests(jaguar_unit_tests)
+
+    # Domain-specific tests
+    add_executable(jaguar_suspension_terrain_tests
+        tests/domain/test_suspension_terrain.cpp
+    )
+    target_link_libraries(jaguar_suspension_terrain_tests PRIVATE
+        jaguar_domain_land
+        jaguar_environment
+        jaguar_physics
+        jaguar_core
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_suspension_terrain_tests)
+    message(STATUS "  Suspension Terrain Tests: ON")
+
+    # Environment/Terrain integration tests
+    add_executable(jaguar_terrain_integration_tests
+        tests/environment/test_terrain_integration.cpp
+    )
+    target_link_libraries(jaguar_terrain_integration_tests PRIVATE
+        jaguar_environment
+        jaguar_core
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_terrain_integration_tests)
+    message(STATUS "  Terrain Integration Tests: ON")
+
+    # Integration tests for physics, federation, and threading
+    add_executable(jaguar_integration_tests
+        tests/integration/test_physics_integration.cpp
+        tests/integration/test_federation_integration.cpp
+        tests/integration/test_threading_integration.cpp
+    )
+    target_link_libraries(jaguar_integration_tests PRIVATE
+        jaguar
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_integration_tests)
+    message(STATUS "  Integration Tests: ON")
 
     # CUDA backend tests (only when CUDA is enabled)
     if(JAGUAR_ENABLE_CUDA)
@@ -1073,6 +1125,18 @@ if(JAGUAR_BUILD_TESTS)
         )
         gtest_discover_tests(jaguar_dis_protocol_tests)
         message(STATUS "  DIS Protocol Tests: ON")
+
+        add_executable(jaguar_dis_fire_pdu_tests
+            tests/federation/dis_fire_pdu_tests.cpp
+        )
+        target_link_libraries(jaguar_dis_fire_pdu_tests PRIVATE
+            jaguar_network_dis
+            jaguar_core
+            GTest::gtest
+            GTest::gtest_main
+        )
+        gtest_discover_tests(jaguar_dis_fire_pdu_tests)
+        message(STATUS "  DIS Fire/Detonation PDU Tests: ON")
     endif()
 
     # Federation Tests (HLA RTI)
@@ -1192,6 +1256,24 @@ if(JAGUAR_BUILD_TESTS)
         gtest_discover_tests(jaguar_rl_env_tests)
         message(STATUS "  RL Environment Tests: ON")
     endif()
+
+    # Validation Tests
+    add_executable(jaguar_validation_tests
+        tests/validation/test_energy_conservation.cpp
+        tests/validation/test_momentum_conservation.cpp
+        tests/validation/test_constraint_accuracy.cpp
+        tests/validation/test_integrator_accuracy.cpp
+        tests/validation/test_terrain_query_accuracy.cpp
+    )
+    target_link_libraries(jaguar_validation_tests PRIVATE
+        jaguar
+        jaguar_physics
+        jaguar_environment
+        GTest::gtest
+        GTest::gtest_main
+    )
+    gtest_discover_tests(jaguar_validation_tests)
+    message(STATUS "  Validation Tests: ON")
 endif()
 
 # ============================================================================

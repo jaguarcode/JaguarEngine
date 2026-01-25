@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    F-16C Fighting Falcon Entity Definition
+    Example XML entity file for JaguarEngine
+    Based on publicly available data
+-->
+<entity type="aircraft" name="F-16C">
+    <metrics>
+        <wingspan unit="ft">32.8</wingspan>
+        <length unit="ft">49.5</length>
+        <height unit="ft">16.7</height>
+        <wing_area unit="ft2">300.0</wing_area>
+    </metrics>
+
+    <mass_balance>
+        <empty_weight unit="lbs">19700</empty_weight>
+        <fuel_capacity unit="lbs">6972</fuel_capacity>
+        <cg_location unit="in">
+            <x>180.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </cg_location>
+        <inertia unit="slug*ft2">
+            <ixx>9496</ixx>
+            <iyy>55814</iyy>
+            <izz>63100</izz>
+            <ixz>982</ixz>
+            <ixy>0</ixy>
+            <iyz>0</iyz>
+        </inertia>
+    </mass_balance>
+
+    <aerodynamics>
+        <axis name="LIFT">
+            <function name="aero/cl">
+                <table>
+                    <independentVar>aero/alpha_rad</independentVar>
+                    <tableData>
+                        -0.20  -0.68
+                         0.00   0.20
+                         0.10   0.65
+                         0.24   1.20
+                         0.40   1.00
+                         0.60   0.70
+                    </tableData>
+                </table>
+            </function>
+        </axis>
+        <axis name="DRAG">
+            <function name="aero/cd">
+                <table>
+                    <independentVar>aero/alpha_rad</independentVar>
+                    <tableData>
+                        -0.20   0.040
+                         0.00   0.025
+                         0.10   0.028
+                         0.24   0.080
+                         0.40   0.200
+                         0.60   0.400
+                    </tableData>
+                </table>
+            </function>
+        </axis>
+        <axis name="PITCH">
+            <function name="aero/cm">
+                <table>
+                    <independentVar>aero/alpha_rad</independentVar>
+                    <tableData>
+                        -0.20   0.050
+                         0.00   0.000
+                         0.10  -0.025
+                         0.24  -0.110
+                         0.40  -0.150
+                         0.60  -0.120
+                    </tableData>
+                </table>
+            </function>
+        </axis>
+    </aerodynamics>
+
+    <propulsion>
+        <engine type="turbofan" name="F110-GE-129">
+            <max_thrust unit="lbf">17800</max_thrust>
+            <afterburner_thrust unit="lbf">29000</afterburner_thrust>
+            <location unit="in">
+                <x>-80.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </location>
+        </engine>
+    </propulsion>
+
+    <flight_control>
+        <!-- Flight control system configuration would go here -->
+        <!-- This is parsed separately by the flight control module -->
+    </flight_control>
+</entity>

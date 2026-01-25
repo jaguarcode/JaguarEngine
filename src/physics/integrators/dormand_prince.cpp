@@ -16,6 +16,7 @@
  */
 
 #include "jaguar/physics/integrators/dormand_prince.h"
+#include "jaguar/core/constants.h"
 #include <cmath>
 #include <algorithm>
 
@@ -36,7 +37,7 @@ void DormandPrinceIntegrator::reset() {
 
 Vec3 DormandPrinceIntegrator::compute_accel(
     const EntityState& state, const EntityForces& forces) const {
-    if (state.mass < 1e-10) return Vec3::Zero();
+    if (state.mass < constants::MASS_EPSILON) return Vec3::Zero();
 
     // Transform forces from body to ECEF frame
     Vec3 force_ecef = state.orientation.rotate(forces.force);
@@ -227,7 +228,13 @@ Real DormandPrinceIntegrator::dopri_step(
 void DormandPrinceIntegrator::integrate(
     EntityState& state, const EntityForces& forces, Real dt) {
 
-    if (state.mass < 1e-10) return;
+    // Skip integration for massless entities
+    if (state.mass < constants::MASS_EPSILON) {
+        return;
+    }
+
+    // Clamp time step to safe bounds
+    dt = std::clamp(dt, constants::TIME_STEP_MIN, constants::TIME_STEP_MAX);
 
     Real time_remaining = dt;
     Real current_dt = std::min(suggested_dt_, dt);

@@ -39,6 +39,47 @@ struct EntityState {
     Vec3 angular_accel{0.0, 0.0, 0.0}; ///< Angular acceleration (rad/s²)
     Real mass{1.0};                     ///< Mass (kg)
     Mat3x3 inertia{};                   ///< Inertia tensor in body frame (kg·m²)
+
+    // Cached inverse inertia to avoid repeated matrix inversions
+    mutable Mat3x3 inverse_inertia_cached{};  ///< Cached inverse inertia tensor
+    mutable bool inverse_inertia_dirty{true}; ///< Flag indicating cache needs update
+
+    /**
+     * @brief Get inverse inertia tensor (cached)
+     *
+     * Computes and caches the inverse inertia tensor on first access or when
+     * the inertia tensor is modified. This avoids expensive matrix inversions
+     * during constraint solving iterations.
+     *
+     * @return Reference to cached inverse inertia tensor
+     */
+    const Mat3x3& get_inverse_inertia() const {
+        if (inverse_inertia_dirty) {
+            // Compute inverse using determinant method
+            Real det = inertia.determinant();
+            if (std::abs(det) > 1e-10) {
+                inverse_inertia_cached = inertia.inverse();
+            } else {
+                // Fallback to diagonal inverse for singular/near-singular matrix
+                inverse_inertia_cached = Mat3x3::Identity();
+                if (inertia(0,0) > 1e-10) inverse_inertia_cached(0,0) = 1.0 / inertia(0,0);
+                if (inertia(1,1) > 1e-10) inverse_inertia_cached(1,1) = 1.0 / inertia(1,1);
+                if (inertia(2,2) > 1e-10) inverse_inertia_cached(2,2) = 1.0 / inertia(2,2);
+            }
+            inverse_inertia_dirty = false;
+        }
+        return inverse_inertia_cached;
+    }
+
+    /**
+     * @brief Invalidate inverse inertia cache
+     *
+     * Call this whenever the inertia tensor is modified to ensure the cached
+     * inverse is recomputed on next access.
+     */
+    void invalidate_inertia_cache() {
+        inverse_inertia_dirty = true;
+    }
 };
 
 /**

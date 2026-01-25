@@ -7,7 +7,9 @@
  */
 
 #include "jaguar/physics/solver.h"
+#include "jaguar/core/constants.h"
 #include <cmath>
+#include <algorithm>
 
 namespace jaguar::physics {
 
@@ -61,7 +63,13 @@ Mat3x3 compute_inverse_inertia(const Mat3x3& inertia) {
 } // anonymous namespace
 
 void RK4Integrator::integrate(EntityState& state, const EntityForces& forces, Real dt) {
-    if (state.mass < 1e-10) return;
+    // Skip integration for massless entities
+    if (state.mass < constants::MASS_EPSILON) {
+        return;
+    }
+
+    // Clamp time step to safe bounds
+    dt = std::clamp(dt, constants::TIME_STEP_MIN, constants::TIME_STEP_MAX);
 
     // Compute inverse mass and inertia
     Real inv_mass = 1.0 / state.mass;

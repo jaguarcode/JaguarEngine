@@ -88,6 +88,18 @@ public:
     void add_data_path(const std::string& path);
 
     /**
+     * @brief Load terrain from a file
+     * @param path Path to GeoTIFF or other GDAL-supported raster
+     * @return true if successfully loaded
+     */
+    bool load_terrain(const std::string& path);
+
+    /**
+     * @brief Check if terrain data is loaded
+     */
+    bool is_terrain_loaded() const;
+
+    /**
      * @brief Set cache size in MB
      */
     void set_cache_size(SizeT mb);
@@ -187,42 +199,115 @@ private:
 // ============================================================================
 
 /**
- * @brief GDAL-based terrain data loader
+ * @brief Terrain dataset metadata
+ */
+struct TerrainDataset {
+    Real min_lat{0.0};         ///< Minimum latitude (rad)
+    Real max_lat{0.0};         ///< Maximum latitude (rad)
+    Real min_lon{0.0};         ///< Minimum longitude (rad)
+    Real max_lon{0.0};         ///< Maximum longitude (rad)
+    Real resolution{0.0};      ///< Spatial resolution (degrees)
+    int width{0};              ///< Raster width (pixels)
+    int height{0};             ///< Raster height (pixels)
+    std::string projection;    ///< Projection/CRS information
+    bool valid{false};         ///< Dataset loaded successfully
+};
+
+/**
+ * @brief GDAL-based terrain data loader with bilinear interpolation
+ *
+ * Supports loading elevation data from GeoTIFF and other GDAL-supported formats.
+ * Gracefully falls back to stub implementation when GDAL is not available.
+ *
+ * Thread-safe for read operations after initial dataset load.
  */
 class GDALTerrainLoader {
 public:
     GDALTerrainLoader();
     ~GDALTerrainLoader();
 
+    // Non-copyable
+    GDALTerrainLoader(const GDALTerrainLoader&) = delete;
+    GDALTerrainLoader& operator=(const GDALTerrainLoader&) = delete;
+
+    // ========================================================================
+    // Dataset Management
+    // ========================================================================
+
     /**
-     * @brief Check if GDAL is available
+     * @brief Check if GDAL is available at compile time
      */
     static bool is_available();
 
     /**
-     * @brief Open terrain dataset
+     * @brief Open terrain dataset from file
+     * @param path Path to GeoTIFF or other GDAL-supported raster
+     * @return true if successfully opened
      */
     bool open(const std::string& path);
 
     /**
-     * @brief Close dataset
+     * @brief Close current dataset and release resources
      */
     void close();
 
     /**
-     * @brief Get elevation at position
+     * @brief Get dataset metadata
+     */
+    TerrainDataset get_dataset_info() const;
+
+    // ========================================================================
+    // Elevation Queries
+    // ========================================================================
+
+    /**
+     * @brief Get elevation at WGS84 position with bilinear interpolation
+     * @param lat Latitude (radians)
+     * @param lon Longitude (radians)
+     * @return Elevation in meters, or NaN if unavailable
      */
     Real get_elevation(Real lat, Real lon) const;
 
     /**
-     * @brief Get dataset bounds
+     * @brief Get surface normal at position using elevation gradient
+     * @param lat Latitude (radians)
+     * @param lon Longitude (radians)
+     * @return Surface normal in NED frame, or {0,0,1} if unavailable
+     *
+     * Computes normal from finite differences of elevation.
+     */
+    Vec3 get_normal(Real lat, Real lon) const;
+
+    /**
+     * @brief Complete terrain query
+     * @param lat Latitude (radians)
+     * @param lon Longitude (radians)
+     * @return Terrain query with elevation and normal
+     */
+    TerrainQuery query(Real lat, Real lon) const;
+
+    // ========================================================================
+    // Dataset Properties
+    // ========================================================================
+
+    /**
+     * @brief Get dataset geographic bounds (WGS84)
+     * @param min_lat Minimum latitude (radians)
+     * @param max_lat Maximum latitude (radians)
+     * @param min_lon Minimum longitude (radians)
+     * @param max_lon Maximum longitude (radians)
      */
     void get_bounds(Real& min_lat, Real& max_lat, Real& min_lon, Real& max_lon) const;
 
     /**
-     * @brief Get resolution in degrees
+     * @brief Get spatial resolution in degrees
      */
     Real get_resolution() const;
+
+    /**
+     * @brief Check if a dataset is currently loaded
+     */
+    bool is_loaded() const;
 
 private:
     struct Impl;

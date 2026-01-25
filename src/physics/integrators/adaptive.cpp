@@ -8,6 +8,7 @@
  */
 
 #include "jaguar/physics/solver.h"
+#include "jaguar/core/constants.h"
 #include <cmath>
 #include <algorithm>
 
@@ -53,15 +54,17 @@ Real AdaptiveIntegrator::estimate_error(
     Vec3 vel_diff = state_full.velocity - state_half.velocity;
     Real vel_error = vel_diff.length() / factor;
 
-    // Orientation error (quaternion difference)
-    Quat q_diff{
-        state_full.orientation.w - state_half.orientation.w,
-        state_full.orientation.x - state_half.orientation.x,
-        state_full.orientation.y - state_half.orientation.y,
-        state_full.orientation.z - state_half.orientation.z
-    };
-    Real orient_error = std::sqrt(q_diff.w*q_diff.w + q_diff.x*q_diff.x +
-                                   q_diff.y*q_diff.y + q_diff.z*q_diff.z) / factor;
+    // Orientation error (angular distance between quaternions)
+    // Angular distance = 2 * arccos(|q1 · q2|)
+    Real dot = std::abs(
+        state_full.orientation.w * state_half.orientation.w +
+        state_full.orientation.x * state_half.orientation.x +
+        state_full.orientation.y * state_half.orientation.y +
+        state_full.orientation.z * state_half.orientation.z
+    );
+    // Clamp for numerical stability
+    dot = std::min(dot, static_cast<Real>(1.0));
+    Real orient_error = (2.0 * std::acos(dot)) / factor;
 
     // Combined error (weighted)
     return pos_error + 0.1 * vel_error + 0.01 * orient_error;
@@ -151,6 +154,14 @@ AdaptiveStepResult AdaptiveIntegrator::adaptive_step(
 }
 
 void AdaptiveIntegrator::integrate(EntityState& state, const EntityForces& forces, Real dt) {
+    // Skip integration for massless entities
+    if (state.mass < constants::MASS_EPSILON) {
+        return;
+    }
+
+    // Clamp time step to safe bounds
+    dt = std::clamp(dt, constants::TIME_STEP_MIN, constants::TIME_STEP_MAX);
+
     Real time_remaining = dt;
     Real current_dt = std::min(suggested_dt_, dt);
 
@@ -224,7 +235,13 @@ Vec3 compute_angular_accel_rk45(const Mat3x3& inertia, const Vec3& omega, const 
 } // anonymous namespace
 
 void RK45Integrator::integrate(EntityState& state, const EntityForces& forces, Real dt) {
-    if (state.mass < 1e-10) return;
+    // Skip integration for massless entities
+    if (state.mass < constants::MASS_EPSILON) {
+        return;
+    }
+
+    // Clamp time step to safe bounds
+    dt = std::clamp(dt, constants::TIME_STEP_MIN, constants::TIME_STEP_MAX);
 
     // RK45 Butcher tableau coefficients (Fehlberg)
     // c:  0, 1/4, 3/8, 12/13, 1, 1/2

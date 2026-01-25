@@ -1,6 +1,11 @@
 /**
  * @file hla_rti.cpp
  * @brief Implementation of HLA RTI Ambassador and Federate Ambassador
+ *
+ * This file provides both full HLA RTI implementation (when JAGUAR_ENABLE_HLA is defined)
+ * and stub implementations (when HLA is disabled). The stub implementations return
+ * NotConnected errors for most operations, allowing the system to compile and run
+ * without HLA support.
  */
 
 #include "jaguar/federation/hla_rti.h"
@@ -84,6 +89,12 @@ const char* hla_result_to_string(HLAResult result) {
         default: return "Unknown";
     }
 }
+
+#ifdef JAGUAR_ENABLE_HLA
+
+// ============================================================================
+// Full HLA RTI Implementation (when HLA is enabled)
+// ============================================================================
 
 // ============================================================================
 // Federate Ambassador Base Implementation
@@ -1280,16 +1291,247 @@ private:
     mutable std::mutex mutex_;
 };
 
+#else // !JAGUAR_ENABLE_HLA
+
+// ============================================================================
+// Stub Implementation (when HLA is disabled)
+// ============================================================================
+
+// Stub Federate Ambassador - all callbacks are no-ops
+class FederateAmbassadorStub : public IFederateAmbassador {
+public:
+    void synchronization_point_registered(std::string_view, bool) override {}
+    void announce_synchronization_point(std::string_view, const std::vector<UInt8>&) override {}
+    void federation_synchronized(std::string_view) override {}
+    void discover_object_instance(ObjectInstanceHandle, ObjectClassHandle, std::string_view) override {}
+    void reflect_attribute_values(ObjectInstanceHandle, const AttributeValueSet&, const std::vector<UInt8>&) override {}
+    void reflect_attribute_values_with_time(ObjectInstanceHandle, const AttributeValueSet&, const std::vector<UInt8>&, const LogicalTime&) override {}
+    void remove_object_instance(ObjectInstanceHandle, const std::vector<UInt8>&) override {}
+    void remove_object_instance_with_time(ObjectInstanceHandle, const std::vector<UInt8>&, const LogicalTime&) override {}
+    void provide_attribute_value_update(ObjectInstanceHandle, const std::vector<AttributeHandle>&, const std::vector<UInt8>&) override {}
+    void receive_interaction(InteractionClassHandle, const ParameterValueSet&, const std::vector<UInt8>&) override {}
+    void receive_interaction_with_time(InteractionClassHandle, const ParameterValueSet&, const std::vector<UInt8>&, const LogicalTime&) override {}
+    void time_regulation_enabled(const LogicalTime&) override {}
+    void time_constrained_enabled(const LogicalTime&) override {}
+    void time_advance_grant(const LogicalTime&) override {}
+    void request_attribute_ownership_assumption(ObjectInstanceHandle, const std::vector<AttributeHandle>&, const std::vector<UInt8>&) override {}
+    void request_divestiture_confirmation(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {}
+    void attribute_ownership_acquisition_notification(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {}
+    void attribute_ownership_unavailable(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {}
+    void attribute_ownership_divestiture_notification(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {}
+    void confirm_attribute_ownership_acquisition_cancellation(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {}
+};
+
+// Stub RTI Ambassador - all operations return NotConnected
+class RTIAmbassadorStub : public IRTIAmbassador {
+public:
+    explicit RTIAmbassadorStub(const HLAConfiguration&) {}
+
+    // Federation Management - all return NotConnected
+    HLAResult create_federation_execution(std::string_view, const std::vector<std::string>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult destroy_federation_execution(std::string_view) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult join_federation_execution(std::string_view, std::string_view, std::string_view) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult resign_federation_execution(ResignAction) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult register_federation_synchronization_point(std::string_view, const std::vector<UInt8>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult synchronization_point_achieved(std::string_view) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult request_federation_save(std::string_view) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult request_federation_restore(std::string_view) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Declaration Management
+    HLAResult publish_object_class_attributes(ObjectClassHandle, const std::vector<AttributeHandle>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult unpublish_object_class_attributes(ObjectClassHandle) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult subscribe_object_class_attributes(ObjectClassHandle, const std::vector<AttributeHandle>&, bool) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult unsubscribe_object_class_attributes(ObjectClassHandle) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult publish_interaction_class(InteractionClassHandle) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult unpublish_interaction_class(InteractionClassHandle) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult subscribe_interaction_class(InteractionClassHandle, bool) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult unsubscribe_interaction_class(InteractionClassHandle) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Object Management
+    HLAResult register_object_instance(ObjectClassHandle, ObjectInstanceHandle&, std::string_view) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult update_attribute_values(ObjectInstanceHandle, const AttributeValueSet&, const std::vector<UInt8>&, const std::optional<LogicalTime>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult delete_object_instance(ObjectInstanceHandle, const std::vector<UInt8>&, const std::optional<LogicalTime>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult request_attribute_value_update(ObjectInstanceHandle, const std::vector<AttributeHandle>&, const std::vector<UInt8>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult request_attribute_value_update_class(ObjectClassHandle, const std::vector<AttributeHandle>&, const std::vector<UInt8>&) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Interaction Management
+    HLAResult send_interaction(InteractionClassHandle, const ParameterValueSet&, const std::vector<UInt8>&, const std::optional<LogicalTime>&) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Time Management
+    HLAResult enable_time_regulation(const LogicalTimeInterval&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult disable_time_regulation() override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult enable_time_constrained() override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult disable_time_constrained() override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult time_advance_request(const LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult time_advance_request_available(const LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult next_message_request(const LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult next_message_request_available(const LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult flush_queue_request(const LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult enable_asynchronous_delivery() override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult disable_asynchronous_delivery() override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult query_galt(LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult query_lits(LogicalTime&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult modify_lookahead(const LogicalTimeInterval&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult query_lookahead(LogicalTimeInterval&) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Ownership Management
+    HLAResult unconditional_attribute_ownership_divestiture(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult negotiated_attribute_ownership_divestiture(ObjectInstanceHandle, const std::vector<AttributeHandle>&, const std::vector<UInt8>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult confirm_divestiture(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult attribute_ownership_acquisition(ObjectInstanceHandle, const std::vector<AttributeHandle>&, const std::vector<UInt8>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult attribute_ownership_acquisition_if_available(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult cancel_attribute_ownership_acquisition(ObjectInstanceHandle, const std::vector<AttributeHandle>&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult query_attribute_ownership(ObjectInstanceHandle, AttributeHandle, FederateHandle&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult is_attribute_owned_by_federate(ObjectInstanceHandle, AttributeHandle, bool&) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Support Services
+    HLAResult get_object_class_handle(std::string_view, ObjectClassHandle&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_object_class_name(ObjectClassHandle, std::string&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_attribute_handle(ObjectClassHandle, std::string_view, AttributeHandle&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_attribute_name(ObjectClassHandle, AttributeHandle, std::string&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_interaction_class_handle(std::string_view, InteractionClassHandle&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_interaction_class_name(InteractionClassHandle, std::string&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_parameter_handle(InteractionClassHandle, std::string_view, ParameterHandle&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_parameter_name(InteractionClassHandle, ParameterHandle, std::string&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_object_instance_handle(std::string_view, ObjectInstanceHandle&) override {
+        return HLAResult::NotConnected;
+    }
+    HLAResult get_object_instance_name(ObjectInstanceHandle, std::string&) override {
+        return HLAResult::NotConnected;
+    }
+
+    // Processing
+    HLAResult evo_callback(std::chrono::milliseconds, std::chrono::milliseconds) override {
+        return HLAResult::NotConnected;
+    }
+};
+
+#endif // JAGUAR_ENABLE_HLA
+
 // ============================================================================
 // Factory Functions
 // ============================================================================
 
 std::unique_ptr<IRTIAmbassador> create_rti_ambassador(const HLAConfiguration& config) {
+#ifdef JAGUAR_ENABLE_HLA
     return std::make_unique<RTIAmbassadorImpl>(config);
+#else
+    return std::make_unique<RTIAmbassadorStub>(config);
+#endif
 }
 
 std::unique_ptr<IFederateAmbassador> create_federate_ambassador() {
+#ifdef JAGUAR_ENABLE_HLA
     return std::make_unique<FederateAmbassadorImpl>();
+#else
+    return std::make_unique<FederateAmbassadorStub>();
+#endif
 }
 
 } // namespace jaguar::federation::hla

@@ -97,6 +97,8 @@ EntityState EntityStateStorage::get_state(UInt32 idx) const {
         state.angular_accel = angular_accelerations_[idx];
         state.mass = masses_[idx];
         state.inertia = inertias_[idx];
+        // Mark inverse inertia cache as dirty since this is a fresh copy
+        state.inverse_inertia_dirty = true;
     }
     return state;
 }

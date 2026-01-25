@@ -84,4 +84,19 @@ Environment EnvironmentService::query_geodetic(Real lat, Real lon, Real alt, Rea
     return env;
 }
 
+bool EnvironmentService::load_terrain(const std::string& path)
+{
+    return terrain_.load_terrain(path);
+}
+
+TerrainQuery EnvironmentService::query_terrain(const Vec3& position_ecef) const
+{
+    return terrain_.query_ecef(position_ecef);
+}
+
+Real EnvironmentService::get_terrain_elevation(Real lat, Real lon) const
+{
+    return terrain_.get_elevation(lat, lon);
+}
+
 } // namespace jaguar::environment

@@ -17,7 +17,9 @@
  */
 
 #include "jaguar/physics/integrators/boris.h"
+#include "jaguar/core/constants.h"
 #include <cmath>
+#include <algorithm>
 
 namespace jaguar::physics {
 
@@ -128,6 +130,14 @@ void BorisIntegrator::update_diagnostics(
 }
 
 void BorisIntegrator::integrate(EntityState& state, const EntityForces& forces, Real dt) {
+    // Skip integration for massless entities
+    if (state.mass < constants::MASS_EPSILON) {
+        return;
+    }
+
+    // Clamp time step to safe bounds
+    dt = std::clamp(dt, constants::TIME_STEP_MIN, constants::TIME_STEP_MAX);
+
     // Check if we have background fields configured
     // If so, create an ElectromagneticForces structure and use Boris algorithm
     Real B_mag_sq = background_B_.length_squared();
@@ -144,8 +154,6 @@ void BorisIntegrator::integrate(EntityState& state, const EntityForces& forces, 
         integrate_charged(state, em_forces, dt);
     } else {
         // Fall back to symplectic Euler for neutral particles
-        if (state.mass < 1e-10) return;
-
         Real inv_mass = 1.0 / state.mass;
 
         // Compute inverse inertia
@@ -186,7 +194,8 @@ void BorisIntegrator::integrate(EntityState& state, const EntityForces& forces, 
 void BorisIntegrator::integrate_charged(
     EntityState& state, const ElectromagneticForces& em_forces, Real dt) {
 
-    if (state.mass < 1e-10) return;
+    // Mass check already done in integrate(), but keep for safety
+    if (state.mass < constants::MASS_EPSILON) return;
 
     Real inv_mass = 1.0 / state.mass;
     Real q_over_m = em_forces.charge / state.mass;

@@ -217,26 +217,151 @@ Real force = wheel.calculate_force();
 // force = 60000*0.1 + 4000*0.2 + 2000 = 8800 N
 ```
 
-### SuspensionModel
+### WheelSuspension (Terrain-Integrated)
 
-Complete vehicle suspension system:
+Individual wheel suspension with full terrain integration (v0.6.0+):
+
+```cpp
+class WheelSuspension {
+public:
+    /**
+     * Create wheel suspension at body-relative position
+     * @param position Position in body frame (m)
+     * @param wheel_radius Wheel radius (m)
+     * @param unit Suspension unit parameters
+     */
+    WheelSuspension(const Vec3& position, Real wheel_radius, const SuspensionUnit& unit);
+
+    /**
+     * Compute suspension and contact forces
+     * @param state Entity state (position, orientation, velocity)
+     * @param env_service Environment service for terrain queries (can be nullptr)
+     * @param dt Time step (s)
+     * @return Force in world frame
+     */
+    Vec3 compute_forces(const physics::EntityState& state,
+                       const environment::EnvironmentService* env_service,
+                       Real dt);
+
+    // Torque contribution about body center of mass
+    Vec3 compute_torque(const physics::EntityState& state) const;
+
+    // State queries
+    Real get_compression() const;           // Current compression (m)
+    Real get_contact_force() const;         // Force magnitude (N)
+    bool is_grounded() const;               // Contact status
+    Real get_friction_coefficient() const;  // From terrain material
+};
+```
+
+**Key Features:**
+
+- **Terrain-Aware Contact**: Queries terrain elevation and surface normal at wheel position
+- **Surface Normal Forces**: Forces applied along terrain normal, not vertical (supports slopes and banking)
+- **Material Friction**: Friction coefficient from terrain material (0.15 ice to 0.9 asphalt)
+- **Slope Support**: Correctly handles hills, valleys, and uneven terrain
+- **Graceful Degradation**: Falls back to flat ground if no environment service provided
+
+**Force Calculation Pipeline:**
+
+```
+1. Query terrain at wheel position via EnvironmentService
+   - Gets elevation, surface normal, material properties
+
+2. Transform wheel position to world frame
+   - wheel_pos_world = vehicle_pos + vehicle_orientation * body_frame_pos
+
+3. Compute penetration relative to terrain
+   - penetration = wheel_radius - distance_to_surface
+   - distance measured perpendicular to terrain normal
+
+4. Update suspension state
+   - compression = clamp(penetration, travel_min, travel_max)
+   - velocity = -wheel_velocity · terrain_normal
+
+5. Calculate force magnitude
+   - force = spring_force + damping_force + bump_stops
+
+6. Apply force along terrain normal
+   - force_world = terrain_normal * force_magnitude
+```
+
+**Terrain Integration Example:**
+
+```cpp
+// Create wheel with terrain awareness
+SuspensionUnit unit;
+unit.spring_k = 60000.0;   // N/m
+unit.damper_c = 5000.0;    // N·s/m
+unit.travel_max = 0.3;     // m
+
+WheelSuspension wheel(Vec3{2.0, 1.0, -0.4}, 0.35, unit);
+
+// In simulation loop
+environment::EnvironmentService env_service;  // Populated with terrain data
+auto state = entity.get_state();
+
+Vec3 force = wheel.compute_forces(state, &env_service, dt);
+Vec3 torque = wheel.compute_torque(state);
+```
+
+**Sloped Terrain Behavior:**
+
+On a 30° hill, the suspension force is not vertical but follows the terrain normal:
+
+```
+Normal terrain (flat):      Normal terrain (30° slope):
+force = (0, 0, +F)         force = (-sin(30°)*F, 0, cos(30°)*F)
+                                  = (-0.5*F, 0, 0.866*F)
+```
+
+This correctly distributes forces perpendicular to the surface, improving realism for wheeled vehicles on rough terrain.
+
+### SuspensionModel (Multi-Wheel Vehicle)
+
+Complete vehicle suspension system with multiple wheels:
 
 ```cpp
 class SuspensionModel {
 public:
-    // Add suspension unit at body-frame position
-    void add_unit(const Vec3& position, const SuspensionUnit& unit);
+    /**
+     * Add a wheel suspension unit at body-relative position
+     */
+    void add_wheel(const Vec3& position, Real wheel_radius, const SuspensionUnit& unit);
 
-    // Update all units based on vehicle motion
-    void update(const physics::EntityState& state, Real dt);
+    /**
+     * Update all wheels and compute total forces/torques
+     * @param state Entity state
+     * @param env_service Environment service (nullptr for flat terrain fallback)
+     * @param dt Time step
+     */
+    void update(const physics::EntityState& state,
+               const environment::EnvironmentService* env_service,
+               Real dt);
 
-    // Get total force and torque from suspension
-    Vec3 get_total_force() const;
-    Vec3 get_total_torque() const;
+    // Force and torque aggregation
+    Vec3 get_total_force() const;   // Sum of all wheel forces (world frame)
+    Vec3 get_total_torque() const;  // Sum of all wheel torques (world frame)
 
-    // Query
-    SizeT unit_count() const;
+    // Queries
+    SizeT wheel_count() const;                    // Total number of wheels
+    const WheelSuspension& wheel(SizeT i) const; // Access wheel i
+    SizeT grounded_wheel_count() const;           // Wheels in contact
 };
+```
+
+**Force Aggregation:**
+
+The model computes total force and torque by summing contributions from all wheels:
+
+```
+F_total = Σ F_wheel_i
+τ_total = Σ (r_i × F_wheel_i)
+
+where:
+  F_wheel_i = force from wheel i (in world frame)
+  r_i = position of wheel i relative to vehicle CoM (in world frame)
+  × = cross product
 ```
 
 **Usage:**
@@ -248,20 +373,43 @@ SuspensionUnit front, rear;
 front.spring_k = 60000.0;
 rear.spring_k = 70000.0;
 
-// Add at body-frame positions
-suspension.add_unit(Vec3{2.0, 1.0, -0.5}, front);   // Front left
-suspension.add_unit(Vec3{2.0, -1.0, -0.5}, front);  // Front right
-suspension.add_unit(Vec3{-2.0, 1.0, -0.5}, rear);   // Rear left
-suspension.add_unit(Vec3{-2.0, -1.0, -0.5}, rear);  // Rear right
+// Add wheels at body-frame positions
+suspension.add_wheel(Vec3{2.0, 1.0, -0.4}, 0.35, front);    // Front left
+suspension.add_wheel(Vec3{2.0, -1.0, -0.4}, 0.35, front);   // Front right
+suspension.add_wheel(Vec3{-2.0, 1.0, -0.4}, 0.35, rear);    // Rear left
+suspension.add_wheel(Vec3{-2.0, -1.0, -0.4}, 0.35, rear);   // Rear right
 
 // In simulation loop
-suspension.update(state, dt);
+environment::EnvironmentService env;
+auto state = entity.get_state();
+
+suspension.update(state, &env, dt);
 
 Vec3 susp_force = suspension.get_total_force();
 Vec3 susp_torque = suspension.get_total_torque();
 
 forces.add_force(susp_force);
 forces.add_torque(susp_torque);
+
+// Monitor grounded wheels
+SizeT grounded = suspension.grounded_wheel_count();
+if (grounded == 0) {
+    // Vehicle is airborne
+}
+```
+
+**Multi-Wheel Terrain Effects:**
+
+When driving over uneven terrain, different wheels experience different compressions and forces:
+
+```
+Vehicle on slope:
+        Front wheels (higher):        Rear wheels (lower):
+        lower compression             higher compression
+
+Result: Vehicle pitches to follow terrain contour
+Torque: τ = r_front × F_front + r_rear × F_rear
+        (naturally models nose-down on downhill slopes)
 ```
 
 ### TrackedVehicleModel
@@ -336,7 +484,9 @@ if (left.slip > 0.3) {
 Real propulsion = tracks.get_propulsive_force();
 ```
 
-## Complete Ground Vehicle Example
+## Complete Ground Vehicle Examples
+
+### Tracked Vehicle with Terrain-Integrated Suspension
 
 ```cpp
 #include <jaguar/jaguar.h>
@@ -347,25 +497,25 @@ public:
         entity_id_ = entities_.create_entity(name, Domain::Land);
 
         // Configure terramechanics
-        terra_.set_contact_area(0.5, 4.0);      // Track dimensions
+        terra_.set_contact_area(0.5, 4.0);      // Track dimensions (50cm wide, 4m long)
         terra_.set_vehicle_weight(500000.0);   // 50 tonnes
 
         // Configure tracks
-        tracks_.set_sprocket(0.35, 80000.0);
+        tracks_.set_sprocket(0.35, 80000.0);   // 35cm radius, 80 kN·m max
 
         // Configure suspension (6 road wheels per side)
         SuspensionUnit wheel;
         wheel.spring_k = 200000.0;  // 200 kN/m
         wheel.damper_c = 20000.0;   // 20 kN·s/m
-        wheel.travel_max = 0.35;
+        wheel.travel_max = 0.35;    // 35cm travel
 
         // Left side (x positions, y = 1.5m)
         for (Real x = -3.0; x <= 2.0; x += 1.0) {
-            suspension_.add_unit(Vec3{x, 1.5, -0.8}, wheel);
+            suspension_.add_wheel(Vec3{x, 1.5, -0.8}, 0.4, wheel);
         }
         // Right side (y = -1.5m)
         for (Real x = -3.0; x <= 2.0; x += 1.0) {
-            suspension_.add_unit(Vec3{x, -1.5, -0.8}, wheel);
+            suspension_.add_wheel(Vec3{x, -1.5, -0.8}, 0.4, wheel);
         }
     }
 
@@ -374,12 +524,12 @@ public:
     void update(Real dt) {
         auto state = entities_.get_state(entity_id_);
 
-        environment::Environment env;
-        // ... populate environment ...
+        // Get environment with terrain data
+        environment::EnvironmentService& env = engine_.environment();
 
         forces_.clear();
 
-        // Terramechanics forces
+        // Terramechanics forces (for track-terrain interaction)
         terra_.compute_forces(state, env, dt, forces_);
 
         // Track dynamics
@@ -387,8 +537,9 @@ public:
         SoilProperties soil = SoilProperties::DrySand();
         tracks_.update(drive_torque, state.mass * 9.81, soil, dt);
 
-        // Suspension forces
-        suspension_.update(state, dt);
+        // Suspension forces with TERRAIN INTEGRATION (v0.6.0+)
+        // Each wheel queries terrain for elevation, normal, and material properties
+        suspension_.update(state, &env, dt);
         forces_.add_force(suspension_.get_total_force());
         forces_.add_torque(suspension_.get_total_torque());
 
@@ -402,6 +553,7 @@ public:
     // Telemetry
     Real get_sinkage() const { return terra_.get_sinkage(); }
     Real get_slip() const { return tracks_.get_left_track().slip; }
+    SizeT get_grounded_wheels() const { return suspension_.grounded_wheel_count(); }
 
 private:
     physics::EntityManager entities_;
@@ -416,6 +568,89 @@ private:
 };
 ```
 
+### Wheeled Vehicle on Hilly Terrain
+
+This example demonstrates terrain-aware suspension handling slopes:
+
+```cpp
+class HumveeOnHillyTerrain {
+public:
+    HumveeOnHillyTerrain() {
+        // 4-wheel vehicle with 2.5m wheelbase, 1.5m track
+        SuspensionUnit unit;
+        unit.spring_k = 40000.0;
+        unit.damper_c = 3000.0;
+        unit.travel_max = 0.25;
+
+        Real wheelbase = 2.5;
+        Real track = 1.5;
+
+        suspension_.add_wheel(Vec3{wheelbase/2, track/2, -0.4}, 0.35, unit);   // FR
+        suspension_.add_wheel(Vec3{wheelbase/2, -track/2, -0.4}, 0.35, unit);  // FL
+        suspension_.add_wheel(Vec3{-wheelbase/2, track/2, -0.4}, 0.35, unit);  // RR
+        suspension_.add_wheel(Vec3{-wheelbase/2, -track/2, -0.4}, 0.35, unit); // RL
+    }
+
+    void update(const physics::EntityState& state,
+               environment::EnvironmentService& env,
+               Real dt) {
+        // Update suspension with terrain queries
+        suspension_.update(state, &env, dt);
+
+        // Get forces
+        Vec3 total_force = suspension_.get_total_force();
+        Vec3 total_torque = suspension_.get_total_torque();
+
+        // Monitor individual wheel loads for traction control
+        for (size_t i = 0; i < suspension_.wheel_count(); ++i) {
+            const auto& wheel = suspension_.wheel(i);
+
+            if (wheel.is_grounded()) {
+                // Wheel load determines available traction
+                Real load = wheel.get_contact_force();
+                Real friction = wheel.get_friction_coefficient();
+                Real max_traction = load * friction;
+
+                // Use for slip control, torque vectoring, etc.
+                traction_available_[i] = max_traction;
+            }
+        }
+    }
+
+    // Traction control feedback
+    std::array<Real, 4> get_traction_available() const {
+        return traction_available_;
+    }
+
+private:
+    SuspensionModel suspension_;
+    std::array<Real, 4> traction_available_{};
+};
+```
+
+### Terrain Response Comparison
+
+**Flat terrain (EnvironmentService with flat terrain):**
+```
+All wheels compress equally → balanced vertical forces
+No pitch/roll torque → vehicle maintains level attitude
+```
+
+**Hilly terrain (EnvironmentService with slope data):**
+```
+Front wheels on upslope:  lower compression, lower force
+Rear wheels on downslope: higher compression, higher force
+Suspension automatically creates pitch moment
+Vehicle tilts naturally to follow slope
+```
+
+**Without terrain data (nullptr EnvironmentService):**
+```
+Suspensions fall back to flat ground model
+No slope effects → less realistic on rough terrain
+Still maintains physics correctness
+```
+
 ## Coordinate Conventions
 
 ### Body-Axis System
@@ -428,19 +663,145 @@ private:
 - Resistance: Negative X (opposes motion)
 - Normal: Positive Z (ground reaction upward in NED → force on vehicle is downward, but reaction is upward)
 
-## Terrain Integration
+## Terrain Integration with EnvironmentService
 
-The terramechanics model queries the environment for:
-- `env.altitude` - Vehicle altitude (m)
-- `env.terrain_elevation` - Ground elevation at vehicle position (m)
+Suspension systems integrate with `environment::EnvironmentService` for realistic terrain interaction (v0.6.0+).
 
-Height above terrain:
+### TerrainQuery Structure
+
+Each terrain query returns elevation, surface properties, and geometry:
+
 ```cpp
-Real height = env.altitude - env.terrain_elevation;
-if (height < 0.1) {
-    // Vehicle is on ground, compute terra forces
-}
+struct TerrainQuery {
+    Real elevation{0.0};           // Height above reference (m)
+    Vec3 normal{0, 0, 1};          // Surface normal (world frame)
+    Real slope_angle{0.0};         // Terrain slope (rad)
+    TerrainMaterial material;      // Surface properties
+    bool valid{false};             // Query success
+};
+
+struct TerrainMaterial {
+    SurfaceType type;
+    Real friction_coefficient;     // Typical range: 0.15-0.9
+    Real rolling_resistance;       // Typical range: 0.01-0.05
+    // Bekker-Wong parameters for soft-soil mobility
+    Real k_c, k_phi, n;
+};
 ```
+
+### Integration Pattern
+
+The suspension model queries terrain automatically:
+
+```cpp
+// 1. Wheel suspension queries terrain at its position
+Vec3 wheel_pos_world = vehicle_state.position +
+                       vehicle_state.orientation.rotate(body_frame_pos);
+
+Environment env = env_service->query(wheel_pos_world, current_time);
+TerrainQuery terrain = env.terrain;
+
+// 2. Extract contact properties
+Vec3 surface_normal = terrain.normal;
+Real friction_mu = terrain.material.friction_coefficient;
+Real elevation = terrain.elevation;
+
+// 3. Compute penetration along surface normal
+Real distance_to_surface = (wheel_pos_world - surface_point).dot(normal);
+Real penetration = wheel_radius - distance_to_surface;
+
+// 4. Apply force along surface normal (not vertical!)
+Vec3 force = normal * force_magnitude;
+```
+
+### Fallback Behavior
+
+If no environment service is provided, suspension gracefully defaults to flat terrain:
+
+```cpp
+// Without environment service
+Vec3 force = wheel.compute_forces(state, nullptr, dt);
+
+// Defaults to:
+//   - Flat horizontal surface
+//   - Surface normal = (0, 0, 1)
+//   - Friction coefficient = 0.7
+//   - No slope effects
+```
+
+This maintains backward compatibility with simulations that don't use terrain data.
+
+### Complete Terrain-Aware Example
+
+```cpp
+#include <jaguar/jaguar.h>
+
+class TerrainAwareVehicle {
+public:
+    void initialize() {
+        // Setup suspension with terrain awareness
+        SuspensionUnit wheel_unit;
+        wheel_unit.spring_k = 50000.0;
+        wheel_unit.damper_c = 5000.0;
+        wheel_unit.travel_max = 0.3;
+
+        // 4-wheel passenger vehicle
+        suspension_.add_wheel(Vec3{1.2, 0.8, -0.4}, 0.33, wheel_unit);   // FL
+        suspension_.add_wheel(Vec3{1.2, -0.8, -0.4}, 0.33, wheel_unit);  // FR
+        suspension_.add_wheel(Vec3{-1.3, 0.8, -0.4}, 0.33, wheel_unit);  // RL
+        suspension_.add_wheel(Vec3{-1.3, -0.8, -0.4}, 0.33, wheel_unit); // RR
+    }
+
+    void update(const physics::EntityState& state, Real dt) {
+        // Get environment and terrain data at vehicle location
+        environment::EnvironmentService& env = engine.environment();
+
+        // Update suspension with terrain integration
+        suspension_.update(state, &env, dt);
+
+        // Get forces from all wheels
+        Vec3 susp_force = suspension_.get_total_force();
+        Vec3 susp_torque = suspension_.get_total_torque();
+
+        // Apply to vehicle dynamics
+        forces_.clear();
+        forces_.add_force(susp_force);
+        forces_.add_torque(susp_torque);
+
+        // Log terrain interaction
+        for (size_t i = 0; i < suspension_.wheel_count(); ++i) {
+            const auto& wheel = suspension_.wheel(i);
+            if (wheel.is_grounded()) {
+                Real friction = wheel.get_friction_coefficient();
+                Real compression = wheel.get_compression();
+                // Use for traction/braking control
+            }
+        }
+    }
+
+    SuspensionModel suspension_;
+    physics::EntityForces forces_;
+};
+```
+
+### Advanced: Slope and Banking Effects
+
+Suspension correctly handles non-horizontal terrain:
+
+```
+Driving uphill (30° slope):
+┌─────────────────── Vehicle ──────────────────┐
+│  Front wheel: less penetration, lower force  │
+│  Rear wheel: more penetration, higher force  │
+└─────────────────────────────────────────────┘
+         ╱╱  Terrain surface normal points up-slope
+
+Forces applied perpendicular to slope, naturally
+creating pitching moment that keeps vehicle aligned
+with terrain
+```
+
+For banked turns or sidehills, similar behavior applies in the lateral direction, supporting realistic vehicle dynamics on complex terrain.
 
 ## Performance Considerations
 

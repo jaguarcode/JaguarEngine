@@ -4,6 +4,15 @@
 
 JaguarEngine is a high-performance physics simulation framework designed for defense modeling and simulation (M&S) applications. It supports Air, Land, Sea, and Space domains within a unified architecture, inspired by JSBSim's proven design patterns while leveraging modern C++20 capabilities.
 
+## What's New in v0.6.0
+
+- **Component Force Registry**: Per-entity force management for modular physics composition
+- **GDAL Terrain Support**: Real-world elevation data integration with bilinear interpolation
+- **Work-Stealing Thread Pool**: Parallel force computation for multi-physics scenarios
+- **DIS/HLA Federation**: Networked multi-simulation support (IEEE 1278.1-2012 & IEEE 1516-2010)
+- **Improved Constraint Solver**: Split impulse formulation with early exit optimization
+- **Terrain-Aware Ground Contact**: Suspension systems adapting to terrain elevation and normal
+
 ## Features
 
 ### Core Physics
@@ -49,12 +58,22 @@ JaguarEngine is a high-performance physics simulation framework designed for def
 - **Python bindings** with NumPy interoperability
 - **Lua bindings** with full operator support and table conversion
 
-### Architecture
+### Environment & Terrain
 
-- Component-based force generators
-- Property system with reflection
-- Event-driven design
-- DIS and HLA protocol support for distributed simulation
+- **GDAL Terrain Integration**: Load real-world elevation data (GeoTIFF, HDF5, etc.)
+- **Bilinear Interpolation**: Smooth terrain elevation queries
+- **Terrain-Aware Physics**: Ground contact, suspension, and friction adapted to terrain
+
+### Architecture & Networking
+
+- **Component-Based Force Generators**: Modular per-entity force composition
+- **Property System**: Reflection and introspection for runtime configuration
+- **Event-Driven Design**: Asynchronous system communication
+- **Parallel Computation**: Work-stealing thread pool for force calculation
+- **Distributed Simulation**:
+  - DIS (IEEE 1278.1-2012) for real-time federation
+  - HLA (IEEE 1516-2010) for hierarchical simulation
+  - Network transport with entity state synchronization
 
 ## Quick Start
 
@@ -173,6 +192,40 @@ local final = engine:get_entity_state(aircraft)
 print(string.format("Final altitude: %.1f m", -final.position.z))
 
 engine:shutdown()
+```
+
+### Terrain Integration Example (C++)
+
+```cpp
+#include <jaguar/jaguar.h>
+
+int main() {
+    using namespace jaguar;
+
+    interface::Engine engine;
+    engine.initialize();
+
+    // Load terrain from GeoTIFF file
+    auto terrain = environment::Terrain::from_gdal("data/terrain/dem.tif");
+    engine.set_environment(terrain);
+
+    // Create vehicle entity
+    EntityId vehicle = engine.create_entity("Humvee", Domain::Land);
+
+    // Set position - suspension will automatically adapt to terrain
+    physics::EntityState state;
+    state.position = Vec3{100.0, 50.0, 0.0};  // Z will be set by terrain elevation
+    state.mass = 2500.0;
+    engine.set_entity_state(vehicle, state);
+
+    // Run simulation with terrain-aware physics
+    for (int i = 0; i < 100; ++i) {
+        engine.step(0.01);
+    }
+
+    engine.shutdown();
+    return 0;
+}
 ```
 
 ## Project Structure

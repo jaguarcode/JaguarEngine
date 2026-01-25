@@ -13,6 +13,11 @@ namespace jaguar {
 // Forward declarations
 class EngineImpl;
 
+namespace physics {
+    class ComponentForceRegistry;
+}
+
+
 /**
  * @brief Main engine facade - primary interface for users
  */
@@ -189,6 +194,12 @@ public:
      */
     physics::EntityManager& get_entity_manager();
     const physics::EntityManager& get_entity_manager() const;
+
+    /**
+     * @brief Get component force registry for entity-specific force models
+     */
+    physics::ComponentForceRegistry& get_component_force_registry();
+    const physics::ComponentForceRegistry& get_component_force_registry() const;
 
 private:
     std::unique_ptr<EngineImpl> impl_;

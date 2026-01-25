@@ -58,6 +58,11 @@ public:
     // Query at geodetic position
     Environment query_geodetic(Real lat, Real lon, Real alt, Real time) const;
 
+    // Terrain integration (v0.6.0+)
+    bool load_terrain(const std::string& path);
+    TerrainQuery query_terrain(const Vec3& position_ecef) const;
+    Real get_terrain_elevation(Real lat, Real lon) const;
+
     // Subsystem access
     TerrainManager& terrain();
     AtmosphereManager& atmosphere();
@@ -419,10 +424,284 @@ public:
     void close();
 
     Real get_elevation(Real lat, Real lon) const;
+    Vec3 get_normal(Real lat, Real lon) const;
+    TerrainQuery query(Real lat, Real lon) const;
     void get_bounds(Real& min_lat, Real& max_lat,
                     Real& min_lon, Real& max_lon) const;
     Real get_resolution() const;
+    bool is_loaded() const;
 };
+```
+
+### Terrain Integration (v0.6.0+)
+
+The Environment module now provides seamless terrain integration through the EnvironmentService, enabling direct loading and querying of GIS data without manual TerrainManager configuration.
+
+#### EnvironmentService Terrain Methods
+
+**Load Terrain Data**
+
+```cpp
+bool EnvironmentService::load_terrain(const std::string& path);
+```
+
+Loads terrain data from a GeoTIFF or other GDAL-supported raster format. This is a convenience method that handles dataset opening and integration with the internal TerrainManager.
+
+- **Parameters:**
+  - `path`: Absolute or relative path to terrain dataset file
+- **Returns:** `true` if successfully loaded, `false` on error
+- **Supports:** GeoTIFF, SRTM, DTED, and other GDAL-compatible formats
+- **Thread-safe:** Safe to call from multiple threads after initialization
+- **Error handling:** Logs errors via standard engine logging; returns false on failure
+
+**Query Terrain at ECEF Position**
+
+```cpp
+TerrainQuery EnvironmentService::query_terrain(const Vec3& position_ecef) const;
+```
+
+Performs a complete terrain query at an ECEF coordinate, returning elevation, surface normal, slope angle, and material properties.
+
+- **Parameters:**
+  - `position_ecef`: Position in Earth-Centered Earth-Fixed coordinates (meters)
+- **Returns:** `TerrainQuery` structure with all terrain properties
+- **Elevation:** Height above WGS84 ellipsoid in meters
+- **Normal:** Surface normal in NED frame (for slope calculations and contact normals)
+- **Slope:** Angle in radians between 0 and π/2
+- **Material:** Surface properties including friction, bearing capacity, and terramechanics parameters
+- **Validity:** Check `TerrainQuery::valid` flag before using results
+
+**Get Terrain Elevation at Geodetic Position**
+
+```cpp
+Real EnvironmentService::get_terrain_elevation(Real lat, Real lon) const;
+```
+
+Convenience method for querying only elevation at a geodetic position. Useful when full terrain properties are not needed.
+
+- **Parameters:**
+  - `lat`: Latitude in radians (-π/2 to π/2)
+  - `lon`: Longitude in radians (-π to π)
+- **Returns:** Elevation in meters above WGS84 ellipsoid, or NaN if unavailable
+- **Performance:** Faster than full terrain query for elevation-only use cases
+
+#### Terrain Integration Examples
+
+**Basic Terrain Loading and Querying**
+
+```cpp
+EnvironmentService env_service;
+env_service.initialize();
+
+// Load GeoTIFF elevation dataset
+if (!env_service.load_terrain("/data/elevation_model.tif")) {
+    std::cerr << "Failed to load terrain data\n";
+    return false;
+}
+
+// Query terrain at entity position
+Vec3 entity_ecef = entity.get_position_ecef();
+TerrainQuery terrain = env_service.query_terrain(entity_ecef);
+
+if (terrain.valid) {
+    Real elevation = terrain.elevation;
+    Real slope = terrain.slope_angle * RAD_TO_DEG;
+
+    // Use for physics calculations
+    if (slope < terrain.material.max_slope_deg) {
+        // Terrain passable for ground vehicle
+    }
+}
+```
+
+**Terrain-Aware Physics Simulation**
+
+```cpp
+class GroundVehicle {
+public:
+    void update(const EnvironmentService& env, Real dt) {
+        // Get terrain at vehicle position
+        TerrainQuery terrain = env.query_terrain(position_ecef_);
+
+        if (!terrain.valid) {
+            return;  // No terrain data available
+        }
+
+        // Update height above ground (AGL)
+        Real altitude_agl = altitude_msl_ - terrain.elevation;
+
+        // Check slope passability
+        Real slope_deg = terrain.slope_angle * RAD_TO_DEG;
+        if (slope_deg > terrain.material.max_slope_deg) {
+            // Stop movement - slope too steep
+            velocity_ned_ = Vec3{0, 0, 0};
+            return;
+        }
+
+        // Update terramechanics with soil properties
+        terramechanics_.set_soil_params(
+            terrain.material.k_c,
+            terrain.material.k_phi,
+            terrain.material.n
+        );
+
+        // Compute terrain interaction forces
+        Vec3 normal = terrain.normal;
+        Real friction = terrain.material.friction_coefficient;
+
+        // Continue normal physics calculation...
+    }
+
+private:
+    Vec3 position_ecef_;
+    Real altitude_msl_;
+    Vec3 velocity_ned_;
+    TerramechanicsModel terramechanics_;
+};
+```
+
+**Environment Query with Terrain Data**
+
+```cpp
+// Query complete environment including terrain
+Environment env = env_service.query(entity_ecef, sim_time);
+
+// Terrain is included in environment structure
+if (env.terrain.valid) {
+    // Atmospheric conditions
+    Real air_density = env.atmosphere.density;
+    Vec3 wind = env.atmosphere.wind;
+
+    // Terrain data
+    Real elevation = env.terrain.elevation;
+    TerrainMaterial mat = env.terrain.material;
+
+    // Ocean data (if applicable)
+    if (env.over_water) {
+        Real wave_height = env.ocean.surface_elevation;
+    } else {
+        // Ground contact - use terrain normal and friction
+        Vec3 ground_normal = env.terrain.normal;
+        Real friction_coeff = mat.friction_coefficient;
+    }
+}
+```
+
+**Multi-Source Terrain Loading**
+
+```cpp
+EnvironmentService env_service;
+env_service.initialize();
+
+// Load primary elevation model
+env_service.load_terrain("/data/srtm_dem.tif");
+
+// Add coarser fallback data
+env_service.terrain().add_data_path("/data/srtm_level0/");
+
+// Set up caching for performance
+env_service.terrain().set_cache_size(512);  // 512 MB cache
+
+// Update LOD around focus point (e.g., player position)
+env_service.terrain().set_focus_point(player_ecef);
+env_service.terrain().set_detail_radius(50000.0);  // 50 km radius
+
+// Frame update
+void update_frame(Real dt) {
+    env_service.update(dt);
+    env_service.terrain().update();  // Update LOD paging
+}
+```
+
+#### Thread Safety
+
+All terrain query methods are thread-safe after initialization:
+- **TerrainManager**: Read-only queries are thread-safe
+- **GDALTerrainLoader**: Read queries thread-safe after `open()` completes
+- **EnvironmentService**: All const methods thread-safe for concurrent reads
+
+Configuration methods (loading, cache size) are NOT thread-safe and should only be called during initialization.
+
+#### Terrain Integration with Environment Queries
+
+When using `EnvironmentService::query()` or `query_geodetic()`, the returned `Environment` structure includes complete terrain data:
+
+```cpp
+struct Environment {
+    // Position context
+    Real latitude{0.0};           // rad
+    Real longitude{0.0};          // rad
+    Real altitude{0.0};           // m above WGS84
+    Vec3 position_ecef{0, 0, 0};  // ECEF position
+
+    // Atmosphere
+    AtmosphereState atmosphere;
+
+    // Terrain - automatically populated if data loaded
+    TerrainQuery terrain;
+    Real terrain_elevation{0.0};  // Terrain height below entity
+
+    // Ocean
+    OceanState ocean;
+    bool over_water{false};
+
+    // Gravity
+    Vec3 gravity{0, 0, 9.80665};  // Gravity vector in local frame
+};
+```
+
+The `terrain` field contains:
+- **elevation**: Height above WGS84 ellipsoid (meters)
+- **normal**: Surface normal in NED frame (for contact normals)
+- **slope_angle**: Slope magnitude in radians
+- **material**: Surface type and terramechanics parameters
+- **valid**: Flag indicating whether terrain data is available
+
+#### Material Properties for Surface Interactions
+
+Terrain materials include properties for both kinematic and dynamic friction modeling:
+
+```cpp
+struct TerrainMaterial {
+    SurfaceType type{SurfaceType::Unknown};
+    Real friction_coefficient{0.7};      // Kinetic friction (Coulomb)
+    Real rolling_resistance{0.01};       // Rolling resistance coefficient
+
+    // Bekker-Wong terramechanics
+    Real k_c{0.0};      // Cohesive modulus (kN/m^(n+1))
+    Real k_phi{0.0};    // Frictional modulus (kN/m^(n+2))
+    Real n{1.0};        // Deformation exponent
+
+    // Trafficability
+    Real max_slope_deg{30.0};           // Maximum traversable slope (degrees)
+    Real bearing_capacity{100000.0};    // Bearing capacity (Pa)
+};
+```
+
+These properties enable:
+- **Tire/Track Friction**: `friction_coefficient` for normal friction calculations
+- **Sinkage Estimation**: Bekker parameters for deformation predictions
+- **Bearing Failure Detection**: Checking `bearing_capacity` against vehicle weight
+- **Slope Trafficability**: Comparing actual slope against `max_slope_deg`
+- **Rolling Resistance**: Energy loss for wheeled vehicles using `rolling_resistance`
+
+**Example: Terramechanics Integration**
+
+```cpp
+TerrainQuery terrain = env.query_terrain(vehicle_ecef);
+
+// Calculate sinkage using Bekker model
+Real contact_pressure = vehicle_weight / contact_area;
+if (contact_pressure > terrain.material.bearing_capacity) {
+    // Vehicle will sink or get stuck
+    mobility_status = MobilityStatus::BOGGED;
+}
+
+// Adjust tire rolling resistance
+Real rr_force = vehicle_weight * terrain.material.rolling_resistance;
+
+// Calculate maximum steering friction
+Real max_friction_force = normal_force * terrain.material.friction_coefficient;
 ```
 
 ## Ocean Subsystem
@@ -522,9 +801,16 @@ class SimulationWorld {
 public:
     SimulationWorld() {
         // Initialize environment service
-        env_service_.terrain().add_data_path("/data/terrain/");
-        env_service_.terrain().set_cache_size(256);
         env_service_.initialize();
+
+        // Load terrain data (v0.6.0+)
+        if (!env_service_.load_terrain("/data/elevation_models/srtm_dem.tif")) {
+            std::cerr << "Warning: Failed to load terrain data\n";
+        }
+
+        // Configure terrain caching and LOD
+        env_service_.terrain().add_data_path("/data/terrain/dted/");
+        env_service_.terrain().set_cache_size(512);
 
         // Configure weather
         auto& weather = env_service_.atmosphere().weather();
@@ -561,6 +847,16 @@ public:
 
         // Check surface type
         return terrain.material.type == SurfaceType::Water;
+    }
+
+    // Utility: Direct terrain query (v0.6.0+)
+    TerrainQuery get_terrain_at(const Vec3& ecef) const {
+        return env_service_.query_terrain(ecef);
+    }
+
+    // Utility: Get elevation at position (v0.6.0+)
+    Real get_elevation_at(Real lat, Real lon) const {
+        return env_service_.get_terrain_elevation(lat, lon);
     }
 
     // Utility: Get wind at altitude
@@ -628,11 +924,31 @@ public:
             if (slope > mat.max_slope_deg * DEG_TO_RAD) {
                 // Slope too steep
             }
+
+            // Calculate bearing capacity margin
+            Real contact_pressure = weight_ / contact_area_;
+            if (contact_pressure > mat.bearing_capacity) {
+                // Vehicle sinking into soft terrain
+                mobility_status_ = MobilityStatus::Bogged;
+            }
+
+            // Friction-based force limiting
+            Real max_traction = normal_force_ * mat.friction_coefficient;
+            if (desired_traction_force_ > max_traction) {
+                // Wheels slipping - reduce acceleration
+                traction_force_ = max_traction;
+            }
         }
     }
 
 private:
     Vec3 position_ecef_;
+    Real weight_;
+    Real contact_area_;
+    Real normal_force_;
+    Real desired_traction_force_;
+    Real traction_force_;
+    MobilityStatus mobility_status_;
     TerramechanicsModel terra_;
 };
 

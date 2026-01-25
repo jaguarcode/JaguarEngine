@@ -10,6 +10,7 @@
 
 #include "jaguar/physics/constraints/constraint_solver.h"
 #include "jaguar/physics/entity.h"
+#include "jaguar/core/constants.h"
 #include <cmath>
 #include <algorithm>
 #include <chrono>
@@ -116,6 +117,12 @@ void SequentialImpulseSolver::apply_warm_start() {
             for (size_t i = 0; i < n; ++i) {
                 // Apply scaled warm start impulse
                 Real warm_impulse = cached_impulses[i] * config_.warm_start_factor;
+
+                // Validate impulse magnitude - clamp to prevent explosion
+                Real max_impulse = data.rows[i].effective_mass *
+                                  constants::MAX_WARM_START_MULTIPLIER;
+                warm_impulse = std::clamp(warm_impulse, -max_impulse, max_impulse);
+
                 data.rows[i].accumulated_impulse = warm_impulse;
 
                 // Apply the impulse to velocities
@@ -204,11 +211,19 @@ Real SequentialImpulseSolver::solve_row(ConstraintData& data, int row_index) {
 
 void SequentialImpulseSolver::solve_velocity_constraints(int iterations) {
     for (int iter = 0; iter < iterations; ++iter) {
+        Real max_impulse = 0.0;
+
         for (auto& data : constraints_) {
             int n = data.constraint->num_rows();
             for (int i = 0; i < n; ++i) {
-                solve_row(data, i);
+                Real impulse = solve_row(data, i);
+                max_impulse = std::max(max_impulse, impulse);
             }
+        }
+
+        // Early exit if converged
+        if (max_impulse < config_.convergence_threshold) {
+            break;
         }
     }
 }
@@ -224,12 +239,88 @@ void SequentialImpulseSolver::solve_position_constraints(int iterations) {
 
     // Split impulse: separate position correction pass
     // (More stable for stacking, but more expensive)
+    // This applies pseudo-impulses directly to positions without affecting velocities
     for (int iter = 0; iter < iterations; ++iter) {
+        Real max_error = 0.0;
+
         for (auto& data : constraints_) {
-            // Rebuild rows with position-only bias
-            // This is a simplified version - full implementation would
-            // maintain separate pseudo-velocity for position correction
-            (void)data;  // TODO: Implement split impulse position correction
+            for (size_t i = 0; i < data.rows.size(); ++i) {
+                auto& row = data.rows[i];
+
+                // Compute position-level constraint error
+                // For general constraints, this is computed from the constraint function C(x)
+                // The error is how much the constraint is violated
+
+                // The position error is extracted from the rhs (which contains Baumgarte term)
+                // rhs = bias + ERP * C / dt, so position_error ~ rhs * dt / ERP
+                // However, for split impulse we compute the error directly from geometry
+
+                // For now, use the effective mass and bias from the row
+                // The bias term in rhs already contains position error correction
+                Real position_error = row.rhs * dt_;
+
+                // Skip if error is within slop tolerance
+                if (std::abs(position_error) < config_.slop) {
+                    continue;
+                }
+
+                // Compute position correction impulse
+                // Use Baumgarte stabilization: bias = baumgarte * error / dt
+                Real bias = config_.baumgarte * position_error / dt_;
+
+                // Clamp bias to prevent over-correction
+                bias = std::clamp(bias, -config_.max_correction_velocity,
+                                  config_.max_correction_velocity);
+
+                // Compute correction impulse: lambda = M_eff * bias
+                Real correction = row.effective_mass * bias;
+
+                // Clamp to impulse limits (non-negative for contacts)
+                Real clamped_correction = std::clamp(correction, row.lower_limit, row.upper_limit);
+
+                // Apply position correction to pseudo-positions
+                // In split impulse, we modify positions directly without changing velocities
+                if (std::abs(clamped_correction) > 1e-15) {
+                    // Body A (negative Jacobian direction)
+                    if (data.state_A && data.inv_mass_A > 0) {
+                        Vec3 linear_correction = row.J_linear_A * (clamped_correction * data.inv_mass_A);
+                        data.state_A->position = data.state_A->position - linear_correction;
+
+                        Vec3 angular_correction = data.inv_inertia_A * row.J_angular_A * clamped_correction;
+                        // For rotation, we apply a pseudo-rotation using angular correction
+                        // This is a simplified approach - full implementation would use quaternion integration
+                        Vec3 rotation_vec = angular_correction * dt_;
+                        Real angle = rotation_vec.length();
+                        if (angle > 1e-10) {
+                            Vec3 axis = rotation_vec / angle;
+                            Quat delta_rotation = Quat::from_axis_angle(axis, -angle);
+                            data.state_A->orientation = (delta_rotation * data.state_A->orientation).normalized();
+                        }
+                    }
+
+                    // Body B (positive Jacobian direction)
+                    if (data.state_B && data.inv_mass_B > 0) {
+                        Vec3 linear_correction = row.J_linear_B * (clamped_correction * data.inv_mass_B);
+                        data.state_B->position = data.state_B->position + linear_correction;
+
+                        Vec3 angular_correction = data.inv_inertia_B * row.J_angular_B * clamped_correction;
+                        Vec3 rotation_vec = angular_correction * dt_;
+                        Real angle = rotation_vec.length();
+                        if (angle > 1e-10) {
+                            Vec3 axis = rotation_vec / angle;
+                            Quat delta_rotation = Quat::from_axis_angle(axis, angle);
+                            data.state_B->orientation = (delta_rotation * data.state_B->orientation).normalized();
+                        }
+                    }
+                }
+
+                max_error = std::max(max_error, std::abs(position_error));
+            }
+        }
+
+        // Early exit if converged
+        if (max_error < config_.position_tolerance) {
+            break;
         }
     }
 }

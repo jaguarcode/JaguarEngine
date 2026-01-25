@@ -12,7 +12,9 @@
  */
 
 #include "jaguar/physics/integrators/symplectic_euler.h"
+#include "jaguar/core/constants.h"
 #include <cmath>
+#include <algorithm>
 
 namespace jaguar::physics {
 
@@ -84,8 +86,13 @@ Real SymplecticEulerIntegrator::compute_mechanical_energy(const EntityState& sta
 }
 
 void SymplecticEulerIntegrator::integrate(EntityState& state, const EntityForces& forces, Real dt) {
-    // Skip integration for zero-mass entities (static objects)
-    if (state.mass < 1e-10) return;
+    // Skip integration for massless entities
+    if (state.mass < constants::MASS_EPSILON) {
+        return;
+    }
+
+    // Clamp time step to safe bounds
+    dt = std::clamp(dt, constants::TIME_STEP_MIN, constants::TIME_STEP_MAX);
 
     // Compute inverse mass and inertia
     Real inv_mass = 1.0 / state.mass;

@@ -23,7 +23,10 @@ struct ConstraintSolverConfig {
     int velocity_iterations{8};         ///< Velocity solver iterations
     int position_iterations{3};         ///< Position correction iterations
     Real position_correction{0.2};      ///< Baumgarte stabilization factor (ERP)
+    Real baumgarte{0.2};                ///< Baumgarte factor for split impulse position correction
     Real allowed_penetration{0.01};     ///< Slop before position correction (m)
+    Real slop{0.005};                   ///< Position error tolerance (m)
+    Real position_tolerance{0.001};     ///< Position convergence threshold for early exit (m)
     Real contact_bias{0.1};             ///< Contact bias velocity (m/s)
     bool warm_starting{true};           ///< Enable warm starting
     Real warm_start_factor{0.8};        ///< Warm start scaling factor
@@ -31,6 +34,7 @@ struct ConstraintSolverConfig {
     Real max_correction_velocity{10.0}; ///< Maximum correction velocity (m/s)
     Real sleep_threshold{0.01};         ///< Velocity threshold for sleeping
     int sleep_frames{60};               ///< Frames below threshold to sleep
+    Real convergence_threshold{1e-4};   ///< Early exit if max impulse below this
 };
 
 /**

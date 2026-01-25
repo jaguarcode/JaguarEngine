@@ -76,6 +76,28 @@ public:
      */
     Environment query_geodetic(Real lat, Real lon, Real alt, Real time) const;
 
+    /**
+     * @brief Load terrain data from file
+     * @param path Path to GeoTIFF or other GDAL-supported raster
+     * @return true if successfully loaded
+     */
+    bool load_terrain(const std::string& path);
+
+    /**
+     * @brief Query terrain at ECEF position
+     * @param position_ecef Position in ECEF coordinates
+     * @return Terrain query with elevation and surface properties
+     */
+    TerrainQuery query_terrain(const Vec3& position_ecef) const;
+
+    /**
+     * @brief Get terrain elevation at geodetic position
+     * @param lat Latitude (radians)
+     * @param lon Longitude (radians)
+     * @return Elevation in meters above WGS84 ellipsoid
+     */
+    Real get_terrain_elevation(Real lat, Real lon) const;
+
     // Subsystem access
     TerrainManager& terrain() { return terrain_; }
     const TerrainManager& terrain() const { return terrain_; }
