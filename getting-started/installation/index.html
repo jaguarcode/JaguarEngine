@@ -841,6 +841,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#phase-7-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7 Advanced Features
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2600,6 +2611,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#phase-7-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7 Advanced Features
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3157,59 +3179,130 @@
 <td>ON</td>
 <td>Enable AVX2/FMA optimizations</td>
 </tr>
+<tr>
+<td><code>JAGUAR_ENABLE_GPU</code></td>
+<td>ON</td>
+<td>Enable GPU compute acceleration</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_CUDA</code></td>
+<td>OFF</td>
+<td>Enable NVIDIA CUDA backend</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_OPENCL</code></td>
+<td>OFF</td>
+<td>Enable OpenCL backend</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_METAL</code></td>
+<td>OFF</td>
+<td>Enable Metal backend (macOS)</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_XR</code></td>
+<td>ON</td>
+<td>Enable VR/AR (XR) support</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_OPENXR</code></td>
+<td>OFF</td>
+<td>Enable OpenXR runtime</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_CLOUD</code></td>
+<td>ON</td>
+<td>Enable distributed simulation</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_THREAD</code></td>
+<td>ON</td>
+<td>Enable Digital Thread support</td>
+</tr>
+<tr>
+<td><code>JAGUAR_ENABLE_ML</code></td>
+<td>ON</td>
+<td>Enable Machine Learning support</td>
+</tr>
 </tbody>
 </table>
+<h3 id="phase-7-advanced-features">Phase 7 Advanced Features<a class="headerlink" href="#phase-7-advanced-features" title="Permanent link">&para;</a></h3>
+<p>JaguarEngine v0.5.0 includes enterprise-grade advanced capabilities. Enable these features based on your requirements:</p>
+<h4 id="gpu-acceleration">GPU Acceleration<a class="headerlink" href="#gpu-acceleration" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Enable CUDA (NVIDIA GPUs)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DJAGUAR_ENABLE_CUDA<span class="o">=</span>ON
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Enable OpenCL (Cross-platform)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DJAGUAR_ENABLE_OPENCL<span class="o">=</span>ON
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Enable Metal (macOS)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DJAGUAR_ENABLE_METAL<span class="o">=</span>ON
+</span></code></pre></div>
+<h4 id="extended-reality-vrar">Extended Reality (VR/AR)<a class="headerlink" href="#extended-reality-vrar" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Enable OpenXR runtime</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DJAGUAR_ENABLE_XR<span class="o">=</span>ON<span class="w"> </span>-DJAGUAR_ENABLE_OPENXR<span class="o">=</span>ON
+</span></code></pre></div>
+<p>Requires OpenXR runtime installed on your system.</p>
+<h4 id="clouddistributed-simulation">Cloud/Distributed Simulation<a class="headerlink" href="#clouddistributed-simulation" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Enable cloud burst scaling</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DJAGUAR_ENABLE_CLOUD<span class="o">=</span>ON
+</span></code></pre></div>
+<h4 id="machine-learning">Machine Learning<a class="headerlink" href="#machine-learning" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Enable ML capabilities</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DJAGUAR_ENABLE_ML<span class="o">=</span>ON
+</span></code></pre></div>
+<p>Requires ONNX Runtime for neural network inference.</p>
 <hr />
 <h2 id="installing-jaguarengine">Installing JaguarEngine<a class="headerlink" href="#installing-jaguarengine" title="Permanent link">&para;</a></h2>
 <h3 id="system-wide-installation">System-wide Installation<a class="headerlink" href="#system-wide-installation" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>build
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>sudo<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span>.<span class="w"> </span>--prefix<span class="w"> </span>/usr/local
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>build
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sudo<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span>.<span class="w"> </span>--prefix<span class="w"> </span>/usr/local
 </span></code></pre></div>
 <h3 id="custom-installation-path">Custom Installation Path<a class="headerlink" href="#custom-installation-path" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cmake<span class="w"> </span>--install<span class="w"> </span>.<span class="w"> </span>--prefix<span class="w"> </span>~/local/jaguar
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cmake<span class="w"> </span>--install<span class="w"> </span>.<span class="w"> </span>--prefix<span class="w"> </span>~/local/jaguar
 </span></code></pre></div>
 <h3 id="using-in-your-cmake-project">Using in Your CMake Project<a class="headerlink" href="#using-in-your-cmake-project" title="Permanent link">&para;</a></h3>
 <p>After installation, use JaguarEngine in your CMake projects:</p>
-<div class="language-cmake highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c"># CMakeLists.txt</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.25</span><span class="p">)</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">project</span><span class="p">(</span><span class="s">MySimulation</span><span class="p">)</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">find_package</span><span class="p">(</span><span class="s">Jaguar</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">my_simulation</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_simulation</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">Jaguar::jaguar</span><span class="p">)</span>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c"># CMakeLists.txt</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.25</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">project</span><span class="p">(</span><span class="s">MySimulation</span><span class="p">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">find_package</span><span class="p">(</span><span class="s">Jaguar</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">my_simulation</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_simulation</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">Jaguar::jaguar</span><span class="p">)</span>
 </span></code></pre></div>
 <hr />
 <h2 id="verifying-installation">Verifying Installation<a class="headerlink" href="#verifying-installation" title="Permanent link">&para;</a></h2>
 <h3 id="run-unit-tests">Run Unit Tests<a class="headerlink" href="#run-unit-tests" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span>build
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>./jaguar_unit_tests
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>build
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>./jaguar_unit_tests
 </span></code></pre></div>
 <p><strong>Expected output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[==========] Running 237 tests from 41 test suites.
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>...
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>[  PASSED  ] 237 tests.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[==========] Running 237 tests from 41 test suites.
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>...
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>[  PASSED  ] 237 tests.
 </span></code></pre></div>
 <h3 id="run-examples">Run Examples<a class="headerlink" href="#run-examples" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Simple flight simulation</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>./example_simple_flight
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Multi-domain simulation</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>./example_multi_domain
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Simple flight simulation</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>./example_simple_flight
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Multi-domain simulation</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>./example_multi_domain
 </span></code></pre></div>
 <h3 id="check-build-configuration">Check Build Configuration<a class="headerlink" href="#check-build-configuration" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cmake<span class="w"> </span>-L<span class="w"> </span>..<span class="w">   </span><span class="c1"># List all options</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>cmake<span class="w"> </span>-LA<span class="w"> </span>..<span class="w">  </span><span class="c1"># List all options including advanced</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cmake<span class="w"> </span>-L<span class="w"> </span>..<span class="w">   </span><span class="c1"># List all options</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>cmake<span class="w"> </span>-LA<span class="w"> </span>..<span class="w">  </span><span class="c1"># List all options including advanced</span>
 </span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <h4 id="eigen3-not-found">Eigen3 Not Found<a class="headerlink" href="#eigen3-not-found" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>CMake Warning: Eigen3 not found, will use FetchContent
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>CMake Warning: Eigen3 not found, will use FetchContent
 </span></code></pre></div>
 <p><strong>Solution:</strong> This is normal behavior. Eigen3 is automatically downloaded if not installed system-wide.</p>
 <h4 id="gdal-not-found">GDAL Not Found<a class="headerlink" href="#gdal-not-found" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>CMake Warning: GDAL not found. Terrain features will be limited.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>CMake Warning: GDAL not found. Terrain features will be limited.
 </span></code></pre></div>
 <p><strong>Solution:</strong> Install GDAL if you need terrain loading:</p>
 <ul>
@@ -3218,7 +3311,7 @@
 <li>Windows: Use <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a> installer</li>
 </ul>
 <h4 id="compiler-too-old">Compiler Too Old<a class="headerlink" href="#compiler-too-old" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>error: &#39;span&#39; is not a member of &#39;std&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>error: &#39;span&#39; is not a member of &#39;std&#39;
 </span></code></pre></div>
 <p><strong>Solution:</strong> Upgrade to a C++20 compatible compiler:</p>
 <ul>
@@ -3227,7 +3320,7 @@
 <li>MSVC 2022</li>
 </ul>
 <h4 id="build-fails-on-arm-mac-rosetta">Build Fails on ARM Mac (Rosetta)<a class="headerlink" href="#build-fails-on-arm-mac-rosetta" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>error: -march=native requires native target
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>error: -march=native requires native target
 </span></code></pre></div>
 <p><strong>Solution:</strong> The build system automatically detects Rosetta and disables native optimizations. Ensure you're using the latest CMakeLists.txt.</p>
 <h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h3>
