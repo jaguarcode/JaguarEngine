@@ -50,7 +50,7 @@ repo_url: https://github.com/jaguarcode/JaguarEngine
 edit_uri: edit/main/docs/web/
 
 # Copyright
-copyright: Copyright &copy; 2024 JaguarEngine Contributors
+copyright: Copyright &copy; 2025 JaguarEngine Contributors
 
 # Configuration
 theme:
@@ -164,6 +164,13 @@ nav:
     - Configuration: api/configuration.md
     - Python: api/python.md
     - Lua: api/lua.md
+    - GPU Compute: api/gpu.md
+    - Cloud Burst: api/cloud.md
+    - Digital Thread: api/thread.md
+    - Machine Learning: api/ml.md
+    - Sensors: api/sensors.md
+    - Federation: api/federation.md
+    - XR Integration: api/xr.md
   - Tutorials:
     - Examples: tutorials/examples.md
     - Multi-Entity: tutorials/multi-entity.md
@@ -379,7 +386,7 @@ Generate API documentation from code comments:
 
 ```
 PROJECT_NAME           = "JaguarEngine"
-PROJECT_NUMBER         = 0.4.0
+PROJECT_NUMBER         = 0.5.0
 PROJECT_BRIEF          = "Multi-Domain Physics Simulation"
 OUTPUT_DIRECTORY       = docs/api-reference
 INPUT                  = include/jaguar
@@ -472,7 +479,7 @@ Use `mike` for versioned documentation:
 pip install mike
 
 # Deploy version
-mike deploy --push --update-aliases 0.4.0 latest
+mike deploy --push --update-aliases 0.5.0 latest
 
 # Set default version
 mike set-default --push latest
@@ -526,7 +533,7 @@ mkdocs build
 mkdocs gh-deploy
 
 # Deploy versioned docs
-mike deploy 0.4.0 latest --push
+mike deploy 0.5.0 latest --push
 ```
 
 ---

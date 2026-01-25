@@ -326,7 +326,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for development guidelines.
 
 ## License
 
-Copyright (c) 2024 JaguarEngine Contributors. All rights reserved.
+Copyright (c) 2025 JaguarEngine Contributors. All rights reserved.
 
 ## Acknowledgments
 

@@ -212,6 +212,57 @@ cmake .. \
 | `JAGUAR_ENABLE_DIS` | OFF | Enable DIS network protocol |
 | `JAGUAR_ENABLE_HLA` | OFF | Enable HLA federation |
 | `JAGUAR_ENABLE_SIMD` | ON | Enable AVX2/FMA optimizations |
+| `JAGUAR_ENABLE_GPU` | ON | Enable GPU compute acceleration |
+| `JAGUAR_ENABLE_CUDA` | OFF | Enable NVIDIA CUDA backend |
+| `JAGUAR_ENABLE_OPENCL` | OFF | Enable OpenCL backend |
+| `JAGUAR_ENABLE_METAL` | OFF | Enable Metal backend (macOS) |
+| `JAGUAR_ENABLE_XR` | ON | Enable VR/AR (XR) support |
+| `JAGUAR_ENABLE_OPENXR` | OFF | Enable OpenXR runtime |
+| `JAGUAR_ENABLE_CLOUD` | ON | Enable distributed simulation |
+| `JAGUAR_ENABLE_THREAD` | ON | Enable Digital Thread support |
+| `JAGUAR_ENABLE_ML` | ON | Enable Machine Learning support |
+
+### Phase 7 Advanced Features
+
+JaguarEngine v0.5.0 includes enterprise-grade advanced capabilities. Enable these features based on your requirements:
+
+#### GPU Acceleration
+
+```bash
+# Enable CUDA (NVIDIA GPUs)
+cmake .. -DJAGUAR_ENABLE_CUDA=ON
+
+# Enable OpenCL (Cross-platform)
+cmake .. -DJAGUAR_ENABLE_OPENCL=ON
+
+# Enable Metal (macOS)
+cmake .. -DJAGUAR_ENABLE_METAL=ON
+```
+
+#### Extended Reality (VR/AR)
+
+```bash
+# Enable OpenXR runtime
+cmake .. -DJAGUAR_ENABLE_XR=ON -DJAGUAR_ENABLE_OPENXR=ON
+```
+
+Requires OpenXR runtime installed on your system.
+
+#### Cloud/Distributed Simulation
+
+```bash
+# Enable cloud burst scaling
+cmake .. -DJAGUAR_ENABLE_CLOUD=ON
+```
+
+#### Machine Learning
+
+```bash
+# Enable ML capabilities
+cmake .. -DJAGUAR_ENABLE_ML=ON
+```
+
+Requires ONNX Runtime for neural network inference.
 
 ---
 

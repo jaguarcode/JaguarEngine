@@ -1,5 +1,7 @@
 # Your First Complete Simulation
 
+> **Note**: This tutorial uses JaguarEngine's advanced Air Domain features which are enabled by default in v0.5.0. If you've built JaguarEngine with custom options, ensure Air Domain support is included. See the [Installation Guide](installation.md) for build configuration details.
+
 This guide walks you through building a complete, interactive flight simulation with JaguarEngine.
 
 ## What You'll Build
