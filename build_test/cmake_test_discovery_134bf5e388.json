@@ -1,0 +1,169 @@
+{
+  "tests": 29,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "HybridPhysicsTest",
+      "tests": 22,
+      "testsuite": [
+        {
+          "name": "DefaultConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 69
+        },
+        {
+          "name": "PhysicsOptimizedConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 80
+        },
+        {
+          "name": "LowLatencyConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 89
+        },
+        {
+          "name": "HighThroughputConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 98
+        },
+        {
+          "name": "InitializeWithDefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 110
+        },
+        {
+          "name": "InitializeWithNullStorage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 121
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 130
+        },
+        {
+          "name": "ShutdownReinitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 144
+        },
+        {
+          "name": "ForceCPURouting",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 166
+        },
+        {
+          "name": "ThresholdBasedRouting_BelowThreshold",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 183
+        },
+        {
+          "name": "ThresholdBasedRouting_AboveThreshold",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 200
+        },
+        {
+          "name": "ForceNextPathCPU",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 220
+        },
+        {
+          "name": "StepWithZeroEntities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 240
+        },
+        {
+          "name": "StepWithSmallEntityCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 251
+        },
+        {
+          "name": "MultipleSteps",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 293
+        },
+        {
+          "name": "StatisticsCollection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 318
+        },
+        {
+          "name": "ResetStatistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 343
+        },
+        {
+          "name": "RoutingCallback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 367
+        },
+        {
+          "name": "SetWorkloadThreshold",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 392
+        },
+        {
+          "name": "MarkEntitiesDirty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 411
+        },
+        {
+          "name": "MarkAllDirty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 428
+        },
+        {
+          "name": "SetActiveEntities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 447
+        }
+      ]
+    },
+    {
+      "name": "HybridPhysicsBenchmark",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Benchmark_100_Entities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 545
+        },
+        {
+          "name": "Benchmark_1000_Entities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 556
+        },
+        {
+          "name": "Benchmark_10000_Entities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 567
+        },
+        {
+          "name": "Benchmark_50000_Entities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 578
+        }
+      ]
+    },
+    {
+      "name": "HybridPhysicsUtilTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "RoutingStrategyToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 593
+        },
+        {
+          "name": "TransferModeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 601
+        },
+        {
+          "name": "WorkloadTypeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/hybrid_physics_tests.cpp",
+          "line": 608
+        }
+      ]
+    }
+  ]
+}

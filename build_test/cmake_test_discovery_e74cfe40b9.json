@@ -1,0 +1,462 @@
+{
+  "tests": 72,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "HapticResultTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "SuccessString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 18
+        },
+        {
+          "name": "ErrorStrings",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 22
+        },
+        {
+          "name": "SucceededHelper",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "name": "HapticEnvelopeTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "InstantEnvelope",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 39
+        },
+        {
+          "name": "FadeInEnvelope",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 47
+        },
+        {
+          "name": "FadeOutEnvelope",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 53
+        },
+        {
+          "name": "ADSREnvelope",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 59
+        },
+        {
+          "name": "TransitionDuration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "name": "HapticEffectTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "VibrationEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 76
+        },
+        {
+          "name": "PulseEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 84
+        },
+        {
+          "name": "RumbleEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 93
+        },
+        {
+          "name": "ImpactEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 101
+        }
+      ]
+    },
+    {
+      "name": "VestHapticPatternTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "SetAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 113
+        },
+        {
+          "name": "SetFront",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 122
+        },
+        {
+          "name": "SetBack",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 133
+        },
+        {
+          "name": "ImpactFromFront",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 143
+        },
+        {
+          "name": "ImpactFromBack",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 155
+        },
+        {
+          "name": "ImpactFromRight",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 166
+        },
+        {
+          "name": "HeartbeatPattern",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 177
+        },
+        {
+          "name": "BreathingPattern",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 187
+        }
+      ]
+    },
+    {
+      "name": "MotionCueingParamsTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "AircraftDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 202
+        },
+        {
+          "name": "GroundVehicleDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 215
+        },
+        {
+          "name": "ShipDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 223
+        }
+      ]
+    },
+    {
+      "name": "GForceConfigTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "FighterJetConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 239
+        },
+        {
+          "name": "CivilAircraftConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 247
+        },
+        {
+          "name": "GroundVehicleConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 254
+        }
+      ]
+    },
+    {
+      "name": "EngineVibrationTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "CombustionFrequency",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 265
+        },
+        {
+          "name": "PropellerFrequency",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 277
+        }
+      ]
+    },
+    {
+      "name": "HapticControllerTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "Connection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 306
+        },
+        {
+          "name": "Capabilities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 311
+        },
+        {
+          "name": "PlayEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 318
+        },
+        {
+          "name": "StopEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 329
+        },
+        {
+          "name": "StopAllOnHand",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 339
+        },
+        {
+          "name": "PlayVibration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 346
+        }
+      ]
+    },
+    {
+      "name": "HapticVestTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "Connection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 377
+        },
+        {
+          "name": "Configuration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 382
+        },
+        {
+          "name": "SetZoneIntensity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 388
+        },
+        {
+          "name": "SetZoneIntensitiesBatch",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 395
+        },
+        {
+          "name": "PlayPattern",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 407
+        },
+        {
+          "name": "StopAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 415
+        }
+      ]
+    },
+    {
+      "name": "MotionPlatformTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "Connection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 448
+        },
+        {
+          "name": "Capabilities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 453
+        },
+        {
+          "name": "State",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 465
+        },
+        {
+          "name": "SendCommand",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 472
+        },
+        {
+          "name": "ApplyVehicleState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 483
+        },
+        {
+          "name": "EmergencyStop",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 492
+        },
+        {
+          "name": "Park",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 500
+        }
+      ]
+    },
+    {
+      "name": "HapticRendererTest",
+      "tests": 15,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 529
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 537
+        },
+        {
+          "name": "GetDevices",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 543
+        },
+        {
+          "name": "PlayControllerEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 552
+        },
+        {
+          "name": "PlayControllerVibration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 563
+        },
+        {
+          "name": "PlayVestPattern",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 572
+        },
+        {
+          "name": "PlayVestImpact",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 584
+        },
+        {
+          "name": "ApplyMotionCueing",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 593
+        },
+        {
+          "name": "SetEngineVibration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 607
+        },
+        {
+          "name": "CalculateGForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 620
+        },
+        {
+          "name": "GSuitActivation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 635
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 651
+        },
+        {
+          "name": "Statistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 663
+        },
+        {
+          "name": "EmergencyStopAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 677
+        },
+        {
+          "name": "MasterIntensity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 685
+        }
+      ]
+    },
+    {
+      "name": "AircraftPresetsTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "StallBuffet",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 702
+        },
+        {
+          "name": "Touchdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 709
+        },
+        {
+          "name": "AfterburnerIgnition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 717
+        }
+      ]
+    },
+    {
+      "name": "VehiclePresetsTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "RoadTexture",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 723
+        },
+        {
+          "name": "FiringRecoil",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 731
+        }
+      ]
+    },
+    {
+      "name": "NavalPresetsTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "WaveMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 738
+        }
+      ]
+    },
+    {
+      "name": "HelicopterPresetsTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "RotorVibration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 745
+        },
+        {
+          "name": "HardLanding",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 754
+        }
+      ]
+    },
+    {
+      "name": "HapticIntegrationTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "FullFlightSequence",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 765
+        },
+        {
+          "name": "TankCombat",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/haptics_tests.cpp",
+          "line": 807
+        }
+      ]
+    }
+  ]
+}

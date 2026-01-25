@@ -1,0 +1,2800 @@
+{
+  "tests": 464,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "CoreTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "BasicTypes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_main.cpp",
+          "line": 10
+        },
+        {
+          "name": "Vec3Operations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_main.cpp",
+          "line": 15
+        },
+        {
+          "name": "QuaternionOperations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_main.cpp",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "name": "Vec3Test",
+      "tests": 15,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 31
+        },
+        {
+          "name": "ValueConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 38
+        },
+        {
+          "name": "Addition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 45
+        },
+        {
+          "name": "Subtraction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 52
+        },
+        {
+          "name": "ScalarMultiplication",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 59
+        },
+        {
+          "name": "ScalarDivision",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 69
+        },
+        {
+          "name": "UnaryMinus",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 75
+        },
+        {
+          "name": "DotProduct",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 81
+        },
+        {
+          "name": "CrossProduct",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 91
+        },
+        {
+          "name": "LengthSquared",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 102
+        },
+        {
+          "name": "Length",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 107
+        },
+        {
+          "name": "Normalize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 115
+        },
+        {
+          "name": "NormalizeZeroVector",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 122
+        },
+        {
+          "name": "CompoundAssignment",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 129
+        },
+        {
+          "name": "StaticVectors",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 145
+        }
+      ]
+    },
+    {
+      "name": "QuatTest",
+      "tests": 15,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 181
+        },
+        {
+          "name": "Identity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 189
+        },
+        {
+          "name": "Conjugate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 197
+        },
+        {
+          "name": "NormSquared",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 206
+        },
+        {
+          "name": "Norm",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 211
+        },
+        {
+          "name": "Normalize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 216
+        },
+        {
+          "name": "Multiplication",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 226
+        },
+        {
+          "name": "MultiplicationNonCommutative",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 238
+        },
+        {
+          "name": "FromAxisAngle",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 249
+        },
+        {
+          "name": "RotateVector",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 263
+        },
+        {
+          "name": "RotateVectorIdentity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 274
+        },
+        {
+          "name": "RotateVector180Degrees",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 281
+        },
+        {
+          "name": "Inverse",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 292
+        },
+        {
+          "name": "EulerRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 301
+        },
+        {
+          "name": "ToRotationMatrix",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 316
+        }
+      ]
+    },
+    {
+      "name": "Mat3x3Test",
+      "tests": 16,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 348
+        },
+        {
+          "name": "Identity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 357
+        },
+        {
+          "name": "Zero",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 364
+        },
+        {
+          "name": "Diagonal",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 371
+        },
+        {
+          "name": "MatrixVectorMultiply",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 379
+        },
+        {
+          "name": "MatrixMatrixMultiply",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 388
+        },
+        {
+          "name": "Transpose",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 395
+        },
+        {
+          "name": "TransposeSymmetric",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 407
+        },
+        {
+          "name": "DeterminantIdentity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 417
+        },
+        {
+          "name": "DeterminantDiagonal",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 422
+        },
+        {
+          "name": "InverseIdentity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 427
+        },
+        {
+          "name": "InverseDiagonal",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 433
+        },
+        {
+          "name": "InverseProduct",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 440
+        },
+        {
+          "name": "ScalarMultiply",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 447
+        },
+        {
+          "name": "Addition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 455
+        },
+        {
+          "name": "InertiaMatrix",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 464
+        }
+      ]
+    },
+    {
+      "name": "ConstantsTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "GravitationalConstant",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 477
+        },
+        {
+          "name": "StandardGravity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 481
+        },
+        {
+          "name": "EarthParameters",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 485
+        },
+        {
+          "name": "AtmosphericConstants",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 490
+        },
+        {
+          "name": "ConversionFactors",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_math.cpp",
+          "line": 496
+        }
+      ]
+    },
+    {
+      "name": "EntityStateStorageTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "AllocateAndFree",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 24
+        },
+        {
+          "name": "SetAndGetState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 47
+        },
+        {
+          "name": "ClearForces",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 68
+        }
+      ]
+    },
+    {
+      "name": "EntityManagerTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "CreateAndDestroyEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 91
+        },
+        {
+          "name": "GetEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 107
+        },
+        {
+          "name": "SetAndGetState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 117
+        }
+      ]
+    },
+    {
+      "name": "IntegratorTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "EulerFreeFall",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 163
+        },
+        {
+          "name": "RK4FreeFall",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 187
+        },
+        {
+          "name": "RK4UniformMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 209
+        },
+        {
+          "name": "RK4ConstantAcceleration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 231
+        },
+        {
+          "name": "RK4RotationalMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 253
+        }
+      ]
+    },
+    {
+      "name": "QuaternionIntegrationTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IntegrateIdentity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 292
+        },
+        {
+          "name": "IntegrateRotation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 305
+        }
+      ]
+    },
+    {
+      "name": "PhysicsSystemTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "UpdateEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 335
+        }
+      ]
+    },
+    {
+      "name": "AdaptiveIntegratorTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 381
+        },
+        {
+          "name": "CustomBaseIntegrator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 388
+        },
+        {
+          "name": "ConfigurationAccess",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 395
+        },
+        {
+          "name": "FreeFallAccuracy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 412
+        },
+        {
+          "name": "UniformMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 429
+        },
+        {
+          "name": "AdaptiveStepResult",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 445
+        },
+        {
+          "name": "Reset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 461
+        },
+        {
+          "name": "ToleranceAffectsSubsteps",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 478
+        }
+      ]
+    },
+    {
+      "name": "RK45IntegratorTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "BasicProperties",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 525
+        },
+        {
+          "name": "ToleranceSettings",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 532
+        },
+        {
+          "name": "FreeFallAccuracy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 549
+        },
+        {
+          "name": "UniformMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 571
+        },
+        {
+          "name": "SuggestedStepSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 591
+        },
+        {
+          "name": "HigherOrderAccuracy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 606
+        },
+        {
+          "name": "RotationalMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 642
+        }
+      ]
+    },
+    {
+      "name": "IntegratorComparisonTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "AllIntegratorsConverge",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_physics.cpp",
+          "line": 687
+        }
+      ]
+    },
+    {
+      "name": "ForceGeneratorRegistryTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "InitiallyEmpty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 24
+        },
+        {
+          "name": "RegisterGenerator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 28
+        },
+        {
+          "name": "FindByName",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 34
+        },
+        {
+          "name": "FindNonExistent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 43
+        },
+        {
+          "name": "GetGeneratorsByDomain",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 51
+        },
+        {
+          "name": "GetEnabledGenerators",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 63
+        },
+        {
+          "name": "ClearRegistry",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 79
+        }
+      ]
+    },
+    {
+      "name": "SimpleGravityTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "FactoryCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 118
+        },
+        {
+          "name": "DefaultGravity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 125
+        },
+        {
+          "name": "CustomGravity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 139
+        },
+        {
+          "name": "GetGravityAcceleration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 152
+        },
+        {
+          "name": "EnableDisable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 164
+        }
+      ]
+    },
+    {
+      "name": "WGS84GravityTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "FactoryCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 208
+        },
+        {
+          "name": "GravityAtEquator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 215
+        },
+        {
+          "name": "GravityAtPole",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 228
+        },
+        {
+          "name": "PoleGravityStrongerThanEquator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 242
+        },
+        {
+          "name": "GravityPointsTowardCenter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 258
+        }
+      ]
+    },
+    {
+      "name": "SimpleAerodynamicsTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "FactoryCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 304
+        },
+        {
+          "name": "ZeroSpeedNoForces",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 311
+        },
+        {
+          "name": "DragOpposesMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 325
+        },
+        {
+          "name": "DynamicPressureCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 338
+        },
+        {
+          "name": "MachNumberCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 351
+        },
+        {
+          "name": "AngleOfAttack",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 364
+        },
+        {
+          "name": "CoefficientCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 378
+        }
+      ]
+    },
+    {
+      "name": "DragModelTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "FactoryCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 418
+        },
+        {
+          "name": "DefaultParameters",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 425
+        },
+        {
+          "name": "DragOpposesVelocity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 441
+        },
+        {
+          "name": "DragScalesWithVelocitySquared",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 457
+        },
+        {
+          "name": "ZeroSpeedNoDrag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 483
+        },
+        {
+          "name": "VeryLowSpeedNoDrag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 497
+        }
+      ]
+    },
+    {
+      "name": "ForceGeneratorInterfaceTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "AllGeneratorsHaveNames",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 520
+        },
+        {
+          "name": "AllGeneratorsHaveDomains",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 532
+        },
+        {
+          "name": "AllGeneratorsDefaultEnabled",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 544
+        },
+        {
+          "name": "AllGeneratorsInitializeSuccessfully",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_force.cpp",
+          "line": 556
+        }
+      ]
+    },
+    {
+      "name": "GeodeticPositionTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 40
+        },
+        {
+          "name": "FromDegrees",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 47
+        },
+        {
+          "name": "ToDegrees",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "name": "ECEFToLLATest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "EquatorPrimeMeridian",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 80
+        },
+        {
+          "name": "NorthPole",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 97
+        },
+        {
+          "name": "SouthPole",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 114
+        },
+        {
+          "name": "Equator90Degrees",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 130
+        },
+        {
+          "name": "WithAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 147
+        },
+        {
+          "name": "NegativeAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 159
+        }
+      ]
+    },
+    {
+      "name": "NEDTransformTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "MatrixTranspose",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 186
+        },
+        {
+          "name": "RoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 198
+        },
+        {
+          "name": "NorthVectorAtEquator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 207
+        },
+        {
+          "name": "DownVectorAtEquator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 219
+        }
+      ]
+    },
+    {
+      "name": "ENUTransformTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "RoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 246
+        },
+        {
+          "name": "NEDToENUConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 255
+        },
+        {
+          "name": "ENUToNEDConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 265
+        },
+        {
+          "name": "NEDENURoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 275
+        }
+      ]
+    },
+    {
+      "name": "BodyFrameTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "IdentityOrientation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 292
+        },
+        {
+          "name": "RoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 303
+        },
+        {
+          "name": "Rotation90DegreesYaw",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 314
+        }
+      ]
+    },
+    {
+      "name": "GeodeticUtilityTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "RadiusOfCurvatureN",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 336
+        },
+        {
+          "name": "RadiusOfCurvatureM",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 346
+        },
+        {
+          "name": "GreatCircleDistanceSamePoint",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 356
+        },
+        {
+          "name": "GreatCircleDistanceKnownPoints",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 362
+        },
+        {
+          "name": "InitialBearingNorth",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 371
+        },
+        {
+          "name": "InitialBearingEast",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 379
+        },
+        {
+          "name": "DestinationPointRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 387
+        }
+      ]
+    },
+    {
+      "name": "MathUtilityTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "NormalizeAnglePositive",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 412
+        },
+        {
+          "name": "NormalizeAngleNegative",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 420
+        },
+        {
+          "name": "NormalizeAngleAlreadyNormalized",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 427
+        },
+        {
+          "name": "NormalizeAnglePositiveRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 433
+        },
+        {
+          "name": "DegToRad",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 439
+        },
+        {
+          "name": "RadToDeg",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 445
+        }
+      ]
+    },
+    {
+      "name": "QuaternionFrameTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "ECEFToNEDQuatRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 466
+        },
+        {
+          "name": "ECEFToNEDQuatIsUnitQuat",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_coordinates.cpp",
+          "line": 478
+        }
+      ]
+    },
+    {
+      "name": "StandardAtmosphereTest",
+      "tests": 12,
+      "testsuite": [
+        {
+          "name": "SeaLevelConditions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 59
+        },
+        {
+          "name": "TemperatureAtKnownAltitudes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 68
+        },
+        {
+          "name": "PressureAtKnownAltitudes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 80
+        },
+        {
+          "name": "DensityAtKnownAltitudes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 95
+        },
+        {
+          "name": "SpeedOfSoundDecreases",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 110
+        },
+        {
+          "name": "TropopauseIsothermal",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 121
+        },
+        {
+          "name": "StratosphereWarming",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 132
+        },
+        {
+          "name": "GeopotentialConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 142
+        },
+        {
+          "name": "NegativeAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 155
+        },
+        {
+          "name": "VeryHighAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 167
+        },
+        {
+          "name": "IdealGasLaw",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 180
+        },
+        {
+          "name": "ViscosityReasonable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 196
+        }
+      ]
+    },
+    {
+      "name": "WeatherModelTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "NoWindByDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 217
+        },
+        {
+          "name": "SetWindLayer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 225
+        },
+        {
+          "name": "EasterlyWind",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 237
+        },
+        {
+          "name": "WindInterpolation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 249
+        },
+        {
+          "name": "RainAttenuation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 262
+        },
+        {
+          "name": "NoRainNoAttenuation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 277
+        },
+        {
+          "name": "FogVisibility",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 284
+        }
+      ]
+    },
+    {
+      "name": "AtmosphereManagerTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "CombinesStandardAndWeather",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 300
+        },
+        {
+          "name": "DisableWeather",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 316
+        },
+        {
+          "name": "AccessStandardAtmosphere",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 327
+        }
+      ]
+    },
+    {
+      "name": "WindProfileTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "PowerLawProfile",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 344
+        },
+        {
+          "name": "LogarithmicProfile",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 369
+        },
+        {
+          "name": "ConstantProfile",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 391
+        },
+        {
+          "name": "DirectionShear",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 414
+        },
+        {
+          "name": "GustsAddVariation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 436
+        },
+        {
+          "name": "GustsDecreaseWithAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 464
+        },
+        {
+          "name": "LinearShearProfile",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 494
+        },
+        {
+          "name": "ZeroAltitudeHandling",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 520
+        },
+        {
+          "name": "GetAndSetProfile",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_atmosphere.cpp",
+          "line": 538
+        }
+      ]
+    },
+    {
+      "name": "AeroTableTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "OneDimensionalLookup",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 27
+        },
+        {
+          "name": "OneDimensionalExtrapolation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 46
+        },
+        {
+          "name": "TwoDimensionalLookup",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "name": "AerodynamicsModelTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "ZeroSpeedNoForces",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 135
+        },
+        {
+          "name": "DynamicPressure",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 145
+        },
+        {
+          "name": "MachNumber",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 152
+        },
+        {
+          "name": "DragOpposesMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 159
+        },
+        {
+          "name": "AngleOfAttackProducesLift",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 171
+        },
+        {
+          "name": "SideslipProducesSideForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 190
+        },
+        {
+          "name": "DragCoefficient",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 203
+        },
+        {
+          "name": "WindEffectsOnAirspeed",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 211
+        },
+        {
+          "name": "DisabledGeneratorNoForces",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 229
+        }
+      ]
+    },
+    {
+      "name": "PropulsionModelTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "EngineOff",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 267
+        },
+        {
+          "name": "EngineStart",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 276
+        },
+        {
+          "name": "FullThrust",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 284
+        },
+        {
+          "name": "ThrustInForwardDirection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 294
+        },
+        {
+          "name": "ThrottleResponse",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 305
+        },
+        {
+          "name": "FuelConsumption",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 322
+        },
+        {
+          "name": "FuelExhaustion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 334
+        },
+        {
+          "name": "AltitudeEffect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 352
+        }
+      ]
+    },
+    {
+      "name": "FlightControlSystemTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "NeutralInputs",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 388
+        },
+        {
+          "name": "MaxPitchUp",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 402
+        },
+        {
+          "name": "MaxPitchDown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 414
+        },
+        {
+          "name": "RollRight",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 425
+        },
+        {
+          "name": "YawRight",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 436
+        },
+        {
+          "name": "RateLimiting",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 447
+        },
+        {
+          "name": "CombinedInputs",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 472
+        }
+      ]
+    },
+    {
+      "name": "AeroTableExtendedTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "ThreeDimensionalLookup",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 496
+        },
+        {
+          "name": "ThreeDimensionalInterpolationAlongEachAxis",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 531
+        },
+        {
+          "name": "FourDimensionalLookup",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 558
+        },
+        {
+          "name": "NonUniformBreakpoints",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 601
+        },
+        {
+          "name": "EmptyTable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 631
+        },
+        {
+          "name": "SinglePointTable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 639
+        },
+        {
+          "name": "MissingInputDimensions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 651
+        },
+        {
+          "name": "RealisticAeroData",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_air_domain.cpp",
+          "line": 666
+        }
+      ]
+    },
+    {
+      "name": "SoilPropertiesTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DrySandProperties",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 23
+        },
+        {
+          "name": "ClayProperties",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 36
+        },
+        {
+          "name": "AsphaltIsRigid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 47
+        },
+        {
+          "name": "SnowProperties",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "name": "TerramechanicsTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "NoForceWhenAboveGround",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 90
+        },
+        {
+          "name": "SinkageOnGround",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 101
+        },
+        {
+          "name": "MotionResistanceOnGround",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 112
+        },
+        {
+          "name": "NormalForceCountersWeight",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 124
+        },
+        {
+          "name": "HeightAboveGroundTolerance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 136
+        },
+        {
+          "name": "DisabledModelProducesNoForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 147
+        },
+        {
+          "name": "HigherWeightIncreaseSinkage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 160
+        }
+      ]
+    },
+    {
+      "name": "SuspensionUnitTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "PreloadForceAtZeroPosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 196
+        },
+        {
+          "name": "SpringForceIncreasesWithCompression",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 208
+        },
+        {
+          "name": "DampingForceWithVelocity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 220
+        },
+        {
+          "name": "BumpStopAtMaxTravel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 234
+        }
+      ]
+    },
+    {
+      "name": "SuspensionModelTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "EmptyModelHasZeroUnits",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 263
+        },
+        {
+          "name": "AddUnits",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 267
+        },
+        {
+          "name": "TotalForceFromMultipleUnits",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 277
+        }
+      ]
+    },
+    {
+      "name": "TrackedVehicleTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "InitialTrackState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 313
+        },
+        {
+          "name": "UpdateWithTorque",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 321
+        },
+        {
+          "name": "SlipIncreasesWithTorque",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 332
+        },
+        {
+          "name": "PropulsiveForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 348
+        }
+      ]
+    },
+    {
+      "name": "TerrainSoilIntegrationTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "AsphaltGivesMinimalSinkage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 386
+        },
+        {
+          "name": "MudGivesHighSinkage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 399
+        },
+        {
+          "name": "DrySandSinkage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 412
+        },
+        {
+          "name": "MudHigherSinkageThanAsphalt",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 427
+        },
+        {
+          "name": "InvalidTerrainUsesDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 450
+        },
+        {
+          "name": "WaterSurfaceGivesNoTraction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 460
+        },
+        {
+          "name": "SnowHighCompressibility",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_land_domain.cpp",
+          "line": 475
+        }
+      ]
+    },
+    {
+      "name": "SeaStateTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "CalmSeaState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 23
+        },
+        {
+          "name": "ModerateSeaState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 29
+        },
+        {
+          "name": "RoughSeaState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 38
+        },
+        {
+          "name": "SeaStateProgression",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "name": "WaveModelTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "ElevationVariesWithPosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 74
+        },
+        {
+          "name": "ElevationVariesWithTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 83
+        },
+        {
+          "name": "ElevationWithinReasonableBounds",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 91
+        },
+        {
+          "name": "CalmSeasNoWaves",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 107
+        },
+        {
+          "name": "ParticleVelocityDecaysWithDepth",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 117
+        },
+        {
+          "name": "SlopeRelatedToElevation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 125
+        },
+        {
+          "name": "JONSWAPSpectrum",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 138
+        }
+      ]
+    },
+    {
+      "name": "BuoyancyModelTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "NoBuoyancyAboveWater",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 180
+        },
+        {
+          "name": "BuoyancyWhenSubmerged",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 189
+        },
+        {
+          "name": "DraftCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 198
+        },
+        {
+          "name": "BuoyancyIncreasesWithDraft",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 208
+        },
+        {
+          "name": "ForceDirectionUpward",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 223
+        },
+        {
+          "name": "DisabledModelProducesNoForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 236
+        },
+        {
+          "name": "NotOverWaterProducesNoForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 246
+        }
+      ]
+    },
+    {
+      "name": "HydrodynamicsModelTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "NoForceWhenNotInWater",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 286
+        },
+        {
+          "name": "ResistanceOpposesMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 294
+        },
+        {
+          "name": "PropellerProducesThrust",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 304
+        },
+        {
+          "name": "RudderProducesYawMoment",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 322
+        },
+        {
+          "name": "SwayProducesYawMoment",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 340
+        },
+        {
+          "name": "DisabledModelProducesNoForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 351
+        }
+      ]
+    },
+    {
+      "name": "RAOModelTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "RAOInterpolation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 378
+        },
+        {
+          "name": "RAOExtrapolation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 391
+        },
+        {
+          "name": "DefaultRAODataInitialized",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 403
+        },
+        {
+          "name": "InvalidDOF",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 418
+        },
+        {
+          "name": "CalculateResponseFromWaves",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sea_domain.cpp",
+          "line": 427
+        }
+      ]
+    },
+    {
+      "name": "OrbitalElementsTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "CircularOrbitPeriod",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 30
+        },
+        {
+          "name": "CircularOrbitAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 43
+        },
+        {
+          "name": "EllipticalOrbitAltitudePerigee",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 54
+        },
+        {
+          "name": "ToStateVectorCircular",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 68
+        },
+        {
+          "name": "FromStateVectorRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 90
+        }
+      ]
+    },
+    {
+      "name": "TLETest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "ParseSatelliteNumber",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 120
+        },
+        {
+          "name": "ParseInclination",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 125
+        },
+        {
+          "name": "ParseEccentricity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 131
+        },
+        {
+          "name": "ParseMeanMotion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 137
+        },
+        {
+          "name": "ParseRAAN",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 143
+        }
+      ]
+    },
+    {
+      "name": "SGP4Test",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "InitializeFromTLE",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 164
+        },
+        {
+          "name": "InitializeFailsWithEmptyTLE",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 170
+        },
+        {
+          "name": "PropagateAtEpoch",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 176
+        },
+        {
+          "name": "PropagateForward",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 191
+        },
+        {
+          "name": "IsNotDeepSpace",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 211
+        }
+      ]
+    },
+    {
+      "name": "GravityModelTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "PointMassAtSurface",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 238
+        },
+        {
+          "name": "PointMassAtOrbit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 257
+        },
+        {
+          "name": "J2PerturbationAtPoles",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 274
+        },
+        {
+          "name": "J2PerturbationAtEquator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 293
+        },
+        {
+          "name": "J2J4Model",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 313
+        },
+        {
+          "name": "DisabledModelProducesNoForce",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 329
+        },
+        {
+          "name": "ForceProportionalToMass",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 340
+        }
+      ]
+    },
+    {
+      "name": "CoordinateTransformTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "GeodeticToECEFEquator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 371
+        },
+        {
+          "name": "GeodeticToECEFPole",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 385
+        },
+        {
+          "name": "GeodeticToECEFWithAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 400
+        },
+        {
+          "name": "ECEFToGeodeticRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 414
+        },
+        {
+          "name": "ECIToECEFRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 432
+        },
+        {
+          "name": "GMSTAtJ2000",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 444
+        }
+      ]
+    },
+    {
+      "name": "JB08AtmosphereTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DensityDecreasesWithAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 467
+        },
+        {
+          "name": "DensityBelowSpaceDomain",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 476
+        },
+        {
+          "name": "DensityAboveThreshold",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 481
+        },
+        {
+          "name": "SolarActivityModulation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 486
+        }
+      ]
+    },
+    {
+      "name": "AtmosphericDragTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "NoDragAtHighAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 522
+        },
+        {
+          "name": "DragOpposesVelocity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 536
+        },
+        {
+          "name": "DragProportionalToVelocitySquared",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 547
+        },
+        {
+          "name": "DisabledModelProducesNoDrag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 567
+        }
+      ]
+    },
+    {
+      "name": "LVLHTransformTest",
+      "tests": 10,
+      "testsuite": [
+        {
+          "name": "ECI_LVLH_MatrixOrthogonal",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 599
+        },
+        {
+          "name": "ECI_LVLH_RoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 617
+        },
+        {
+          "name": "RadialDirectionIsX",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 628
+        },
+        {
+          "name": "VelocityDirectionIsY",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 643
+        },
+        {
+          "name": "RelativePositionColocated",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 655
+        },
+        {
+          "name": "RelativePositionAhead",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 664
+        },
+        {
+          "name": "RelativePositionAbove",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 686
+        },
+        {
+          "name": "RelativePositionCrossTrack",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 698
+        },
+        {
+          "name": "AngularVelocityMagnitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 710
+        },
+        {
+          "name": "InclinedOrbit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_space_domain.cpp",
+          "line": 724
+        }
+      ]
+    },
+    {
+      "name": "SIMDTest",
+      "tests": 17,
+      "testsuite": [
+        {
+          "name": "SIMDAvailability",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 75
+        },
+        {
+          "name": "AlignmentCheck",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 91
+        },
+        {
+          "name": "BatchPositionUpdate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 106
+        },
+        {
+          "name": "BatchPositionUpdateSmallCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 134
+        },
+        {
+          "name": "BatchVelocityUpdate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 159
+        },
+        {
+          "name": "BatchForceToAcceleration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 187
+        },
+        {
+          "name": "BatchAddGravity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 211
+        },
+        {
+          "name": "BatchScale",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 227
+        },
+        {
+          "name": "BatchAdd",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 238
+        },
+        {
+          "name": "BatchFMA",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 247
+        },
+        {
+          "name": "BatchDotProduct",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 258
+        },
+        {
+          "name": "BatchLengthSquared",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 270
+        },
+        {
+          "name": "EmptyArrays",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 283
+        },
+        {
+          "name": "SingleElement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 296
+        },
+        {
+          "name": "ExactSIMDWidthMultiple",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 314
+        },
+        {
+          "name": "LargeValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 341
+        },
+        {
+          "name": "SmallValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_simd.cpp",
+          "line": 360
+        }
+      ]
+    },
+    {
+      "name": "EventTypeTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "GetEventCategory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 21
+        },
+        {
+          "name": "GetEventTypeName",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "name": "EventFactoryTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "CreateEntityCreated",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 64
+        },
+        {
+          "name": "CreateCollisionEnter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 79
+        },
+        {
+          "name": "CreateThresholdExceeded",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 99
+        }
+      ]
+    },
+    {
+      "name": "EventDispatcherTest",
+      "tests": 11,
+      "testsuite": [
+        {
+          "name": "SubscribeAndDispatch",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 131
+        },
+        {
+          "name": "UnsubscribeRemovesHandler",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 146
+        },
+        {
+          "name": "SubscribeCategoryReceivesMatchingEvents",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 160
+        },
+        {
+          "name": "SubscribeAllReceivesAllEvents",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 175
+        },
+        {
+          "name": "EventConsumptionStopsPropagation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 189
+        },
+        {
+          "name": "HandlerOrderRespected",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 208
+        },
+        {
+          "name": "QueueAndFlush",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 236
+        },
+        {
+          "name": "QueueRespectsPriority",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 256
+        },
+        {
+          "name": "StatisticsTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 345
+        },
+        {
+          "name": "EventHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 369
+        },
+        {
+          "name": "HandlerEnableDisable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 405
+        }
+      ]
+    },
+    {
+      "name": "EventSubscriptionTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "AutomaticUnsubscription",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 294
+        },
+        {
+          "name": "ReleasePreservesHandler",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 317
+        }
+      ]
+    },
+    {
+      "name": "ThresholdMonitorTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "UpperThresholdExceeded",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 465
+        },
+        {
+          "name": "LowerThresholdExceeded",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 500
+        },
+        {
+          "name": "BothThresholds",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 528
+        },
+        {
+          "name": "MultipleThresholds",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 553
+        },
+        {
+          "name": "NoRecoveryEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 575
+        },
+        {
+          "name": "ResetState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 592
+        },
+        {
+          "name": "RemoveThreshold",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 607
+        }
+      ]
+    },
+    {
+      "name": "DomainEventFactoryTest",
+      "tests": 11,
+      "testsuite": [
+        {
+          "name": "CreateStallEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 625
+        },
+        {
+          "name": "CreateStallRecoveryEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 642
+        },
+        {
+          "name": "CreateOverspeedEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 653
+        },
+        {
+          "name": "CreateWheelTouchdownEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 666
+        },
+        {
+          "name": "CreateWheelLiftoffEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 682
+        },
+        {
+          "name": "CreateVehicleRolloverEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 692
+        },
+        {
+          "name": "CreateCapsizeEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 704
+        },
+        {
+          "name": "CreateGroundingEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 717
+        },
+        {
+          "name": "CreateOrbitInsertionEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 730
+        },
+        {
+          "name": "CreateOrbitDecayEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 745
+        },
+        {
+          "name": "CreateDockingEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 757
+        }
+      ]
+    },
+    {
+      "name": "ScriptCallbackTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "ToScriptDataConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 774
+        },
+        {
+          "name": "CollisionDataConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 794
+        },
+        {
+          "name": "LambdaCallbackInvocation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 808
+        },
+        {
+          "name": "CFunctionCallback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 830
+        },
+        {
+          "name": "SerializeEventData",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 952
+        }
+      ]
+    },
+    {
+      "name": "ScriptCallbackRegistryTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "SubscribeAndReceive",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 859
+        },
+        {
+          "name": "SubscribeCategory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 881
+        },
+        {
+          "name": "SubscribeAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 905
+        },
+        {
+          "name": "Unsubscribe",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_events.cpp",
+          "line": 927
+        }
+      ]
+    },
+    {
+      "name": "IMUSensorTest",
+      "tests": 10,
+      "testsuite": [
+        {
+          "name": "Construction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 93
+        },
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 98
+        },
+        {
+          "name": "BasicMeasurement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 107
+        },
+        {
+          "name": "NoiseGeneration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 134
+        },
+        {
+          "name": "IMUGradeAffectsNoise",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 161
+        },
+        {
+          "name": "IntegratedOutputs",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 195
+        },
+        {
+          "name": "BiasManagement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 220
+        },
+        {
+          "name": "FailureInjection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 229
+        },
+        {
+          "name": "EnableDisable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 249
+        },
+        {
+          "name": "Reset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 259
+        }
+      ]
+    },
+    {
+      "name": "DrydenTurbulenceTest",
+      "tests": 12,
+      "testsuite": [
+        {
+          "name": "Construction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 291
+        },
+        {
+          "name": "ConstructionWithSeverity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 297
+        },
+        {
+          "name": "SeverityChange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 302
+        },
+        {
+          "name": "NoTurbulenceWhenDisabled",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 310
+        },
+        {
+          "name": "NoTurbulenceWhenNoneSeverity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 318
+        },
+        {
+          "name": "GeneratesTurbulence",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 326
+        },
+        {
+          "name": "SeverityAffectsMagnitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 340
+        },
+        {
+          "name": "AltitudeAffectsScaleLength",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 376
+        },
+        {
+          "name": "CustomIntensity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 392
+        },
+        {
+          "name": "CustomScaleLengths",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 401
+        },
+        {
+          "name": "Reset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 410
+        },
+        {
+          "name": "Reproducibility",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 424
+        }
+      ]
+    },
+    {
+      "name": "VonKarmanTurbulenceTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Construction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 466
+        },
+        {
+          "name": "FilterOrderConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 473
+        },
+        {
+          "name": "GeneratesTurbulence",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 485
+        },
+        {
+          "name": "CompareWithDryden",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 498
+        }
+      ]
+    },
+    {
+      "name": "SensorTestBase",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "TurbulenceIntensityByAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 543
+        },
+        {
+          "name": "TurbulenceIntensityBySeverity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 556
+        },
+        {
+          "name": "ScaleLengthByAltitude",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 569
+        },
+        {
+          "name": "IMUFactoryFunctions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 589
+        },
+        {
+          "name": "TurbulenceFactoryFunctions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 604
+        }
+      ]
+    },
+    {
+      "name": "SensorIntegrationTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IMUWithTurbulence",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 635
+        },
+        {
+          "name": "LongDurationSimulation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_sensors.cpp",
+          "line": 658
+        }
+      ]
+    },
+    {
+      "name": "BackendFactoryTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "CPUBackendIsAvailable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 25
+        },
+        {
+          "name": "CreateCPUBackend",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 29
+        },
+        {
+          "name": "CreateAutoBackend",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 35
+        },
+        {
+          "name": "CreateBestAvailable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 42
+        },
+        {
+          "name": "AvailableBackendsList",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 47
+        },
+        {
+          "name": "TypeNameConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "name": "CPUBackendTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 81
+        },
+        {
+          "name": "DoubleInitialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 89
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 95
+        },
+        {
+          "name": "DeviceCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 101
+        },
+        {
+          "name": "DeviceCapabilities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 106
+        },
+        {
+          "name": "SetDevice",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 119
+        }
+      ]
+    },
+    {
+      "name": "MemoryManagementTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "AllocateBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 147
+        },
+        {
+          "name": "AllocateWithType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 159
+        },
+        {
+          "name": "AllocateZeroSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 170
+        },
+        {
+          "name": "AllocatedMemoryTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 175
+        },
+        {
+          "name": "UploadDownload",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 186
+        },
+        {
+          "name": "UploadWithOffset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 206
+        },
+        {
+          "name": "CopyBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 222
+        },
+        {
+          "name": "FillBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 246
+        },
+        {
+          "name": "MapUnmap",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 264
+        }
+      ]
+    },
+    {
+      "name": "StreamEventTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "CreateStream",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 311
+        },
+        {
+          "name": "SynchronizeStream",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 317
+        },
+        {
+          "name": "Synchronize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 323
+        },
+        {
+          "name": "RecordEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 327
+        },
+        {
+          "name": "WaitEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 333
+        },
+        {
+          "name": "ElapsedTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 339
+        }
+      ]
+    },
+    {
+      "name": "UtilityFunctionsTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "ResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 362
+        },
+        {
+          "name": "MemoryTypeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 369
+        },
+        {
+          "name": "DeviceTypeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 375
+        }
+      ]
+    },
+    {
+      "name": "LaunchConfigTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "LinearConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 385
+        },
+        {
+          "name": "Grid2DConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 393
+        },
+        {
+          "name": "Grid3DConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 401
+        },
+        {
+          "name": "TotalThreads",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 408
+        }
+      ]
+    },
+    {
+      "name": "KernelArgTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "BufferArg",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 424
+        },
+        {
+          "name": "ScalarArgs",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 432
+        },
+        {
+          "name": "LocalMemoryArg",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 446
+        }
+      ]
+    },
+    {
+      "name": "HandleTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "BufferHandleValidity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 457
+        },
+        {
+          "name": "StreamHandleValidity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 467
+        },
+        {
+          "name": "EventHandleValidity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 476
+        }
+      ]
+    },
+    {
+      "name": "DeviceCapabilitiesTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "MeetsRequirements",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 488
+        }
+      ]
+    },
+    {
+      "name": "ErrorHandlingTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "OperationsBeforeInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 518
+        },
+        {
+          "name": "InvalidBufferUpload",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 524
+        },
+        {
+          "name": "InvalidBufferDownload",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 534
+        },
+        {
+          "name": "UploadExceedsSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 544
+        },
+        {
+          "name": "ClearError",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/unit\/test_compute_backend.cpp",
+          "line": 557
+        }
+      ]
+    }
+  ]
+}

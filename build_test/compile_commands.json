@@ -1,0 +1,776 @@
+[
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/engine_exec.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/engine_exec.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/engine_exec.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/engine_exec.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/property_manager.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/property_manager.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/property_manager.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/property_manager.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/config_loader.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/config_loader.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/config_loader.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/config_loader.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/time_manager.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/time_manager.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/time_manager.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/time_manager.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/memory/pool_allocator.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/memory/pool_allocator.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/memory/pool_allocator.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/memory/pool_allocator.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/threading/thread_pool.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/threading/thread_pool.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/threading/thread_pool.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/threading/thread_pool.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/simd.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/simd.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/simd.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/simd.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/math/vector.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/vector.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/vector.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/math/vector.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/math/quaternion.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/quaternion.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/quaternion.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/math/quaternion.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/math/matrix.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/matrix.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/matrix.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/math/matrix.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_core.dir/src/core/math/coordinates.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/coordinates.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/core/math/coordinates.cpp",
+  "output": "CMakeFiles/jaguar_core.dir/src/core/math/coordinates.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_events.dir/src/events/event.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/events/event.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/events/event.cpp",
+  "output": "CMakeFiles/jaguar_events.dir/src/events/event.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_events.dir/src/events/event_dispatcher.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/events/event_dispatcher.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/events/event_dispatcher.cpp",
+  "output": "CMakeFiles/jaguar_events.dir/src/events/event_dispatcher.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/entity_manager.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/entity_manager.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/entity_manager.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/entity_manager.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/physics_system.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/physics_system.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/physics_system.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/physics_system.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/force_generators.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/force_generators.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/force_generators.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/force_generators.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/collision.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/collision.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/collision.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/collision.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/rk4.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/rk4.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/rk4.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/rk4.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/abm4.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/abm4.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/abm4.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/abm4.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/adaptive.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/adaptive.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/adaptive.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/adaptive.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/symplectic_euler.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/symplectic_euler.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/symplectic_euler.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/symplectic_euler.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/verlet.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/verlet.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/verlet.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/verlet.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/dormand_prince.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/dormand_prince.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/dormand_prince.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/dormand_prince.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/integrators/boris.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/boris.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/integrators/boris.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/integrators/boris.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/sequential_impulse_solver.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/sequential_impulse_solver.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/sequential_impulse_solver.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/sequential_impulse_solver.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/distance_constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/distance_constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/distance_constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/distance_constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/hinge_constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/hinge_constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/hinge_constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/hinge_constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/ball_socket_constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/ball_socket_constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/ball_socket_constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/ball_socket_constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/slider_constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/slider_constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/slider_constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/slider_constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/fixed_constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/fixed_constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/fixed_constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/fixed_constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_physics.dir/src/physics/constraints/contact_constraint.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/contact_constraint.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/physics/constraints/contact_constraint.cpp",
+  "output": "CMakeFiles/jaguar_physics.dir/src/physics/constraints/contact_constraint.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_air.dir/src/domain/air/aerodynamics.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/air/aerodynamics.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/air/aerodynamics.cpp",
+  "output": "CMakeFiles/jaguar_domain_air.dir/src/domain/air/aerodynamics.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_air.dir/src/domain/air/propulsion.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/air/propulsion.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/air/propulsion.cpp",
+  "output": "CMakeFiles/jaguar_domain_air.dir/src/domain/air/propulsion.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_air.dir/src/domain/air/flight_control.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/air/flight_control.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/air/flight_control.cpp",
+  "output": "CMakeFiles/jaguar_domain_air.dir/src/domain/air/flight_control.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_land.dir/src/domain/land/terramechanics.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/land/terramechanics.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/land/terramechanics.cpp",
+  "output": "CMakeFiles/jaguar_domain_land.dir/src/domain/land/terramechanics.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_land.dir/src/domain/land/suspension.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/land/suspension.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/land/suspension.cpp",
+  "output": "CMakeFiles/jaguar_domain_land.dir/src/domain/land/suspension.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_sea.dir/src/domain/sea/hydrodynamics.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/sea/hydrodynamics.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/sea/hydrodynamics.cpp",
+  "output": "CMakeFiles/jaguar_domain_sea.dir/src/domain/sea/hydrodynamics.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_sea.dir/src/domain/sea/buoyancy.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/sea/buoyancy.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/sea/buoyancy.cpp",
+  "output": "CMakeFiles/jaguar_domain_sea.dir/src/domain/sea/buoyancy.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_space.dir/src/domain/space/sgp4.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/space/sgp4.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/space/sgp4.cpp",
+  "output": "CMakeFiles/jaguar_domain_space.dir/src/domain/space/sgp4.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_domain_space.dir/src/domain/space/gravity.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/space/gravity.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/domain/space/gravity.cpp",
+  "output": "CMakeFiles/jaguar_domain_space.dir/src/domain/space/gravity.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_gpu.dir/src/gpu/compute_backend.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/compute_backend.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/compute_backend.cpp",
+  "output": "CMakeFiles/jaguar_gpu.dir/src/gpu/compute_backend.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_gpu.dir/src/gpu/cpu_backend.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/cpu_backend.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/cpu_backend.cpp",
+  "output": "CMakeFiles/jaguar_gpu.dir/src/gpu/cpu_backend.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_gpu.dir/src/gpu/physics_kernels.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/physics_kernels.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/physics_kernels.cpp",
+  "output": "CMakeFiles/jaguar_gpu.dir/src/gpu/physics_kernels.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_gpu.dir/src/gpu/memory_pool.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/memory_pool.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/memory_pool.cpp",
+  "output": "CMakeFiles/jaguar_gpu.dir/src/gpu/memory_pool.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_gpu.dir/src/gpu/hybrid_physics.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/hybrid_physics.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/gpu/hybrid_physics.cpp",
+  "output": "CMakeFiles/jaguar_gpu.dir/src/gpu/hybrid_physics.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_environment.dir/src/environment/environment_service.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/environment_service.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/environment_service.cpp",
+  "output": "CMakeFiles/jaguar_environment.dir/src/environment/environment_service.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_environment.dir/src/environment/terrain/terrain_manager.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/terrain/terrain_manager.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/terrain/terrain_manager.cpp",
+  "output": "CMakeFiles/jaguar_environment.dir/src/environment/terrain/terrain_manager.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_environment.dir/src/environment/terrain/gdal_loader.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/terrain/gdal_loader.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/terrain/gdal_loader.cpp",
+  "output": "CMakeFiles/jaguar_environment.dir/src/environment/terrain/gdal_loader.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_environment.dir/src/environment/atmosphere/standard_atmosphere.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/atmosphere/standard_atmosphere.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/atmosphere/standard_atmosphere.cpp",
+  "output": "CMakeFiles/jaguar_environment.dir/src/environment/atmosphere/standard_atmosphere.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_environment.dir/src/environment/ocean/wave_spectrum.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/ocean/wave_spectrum.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/ocean/wave_spectrum.cpp",
+  "output": "CMakeFiles/jaguar_environment.dir/src/environment/ocean/wave_spectrum.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_environment.dir/src/environment/dryden_turbulence.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/dryden_turbulence.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/environment/dryden_turbulence.cpp",
+  "output": "CMakeFiles/jaguar_environment.dir/src/environment/dryden_turbulence.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_sensors.dir/src/sensors/sensor.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/sensors/sensor.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/sensors/sensor.cpp",
+  "output": "CMakeFiles/jaguar_sensors.dir/src/sensors/sensor.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_sensors.dir/src/sensors/imu_sensor.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/sensors/imu_sensor.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/sensors/imu_sensor.cpp",
+  "output": "CMakeFiles/jaguar_sensors.dir/src/sensors/imu_sensor.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_cloud.dir/src/cloud/partition_manager.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/partition_manager.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/partition_manager.cpp",
+  "output": "CMakeFiles/jaguar_cloud.dir/src/cloud/partition_manager.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_cloud.dir/src/cloud/auto_scaler.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/auto_scaler.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/auto_scaler.cpp",
+  "output": "CMakeFiles/jaguar_cloud.dir/src/cloud/auto_scaler.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_cloud.dir/src/cloud/state_sync.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/state_sync.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/state_sync.cpp",
+  "output": "CMakeFiles/jaguar_cloud.dir/src/cloud/state_sync.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_cloud.dir/src/cloud/distributed_time.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/distributed_time.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/cloud/distributed_time.cpp",
+  "output": "CMakeFiles/jaguar_cloud.dir/src/cloud/distributed_time.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_xr.dir/src/xr/xr_session.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/xr_session.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/xr_session.cpp",
+  "output": "CMakeFiles/jaguar_xr.dir/src/xr/xr_session.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_xr.dir/src/xr/mock_xr_runtime.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/mock_xr_runtime.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/mock_xr_runtime.cpp",
+  "output": "CMakeFiles/jaguar_xr.dir/src/xr/mock_xr_runtime.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_xr.dir/src/xr/spatial_audio.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/spatial_audio.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/spatial_audio.cpp",
+  "output": "CMakeFiles/jaguar_xr.dir/src/xr/spatial_audio.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_xr.dir/src/xr/haptics.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/haptics.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/haptics.cpp",
+  "output": "CMakeFiles/jaguar_xr.dir/src/xr/haptics.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_xr.dir/src/xr/training.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/training.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/xr/training.cpp",
+  "output": "CMakeFiles/jaguar_xr.dir/src/xr/training.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_thread.dir/src/thread/lifecycle_manager.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/thread/lifecycle_manager.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/thread/lifecycle_manager.cpp",
+  "output": "CMakeFiles/jaguar_thread.dir/src/thread/lifecycle_manager.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_thread.dir/src/thread/history_store.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/thread/history_store.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/thread/history_store.cpp",
+  "output": "CMakeFiles/jaguar_thread.dir/src/thread/history_store.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_thread.dir/src/thread/degradation_model.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/thread/degradation_model.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/thread/degradation_model.cpp",
+  "output": "CMakeFiles/jaguar_thread.dir/src/thread/degradation_model.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_ml.dir/src/ml/inference_session.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/inference_session.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/inference_session.cpp",
+  "output": "CMakeFiles/jaguar_ml.dir/src/ml/inference_session.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_ml.dir/src/ml/neural_autopilot.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/neural_autopilot.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/neural_autopilot.cpp",
+  "output": "CMakeFiles/jaguar_ml.dir/src/ml/neural_autopilot.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_ml.dir/src/ml/model_repository.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/model_repository.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/model_repository.cpp",
+  "output": "CMakeFiles/jaguar_ml.dir/src/ml/model_repository.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_ml.dir/src/ml/rl_environment.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/rl_environment.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/ml/rl_environment.cpp",
+  "output": "CMakeFiles/jaguar_ml.dir/src/ml/rl_environment.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wnull-dereference -Wformat=2 -O3 -mavx2 -mfma -o CMakeFiles/jaguar_network_transport.dir/src/federation/network_transport.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/src/federation/network_transport.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/src/federation/network_transport.cpp",
+  "output": "CMakeFiles/jaguar_network_transport.dir/src/federation/network_transport.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_main.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_main.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_main.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_main.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_math.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_math.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_math.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_math.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_physics.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_physics.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_physics.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_physics.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_force.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_force.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_force.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_force.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_coordinates.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_coordinates.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_coordinates.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_coordinates.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_atmosphere.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_atmosphere.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_atmosphere.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_atmosphere.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_air_domain.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_air_domain.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_air_domain.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_air_domain.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_land_domain.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_land_domain.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_land_domain.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_land_domain.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_sea_domain.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_sea_domain.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_sea_domain.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_sea_domain.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_space_domain.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_space_domain.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_space_domain.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_space_domain.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_simd.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_simd.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_simd.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_simd.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_events.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_events.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_events.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_events.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_sensors.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_sensors.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_sensors.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_sensors.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_compute_backend.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_compute_backend.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/unit/test_compute_backend.cpp",
+  "output": "CMakeFiles/jaguar_unit_tests.dir/tests/unit/test_compute_backend.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_physics_kernel_tests.dir/tests/gpu/physics_kernel_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/gpu/physics_kernel_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/gpu/physics_kernel_tests.cpp",
+  "output": "CMakeFiles/jaguar_physics_kernel_tests.dir/tests/gpu/physics_kernel_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_memory_pool_tests.dir/tests/gpu/memory_pool_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/gpu/memory_pool_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/gpu/memory_pool_tests.cpp",
+  "output": "CMakeFiles/jaguar_memory_pool_tests.dir/tests/gpu/memory_pool_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_hybrid_physics_tests.dir/tests/gpu/hybrid_physics_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/gpu/hybrid_physics_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/gpu/hybrid_physics_tests.cpp",
+  "output": "CMakeFiles/jaguar_hybrid_physics_tests.dir/tests/gpu/hybrid_physics_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_xr_tests.dir/tests/xr/xr_session_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/xr_session_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/xr_session_tests.cpp",
+  "output": "CMakeFiles/jaguar_xr_tests.dir/tests/xr/xr_session_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_spatial_audio_tests.dir/tests/xr/spatial_audio_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/spatial_audio_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/spatial_audio_tests.cpp",
+  "output": "CMakeFiles/jaguar_spatial_audio_tests.dir/tests/xr/spatial_audio_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_haptics_tests.dir/tests/xr/haptics_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/haptics_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/haptics_tests.cpp",
+  "output": "CMakeFiles/jaguar_haptics_tests.dir/tests/xr/haptics_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_training_tests.dir/tests/xr/training_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/training_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/xr/training_tests.cpp",
+  "output": "CMakeFiles/jaguar_training_tests.dir/tests/xr/training_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_partition_tests.dir/tests/cloud/partition_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/partition_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/partition_tests.cpp",
+  "output": "CMakeFiles/jaguar_partition_tests.dir/tests/cloud/partition_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_auto_scaler_tests.dir/tests/cloud/auto_scaler_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/auto_scaler_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/auto_scaler_tests.cpp",
+  "output": "CMakeFiles/jaguar_auto_scaler_tests.dir/tests/cloud/auto_scaler_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_state_sync_tests.dir/tests/cloud/state_sync_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/state_sync_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/state_sync_tests.cpp",
+  "output": "CMakeFiles/jaguar_state_sync_tests.dir/tests/cloud/state_sync_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_time_sync_tests.dir/tests/cloud/time_sync_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/time_sync_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/cloud/time_sync_tests.cpp",
+  "output": "CMakeFiles/jaguar_time_sync_tests.dir/tests/cloud/time_sync_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_network_transport_tests.dir/tests/federation/network_transport_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/federation/network_transport_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/federation/network_transport_tests.cpp",
+  "output": "CMakeFiles/jaguar_network_transport_tests.dir/tests/federation/network_transport_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_lifecycle_tests.dir/tests/thread/lifecycle_manager_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/thread/lifecycle_manager_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/thread/lifecycle_manager_tests.cpp",
+  "output": "CMakeFiles/jaguar_lifecycle_tests.dir/tests/thread/lifecycle_manager_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_history_tests.dir/tests/thread/history_store_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/thread/history_store_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/thread/history_store_tests.cpp",
+  "output": "CMakeFiles/jaguar_history_tests.dir/tests/thread/history_store_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_degradation_tests.dir/tests/thread/degradation_model_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/thread/degradation_model_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/thread/degradation_model_tests.cpp",
+  "output": "CMakeFiles/jaguar_degradation_tests.dir/tests/thread/degradation_model_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_inference_tests.dir/tests/ml/inference_session_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/inference_session_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/inference_session_tests.cpp",
+  "output": "CMakeFiles/jaguar_inference_tests.dir/tests/ml/inference_session_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_autopilot_tests.dir/tests/ml/neural_autopilot_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/neural_autopilot_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/neural_autopilot_tests.cpp",
+  "output": "CMakeFiles/jaguar_autopilot_tests.dir/tests/ml/neural_autopilot_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_model_repo_tests.dir/tests/ml/model_repository_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/model_repository_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/model_repository_tests.cpp",
+  "output": "CMakeFiles/jaguar_model_repo_tests.dir/tests/ml/model_repository_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_rl_env_tests.dir/tests/ml/rl_environment_tests.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/rl_environment_tests.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/ml/rl_environment_tests.cpp",
+  "output": "CMakeFiles/jaguar_rl_env_tests.dir/tests/ml/rl_environment_tests.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -I/Users/ikhyeon.kim/Workspace/JaguarEngine/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/eigen-src -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIE -o CMakeFiles/jaguar_benchmarks.dir/tests/benchmarks/bench_main.cpp.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/tests/benchmarks/bench_main.cpp",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/tests/benchmarks/bench_main.cpp",
+  "output": "CMakeFiles/jaguar_benchmarks.dir/tests/benchmarks/bench_main.cpp.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-build/googlemock",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-build/googlemock",
+  "command": "/usr/bin/clang++  -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-build/googletest",
+  "command": "/usr/bin/clang++  -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-build/googletest",
+  "command": "/usr/bin/clang++  -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/include -isystem /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++20 -arch x86_64 -fPIC  -DGTEST_HAS_PTHREAD=1   -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/benchmark.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/benchmark.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/benchmark_api_internal.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_api_internal.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_api_internal.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/benchmark_api_internal.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/benchmark_name.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_name.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_name.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/benchmark_name.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/benchmark_register.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_register.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_register.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/benchmark_register.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/benchmark_runner.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_runner.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_runner.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/benchmark_runner.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/check.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/check.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/check.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/check.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/colorprint.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/colorprint.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/colorprint.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/colorprint.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/commandlineflags.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/commandlineflags.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/commandlineflags.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/commandlineflags.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/complexity.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/complexity.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/complexity.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/complexity.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/console_reporter.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/console_reporter.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/console_reporter.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/console_reporter.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/counter.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/counter.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/counter.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/counter.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/csv_reporter.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/csv_reporter.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/csv_reporter.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/csv_reporter.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/json_reporter.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/json_reporter.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/json_reporter.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/json_reporter.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/perf_counters.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/perf_counters.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/perf_counters.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/perf_counters.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/reporter.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/reporter.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/reporter.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/reporter.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/statistics.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/statistics.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/statistics.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/statistics.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/string_util.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/string_util.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/string_util.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/string_util.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/sysinfo.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/sysinfo.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/sysinfo.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/sysinfo.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark.dir/timers.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/timers.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/timers.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark.dir/timers.cc.o"
+},
+{
+  "directory": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-build/src",
+  "command": "/usr/bin/clang++ -DBENCHMARK_STATIC_DEFINE -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK -DHAVE_THREAD_SAFETY_ATTRIBUTES -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/include -I/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src   -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety -O3 -DNDEBUG -std=c++11 -arch x86_64 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o CMakeFiles/benchmark_main.dir/benchmark_main.cc.o -c /Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_main.cc",
+  "file": "/Users/ikhyeon.kim/Workspace/JaguarEngine/build_test/_deps/benchmark-src/src/benchmark_main.cc",
+  "output": "_deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/benchmark_main.cc.o"
+}
+]

@@ -1,0 +1,198 @@
+{
+  "tests": 36,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "MemoryPoolTest",
+      "tests": 34,
+      "testsuite": [
+        {
+          "name": "DefaultConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 72
+        },
+        {
+          "name": "PhysicsOptimizedConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 84
+        },
+        {
+          "name": "LowMemoryConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 91
+        },
+        {
+          "name": "DebugConfiguration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 99
+        },
+        {
+          "name": "SizeClassClassification",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 107
+        },
+        {
+          "name": "InitializeDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 127
+        },
+        {
+          "name": "InitializeMultiplePools",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 141
+        },
+        {
+          "name": "AllocateSingleBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 162
+        },
+        {
+          "name": "AllocateMultipleBuffers",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 180
+        },
+        {
+          "name": "AllocateVec3Buffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 208
+        },
+        {
+          "name": "AllocateZeroSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 223
+        },
+        {
+          "name": "AllocateExceedsPool",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 233
+        },
+        {
+          "name": "AllocateWithFallback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 247
+        },
+        {
+          "name": "FreeBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 267
+        },
+        {
+          "name": "FreeInvalidBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 283
+        },
+        {
+          "name": "DoubleFree",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 296
+        },
+        {
+          "name": "ReuseFreedBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 316
+        },
+        {
+          "name": "AllocationPattern_FIFO",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 337
+        },
+        {
+          "name": "AllocationPattern_LIFO",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 363
+        },
+        {
+          "name": "AllocationPattern_Random",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 389
+        },
+        {
+          "name": "FragmentationIncreasesWithAlternatingFrees",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 425
+        },
+        {
+          "name": "DefragmentReducesFragmentation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 459
+        },
+        {
+          "name": "LeakDetectionDisabled",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 479
+        },
+        {
+          "name": "LeakDetectionEnabled",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 495
+        },
+        {
+          "name": "LeakDetectionWithTags",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 516
+        },
+        {
+          "name": "StatisticsTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 537
+        },
+        {
+          "name": "ManagerStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 566
+        },
+        {
+          "name": "UtilizationCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 586
+        },
+        {
+          "name": "UploadDownload",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 682
+        },
+        {
+          "name": "FormatMemorySize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 721
+        },
+        {
+          "name": "SizeClassToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 729
+        },
+        {
+          "name": "AllocationStrategyToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 737
+        },
+        {
+          "name": "EdgeCase_AllocateEntirePool",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 748
+        },
+        {
+          "name": "EdgeCase_ManySmallAllocations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 769
+        }
+      ]
+    },
+    {
+      "name": "MemoryPoolBenchmark",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "Benchmark_PooledAllocation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 628
+        },
+        {
+          "name": "Benchmark_BatchAllocation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/gpu\/memory_pool_tests.cpp",
+          "line": 642
+        }
+      ]
+    }
+  ]
+}

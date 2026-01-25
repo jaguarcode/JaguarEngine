@@ -1,0 +1,361 @@
+{
+  "tests": 59,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "AudioResultTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "SuccessString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 62
+        },
+        {
+          "name": "ErrorStrings",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 66
+        },
+        {
+          "name": "AudioSucceeded",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "name": "DistanceAttenuationTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "LinearModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 87
+        },
+        {
+          "name": "InverseModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 107
+        },
+        {
+          "name": "InverseSquareModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 125
+        },
+        {
+          "name": "LogarithmicModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 143
+        },
+        {
+          "name": "NoAttenuationModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 160
+        },
+        {
+          "name": "PresetIndoor",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 168
+        },
+        {
+          "name": "PresetOutdoor",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 175
+        },
+        {
+          "name": "PresetOpenField",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 181
+        }
+      ]
+    },
+    {
+      "name": "AudioConeTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "InsideInnerCone",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 195
+        },
+        {
+          "name": "OutsideOuterCone",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 205
+        },
+        {
+          "name": "BetweenCones",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 215
+        },
+        {
+          "name": "ValidityCheck",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 228
+        }
+      ]
+    },
+    {
+      "name": "DopplerConfigTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "NoMovement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 255
+        },
+        {
+          "name": "SourceApproaching",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 267
+        },
+        {
+          "name": "SourceReceding",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 281
+        },
+        {
+          "name": "DisabledDoppler",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 295
+        },
+        {
+          "name": "PitchClamping",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 308
+        }
+      ]
+    },
+    {
+      "name": "RoomAcousticsPresetTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "SmallRoom",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 327
+        },
+        {
+          "name": "Cathedral",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 334
+        },
+        {
+          "name": "Outdoor",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 341
+        },
+        {
+          "name": "Underwater",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 348
+        },
+        {
+          "name": "Cockpit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 355
+        },
+        {
+          "name": "None",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 362
+        }
+      ]
+    },
+    {
+      "name": "RoomMaterialTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "ConcretePreset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 372
+        },
+        {
+          "name": "CarpetPreset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 381
+        },
+        {
+          "name": "GlassPreset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 388
+        }
+      ]
+    },
+    {
+      "name": "OccluderMaterialTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "SolidWall",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 398
+        },
+        {
+          "name": "Foliage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 404
+        }
+      ]
+    },
+    {
+      "name": "SpatialAudioTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "CreateRenderer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 414
+        },
+        {
+          "name": "InitializeRenderer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 419
+        },
+        {
+          "name": "ShutdownRenderer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 425
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 431
+        },
+        {
+          "name": "UpdateNotInitialized",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 649
+        }
+      ]
+    },
+    {
+      "name": "SpatialAudioInitializedTest",
+      "tests": 21,
+      "testsuite": [
+        {
+          "name": "CreateSource",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 443
+        },
+        {
+          "name": "CreateMultipleSources",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 453
+        },
+        {
+          "name": "DestroySource",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 465
+        },
+        {
+          "name": "DestroyInvalidSource",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 480
+        },
+        {
+          "name": "SourcePlaybackControl",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 485
+        },
+        {
+          "name": "SourcePosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 507
+        },
+        {
+          "name": "SourceGain",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 520
+        },
+        {
+          "name": "SourcePitch",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 535
+        },
+        {
+          "name": "SourceMute",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 550
+        },
+        {
+          "name": "ListenerPosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 567
+        },
+        {
+          "name": "ListenerMasterGain",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 580
+        },
+        {
+          "name": "ListenerXRTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 590
+        },
+        {
+          "name": "SetRoomAcoustics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 613
+        },
+        {
+          "name": "UpdateWithNoSources",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 626
+        },
+        {
+          "name": "UpdateWithSources",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 631
+        },
+        {
+          "name": "RenderBuffer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 643
+        },
+        {
+          "name": "HRTFInfo",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 658
+        },
+        {
+          "name": "LoadHRTFDataset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 664
+        },
+        {
+          "name": "CPUUsage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 676
+        },
+        {
+          "name": "VirtualizedSourceCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 682
+        },
+        {
+          "name": "FullAudioPipeline",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 723
+        }
+      ]
+    },
+    {
+      "name": "RoomGeometryTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "VolumeCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 704
+        },
+        {
+          "name": "SurfaceAreaCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/spatial_audio_tests.cpp",
+          "line": 711
+        }
+      ]
+    }
+  ]
+}

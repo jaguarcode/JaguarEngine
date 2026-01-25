@@ -1,0 +1,381 @@
+{
+  "tests": 57,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "ScalingPolicyTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "DefaultPolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 20
+        },
+        {
+          "name": "AggressivePolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 33
+        },
+        {
+          "name": "ConservativePolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 45
+        },
+        {
+          "name": "LargeScalePolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 56
+        },
+        {
+          "name": "ThresholdValidation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 68
+        }
+      ]
+    },
+    {
+      "name": "ScalingDecisionTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "DecisionCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 90
+        },
+        {
+          "name": "IsValidFlag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 110
+        },
+        {
+          "name": "SecondaryTriggers",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 121
+        }
+      ]
+    },
+    {
+      "name": "AutoScalerConfigTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 138
+        },
+        {
+          "name": "DevelopmentConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 151
+        },
+        {
+          "name": "ProductionConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 163
+        },
+        {
+          "name": "KubernetesSettings",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 175
+        },
+        {
+          "name": "PrometheusSettings",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 188
+        }
+      ]
+    },
+    {
+      "name": "MetricsCollectorTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 215
+        },
+        {
+          "name": "CollectNodeMetrics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 220
+        },
+        {
+          "name": "AggregateMetrics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 230
+        },
+        {
+          "name": "CustomMetricRegistration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 252
+        },
+        {
+          "name": "MetricHistoryClear",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 262
+        }
+      ]
+    },
+    {
+      "name": "PolicyEvaluatorTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "ScaleUpTriggerCPU",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 284
+        },
+        {
+          "name": "ScaleUpTriggerEntityCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 306
+        },
+        {
+          "name": "ScaleDownTrigger",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 327
+        },
+        {
+          "name": "CooldownPeriod",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 347
+        },
+        {
+          "name": "ConsecutiveTriggersRequirement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 359
+        },
+        {
+          "name": "PolicyUpdate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 374
+        }
+      ]
+    },
+    {
+      "name": "AutoScalerLifecycleTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 405
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 413
+        },
+        {
+          "name": "IsInitialized",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 419
+        },
+        {
+          "name": "UpdateLoop",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 432
+        }
+      ]
+    },
+    {
+      "name": "ScalingOperationsTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "ScaleUp",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 464
+        },
+        {
+          "name": "ScaleDown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 474
+        },
+        {
+          "name": "ScaleTo",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 484
+        },
+        {
+          "name": "MinNodeLimit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 494
+        },
+        {
+          "name": "MaxNodeLimit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 502
+        },
+        {
+          "name": "IsScaling",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 517
+        },
+        {
+          "name": "IsCooldown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 523
+        }
+      ]
+    },
+    {
+      "name": "StatisticsTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "GetStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 554
+        },
+        {
+          "name": "ResetStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 565
+        },
+        {
+          "name": "StatsReset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 575
+        },
+        {
+          "name": "ScalingHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 588
+        },
+        {
+          "name": "ClearHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 596
+        }
+      ]
+    },
+    {
+      "name": "ScalingEnumTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "ScalingResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 608
+        },
+        {
+          "name": "ScalingDirectionToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 617
+        },
+        {
+          "name": "ScalingTriggerToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 623
+        },
+        {
+          "name": "MetricTypeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 630
+        }
+      ]
+    },
+    {
+      "name": "NodeMetricsTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 641
+        },
+        {
+          "name": "SetValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 651
+        }
+      ]
+    },
+    {
+      "name": "ClusterMetricsTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 674
+        },
+        {
+          "name": "AggregateValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 683
+        }
+      ]
+    },
+    {
+      "name": "ScalingEventTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "EventCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 706
+        }
+      ]
+    },
+    {
+      "name": "PolicyManagementTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "GetPolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 752
+        },
+        {
+          "name": "UpdatePolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 760
+        },
+        {
+          "name": "EnableDisable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 770
+        }
+      ]
+    },
+    {
+      "name": "CallbackTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "SetCallbacks",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 803
+        },
+        {
+          "name": "NodeCallbacks",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 828
+        }
+      ]
+    },
+    {
+      "name": "AutoScalerEdgeCases",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "UninitializedAccess",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 847
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 860
+        },
+        {
+          "name": "DoubleShutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/auto_scaler_tests.cpp",
+          "line": 874
+        }
+      ]
+    }
+  ]
+}

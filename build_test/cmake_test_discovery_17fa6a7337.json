@@ -1,0 +1,314 @@
+{
+  "tests": 46,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "NetworkResultTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "SuccessValue",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 18
+        },
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "name": "SocketAddressTest",
+      "tests": 10,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 37
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 44
+        },
+        {
+          "name": "ParseIPv4",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 51
+        },
+        {
+          "name": "ParseIPv6",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 59
+        },
+        {
+          "name": "ParseHostOnly",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 67
+        },
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 74
+        },
+        {
+          "name": "IsMulticast",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 82
+        },
+        {
+          "name": "IsLoopback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 100
+        },
+        {
+          "name": "IsBroadcast",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 114
+        },
+        {
+          "name": "Equality",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 122
+        }
+      ]
+    },
+    {
+      "name": "NetworkStatsTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 137
+        },
+        {
+          "name": "Reset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 147
+        },
+        {
+          "name": "BytesPerSecond",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 162
+        }
+      ]
+    },
+    {
+      "name": "IOBufferTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 180
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 186
+        },
+        {
+          "name": "FromVector",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 193
+        }
+      ]
+    },
+    {
+      "name": "UDPSocketConfigTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "DISDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 204
+        },
+        {
+          "name": "CustomPort",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 211
+        }
+      ]
+    },
+    {
+      "name": "UDPSocketTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "CreateSocket",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 220
+        },
+        {
+          "name": "InitializeAndClose",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 226
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 244
+        },
+        {
+          "name": "SendReceiveLoopback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 260
+        },
+        {
+          "name": "PollReadable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 295
+        },
+        {
+          "name": "SetTimeouts",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 308
+        },
+        {
+          "name": "Statistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 323
+        }
+      ]
+    },
+    {
+      "name": "TCPConnectionTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "CreateConnection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 351
+        }
+      ]
+    },
+    {
+      "name": "TCPServerTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "CreateServer",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 361
+        },
+        {
+          "name": "ListenAndClose",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 367
+        },
+        {
+          "name": "AcceptTimeout",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 385
+        }
+      ]
+    },
+    {
+      "name": "TCPIntegrationTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ClientServerConnection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 404
+        }
+      ]
+    },
+    {
+      "name": "MessageFramerTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "FrameMessage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 450
+        },
+        {
+          "name": "ProcessSingleMessage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 471
+        },
+        {
+          "name": "ProcessMultipleMessages",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 489
+        },
+        {
+          "name": "PartialMessage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 516
+        },
+        {
+          "name": "Clear",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 539
+        }
+      ]
+    },
+    {
+      "name": "ReliableUDPTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "CreateReliableUDP",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 557
+        },
+        {
+          "name": "InitializeAndClose",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 562
+        }
+      ]
+    },
+    {
+      "name": "UtilityTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "IsPortAvailable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 580
+        },
+        {
+          "name": "GetAvailablePort",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 589
+        },
+        {
+          "name": "ResolveLocalhost",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 596
+        },
+        {
+          "name": "ByteOrderConversion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 609
+        }
+      ]
+    },
+    {
+      "name": "ConstantsTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "DefaultPorts",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 625
+        },
+        {
+          "name": "MaxUDPPayload",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 630
+        },
+        {
+          "name": "MulticastTTL",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/federation\/network_transport_tests.cpp",
+          "line": 634
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,441 @@
+{
+  "tests": 69,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "StateVersionTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 45
+        },
+        {
+          "name": "HappensBefore",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 52
+        },
+        {
+          "name": "ConcurrentWith",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 61
+        },
+        {
+          "name": "SelfNotConcurrent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "name": "StateDeltaTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DeltaCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 94
+        },
+        {
+          "name": "CompressionRatio",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 101
+        },
+        {
+          "name": "CompressionRatioNoCompression",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 106
+        },
+        {
+          "name": "CompressionRatioZeroSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 115
+        }
+      ]
+    },
+    {
+      "name": "StateSnapshotTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "SnapshotCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 149
+        },
+        {
+          "name": "CompressionRatio",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 157
+        },
+        {
+          "name": "CompressionRatioZeroSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 162
+        }
+      ]
+    },
+    {
+      "name": "SyncConfigTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 177
+        },
+        {
+          "name": "LowLatencyConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 189
+        },
+        {
+          "name": "HighConsistencyConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 198
+        },
+        {
+          "name": "LargeScaleConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 209
+        }
+      ]
+    },
+    {
+      "name": "StateSerializerTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "SerializeDeserialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 251
+        },
+        {
+          "name": "DeltaCreation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 266
+        },
+        {
+          "name": "DeltaApplication",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 278
+        },
+        {
+          "name": "Compression",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 292
+        },
+        {
+          "name": "CompressionDecompression",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 300
+        },
+        {
+          "name": "ChecksumCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 312
+        },
+        {
+          "name": "ChecksumVerification",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 319
+        }
+      ]
+    },
+    {
+      "name": "ConflictResolverTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "DetectConflict",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 358
+        },
+        {
+          "name": "NoConflictWhenCausal",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 365
+        },
+        {
+          "name": "LastWriterWinsResolution",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 374
+        },
+        {
+          "name": "FirstWriterWinsResolution",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 390
+        },
+        {
+          "name": "RequiresRollback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 406
+        },
+        {
+          "name": "DoesNotRequireRollback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 416
+        }
+      ]
+    },
+    {
+      "name": "SnapshotManagerTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "CreateFullSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 449
+        },
+        {
+          "name": "StoreAndLoadSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 459
+        },
+        {
+          "name": "LoadNonexistentSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 473
+        },
+        {
+          "name": "RestoreSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 478
+        },
+        {
+          "name": "CleanupOldSnapshots",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 489
+        },
+        {
+          "name": "VerifySnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 506
+        },
+        {
+          "name": "VerifyCorruptedSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 513
+        }
+      ]
+    },
+    {
+      "name": "StateSynchronizerLifecycleTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 547
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 553
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 559
+        },
+        {
+          "name": "ShutdownAndReinitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 566
+        },
+        {
+          "name": "OperationWithoutInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 575
+        }
+      ]
+    },
+    {
+      "name": "EntitySyncTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "SyncEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 613
+        },
+        {
+          "name": "SyncMultipleEntities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 618
+        },
+        {
+          "name": "GetLocalState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 634
+        },
+        {
+          "name": "GetNonexistentState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 643
+        },
+        {
+          "name": "UpdateVersion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 648
+        }
+      ]
+    },
+    {
+      "name": "SnapshotOperationsTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "CreateSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 688
+        },
+        {
+          "name": "RestoreSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 693
+        },
+        {
+          "name": "RestoreNonexistentSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 701
+        },
+        {
+          "name": "ListSnapshots",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 706
+        },
+        {
+          "name": "GetSnapshotInfo",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 714
+        },
+        {
+          "name": "CleanupSnapshots",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 722
+        }
+      ]
+    },
+    {
+      "name": "StatisticsTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "GetStatistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 752
+        },
+        {
+          "name": "StatsAfterSync",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 759
+        },
+        {
+          "name": "StatsAfterSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 770
+        },
+        {
+          "name": "ResetStatistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 782
+        }
+      ]
+    },
+    {
+      "name": "ConflictHandlingTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "SetConflictResolution",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 816
+        },
+        {
+          "name": "GetPendingConflicts",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 821
+        },
+        {
+          "name": "HandleConflict",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 826
+        }
+      ]
+    },
+    {
+      "name": "ConfigurationTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "GetConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 858
+        },
+        {
+          "name": "SetSyncInterval",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 863
+        },
+        {
+          "name": "SetSnapshotInterval",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 868
+        },
+        {
+          "name": "SetAutoSync",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 873
+        }
+      ]
+    },
+    {
+      "name": "SyncEnumTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "SyncResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 883
+        },
+        {
+          "name": "SyncStrategyToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 890
+        },
+        {
+          "name": "ConflictResolutionToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 896
+        },
+        {
+          "name": "SnapshotTypeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 903
+        }
+      ]
+    },
+    {
+      "name": "StateSyncEdgeCases",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "Uninitialized",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 913
+        },
+        {
+          "name": "InvalidEntityId",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 924
+        },
+        {
+          "name": "EmptySnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/state_sync_tests.cpp",
+          "line": 939
+        }
+      ]
+    }
+  ]
+}

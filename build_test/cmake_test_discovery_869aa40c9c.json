@@ -1,0 +1,684 @@
+{
+  "tests": 114,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "SemanticVersionTest",
+      "tests": 17,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 28
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 35
+        },
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 42
+        },
+        {
+          "name": "ParseValid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 49
+        },
+        {
+          "name": "ParseMajorOnly",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 56
+        },
+        {
+          "name": "ParseMajorMinor",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 63
+        },
+        {
+          "name": "ParseInvalid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 70
+        },
+        {
+          "name": "EqualityOperator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 77
+        },
+        {
+          "name": "InequalityOperator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 86
+        },
+        {
+          "name": "LessThanOperator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 94
+        },
+        {
+          "name": "GreaterThanOperator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 101
+        },
+        {
+          "name": "LessThanOrEqualOperator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 108
+        },
+        {
+          "name": "GreaterThanOrEqualOperator",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 114
+        },
+        {
+          "name": "CompatibilityCheck",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 120
+        },
+        {
+          "name": "ComparisonByMajorVersion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 128
+        },
+        {
+          "name": "ComparisonByMinorVersion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 134
+        },
+        {
+          "name": "ComparisonByPatchVersion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 140
+        }
+      ]
+    },
+    {
+      "name": "ModelRepoTensorInfoTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 153
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 160
+        },
+        {
+          "name": "StaticShape",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 170
+        },
+        {
+          "name": "DynamicShape",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 176
+        },
+        {
+          "name": "ElementCountMultipleDimensions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 182
+        },
+        {
+          "name": "EmptyShape",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 187
+        }
+      ]
+    },
+    {
+      "name": "ModelMetadataTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 207
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 215
+        },
+        {
+          "name": "AddTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 222
+        },
+        {
+          "name": "GetTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 231
+        },
+        {
+          "name": "GetNonExistentTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 239
+        },
+        {
+          "name": "HasTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 244
+        },
+        {
+          "name": "FullId",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 250
+        },
+        {
+          "name": "OverwriteTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 254
+        },
+        {
+          "name": "TimestampInitialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 263
+        }
+      ]
+    },
+    {
+      "name": "ModelEntryTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Construction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 292
+        },
+        {
+          "name": "Touch",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 298
+        },
+        {
+          "name": "Age",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 307
+        },
+        {
+          "name": "IsUsable",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 312
+        }
+      ]
+    },
+    {
+      "name": "ModelQueryTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 336
+        },
+        {
+          "name": "ForType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 347
+        },
+        {
+          "name": "ForName",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 354
+        },
+        {
+          "name": "ForVersionRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 361
+        },
+        {
+          "name": "ForTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 373
+        }
+      ]
+    },
+    {
+      "name": "CacheConfigTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 387
+        },
+        {
+          "name": "AggressiveConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 395
+        },
+        {
+          "name": "RelaxedConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 403
+        },
+        {
+          "name": "CustomConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 411
+        }
+      ]
+    },
+    {
+      "name": "RepositoryConfigTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 431
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 438
+        },
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 444
+        },
+        {
+          "name": "InMemoryConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 451
+        },
+        {
+          "name": "PersistentConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 458
+        }
+      ]
+    },
+    {
+      "name": "RepositoryStatsTest",
+      "tests": 10,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 474
+        },
+        {
+          "name": "CountForType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 483
+        },
+        {
+          "name": "CacheHitRateZero",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 492
+        },
+        {
+          "name": "CacheHitRateCalculation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 496
+        },
+        {
+          "name": "CacheHitRatePerfect",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 502
+        },
+        {
+          "name": "CacheUtilization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 508
+        },
+        {
+          "name": "CacheUtilizationZero",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 516
+        },
+        {
+          "name": "IsNearCapacityByCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 523
+        },
+        {
+          "name": "IsNearCapacityByMemory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 534
+        },
+        {
+          "name": "NotNearCapacity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 545
+        }
+      ]
+    },
+    {
+      "name": "HelperFunctionsTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "FindLatestVersionEmpty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 563
+        },
+        {
+          "name": "FindLatestVersionSingle",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 569
+        },
+        {
+          "name": "FindLatestVersionMultiple",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 579
+        },
+        {
+          "name": "FindCompatibleModelsEmpty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 595
+        },
+        {
+          "name": "FindCompatibleModelsSameMajor",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 601
+        },
+        {
+          "name": "CalculateModelAgeHours",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 616
+        },
+        {
+          "name": "ShouldUpdateModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 627
+        },
+        {
+          "name": "FormatModelSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 638
+        }
+      ]
+    },
+    {
+      "name": "EnumConversionTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "ModelResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 649
+        },
+        {
+          "name": "ModelTypeToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 656
+        },
+        {
+          "name": "ModelStatusToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 663
+        }
+      ]
+    },
+    {
+      "name": "ModelRepositoryTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 695
+        },
+        {
+          "name": "CreateWithDefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 699
+        },
+        {
+          "name": "CreateMemoryRepository",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 705
+        },
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 710
+        },
+        {
+          "name": "DoubleInitialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 716
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 721
+        },
+        {
+          "name": "ShutdownWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 727
+        },
+        {
+          "name": "GetConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 731
+        }
+      ]
+    },
+    {
+      "name": "ModelRegistrationTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "RegisterModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 760
+        },
+        {
+          "name": "RegisterMultipleModels",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 768
+        },
+        {
+          "name": "RegisterDuplicateModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 778
+        },
+        {
+          "name": "RegisterWithoutInitialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 785
+        },
+        {
+          "name": "UnregisterModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 792
+        },
+        {
+          "name": "UnregisterNonExistentModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 800
+        },
+        {
+          "name": "UnregisterWithoutInitialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 804
+        }
+      ]
+    },
+    {
+      "name": "ModelRetrievalTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "GetMetadata",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 845
+        },
+        {
+          "name": "GetMetadataNonExistent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 852
+        },
+        {
+          "name": "QueryAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 857
+        },
+        {
+          "name": "QueryByType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 863
+        },
+        {
+          "name": "QueryByNamePattern",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 873
+        },
+        {
+          "name": "QueryByVersionRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 879
+        },
+        {
+          "name": "QueryWithLimit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 889
+        },
+        {
+          "name": "QueryByTag",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 896
+        },
+        {
+          "name": "QuerySortedByVersion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 909
+        }
+      ]
+    },
+    {
+      "name": "CacheTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "InitialCacheEmpty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 948
+        },
+        {
+          "name": "ClearCache",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 952
+        },
+        {
+          "name": "ClearCacheWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 957
+        },
+        {
+          "name": "GetStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 962
+        },
+        {
+          "name": "StatsAfterRegistration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 970
+        }
+      ]
+    },
+    {
+      "name": "ValidationTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "ValidateNonExistentModel",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1007
+        },
+        {
+          "name": "SetDeprecated",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1011
+        },
+        {
+          "name": "SetDeprecatedNonExistent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1022
+        },
+        {
+          "name": "SetDeprecatedWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1026
+        },
+        {
+          "name": "QueryExcludesDeprecatedByDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1031
+        },
+        {
+          "name": "QueryIncludesDeprecatedWhenRequested",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1047
+        }
+      ]
+    },
+    {
+      "name": "ImportExportTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "ExportEmptyCatalog",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1089
+        },
+        {
+          "name": "ExportWithModels",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1097
+        },
+        {
+          "name": "ImportNonExistentFile",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1108
+        },
+        {
+          "name": "ExportWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1113
+        },
+        {
+          "name": "ImportWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1118
+        }
+      ]
+    },
+    {
+      "name": "FactoryTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "CreateWithCustomConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1127
+        },
+        {
+          "name": "CreateMemoryRepository",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1137
+        }
+      ]
+    },
+    {
+      "name": "ThreadSafetyTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ConcurrentQueries",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/ml\/model_repository_tests.cpp",
+          "line": 1167
+        }
+      ]
+    }
+  ]
+}

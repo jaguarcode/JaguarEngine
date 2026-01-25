@@ -1,0 +1,526 @@
+{
+  "tests": 92,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "TrainingResultTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "ResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 21
+        },
+        {
+          "name": "SuccessCheck",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "name": "CockpitModuleTest",
+      "tests": 12,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 56
+        },
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 62
+        },
+        {
+          "name": "Instruments",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 70
+        },
+        {
+          "name": "SetInstrumentValue",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 94
+        },
+        {
+          "name": "InstrumentFailure",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 108
+        },
+        {
+          "name": "Controls",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 123
+        },
+        {
+          "name": "SetControlPosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 139
+        },
+        {
+          "name": "FlightState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 153
+        },
+        {
+          "name": "Checklists",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 172
+        },
+        {
+          "name": "Systems",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 183
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 195
+        },
+        {
+          "name": "UpdateWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 209
+        }
+      ]
+    },
+    {
+      "name": "BridgeModuleTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 227
+        },
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 233
+        },
+        {
+          "name": "Stations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 241
+        },
+        {
+          "name": "Navigation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 254
+        },
+        {
+          "name": "Controls",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 269
+        },
+        {
+          "name": "Radar",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 280
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 290
+        }
+      ]
+    },
+    {
+      "name": "ControlTowerModuleTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 318
+        },
+        {
+          "name": "Initialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 324
+        },
+        {
+          "name": "Position",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 330
+        },
+        {
+          "name": "Traffic",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 340
+        },
+        {
+          "name": "Runways",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 358
+        },
+        {
+          "name": "Communications",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 385
+        },
+        {
+          "name": "Instructions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 397
+        },
+        {
+          "name": "Sequencing",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 405
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 419
+        }
+      ]
+    },
+    {
+      "name": "AfterActionReviewTest",
+      "tests": 13,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 450
+        },
+        {
+          "name": "Recording",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 454
+        },
+        {
+          "name": "RecordingDuration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 464
+        },
+        {
+          "name": "Bookmarks",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 475
+        },
+        {
+          "name": "InstructorNotes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 491
+        },
+        {
+          "name": "Events",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 509
+        },
+        {
+          "name": "EventsInRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 528
+        },
+        {
+          "name": "StateRecording",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 551
+        },
+        {
+          "name": "Playback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 573
+        },
+        {
+          "name": "GradeReport",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 602
+        },
+        {
+          "name": "GetErrors",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 621
+        },
+        {
+          "name": "ExportImport",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 640
+        },
+        {
+          "name": "RecordingNotStartedErrors",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 649
+        }
+      ]
+    },
+    {
+      "name": "ScenarioEngineTest",
+      "tests": 16,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 698
+        },
+        {
+          "name": "LoadScenario",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 704
+        },
+        {
+          "name": "UnloadScenario",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 713
+        },
+        {
+          "name": "Execution",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 720
+        },
+        {
+          "name": "ExecutionWithoutLoad",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 736
+        },
+        {
+          "name": "Objectives",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 740
+        },
+        {
+          "name": "CompleteObjective",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 751
+        },
+        {
+          "name": "FailObjective",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 767
+        },
+        {
+          "name": "SkipObjective",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 780
+        },
+        {
+          "name": "ObjectiveNotFound",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 792
+        },
+        {
+          "name": "Rules",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 800
+        },
+        {
+          "name": "Triggers",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 823
+        },
+        {
+          "name": "Checkpoints",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 842
+        },
+        {
+          "name": "Reset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 855
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 867
+        },
+        {
+          "name": "UpdateWithoutRunning",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 874
+        }
+      ]
+    },
+    {
+      "name": "TrainingSessionTest",
+      "tests": 16,
+      "testsuite": [
+        {
+          "name": "Creation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 894
+        },
+        {
+          "name": "CreateSession",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 899
+        },
+        {
+          "name": "AviationSession",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 905
+        },
+        {
+          "name": "NavalSession",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 914
+        },
+        {
+          "name": "ATCSession",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 923
+        },
+        {
+          "name": "SessionLifecycle",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 932
+        },
+        {
+          "name": "SessionTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 947
+        },
+        {
+          "name": "Difficulty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 959
+        },
+        {
+          "name": "Weather",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 966
+        },
+        {
+          "name": "TimeOfDay",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 972
+        },
+        {
+          "name": "AAR",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 978
+        },
+        {
+          "name": "ScenarioEngine",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 990
+        },
+        {
+          "name": "Statistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1000
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1015
+        },
+        {
+          "name": "SessionNotActiveErrors",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1024
+        },
+        {
+          "name": "StartWithoutCreate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1030
+        }
+      ]
+    },
+    {
+      "name": "FactoryTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "CreateCockpitModule",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1038
+        },
+        {
+          "name": "CreateBridgeModule",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1046
+        },
+        {
+          "name": "CreateTowerModule",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1054
+        },
+        {
+          "name": "CreateAAR",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1059
+        },
+        {
+          "name": "CreateScenarioEngine",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1064
+        },
+        {
+          "name": "CreateTrainingSession",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1069
+        }
+      ]
+    },
+    {
+      "name": "DataStructureTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "InstrumentState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1081
+        },
+        {
+          "name": "ControlState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1098
+        },
+        {
+          "name": "AircraftTrack",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1110
+        },
+        {
+          "name": "TrainingObjective",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1124
+        },
+        {
+          "name": "TrainingEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1140
+        },
+        {
+          "name": "StateSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1152
+        },
+        {
+          "name": "ScenarioDefinition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1167
+        },
+        {
+          "name": "GradeReport",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1180
+        },
+        {
+          "name": "PlaybackState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1194
+        }
+      ]
+    },
+    {
+      "name": "IntegrationTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "CompleteTrainingFlow",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1210
+        },
+        {
+          "name": "ScenarioExecution",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/training_tests.cpp",
+          "line": 1250
+        }
+      ]
+    }
+  ]
+}

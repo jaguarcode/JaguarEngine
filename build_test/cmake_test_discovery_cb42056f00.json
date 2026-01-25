@@ -1,0 +1,763 @@
+{
+  "tests": 125,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "HistoryResultTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "SuccessToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 22
+        },
+        {
+          "name": "ConfigurationErrorsToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 26
+        },
+        {
+          "name": "OperationalErrorsToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 33
+        },
+        {
+          "name": "StateErrorsToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 40
+        },
+        {
+          "name": "ResourceErrorsToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 47
+        },
+        {
+          "name": "ExportErrorsToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "name": "SnapshotTypeTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "FullToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 64
+        },
+        {
+          "name": "DeltaToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 68
+        },
+        {
+          "name": "CheckpointToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "name": "ExportFormatTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "ParquetToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 82
+        },
+        {
+          "name": "CSVToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 86
+        },
+        {
+          "name": "JSONToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 90
+        },
+        {
+          "name": "BinaryToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 94
+        }
+      ]
+    },
+    {
+      "name": "QueryTimeRangeTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 113
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 119
+        },
+        {
+          "name": "ContainsInclusive",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 127
+        },
+        {
+          "name": "ContainsExclusive",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 139
+        },
+        {
+          "name": "ContainsHalfOpen",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 151
+        },
+        {
+          "name": "ContainsOutside",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 158
+        },
+        {
+          "name": "Duration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 168
+        }
+      ]
+    },
+    {
+      "name": "StateSnapshotTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 194
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 202
+        },
+        {
+          "name": "SizeBytes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 217
+        },
+        {
+          "name": "SizeBytesEmpty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 221
+        },
+        {
+          "name": "VerifyIntegrity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 226
+        },
+        {
+          "name": "VerifyIntegrityCorrupted",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 231
+        }
+      ]
+    },
+    {
+      "name": "HistoryQueryTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 243
+        },
+        {
+          "name": "ForEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 253
+        },
+        {
+          "name": "ForTimeRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 261
+        },
+        {
+          "name": "ForType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 274
+        },
+        {
+          "name": "WithLimit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 282
+        },
+        {
+          "name": "WithOffset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 288
+        },
+        {
+          "name": "CombinationFilters",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 294
+        }
+      ]
+    },
+    {
+      "name": "HistoryQueryResultTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 319
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 326
+        },
+        {
+          "name": "Empty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 335
+        },
+        {
+          "name": "Count",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 340
+        },
+        {
+          "name": "SizeBytes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 346
+        }
+      ]
+    },
+    {
+      "name": "RetentionPolicyTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "DefaultPolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 364
+        },
+        {
+          "name": "AggressivePolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 375
+        },
+        {
+          "name": "RelaxedPolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 385
+        },
+        {
+          "name": "ShouldRetainFull",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 395
+        },
+        {
+          "name": "ShouldNotRetainOldFull",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 406
+        },
+        {
+          "name": "ShouldRetainDelta",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 417
+        },
+        {
+          "name": "ShouldNotRetainOldDelta",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 428
+        },
+        {
+          "name": "ShouldRetainCheckpoint",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 439
+        }
+      ]
+    },
+    {
+      "name": "HistoryStoreConfigTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 456
+        },
+        {
+          "name": "InMemoryConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 466
+        },
+        {
+          "name": "PersistentConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 474
+        },
+        {
+          "name": "HighFrequencyConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 482
+        }
+      ]
+    },
+    {
+      "name": "ExportConfigTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 497
+        },
+        {
+          "name": "ParameterizedConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 504
+        },
+        {
+          "name": "ToParquet",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 513
+        },
+        {
+          "name": "ToCSV",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 520
+        },
+        {
+          "name": "ToJSON",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 527
+        },
+        {
+          "name": "WithQuery",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 534
+        }
+      ]
+    },
+    {
+      "name": "HistoryStoreStatsTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 548
+        },
+        {
+          "name": "CountForType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 556
+        },
+        {
+          "name": "AverageSnapshotSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 566
+        },
+        {
+          "name": "AverageSnapshotSizeZero",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 574
+        },
+        {
+          "name": "IsNearCapacity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 579
+        },
+        {
+          "name": "IsNotNearCapacity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 587
+        }
+      ]
+    },
+    {
+      "name": "HelperFunctionTest",
+      "tests": 12,
+      "testsuite": [
+        {
+          "name": "ComputeStateHash",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 602
+        },
+        {
+          "name": "ComputeStateHashConsistent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 609
+        },
+        {
+          "name": "ComputeStateHashEmpty",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 617
+        },
+        {
+          "name": "VerifySnapshotIntegrityValid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 625
+        },
+        {
+          "name": "VerifySnapshotIntegrityInvalid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 633
+        },
+        {
+          "name": "CompressDecompressData",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 641
+        },
+        {
+          "name": "CompressionReducesSize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 650
+        },
+        {
+          "name": "CalculateSnapshotAgeHours",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 657
+        },
+        {
+          "name": "CalculateSnapshotAgeHoursZero",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 666
+        },
+        {
+          "name": "CalculateSnapshotAgeHoursFuture",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 675
+        },
+        {
+          "name": "TimeRangeLastHours",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 684
+        },
+        {
+          "name": "TimeRangeLastDays",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 692
+        }
+      ]
+    },
+    {
+      "name": "FactoryFunctionTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "CreateHistoryStore",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 706
+        },
+        {
+          "name": "CreateMemoryBackend",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 713
+        },
+        {
+          "name": "CreateParquetExporter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 718
+        },
+        {
+          "name": "CreateCSVExporter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 723
+        },
+        {
+          "name": "CreateJSONExporter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 728
+        },
+        {
+          "name": "CreateMultiFormatExporter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 733
+        }
+      ]
+    },
+    {
+      "name": "HistoryStoreLifecycleTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 759
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 765
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 771
+        },
+        {
+          "name": "ShutdownAndReinitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 778
+        },
+        {
+          "name": "OperationBeforeInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 787
+        }
+      ]
+    },
+    {
+      "name": "SnapshotStorageTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "StoreSingleSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 815
+        },
+        {
+          "name": "StoreMultipleSnapshots",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 828
+        },
+        {
+          "name": "AutoSequenceNumberAssignment",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 845
+        }
+      ]
+    },
+    {
+      "name": "SnapshotRetrievalTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "GetSnapshotByEntityAndSequence",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 899
+        },
+        {
+          "name": "GetNonexistentSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 907
+        },
+        {
+          "name": "GetLatestSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 912
+        },
+        {
+          "name": "GetFirstSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 920
+        },
+        {
+          "name": "GetSnapshotAtTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 928
+        },
+        {
+          "name": "GetNonexistentEntityLatest",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 936
+        }
+      ]
+    },
+    {
+      "name": "QueryTest",
+      "tests": 10,
+      "testsuite": [
+        {
+          "name": "QueryAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 976
+        },
+        {
+          "name": "QueryByEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 984
+        },
+        {
+          "name": "QueryByTimeRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 994
+        },
+        {
+          "name": "QueryBySnapshotType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1003
+        },
+        {
+          "name": "QueryWithLimit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1012
+        },
+        {
+          "name": "QueryWithOffset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1020
+        },
+        {
+          "name": "QueryAscending",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1034
+        },
+        {
+          "name": "QueryDescending",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1047
+        },
+        {
+          "name": "GetEntityHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1060
+        },
+        {
+          "name": "GetSnapshotsInRange",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1069
+        }
+      ]
+    },
+    {
+      "name": "DeletionTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DeleteEntityHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1111
+        },
+        {
+          "name": "DeleteSnapshot",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1119
+        },
+        {
+          "name": "DeleteBefore",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1127
+        },
+        {
+          "name": "ClearAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1133
+        }
+      ]
+    },
+    {
+      "name": "RetentionTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "ApplyRetention",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1162
+        },
+        {
+          "name": "SetRetentionPolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1178
+        },
+        {
+          "name": "GetRetentionPolicy",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1187
+        }
+      ]
+    },
+    {
+      "name": "ExportTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "ExportCSV",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1224
+        },
+        {
+          "name": "ExportJSON",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1233
+        },
+        {
+          "name": "ExportParquet",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1241
+        }
+      ]
+    },
+    {
+      "name": "BackendTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "GetDefaultBackend",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1270
+        },
+        {
+          "name": "SetCustomBackend",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1275
+        },
+        {
+          "name": "GetExporter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1283
+        },
+        {
+          "name": "SetCustomExporter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1288
+        }
+      ]
+    },
+    {
+      "name": "StatisticsTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "InitialStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1316
+        },
+        {
+          "name": "StatsAfterStore",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1322
+        },
+        {
+          "name": "GetConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1337
+        },
+        {
+          "name": "GetEntityCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1342
+        },
+        {
+          "name": "GetEntitySnapshotCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1359
+        },
+        {
+          "name": "HasEntityHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1376
+        },
+        {
+          "name": "SnapshotsByType",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/history_store_tests.cpp",
+          "line": 1390
+        }
+      ]
+    }
+  ]
+}

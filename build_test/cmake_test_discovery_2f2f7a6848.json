@@ -1,0 +1,497 @@
+{
+  "tests": 79,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "LifecycleResultTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "name": "LifecyclePhaseTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "PhaseToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 97
+        }
+      ]
+    },
+    {
+      "name": "LifecycleConfigTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 111
+        },
+        {
+          "name": "MinimalConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 122
+        },
+        {
+          "name": "FullAuditConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 130
+        },
+        {
+          "name": "ProductionConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 140
+        },
+        {
+          "name": "CustomConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 150
+        },
+        {
+          "name": "TransitionCallback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 164
+        }
+      ]
+    },
+    {
+      "name": "LifecycleManagerLifecycleTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 197
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 203
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 210
+        },
+        {
+          "name": "DoubleShutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 216
+        },
+        {
+          "name": "OperationsBeforeInitialization",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 225
+        },
+        {
+          "name": "GetConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 231
+        }
+      ]
+    },
+    {
+      "name": "EntityTrackingTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "TrackEntityDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 259
+        },
+        {
+          "name": "TrackEntityCustomPhase",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 270
+        },
+        {
+          "name": "UntrackEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 280
+        },
+        {
+          "name": "TrackDuplicateEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 290
+        },
+        {
+          "name": "UntrackNonExistentEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 301
+        },
+        {
+          "name": "GetEntityCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 307
+        },
+        {
+          "name": "IsTracked",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 320
+        }
+      ]
+    },
+    {
+      "name": "PhaseTransitionTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "ValidTransitionDesignToProduction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 353
+        },
+        {
+          "name": "ValidTransitionProductionToOperational",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 366
+        },
+        {
+          "name": "ValidTransitionOperationalToMaintenance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 378
+        },
+        {
+          "name": "ValidTransitionMaintenanceToOperational",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 390
+        },
+        {
+          "name": "InvalidTransitionDesignToOperational",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 402
+        },
+        {
+          "name": "TransitionToSamePhase",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 415
+        },
+        {
+          "name": "TransitionUntrackedEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 425
+        },
+        {
+          "name": "TransitionWithOperatorId",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 433
+        },
+        {
+          "name": "TransitionHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 446
+        }
+      ]
+    },
+    {
+      "name": "TransitionValidationTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "ValidTransitionPaths",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 480
+        },
+        {
+          "name": "InvalidTransitionPaths",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 504
+        },
+        {
+          "name": "SamePhaseTransition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 518
+        },
+        {
+          "name": "StrictModeEnforcement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 526
+        },
+        {
+          "name": "NonStrictModeAllowsInvalid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 542
+        }
+      ]
+    },
+    {
+      "name": "EventLoggingTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "LogSimpleEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 581
+        },
+        {
+          "name": "LogEventWithMetadata",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 594
+        },
+        {
+          "name": "EventHistoryRetrieval",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 612
+        },
+        {
+          "name": "EventTrimming",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 624
+        },
+        {
+          "name": "LogEventUntrackedEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 647
+        },
+        {
+          "name": "EventLoggingDisabled",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 654
+        }
+      ]
+    },
+    {
+      "name": "ObserverTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "AddObserver",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 694
+        },
+        {
+          "name": "RemoveObserver",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 700
+        },
+        {
+          "name": "OnPhaseChangedNotification",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 709
+        },
+        {
+          "name": "OnEventLoggedNotification",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 722
+        },
+        {
+          "name": "OnEntityCreatedNotification",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 734
+        },
+        {
+          "name": "OnEntityRemovedNotification",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 745
+        },
+        {
+          "name": "MultipleObservers",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 756
+        },
+        {
+          "name": "ClearObservers",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 774
+        }
+      ]
+    },
+    {
+      "name": "StorageTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "SetStorage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 809
+        },
+        {
+          "name": "SaveEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 816
+        },
+        {
+          "name": "LoadEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 827
+        },
+        {
+          "name": "SaveAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 847
+        },
+        {
+          "name": "LoadAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 858
+        }
+      ]
+    },
+    {
+      "name": "QueryTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "GetEntitiesInPhase",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 896
+        },
+        {
+          "name": "GetLifecycleInfo",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 910
+        },
+        {
+          "name": "GetTransitionHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 923
+        },
+        {
+          "name": "GetEventHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 933
+        },
+        {
+          "name": "GetTimeInPhase",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 944
+        },
+        {
+          "name": "GetLifetime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 957
+        },
+        {
+          "name": "QueryUntrackedEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 972
+        }
+      ]
+    },
+    {
+      "name": "StatisticsTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "InitialStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1010
+        },
+        {
+          "name": "StatsAfterOperations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1020
+        },
+        {
+          "name": "EntitiesPerPhase",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1035
+        },
+        {
+          "name": "ResetStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1050
+        },
+        {
+          "name": "StatsReset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1062
+        }
+      ]
+    },
+    {
+      "name": "CleanupTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "CleanupOldData",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1098
+        },
+        {
+          "name": "TrimHistory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1111
+        },
+        {
+          "name": "ClearAll",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1131
+        }
+      ]
+    },
+    {
+      "name": "FactoryTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "CreateLifecycleManager",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1148
+        },
+        {
+          "name": "CreateLifecycleManagerWithConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1158
+        },
+        {
+          "name": "CreateMemoryStorage",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1169
+        }
+      ]
+    },
+    {
+      "name": "HelperFunctionTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "GetValidTransitions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1188
+        },
+        {
+          "name": "IsTransitionValid",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1199
+        },
+        {
+          "name": "FormatTimestamp",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1212
+        },
+        {
+          "name": "CalculateDuration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1222
+        }
+      ]
+    },
+    {
+      "name": "LifecycleEdgeCases",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "MoveConstructor",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1236
+        },
+        {
+          "name": "MoveAssignment",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1250
+        },
+        {
+          "name": "CompleteLifecycle",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/thread\/lifecycle_manager_tests.cpp",
+          "line": 1266
+        }
+      ]
+    }
+  ]
+}

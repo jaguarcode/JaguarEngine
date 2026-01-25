@@ -1,0 +1,500 @@
+{
+  "tests": 82,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "AABBTest",
+      "tests": 10,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 28
+        },
+        {
+          "name": "Center",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 34
+        },
+        {
+          "name": "HalfExtents",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 41
+        },
+        {
+          "name": "Size",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 48
+        },
+        {
+          "name": "Volume",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 55
+        },
+        {
+          "name": "ContainsPoint",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 60
+        },
+        {
+          "name": "Overlaps",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 71
+        },
+        {
+          "name": "Expand",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 82
+        },
+        {
+          "name": "FromCenterHalfExtents",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 90
+        },
+        {
+          "name": "EarthBounds",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 97
+        }
+      ]
+    },
+    {
+      "name": "PartitionResultTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 107
+        }
+      ]
+    },
+    {
+      "name": "PartitionStrategyTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 115
+        }
+      ]
+    },
+    {
+      "name": "PartitionConfigTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 128
+        },
+        {
+          "name": "SmallScaleConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 138
+        },
+        {
+          "name": "LargeScaleConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 146
+        },
+        {
+          "name": "DomainBasedConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 154
+        }
+      ]
+    },
+    {
+      "name": "OctreePartitionerTest",
+      "tests": 13,
+      "testsuite": [
+        {
+          "name": "InsertEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 176
+        },
+        {
+          "name": "InsertMultipleEntities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 187
+        },
+        {
+          "name": "InsertOutOfBounds",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 197
+        },
+        {
+          "name": "RemoveEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 205
+        },
+        {
+          "name": "RemoveNonexistent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 214
+        },
+        {
+          "name": "UpdatePosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 219
+        },
+        {
+          "name": "FindPartition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 230
+        },
+        {
+          "name": "QueryRegion",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 236
+        },
+        {
+          "name": "QueryPartitions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 250
+        },
+        {
+          "name": "GetPartitionBounds",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 257
+        },
+        {
+          "name": "Split",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 266
+        },
+        {
+          "name": "GetLeafPartitions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 284
+        },
+        {
+          "name": "GetEntityCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 289
+        }
+      ]
+    },
+    {
+      "name": "DomainPartitionerTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "AssignEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 317
+        },
+        {
+          "name": "AssignMultipleDomains",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 323
+        },
+        {
+          "name": "RemoveEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 336
+        },
+        {
+          "name": "GetDomainPartition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 345
+        },
+        {
+          "name": "GetDomainCounts",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 354
+        }
+      ]
+    },
+    {
+      "name": "LoadBalancerTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "CalculateImbalance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 389
+        },
+        {
+          "name": "GetNodeLoads",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 394
+        },
+        {
+          "name": "FindBestNode",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 399
+        },
+        {
+          "name": "ShouldRebalance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 408
+        },
+        {
+          "name": "UpdateNodeMetrics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 412
+        }
+      ]
+    },
+    {
+      "name": "EntityMigratorTest",
+      "tests": 7,
+      "testsuite": [
+        {
+          "name": "RequestMigration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 439
+        },
+        {
+          "name": "DuplicateMigration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 451
+        },
+        {
+          "name": "CancelMigration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 462
+        },
+        {
+          "name": "ProcessMigrations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 474
+        },
+        {
+          "name": "IsMigrating",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 490
+        },
+        {
+          "name": "SerializeDeserialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 501
+        },
+        {
+          "name": "MigrationPriority",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 517
+        }
+      ]
+    },
+    {
+      "name": "PredictiveMigratorTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "UpdatePrediction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 549
+        },
+        {
+          "name": "PredictPosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 559
+        },
+        {
+          "name": "PredictWithAcceleration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 573
+        },
+        {
+          "name": "ClearPrediction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 586
+        }
+      ]
+    },
+    {
+      "name": "PartitionManagerTest",
+      "tests": 25,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 618
+        },
+        {
+          "name": "DoubleInitialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 622
+        },
+        {
+          "name": "GetConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 627
+        },
+        {
+          "name": "RegisterNode",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 632
+        },
+        {
+          "name": "UnregisterNode",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 646
+        },
+        {
+          "name": "GetAllNodes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 659
+        },
+        {
+          "name": "LocalNodeId",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 671
+        },
+        {
+          "name": "AssignEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 678
+        },
+        {
+          "name": "RemoveEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 690
+        },
+        {
+          "name": "UpdateEntityPosition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 702
+        },
+        {
+          "name": "IsLocalEntity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 715
+        },
+        {
+          "name": "GetEntitiesInPartition",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 723
+        },
+        {
+          "name": "GetLocalEntities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 735
+        },
+        {
+          "name": "GetAllPartitions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 743
+        },
+        {
+          "name": "QueryPartitions",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 750
+        },
+        {
+          "name": "RequestMigration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 756
+        },
+        {
+          "name": "PendingMigrationCount",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 769
+        },
+        {
+          "name": "ProcessMigrations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 773
+        },
+        {
+          "name": "UpdateEntityTrajectory",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 778
+        },
+        {
+          "name": "SetPredictiveMigration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 785
+        },
+        {
+          "name": "Update",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 791
+        },
+        {
+          "name": "GetStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 798
+        },
+        {
+          "name": "ResetStats",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 806
+        },
+        {
+          "name": "GetLoadImbalance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 814
+        },
+        {
+          "name": "Callbacks",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 820
+        }
+      ]
+    },
+    {
+      "name": "PartitionManagerDomainTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "DomainBasedPartitioning",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 842
+        }
+      ]
+    },
+    {
+      "name": "PartitionManagerPerformanceTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "BulkEntityAssignment",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 874
+        },
+        {
+          "name": "UpdatePerformance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 908
+        }
+      ]
+    },
+    {
+      "name": "PartitionManagerThreadTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ConcurrentAccess",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 943
+        }
+      ]
+    },
+    {
+      "name": "PartitionManagerEdgeCases",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "Uninitialized",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 986
+        },
+        {
+          "name": "EmptyWorld",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 993
+        },
+        {
+          "name": "ShutdownAndReinit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/partition_tests.cpp",
+          "line": 1004
+        }
+      ]
+    }
+  ]
+}

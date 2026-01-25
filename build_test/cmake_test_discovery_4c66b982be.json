@@ -1,0 +1,430 @@
+{
+  "tests": 68,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "TimeSyncResultTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "EnumValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 18
+        },
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "name": "RaftStateTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "EnumValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 38
+        },
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "name": "TimeAdvancementModeTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "EnumValues",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 54
+        },
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "name": "ClockSyncAlgorithmTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "name": "TimeSyncConfigTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "DefaultConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 81
+        },
+        {
+          "name": "LowLatencyConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 89
+        },
+        {
+          "name": "HighFidelityConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 96
+        },
+        {
+          "name": "LargeClusterConfig",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 103
+        }
+      ]
+    },
+    {
+      "name": "VectorClockTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "IncrementAndGet",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 114
+        },
+        {
+          "name": "SetAndGet",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 122
+        },
+        {
+          "name": "Merge",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 131
+        },
+        {
+          "name": "HappensBefore",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 148
+        },
+        {
+          "name": "Concurrent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 161
+        }
+      ]
+    },
+    {
+      "name": "TimeMasterTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "InitialState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 194
+        },
+        {
+          "name": "StartElection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 201
+        },
+        {
+          "name": "VoteRequest",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 208
+        },
+        {
+          "name": "VoteRequestHigherTerm",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 223
+        },
+        {
+          "name": "VoteRequestLowerTerm",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 244
+        },
+        {
+          "name": "AppendEntry",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 261
+        },
+        {
+          "name": "AppendEntryNotLeader",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 285
+        },
+        {
+          "name": "HandleAppendEntries",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 293
+        },
+        {
+          "name": "Reset",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 310
+        }
+      ]
+    },
+    {
+      "name": "ClockSynchronizerTest",
+      "tests": 5,
+      "testsuite": [
+        {
+          "name": "InitialState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 332
+        },
+        {
+          "name": "RequestSync",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 338
+        },
+        {
+          "name": "HandleSyncRequest",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 343
+        },
+        {
+          "name": "SyncRoundTrip",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 358
+        },
+        {
+          "name": "AdjustedTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 375
+        }
+      ]
+    },
+    {
+      "name": "CausalityManagerTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "InitialLogicalTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 398
+        },
+        {
+          "name": "IncrementLogicalTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 402
+        },
+        {
+          "name": "UpdateOnReceive",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 412
+        },
+        {
+          "name": "VectorClockOperations",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 422
+        },
+        {
+          "name": "CreateEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 436
+        },
+        {
+          "name": "HappensBeforeLamport",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 447
+        }
+      ]
+    },
+    {
+      "name": "EventReordererTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "InitialState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 470
+        },
+        {
+          "name": "SubmitEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 475
+        },
+        {
+          "name": "GetReadyEventsAfterSafeTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 488
+        },
+        {
+          "name": "EventOrdering",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 513
+        },
+        {
+          "name": "Flush",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 538
+        },
+        {
+          "name": "Clear",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 553
+        }
+      ]
+    },
+    {
+      "name": "DistributedTimeManagerTest",
+      "tests": 19,
+      "testsuite": [
+        {
+          "name": "Initialize",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 587
+        },
+        {
+          "name": "InitializeTwice",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 595
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 601
+        },
+        {
+          "name": "ShutdownWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 608
+        },
+        {
+          "name": "GetLocalNodeId",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 613
+        },
+        {
+          "name": "NodeManagement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 617
+        },
+        {
+          "name": "CannotRemoveLocalNode",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 639
+        },
+        {
+          "name": "InitialRaftState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 645
+        },
+        {
+          "name": "TriggerElection",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 652
+        },
+        {
+          "name": "SimulationTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 659
+        },
+        {
+          "name": "AdvanceTimeNotLeader",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 664
+        },
+        {
+          "name": "LogicalTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 670
+        },
+        {
+          "name": "CreateEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 681
+        },
+        {
+          "name": "SubmitEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 690
+        },
+        {
+          "name": "Barrier",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 707
+        },
+        {
+          "name": "Statistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 719
+        },
+        {
+          "name": "ResetStatistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 731
+        },
+        {
+          "name": "SetAdvancementMode",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 740
+        },
+        {
+          "name": "Callbacks",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 748
+        }
+      ]
+    },
+    {
+      "name": "TimeSyncIntegrationTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "ClusterSimulation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 774
+        },
+        {
+          "name": "EventOrdering",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 820
+        }
+      ]
+    },
+    {
+      "name": "TimeSyncPerformanceTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "LogicalTimeIncrement",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 850
+        },
+        {
+          "name": "EventSubmission",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 864
+        }
+      ]
+    },
+    {
+      "name": "TimeSyncEdgeCaseTest",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "EmptyCluster",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 889
+        },
+        {
+          "name": "ZeroTimeStep",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 907
+        },
+        {
+          "name": "LargeLogicalTime",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/cloud\/time_sync_tests.cpp",
+          "line": 921
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "tests": 64,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "XRSessionTest",
+      "tests": 13,
+      "testsuite": [
+        {
+          "name": "DefaultConstruction",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 48
+        },
+        {
+          "name": "InitializeDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 54
+        },
+        {
+          "name": "InitializeVRDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 62
+        },
+        {
+          "name": "InitializeVRSeated",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 68
+        },
+        {
+          "name": "InitializeVRRoomScale",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 74
+        },
+        {
+          "name": "InitializeARPassthrough",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 80
+        },
+        {
+          "name": "InitializeVREyeTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 86
+        },
+        {
+          "name": "InitializeVRFullFeatures",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 92
+        },
+        {
+          "name": "Shutdown",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 98
+        },
+        {
+          "name": "ShutdownWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 108
+        },
+        {
+          "name": "BeginFrameWithoutInit",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 179
+        },
+        {
+          "name": "VibrateWithoutSession",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 416
+        },
+        {
+          "name": "StateCallback",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 534
+        }
+      ]
+    },
+    {
+      "name": "XRSessionInitializedTest",
+      "tests": 36,
+      "testsuite": [
+        {
+          "name": "GetCapabilities",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 117
+        },
+        {
+          "name": "CapabilitiesIncludeHandTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 127
+        },
+        {
+          "name": "CapabilitiesIncludeEyeTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 133
+        },
+        {
+          "name": "CapabilitiesIncludeFoveatedRendering",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 139
+        },
+        {
+          "name": "CapabilitiesIncludePassthrough",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 145
+        },
+        {
+          "name": "BeginEndFrame",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 155
+        },
+        {
+          "name": "MultipleFrames",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 168
+        },
+        {
+          "name": "GetHeadState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 189
+        },
+        {
+          "name": "HeadPoseDirections",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 203
+        },
+        {
+          "name": "StereoViews",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 231
+        },
+        {
+          "name": "GetControllerState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 253
+        },
+        {
+          "name": "ControllerConnected",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 268
+        },
+        {
+          "name": "ControllerAxes",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 273
+        },
+        {
+          "name": "TriggerPressed",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 288
+        },
+        {
+          "name": "GripPressed",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 294
+        },
+        {
+          "name": "HandTrackingNotActiveByDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 304
+        },
+        {
+          "name": "GetHandState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 310
+        },
+        {
+          "name": "PinchNotActiveByDefault",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 323
+        },
+        {
+          "name": "EyeTrackingState",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 332
+        },
+        {
+          "name": "EyeTrackingActive",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 349
+        },
+        {
+          "name": "GetInteractionPose",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 365
+        },
+        {
+          "name": "GetInteractionRay",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 379
+        },
+        {
+          "name": "Vibrate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 399
+        },
+        {
+          "name": "StopVibration",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 410
+        },
+        {
+          "name": "SetRefreshRate",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 425
+        },
+        {
+          "name": "SetPassthrough",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 431
+        },
+        {
+          "name": "EnablePassthrough",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 440
+        },
+        {
+          "name": "SetFoveation",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 448
+        },
+        {
+          "name": "Recenter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 456
+        },
+        {
+          "name": "GetPlayArea",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 465
+        },
+        {
+          "name": "CheckBoundaryCenter",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 473
+        },
+        {
+          "name": "CheckBoundaryEdge",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 479
+        },
+        {
+          "name": "CheckDevicesBoundary",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 486
+        },
+        {
+          "name": "Statistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 501
+        },
+        {
+          "name": "ResetStatistics",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 514
+        },
+        {
+          "name": "DISABLED_FramePerformance",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 738
+        }
+      ]
+    },
+    {
+      "name": "XRPoseTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Identity",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 554
+        },
+        {
+          "name": "HasTracking",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 566
+        },
+        {
+          "name": "Lerp",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 579
+        },
+        {
+          "name": "TransformPoint",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 592
+        }
+      ]
+    },
+    {
+      "name": "XRResultTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "SucceededCheck",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 608
+        },
+        {
+          "name": "ResultToString",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 615
+        }
+      ]
+    },
+    {
+      "name": "XREventTest",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "IsXREvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 626
+        },
+        {
+          "name": "CreateSessionStateChangedEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 637
+        },
+        {
+          "name": "CreateButtonPressedEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 646
+        },
+        {
+          "name": "CreateGestureDetectedEvent",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 654
+        }
+      ]
+    },
+    {
+      "name": "XRControllerStateTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "ButtonChecks",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 666
+        },
+        {
+          "name": "AxisAccess",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 677
+        }
+      ]
+    },
+    {
+      "name": "XRHandStateTest",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "JointAccess",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 696
+        },
+        {
+          "name": "FingertipAccess",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 712
+        }
+      ]
+    },
+    {
+      "name": "XRExtensionTest",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "HasExtension",
+          "file": "\/Users\/ikhyeon.kim\/Workspace\/JaguarEngine\/tests\/xr\/xr_session_tests.cpp",
+          "line": 725
+        }
+      ]
+    }
+  ]
+}
